@@ -1,0 +1,123 @@
+#CLASS {quow} {kill};
+#CLASS {quow} {open};
+
+#VARIABLE {map_id_names} {
+  {1}{Ankh-Morpork}
+  {2}{AM Assassins}
+  {3}{AM Buildings}
+  {4}{AM Cruets}
+  {5}{AM Docks}
+  {6}{AM Guilds}
+  {7}{AM Isle of Gods}
+  {8}{Shades Maze}
+  {9}{Temple of Small Gods}
+  {10}{AM Temples}
+  {11}{AM Thieves}
+  {12}{Unseen University}
+  {13}{AM Warriors}
+  {14}{Pseudopolis Watch House}
+  {15}{Magpyr's Castle}
+  {16}{Bois}
+  {17}{Bes Pelargic}
+  {18}{BP Buildings}
+  {19}{BP Estates}
+  {20}{BP Wizards}
+  {21}{Brown Islands}
+  {22}{Death's Domain}
+  {23}{Djelibeybi}
+  {24}{IIL - DJB Wizards}
+  {25}{Ephebe}
+  {26}{Ephebe Underdocks}
+  {27}{Genua}
+  {28}{Genua Sewers}
+  {29}{GRFLX Caves}
+  {30}{Hashishim Caves}
+  {31}{Klatch Region}
+  {32}{Lancre Region}
+  {33}{Mano Rossa}
+  {34}{Monks of Cool}
+  {35}{Netherworld}
+  {37}{Pumpkin Town}
+  {38}{Ramtops Regions}
+  {39}{Sto-Lat}
+  {40}{Academy of Artificers}
+  {41}{Cabbage Warehouse}
+  {42}{AoA Library}
+  {43}{Sto-Lat Sewers}
+  {44}{Sprite Caves}
+  {45}{Sto Plains Region}
+  {46}{Uberwald Region}
+  {47}{UU Library}
+  {48}{Klatchian Farmsteads}
+  {49}{CTF Arena}
+  {50}{PK Arena}
+  {51}{AM Post Office}
+  {52}{Ninja Guild}
+  {53}{The Travelling Shop}
+  {54}{Slippery Hollow}
+  {55}{House of Magic - Creel}
+  {56}{Special Areas}
+  {57}{Skund Wolf Trail}
+}
+
+#ALIAS {db gatherable %1} {
+    #unvariable {gatherable_display};
+
+    #format {query} {SELECT item_name, room_short, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price = 'gather';} {%1};
+    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
+
+    #script {gatherable_query_result} {$db_command};
+    #list {gatherable_query_result} {size} {gatherable_result_size};
+
+    #if {$gatherable_result_size > 0} {
+        #foreach {$gatherable_query_result[%*]} {inner_query_result} {
+            #replace {inner_query_result} {\\} {};
+            #list gatherable_results create {${inner_query_result}};
+
+            #variable {gatherable_info} {
+                {item_name}{$gatherable_results[1]}
+                {room_short}{$gatherable_results[2]}
+                {map_name}{$map_id_names[$gatherable_results[3]]}
+            };
+
+            #format {gatherable_display} {%cQuery Result:  %c%s%c found in %c%s, %s%c} {bold blue}{green}{$gatherable_info[item_name]}{bold blue}{orange}{$gatherable_info[room_short]}{$gatherable_info[map_name]}{bold blue};
+            #echo {$gatherable_display};
+        }
+    } {
+        #format {gatherable_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #echo {$gatherable_display};
+    }
+}
+
+#ALIAS {db buyable %1} {
+    #unvariable {buyable_display};
+
+    #format {query} {SELECT item_name, sale_price, room_short, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price != 'gather' LIMIT 10;} {%1};
+    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
+
+    #script {buyable_query_result} {$db_command};
+    #echo {RESULT: $buyable_query_result};
+    #list {buyable_query_result} {size} {buyable_result_size};
+
+    #if {$buyable_result_size > 0} {
+        #foreach {$buyable_query_result[%*]} {inner_query_result} {
+            #replace {inner_query_result} {\\} {};
+            #list buyable_results create {${inner_query_result}};
+
+            #variable {buyable_info} {
+                {item_name}{$buyable_results[1]}
+                {sale_price}{$buyable_results[2]}
+                {room_short}{$buyable_results[3]}
+                {map_name}{$map_id_names[$buyable_results[4]]}
+            };
+
+            #format {buyable_display} {%cQuery Result: %c%s%c (%c%s%c) found in %c%s, %s%c} {bold blue}{green}{$buyable_info[item_name]}{bold blue}{yellow}{$buyable_info[sale_price]}{bold blue}{orange}{$buyable_info[room_short]}{$buyable_info[map_name]}{bold blue};
+            #echo {$buyable_display};
+        }
+    } {
+        #format {buyable_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #echo {$buyable_display};
+    }
+}
+
+#CLASS {quow} {close};

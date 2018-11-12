@@ -1,0 +1,59 @@
+#CLASS {magic} {kill};
+#CLASS {magic} {open};
+
+#NOP ==[Delude Levels]==
+#SUB {^It has a faint octarine shadow about it that disappears if you look at it squarely.$}           {%0 <858>(1/5)<898>};
+#SUB {^It has a faint octarine shadow about it.$}                                                      {%0 <858>(2/5)<898>};
+#SUB {^It has an octarine shadow about it that flickers occasionally out of the corner of your eye.$}  {%0 <858>(3/5)<898>};
+#SUB {^It has a flickering octarine shadow about it.$}                                                 {%0 <858>(4/5)<898>};
+#SUB {^It has a flickering octarine haze about it.$}                                                   {%0 <858>(5/5)<898>};
+
+#HIGH {^The octarine shadow around %* deepens%*} {bold magenta}
+#HIGH {^The octarine shadow around %* fades%*} {magenta}
+
+
+#NOP ==[Item Enchantment Levels]==
+#SUB {It occasionally pulses with octarine light} {%0 <858>(Lvl 1)<898>};
+#SUB {It emits a slight octarine glow} {%0 <858>(Lvl 2)<898>};
+#SUB {It softly pulses in dull octarine shades} {%0 <858>(Lvl 3)<898>};
+#SUB {It gives off a steady but dull octarine glow} {%0 <858>(Lvl 4)<898>};
+#SUB {It gives off a steady octarine glow} {%0 <858>(Lvl 5)<898>};
+#SUB {It glows an intense octarine} {%0 <858>(Lvl 6)<898>};
+#SUB {It emits a bright octarine colour} {%0 <858>(Lvl 7)<898>};
+#SUB {It brightly pulses octarine} {%0 <858>(Lvl 8)<898>};
+#SUB {It glows brilliant octarine shades} {%0 <858>(Lvl 9)<898>};
+#SUB {It radiates pure octarine brilliance} {%0 <858>(Lvl 10)<898>};
+
+
+#NOP ==[Background Magic Levels]==
+#SUB {There is the residual taste of magic in this place} {%0 <858>(50-149 thaums)<898>};
+#SUB {This place has seen some use of magic} {%0 <858>(150-299 thaums)<898>};
+#SUB {A considerable amount of magic has been used here} {%0 <858>(300-499 thaums)<898>};
+#SUB {A very large quantity of magic has been manipulated here} {%0 <858>(500-749 thaums)<898>};
+#NOP red;
+#SUB {You can feel the Dungeon Dimensions trying to push in} {%0 <818>(750-1000 thaums)<898>};
+#NOP bold red!;
+#SUB {Little sparks flash in from the Dungeon Dimensions} {%0 <118>(1001-1500 thaums)<098>};
+#SUB {Apparations of things with lots of tentacles seem to be on the edge of your vision} {%0 <118>(1501-2000 thaums)<098>};
+#SUB {So much magic has been expended here that the area is in danger of dumping itself into the Dungeon Dimensions} {%0 <118>(2001-5000 thaums)<098>};
+
+
+#NOP ==[PFG Damage Values]==
+#SUB {^{The fire singes} }      {%1 <019>(<<119>15<019>%)<099> };
+#SUB {^{The fire burns} }       {%1 <019>(<119>15<019>-<119>30<019>%)<099> };
+#SUB {^{The fire crisps} }      {%1 <019>(<119>30<019>-<119>60<019>%)<099> };
+#SUB {^{The fire melts} }       {%1 <019>(<119>60<019>-<119>75<019>%)<099> };
+#SUB {^{The fire incinerates} } {%1 <019>(<119>75<019>-<119>90<019>%)<099> };
+#SUB {^{The fire vaporises} }   {%1 <019>(><119>90<019>%)<099> };
+
+
+#NOP ==[Replace Spell Casting]==
+#ACTION {^You prepare to cast %1 {at|on} %2.$} { #showme {  * <138>%1<098> -> %2}; #line gag} {3}
+#ACTION {^You prepare to cast %1.$} { #showme {  * <138>%1<098>}; #line gag} {4}
+
+
+#NOP ==[Colour FCI Output]==
+#SUB {The weave indicates that %1 is a %2, with %3 charges remaining.} {The weave indicates that <138>%1<098> is a <138>%2<098> with <158>%3<098> charges remaining.};
+
+
+#CLASS {magic} {close};

@@ -1,0 +1,71 @@
+#CLASS {tpamonitor} {kill};
+#CLASS {tpamonitor} {open};
+
+#nop  ### Turn TPA indicator on ###
+#action {^ * You are surrounded by a magical impact shield.$} {
+    #var {tpa_status} {1};
+    #var {tpa_color} {invisible};
+    update_prompt;
+}
+#action {^ * You are surrounded by a %+ magical impact shield.$}
+{
+    #var {tpa_status} {1};
+    #var {tpa_color} {%1};
+    update_prompt;
+}
+#action {^With a noise that sounds like "Plink!", everything around you flashes red for a moment.$} {
+    #var {tpa_status} {1};
+    #var {tpa_color} {invisible};
+    #format {tpa_start} {%T};
+    update_prompt;
+}
+
+
+#nop  ### Turn TPA indicator off ###
+#action {^There is a sudden white flash.  Your magical shield has broken.$} {
+    #line {log} {$chat_file};
+    #var {tpa_status} {0};
+    #format {tpa_end} {%T};
+    /break_tpa
+}
+
+#nop ### Track TPA colors ###
+#action {^As your shield absorbs the impact, it becomes visible as a %1 glow.$}
+{
+	#var {tpa_color} {%1};
+    update_prompt;
+}
+#action {^As your shield absorbs the impact, its glow changes from a %1 to a %2.$}
+{
+	#var {tpa_color} {%2};
+    update_prompt;
+}
+
+#action {^Your shield changes from a %1 to a %2.$}
+{
+	#var {tpa_color} {%2};
+    update_prompt;
+}
+#action {^Your shield stops glowing a %1 and lapses back into invisibility.$}
+{
+    #var {tpa_color} {invisible};
+    update_prompt;
+}
+
+
+#nop ### When TPA breaks show some info ###
+#alias {/break_tpa} {
+    #showme {\a\a};
+	#if {&{tpa_start}} {
+        #math {tpa_dur} { (($tpa_end - $tpa_start) + 0.5) / 60 };
+        #echo {<168>*** TPA broken! (lasted for $tpa_dur minutes) ***<099>};
+    }
+
+    #unvar {tpa_start};
+    #unvar {tpa_end};
+    update_prompt;
+}
+
+#var {tpa_status} {0};
+
+#CLASS {tpamonitor} {close};

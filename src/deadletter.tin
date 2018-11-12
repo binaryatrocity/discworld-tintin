@@ -1,0 +1,93 @@
+#CLASS {deadletter} {kill};
+#CLASS {deadletter} {open};
+
+#VAR {distant_land_targets} {
+    {Boy Willie}{Boy [Willie]}
+    {Disembowel-Meself-Honourably Dibhala}{Disembowel-Meself-Honourably [Dibhala]}
+    {Glod-san}{[Glod-san]}
+    {Laggy-san}{[Laggy-san]}
+    {Lon Fah Lo}{Lon Fah [Lo]}
+    {Mad Hamish}{Mad [Hamish]}
+    {No Go Wan}{No Go [Wan]}
+    {Quisoda}{[Quisoda]}
+    {Ruto of Fish}{[Ruto] of Fish}
+    {Ryattenoki}{[Ryattenoki]}
+    {Shi Do Gai}{Shi Do [Gai]}
+    {Lap-lip}{[Lap-lip]}
+    {Lip-phon Lap-top}{Lip-phon [Lap-top]}
+    {Mihk-gran-bohp}{Mihk-gran-[bohp]}
+    {Phos-phor}{[Phos]-phor}
+    {Very Reverend Khepresh}{Very Reverend [Khepresh]}
+    {Yclept}{[Yclept]}
+    {Tuffy}{[Tuffy]}
+    {Casanunda}{[Casanunda]}
+    {Greig Schwitz}{Greig [Schwitz]}
+    {Noobie}{[Noobie]}
+    {Tfat Chick}{Tfat [Chick]}
+    {Cut Me Own Hand Off Dhblah}{Cut Me Own Hand Off [Dhblah]}
+    {Miss Pennie Laced}{Miss Pennie [Laced]}
+    {Berti Boggis}{[Berti] Boggis}
+    {The Proprietor}{The Proprietor}
+}
+
+#alias {/solveletter} {
+    #if {&{letter_lines[1]}} {
+        #var {current_match_line} {^$letter_lines[1]$};
+        #replace {current_match_line} {_} {%.};
+        #foreach {$distant_land_targets[]} {target} {
+            #regex {$target} {$current_match_line} {
+                #format {letter_solution_line} {%c[DL] %c*%c Deliver to %c%s%c.} {bold blue} {bold yellow} {bold blue} {bold green} {$distant_land_targets[$target]} {bold blue};
+                #echo {$letter_solution_line};
+            };
+        }
+        
+    };
+};
+
+
+#NOP ==[Halt Parsing Letter]==
+#alias {/stopparsingletter} {
+    #unvar {parsing_dead_letter};
+    /solveletter;
+};
+
+#action {^Deliver by %1.$} {
+    #if {&{parsing_dead_letter}} {
+        /stopparsingletter;
+    }
+};
+#action {does not have anything written on it.} {
+    #if {&{parsing_dead_letter}} {
+        /stopparsingletter;
+    }
+};
+#action {Cannot find "letter", no match.} {
+    #if {&{parsing_dead_letter}} {
+        /stopparsingletter;
+    }
+};
+#action {You are too busy fighting to read at the moment.} {
+    #if {&{parsing_dead_letter}} {
+        /stopparsingletter;
+    }
+};
+
+
+#NOP ==[Catch-all to grab letter lines, store only lines with a '_']==
+#action {^%*$} {
+    #if {&{parsing_dead_letter}} {
+        #regex {%1} {%*_%*} {
+            #list {letter_lines} {add} {%1};
+        };
+    }
+} {9};
+
+
+#NOP ==[Alias to attempt solve of letter in inventory]==
+#ALIAS {sl} {
+    #send {read letter};
+    #var {parsing_dead_letter} {0};
+    #list {letter_lines} {create};
+}
+
+#CLASS {deadletter} {close};

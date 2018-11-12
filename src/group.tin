@@ -1,0 +1,27 @@
+#CLASS {group} {kill};
+#CLASS {group} {open};
+
+#VARIABLE {group_shields} {};
+#VARIABLE {group_shields_current} {};
+
+#ACTION {^Arcane protection for %1:-} {
+    #var {group_shields_current} {%1};
+}
+
+#ACTION {^ * %1 is surrounded by a %2 impact shield.} {
+    #var {group_shields[$group_shields_current]} {TPA};
+}
+
+#ALIAS {rgs} {
+    #variable {group_shields} {};
+    #variable {group_shields_current} {};
+    #send {group shields};
+};
+
+#ALIAS {sgs} {
+    #foreach {$group_shields[]} {name} {
+        #showme {$name: $group_shields[$name]};
+    };
+};
+
+#CLASS {group} {kill};

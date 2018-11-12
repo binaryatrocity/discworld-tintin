@@ -1,0 +1,23 @@
+#ALIAS {setsize} {rows 300;cols 110};
+
+#ALIAS {^clear$} {
+    #system {tput clear};
+    #split {2} {1};
+    setsize;
+};
+
+#ALIAS {htop} {
+   #system {htop}; 
+};
+
+#ALIAS {rst} {
+    #read {config.tin};
+    setsize;
+    shields;
+};
+
+#ALIAS {wiki} {
+    #system {w3m https://dwwiki.mooo.com/w/index.php?search=%0};
+    #split {2} {1};
+    setsize;
+};

@@ -1,0 +1,347 @@
+#CLASS {xptimers} {kill};
+#CLASS {xptimers} {open};
+
+#VARIABLE {xptimer_file} {logs/xptimers.log};
+
+#VARIABLE {killtimers} {
+    {Delbert}{0}
+    {the Triad boss}{0}
+    {the bandit leader}{0}
+    {Hlakket the Bartender}{0}
+    {the Zoon Liar}{0}
+    {Slim Stevie}{0}
+    {the %* grflx worker}{0}
+    {the %* student}{0}
+    {the ceremonial guard}{0}
+    {the giant leader}{0}
+    {the %* rujona}{0}
+    {the %* lion}{0}
+    {Louis Accardo}{0}
+    {Marlon Gumboni}{0}
+}
+
+#VARIABLE {killtimer_names} {
+    {Delbert}{delbert}
+    {the Triad boss}{medina boss}
+    {the bandit leader}{bandit leader}
+    {Hlakket the Bartender}{hlakket}
+    {the Zoon Liar}{zoon liar}
+    {Slim Stevie}{rogues}
+    {the %* grflx worker}{grflx}
+    {the %* student}{dojo}
+    {the ceremonial guard}{cguards}
+    {the giant leader}{giant leader}
+    {the %* rujona}{snail}
+    {the %* lion}{shaker lions}
+    {Louis Accardo}{stables}
+    {Marlon Gumboni}{casino}
+}
+
+#VARIABLE {visittimers} {
+    {AMShades}{0}
+    {ebff897af2b8bb6800a9a8636143099d0714be07}{0}
+    {70546ec71867645ab5c51e9ce6087b75dcf4176f}{0}
+    {f6c60dd36ed38707eb954c3a670f2f9370a79399}{0}
+    {3862c5fd0fe83f4080bdb9b94519bf8da89d5015}{0}
+}
+
+#VARIABLE {visittimer_names} {
+    {AMShades}{shades}
+    {ebff897af2b8bb6800a9a8636143099d0714be07}{smugglers}
+    {70546ec71867645ab5c51e9ce6087b75dcf4176f}{offler}
+    {f6c60dd36ed38707eb954c3a670f2f9370a79399}{black market}
+    {3862c5fd0fe83f4080bdb9b94519bf8da89d5015}{parades}
+}
+
+#ALIAS {dtreset} {
+    #regex {%1} {all} {
+        #foreach {$killtimers[]} {spot} {
+            #format {killtimers[$spot]} {0};
+        }
+        #foreach {$visittimers[]} {spot} {
+            #format {visittimers[$spot]} {0};
+        }
+        #format {xptimer_message} {%c[XPTimer] %c*%c Resetting all spots to Unseen.} {bold blue} {bold yellow} {bold blue};
+        #echo {$xptimer_message};
+        #variable {dtreset_all} {1};
+    };
+
+    #if {$dtreset_all < 1} {
+        #foreach {$killtimer_names[]} {spot} {
+            #regex {%1 %2} {$killtimer_names[$spot]} {
+                #format {killtimers[$spot]} {%T};
+                #format {xptimer_message} {%c[XPTimer] %c*%c Resetting death timer for %c$killtimer_names[$spot]%c.} {bold blue} {bold yellow} {bold blue} {bold green} {bold blue};
+                #echo {$xptimer_message};
+            };
+        }
+        #foreach {$visittimer_names[]} {spot} {
+            #regex {%1 %2} {$visittimer_names[$spot]} {
+                #format {visittimers[$spot]} {%T};
+                #format {xptimer_message} {%c[XPTimer] %c*%c Resetting visit timer for %c$visittimer_names[$spot]%c.} {bold blue} {bold yellow} {bold blue} {bold green} {bold blue};
+                #echo {$xptimer_message};
+            };
+        }
+    }
+
+    #unvariable {dtreset_all};
+}
+
+#ACTION {%1 deals the death blow to %2.} {
+    #foreach {$killtimers[]} {spot} {
+        #regex {%2} {$spot} {
+            #format {killtimers[$spot]} {%T};
+        };
+    }
+}
+#ACTION {You kill %1.} {
+    #foreach {$killtimers[]} {spot} {
+        #regex {%1} {$spot} {
+            #format {killtimers[$spot]} {%T};
+        };
+    }
+}
+
+#ALIAS {dt} {
+    #echo {.:: Death Timers ::.};
+    #format {current_time} {%T};
+    #foreach {$killtimers[]} {spot} {
+        #format {spotname} {$killtimer_names[$spot]};
+
+        #if {$killtimers[$spot] == 0} {
+            #format {spotstring} { - (???)  %s } {$spotname};
+        };
+        #else {
+            #math {mins} { (($current_time - $killtimers[$spot]) + 0.5) / 60 };
+            
+            #if {$mins > 99} { #var {mins} {99} };
+
+            #if {$mins > 10} { 
+                #format {spotstring} { - (%dm)  %s } {$mins} {$spotname};
+            };
+            #else {
+                #format {spotstring} { - (0%dm)  %s } {$mins} {$spotname};
+            }
+        }
+
+        #echo {$spotstring};
+    }
+
+    #echo {\n};
+
+    #echo {.:: Visit Timers ::.};
+    #format {current_time} {%T};
+    #foreach {$visittimers[]} {spot} {
+        #format {spotname} {$visittimer_names[$spot]};
+
+        #if {$visittimers[$spot] == 0} {
+            #format {spotstring} { - (???)  %s } {$spotname};
+        };
+        #else {
+            #math {mins} { (($current_time - $visittimers[$spot]) + 0.5) / 60 };
+            
+            #if {$mins > 99} { #var {mins} {99} };
+
+            #if {$mins > 10} { 
+                #format {spotstring} { - (%dm)  %s } {$mins} {$spotname};
+            };
+            #else {
+                #format {spotstring} { - (0%dm)  %s } {$mins} {$spotname};
+            }
+        }
+
+        #echo {$spotstring};
+    }
+}
+
+#ALIAS {writetimerstofile} {
+    #system {rm $xptimer_file && touch $xptimer_file};
+    #format {current_time} {%T};
+
+    #line {log} {$xptimer_file} {.:: Death Timers ::. };
+
+    #foreach {$killtimers[]} {spot} {
+        #format {spotname} {$killtimer_names[$spot]};
+
+        #if {$killtimers[$spot] == 0} {
+            #format {spotstring} { - (???)  %s } {$spotname};
+        };
+        #else {
+            #math {mins} { (($current_time - $killtimers[$spot]) + 0.5) / 60 };
+
+            #if {$mins > 99} { #var {mins} {99} };
+
+            #if {$mins > 10} { 
+                #format {spotstring} { - (%dm)  %s } {$mins} {$spotname};
+            };
+            #else {
+                #format {spotstring} { - (0%dm)  %s } {$mins} {$spotname};
+            }
+        }
+
+        #line {log} {$xptimer_file} {$spotstring};
+    }
+
+    #foreach {$visittimers[]} {spot} {
+        #format {spotname} {$visittimer_names[$spot]};
+
+        #if {$visittimers[$spot] == 0} {
+            #format {spotstring} { - (???)  %s } {$spotname};
+        };
+        #else {
+            #math {mins} { (($current_time - $visittimers[$spot]) + 0.5) / 60 };
+
+            #if {$mins > 99} { #var {mins} {99} };
+
+            #if {$mins > 10} { 
+                #format {spotstring} { - (%dm)  %s } {$mins} {$spotname};
+            };
+            #else {
+                #format {spotstring} { - (0%dm)  %s } {$mins} {$spotname};
+            }
+        }
+
+        #line {log} {$xptimer_file} {$spotstring};
+    }
+}
+
+#EVENT {SEND OUTPUT} {writetimerstofile};
+
+#FUNCTION {parse_spot} {
+    #var {spot_sync_raw} {%0};
+    #replace {spot_sync_raw} {=} {;};
+    #list {spot_sync} {create} {${spot_sync_raw}};
+    #return {$spot_sync};
+}
+
+#ACTION {%1 tells you: ruhs_dtsync=[%2] | ruhs_vtsync=[%3]} {
+    #var {synccount} {0};
+    #var {dtsync} {%2};
+    #var {vtsync} {%3};
+
+    #replace {dtsync} {,} {;};
+    #replace {vtsync} {,} {;};
+
+    #list dtsync_list create {${dtsync}};
+    #list vtsync_list create {${vtsync}};
+
+    #foreach {$dtsync_list[]} {spot} {
+        #var {syncitem} {@parse_spot{$dtsync_list[$spot]}};
+        #var {syncname} {$syncitem[1]};
+        #var {synctime} {$syncitem[2]};
+
+        #foreach {$killtimer_names[]} {spotident} {
+            #var {spotname} {$killtimer_names[$spotident]};
+            #if {"$spotname" == "$syncname"} {
+                #if {$killtimers[$spotident] < $synctime} {
+                    #var {killtimers[$spotident]} {$synctime};
+                    #math {synccount} {$synccount + 1};
+                };
+            };
+        }
+    }
+
+    #foreach {$vtsync_list[]} {spot} {
+        #var {syncitem} {@parse_spot{$vtsync_list[$spot]}};
+        #var {syncname} {$syncitem[1]};
+        #var {synctime} {$syncitem[2]};
+
+        #foreach {$visittimer_names[]} {spotident} {
+            #var {spotname} {$visittimer_names[$spotident]};
+            #if {"$spotname" == "$syncname"} {
+                #if {$visittimers[$spotident] < $synctime} {
+                    #var {visittimers[$spotident]} {$synctime};
+                    #math {synccount} {$synccount + 1};
+                };
+            };
+        }
+    }
+
+    #format {dtsync_message} {%c[XPTimer] %c*%c Synced %c%d%c spots from %c%s%c.} {bold blue}{yellow}{bold blue}{orange}{$synccount}{bold blue}{green}{%1}{bold blue};
+    #echo {$dtsync_message};
+}
+
+#ALIAS {dtsync %1} {
+    #var {dtsync_msg} {};
+    #var {vtsync_msg} {};
+
+    #foreach {$killtimer_names[]} {spotident} {
+        #if {$killtimers[$spotident] > 0} {
+            #format {dtsync_msg} {%s,%s=%d} {$dtsync_msg}{$killtimer_names[$spotident]}{$killtimers[$spotident]};
+        };
+    }
+    #regex {$dtsync_msg} {^,{(.+)}$} { #var {dtsync_msg} {&1}; };
+
+    #foreach {$visittimer_names[]} {spotident} {
+        #if {$visittimers[$spotident] > 0} {
+            #format {vtsync_msg} {%s,%s=%d} {$vtsync_msg}{$visittimer_names[$spotident]}{$visittimers[$spotident]};
+        };
+    }
+    #regex {$vtsync_msg} {^,{(.+)}$} { #var {vtsync_msg} {&1}; };
+
+
+    #format {sync_message} {tell %s ruhs_dtsync=[%s] | ruhs_vtsync=[%s]} {%1} {$dtsync_msg} {$vtsync_msg};
+    #send {$sync_message};
+}
+
+#EVENT {IAC SB GMCP room.info IAC SE}
+{
+    #var {room_info} {%0};
+    #foreach {$visittimers[]} {spot} {
+        #regex {$room_info[identifier]} {$spot} {
+            #format {visittimers[$spot]} {%T};
+        }
+    }
+}
+
+#ALIAS {gsdt} {
+    #var {gsdt_string} {};
+    #foreach {$killtimers[]} {spot} {
+        #format {spotname} {$killtimer_names[$spot]};
+        #var {mins} {???};
+
+        #if {$killtimers[$spot] == 0} {
+            #format {spotstring} {%s: ??? |} {$spotname};
+        };
+        #else {
+            #math {mins} { (($current_time - $killtimers[$spot]) + 0.5) / 60 };
+            #if {$mins > 99} { #var {mins} {99} };
+
+            #if {$mins < 10} {
+                #format {spotstring} {%s: 0%dm |} {$spotname} {$mins} ;
+            };
+            #else {
+                #format {spotstring} {%s: %dm |} {$spotname} {$mins} ;
+            };
+        }
+
+        #format {gsdt_string} {%s %s} {$gsdt_string} {$spotstring};
+    }
+
+    #foreach {$visittimers[]} {spot} {
+        #format {spotname} {$visittimer_names[$spot]};
+        #var {mins} {???};
+
+        #if {$visittimers[$spot] == 0} {
+            #format {spotstring} {%s: ??? |} {$spotname};
+        };
+        #else {
+            #math {mins} { (($current_time - $visittimers[$spot]) + 0.5) / 60 };
+            #if {$mins > 99} { #var {mins} {99} };
+
+            #if {$mins < 10} {
+                #format {spotstring} {%s: 0%dm |} {$spotname} {$mins} ;
+            };
+            #else {
+                #format {spotstring} {%s: %dm |} {$spotname} {$mins} ;
+            };
+        }
+
+        #format {gsdt_string} {%s %s} {$gsdt_string} {$spotstring};
+    }
+
+    #regex {$gsdt_string} {^{(.+)} \|$} {#var {gsdt_string} {&1}; };
+
+    #send {group say $gsdt_string};
+}
+
+#CLASS {xptimers} {close};

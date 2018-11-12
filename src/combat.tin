@@ -1,0 +1,40 @@
+#CLASS {combat} {kill};
+#CLASS {combat} {open};
+
+#VARIABLE {my_attacks_color} {orange};
+#VARIABLE {enemy_attack_color} {red};
+
+#NOP ==[Me Attacking Them]==
+#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{thrust|snick|fillet|poke|chop up|chop|jab|scratch|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|take} {a sliver off |into |}%1{'?s?} %2 {on|with} %3} {$my_attacks_color};
+#HIGHLIGHT {^You {viciously |messily |barely |neatly |}stab %1 {deeply |}in %2 with %3} {$my_attacks_color};
+#HIGHLIGHT {^You stab %1 right through %2's %3} {$my_attacks_color};
+#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{poke|kick|punch|jab|boot|tickle} %1 in %2} {$my_attacks_color};
+
+
+#NOP ==[My Specials]==
+#HIGHLIGHT {^You attempt to prepare %1} {bold red};
+#HIGHLIGHT {^You prepare to {stab|slice|trip|shove|impale|kick|punch} %2} {bold green};
+#HIGHLIGHT {^You attempt to launch a powerful attack. %1} {bold red};
+#HIGHLIGHT {^You launch a powerful attack. %1} {bold green};
+#HIGHLIGHT {^You try to {trip|shove} %1} {bold red};
+#HIGHLIGHT {^You shove %1} {bold green};
+#HIGHLIGHT {^You trip %1} {bold green};
+#HIGHLIGHT {^You lose the moment.} {bold red};
+#HIGHLIGHT {^You {skilfully |silently|}sneak around %1 without being spotted and manage to catch %w by surprise.$} {bold green};
+#HIGHLIGHT {^You hold your cover as you {skilfully |silently|}sneak around %1 and manage to catch %w by surprise.$} {bold green};
+
+
+
+#NOP ==[Them Attacking Me]==
+#HIGHLIGHT {%1 but your %2 absorbs {some|most} of the blow.$} {$enemy_attack_color};
+#HIGHLIGHT {%1 runs you through the %2 with %3.$} {$enemy_attack_color};
+#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s %w %3 into your %4.$} {$enemy_attack_color};
+#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s your %2 {into pieces |}{with|on} %w %4.$} {$enemy_attack_color};
+#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s into your %2 with %w %3.$} {$enemy_attack_color};
+#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s you {deeply |}in the %2.$} {$enemy_attack_color};
+#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s you {deeply |}in the %2 with %3.$} {$enemy_attack_color};
+#HIGHLIGHT {%1 pierces your %2 with %3.$} {$enemy_attack_color};
+#HIGHLIGHT {%1 hitting your %2.$} {$enemy_attack_color};
+
+
+#CLASS {combat} {close};

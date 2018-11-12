@@ -1,0 +1,78 @@
+#CLASS gmcp kill
+#CLASS gmcp open
+
+
+#FORMAT IAC  %a 255
+#FORMAT DONT %a 254
+#FORMAT DO   %a 253
+#FORMAT WONT %a 252
+#FORMAT WILL %a 251
+#FORMAT SB   %a 250
+#FORMAT SE   %a 240
+
+#FORMAT GMCP %a 201
+
+#ALIAS {debug {on|off}}
+{
+    #IF {"%1" == "on"} { #VARIABLE debug 1 };
+    #ELSE { #VARIABLE debug 0 };
+    #SHOWME { Debug is <139>$debug<099> };
+    #NOP;
+}
+
+#EVENT {IAC SB GMCP Char.Vitals IAC SE}
+{
+    #IF {$debug} { #SHOWME %1 };
+    #VAR GMCP[oldvitals] {$GMCP[vitals]};
+    #VAR GMCP[vitals] {%0};
+
+    #math {hploss} {$GMCP[vitals][hp] - $GMCP[oldvitals][hp]};
+    #if {$hploss < -100} {
+        #echo {<139>HP IS FALLING! CAREFUL!<099>};
+        #showme {\a\a};
+    }
+    
+    update_prompt;
+}
+
+#EVENT {IAC SB GMCP room.info IAC SE}
+{
+    #IF {$debug} { #SHOWME %1 };
+    #VAR GMCP[room][info] {%0};
+    #nop;
+}
+
+#EVENT {IAC SB GMCP room.map IAC SE}
+{
+    #IF {$debug} { #SHOWME %1 };
+    #VAR {minimap} {%0};
+    #REPLACE {minimap} {u001b} {};
+    #SYSTEM {rm logs/minimap.log && touch logs/minimap.log};
+
+    #LINE {log} {logs/minimap.log} {\n\n $minimap \n\n};
+    #SYSTEM {sed -i -e 's/^/     /' logs/minimap.log};
+}
+
+#EVENT {IAC SB GMCP room.writtenmap IAC SE}
+{
+    #IF {$debug} { #SHOWME %1 };
+    #VAR GMCP[room][mdt] {%0};
+    #LINE {log} {logs/mapdoortext.log} {\n\n\n %0};
+}
+
+#EVENT {IAC WILL GMCP}
+{
+    #SHOWME {GMCP ENABLED};
+    #SEND {$IAC$DO$GMCP\};
+    #nop #SEND {$IAC$SB$GMCP Core.Hello { "client": "$CLIENT_NAME", "version": "$CLIENT_VERSION" } $IAC$SE\};
+    #SEND {$IAC$SB$GMCP Core.Hello { "client": "TinTin++", "version": "2.01.2" } $IAC$SE\};
+    #SEND {$IAC$SB$GMCP Core.Supports.Set ["Char.Vitals", "room.info", "room.map", "room.writtenmap"] $IAC$SE\}
+}
+
+#EVENT {PROGRAM START}
+{
+    #VARIABLE CLIENT_NAME %0;
+    #VARIABLE CLIENT_VERSION %1;
+}
+
+#CLASS gmcp close

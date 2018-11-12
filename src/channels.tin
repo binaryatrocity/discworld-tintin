@@ -1,0 +1,13 @@
+#CLASS {channels} {kill};
+#CLASS {channels} {open};
+
+#ACTION {^You {tell|ask|exclaim to} %1:%2} {#LINE {LOG} {$chat_file}};
+#ACTION {^%1 {tells|asks|exclaims to} %*you{|(?: in \w+)?}: %4} {#LINE {LOG} {$chat_file}};
+#ACTION {^[%1] %2{:|} %3} {#LINE {LOG} {$chat_file}};
+#ACTION {^(newbiehelpers)} {#LINE {LOG} {$chat_file}};
+#ACTION {^(newbie)} {#LINE {LOG} {$chat_file}};
+#ACTION {^(Playerkillers) %1 wisps:? %2} {#LINE {LOG} {$chat_file}};
+#ACTION {^(Thieves) %1 wisps:? %2} {#LINE {LOG} {$chat_file}};
+#ACTION {^(They Might Be Alts) } {#LINE {LOG} {$chat_file}};
+
+#CLASS {channels} {close};
