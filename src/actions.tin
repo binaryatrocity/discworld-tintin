@@ -3,7 +3,7 @@
 
 #NOP ==[TPA Alerts]==
 #HIGHLIGHT {^There is a sudden white flash.  Your magical shield has broken.$} {bold red underscore};
-#HIGHLIGHT {^There is a sudden white flash around {(?!a passing wizard).+}.$} {bold red underscore};
+#HIGHLIGHT {^There is a sudden white flash around {(?!a passing wizard).+}.$} {bold orange underscore};
 #ACTION {^There is a sudden white flash around {(?!a passing wizard).+}.$} {
     #showme {\a};
     #line {log} {$chat_file};
@@ -14,16 +14,18 @@
 #HIGHLIGHT {There is a doorway in the %1 wall leading into a curious shop.} {bold green underscore};
 
 #NOP ==[NPC Highlighting]==
-#HIGHLIGHT {thug} {red};
+#HIGHLIGHT {thug } {red};
 #HIGHLIGHT {bodyguard} {red};
 #HIGHLIGHT {hoplite} {red};
+#HIGHLIGHT {shadowy gentleman} {red};
+#HIGHLIGHT {Coffee Nostra hitman} {red};
  
 #NOP ==[Incident Highlighting]==
 #HIGHLIGHT {^%1 grabs %2 from you.  You struggle briefly but %3 wrests it from your grip and makes for a hasty retreat.$} {bold red underscore};
 #HIGHLIGHT {^As %1 dies %2 drops %3 in shock.$} {bold green underscore};
 #HIGHLIGHT {^When you open the %1 you think you can hear a faint rumbling sound from it.$} {red underscore}; 
 #HIGHLIGHT {^Whoops!  You tried to carry too many things and fumbled %1} {red underscore};
-#HIGHLIGHT {%1 juggles around his stuff and fumbles %2} {red underscore}; 
+#HIGHLIGHT {%1 juggles around his stuff and fumbles %2} {orange underscore}; 
 
 #NOP ==[Command Color Highlighting]==
 #SUB {%w %w with a total of %* item} {<148>%1 %2<099> with a total of <148>%3<099> item}
