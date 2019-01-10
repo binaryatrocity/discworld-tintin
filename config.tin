@@ -18,12 +18,14 @@
 #READ {src/prompt.tin};
 #READ {src/xpmonitor.tin};
 #READ {src/tpamonitor.tin};
-#READ {src/timers.tin};
+#READ {src/spottimers.tin};
 
 #READ {src/combat.tin};
 #READ {src/deadletter.tin};
 #READ {src/quow.tin};
 #READ {src/magic.tin};
+
+#READ {src/missiontimers.tin};
 
 #SESSION {discworld} {discworld.starturtle.net} {4242};
 

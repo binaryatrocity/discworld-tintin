@@ -8,7 +8,8 @@
 #HIGHLIGHT {^You {viciously |messily |barely |neatly |}{thrust|snick|fillet|poke|chop up|chop|jab|scratch|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|take} {a sliver off |into |}%1{'?s?} %2 {on|with} %3} {$my_attacks_color};
 #HIGHLIGHT {^You {viciously |messily |barely |neatly |}stab %1 {deeply |}in %2 with %3} {$my_attacks_color};
 #HIGHLIGHT {^You stab %1 right through %2's %3} {$my_attacks_color};
-#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{poke|kick|punch|jab|boot|tickle} %1 in %2} {$my_attacks_color};
+#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{poke|kick|punch|jab|boot|tickle|kick out} %1 in %2} {$my_attacks_color};
+#HIGHLIGHT {^You {punch|kick out} at %1 but {his|her} %2 absorbs {some|most} of the blow\.$} {$my_attacks_color};
 
 
 #NOP ==[My Specials]==
@@ -16,6 +17,7 @@
 #HIGHLIGHT {^You prepare to {stab|slice|trip|shove|impale|kick|punch} %2} {bold green};
 #HIGHLIGHT {^You attempt to launch a powerful attack. %1} {bold red};
 #HIGHLIGHT {^You launch a powerful attack. %1} {bold green};
+#HIGHLIGHT {^You launch a powerful attack, landing a %1} {bold green};
 #HIGHLIGHT {^You try to {trip|shove} %1} {bold red};
 #HIGHLIGHT {^You shove %1} {bold green};
 #HIGHLIGHT {^You trip %1} {bold green};

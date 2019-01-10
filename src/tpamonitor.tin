@@ -66,6 +66,13 @@
     update_prompt;
 }
 
+#nop ### alias to reset TPA status, if it breaks and we didn't catch it ###
+#alias {tpareset} {
+    #unvar {tpa_start};
+    #unvar {tpa_end};
+    #var {tpa_status} {0};
+}
+
 #var {tpa_status} {0};
 
 #CLASS {tpamonitor} {close};

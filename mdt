@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# clear && watch --color -t -n 0.4 'python src/mdtparse.py logs/mapdoortext.log | tail -n `tput lines`'
+clear && while true; do 
+    output=$(python src/mdtparse.py logs/mapdoortext.log | tail -n `tput lines`);
+    clear;
+    echo "$output";
+    sleep 0.3;
+done

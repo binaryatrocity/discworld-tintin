@@ -1,0 +1,56 @@
+#CLASS {missiontimers_sausages} {kill};
+#CLASS {missiontimers_sausages} {open};
+
+#var {missions[sausage][active_list]} {};
+#var {missions[sausage][retry_list]} {};
+
+#nop You have four hours to deliver 150 fresh - line to start it all?
+#ACTION {^You have four hours to deliver %d fresh} {
+
+    #action {^Sam Slager says to%+you: I'll have to take care of this one later} {
+        #nop [A mission started, start checking for resignations];
+        #nop Are we already waiting on a timer for this character?
+        #list {missions[sausage][retry_list]} {find} {$GMCP[charinfo][name]} {sausage_current};
+        #if {$sausage_current == 0} {
+            #list {missions[sausage][retry_list]} {add} {$GMCP[charinfo][name]};
+            #line sub variable {
+                #delay {600} {
+                    #nop Print message
+                    #format {sausage_retry_line} {%c[MH] %c*%c %s%c can now try a new sausage mission from Sam Slager.} {bold blue} {bold yellow} {bold green}{$GMCP[charinfo][name]} {bold blue};
+                    #echo {$sausage_retry_line};
+                    #unvar {sausage_retry_line};
+
+                    #nop Remove player from state list
+                    #list {missions[sausage][retry_list]} {find} {$GMCP[charinfo][name]} {sausage_current_inner};
+                    #list {missions[sausage][retry_list]} {delete} {$sausage_current_inner};
+                };
+            };
+        };
+        #unvar {sausage_current};
+    };
+
+    #action {^Sam Slager says to%+you: Thank you, that's all} {
+        #nop [A mission started, start checking for completions];
+        #nop Are we already waiting on a timer for this character?
+
+        #list {missions[sausage][active_list]} {find} {$GMCP[charinfo][name]} {sausage_current};
+        #if {$sausage_current == 0} {
+            #list {missions[sausage][active_list]} {add} {$GMCP[charinfo][name]};
+            #line sub variable {
+                #delay {3600} {
+                    #nop Print message
+                    #format {sausage_timer_line} {%c[MH] %c*%c %s can get full XP for a sausage mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][name]};
+                    #echo {$sausage_timer_line};
+                    #unvar {sausage_timer_line};
+
+                    #nop Remove player from state list
+                    #list {missions[sausage][active_list]} {find} {$GMCP[charinfo][name]} {sausage_current_inner};
+                    #list {missions[sausage][active_list]} {delete} {$sausage_current_inner};
+                };
+            };
+        };
+        #unvar {sausage_current};
+    };
+};
+
+#CLASS {missiontimers_sausages} {close};

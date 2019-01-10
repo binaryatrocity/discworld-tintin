@@ -1,0 +1,55 @@
+{
+    "default_npc_value": 1,
+    "bonus_player_value": -1,
+    "minimum_room_value": 1,
+    "show_hidden_room_count": false,
+    "custom_matches": [
+        ["string/regex,                colour,   point,  is_regex"],
+
+        ["zero out these entries so they do not weigh room values"],
+        [".*rats{0,1}$",               "",       0,      true],
+        [".*cats{0,1}$",               "",       0,      true],
+        [".*dogs{0,1}$",               "",       0,      true],
+        [".*pigeons{0,1}$",            "",       0,      true],
+        ["skeleton warrior",           "",       0,      false],
+        [" truffle pig",               "",       0,      false],
+        ["giant fruitbat",             "",       0,      false],
+        ["fireflies",                  "",       0,      false],
+        ["small blue light",           "",       0,      false],
+        [" cloud",                     "",       0,      false],
+        ["tortoise",                   "",       0,      false],
+        ["cockroach",                  "",       0,      false],
+
+        ["Bes Pelargic Highlights"],
+        ["student",                                                 "",       3, false],
+        ["imperial guard",                                          "orange", 5, false],
+        ["^(.+?) (tang|sung|mcsweeney|fang|hong) bodyguards{0,1}$", "orange", 4, true],
+        ["^(.+?) (tang|sung|mcsweeney|fang|hong) noblem(en|an)$",   "orange", 3, true],
+        ["^(.+?) (tang|sung|mcsweeney|fang|hong) captain$",         "orange", 3, true],
+
+        ["Djelibeybi Highlights"],
+        ["^(.+?) pries(t|ts|tess|tesses)$",  "",       0, true],
+        ["ceremonial guard",                 "orange", 5, false],
+        ["palace guard",                     "orange", 2, false],
+        ["soldier",                          "",       2, false],
+        ["recruit",                          "",       2, false],
+        ["d'reg",                            "",       2, false],
+
+        ["Ephebe Highlights"],
+        ["hoplite",       "orange",   4,  false],
+        ["citadel guard", "orange",   4,  false],
+        ["philosopher",   "",         2,  false],
+        ["lad(y|ies)",    "",         2,  true],
+
+        ["Sto Plains Highlights"],
+        ["knight",            "orange",  4,  false],
+        ["little old ladies", "orange",  2,  false],
+        ["hunter grflx",      "",        3,  false],
+        ["grflx mentor",      "",        3,  false],
+        ["grflx adolescent",  "",        2,  false],
+        ["grflx worker",      "",        3,  false],
+        ["grflx workleader",  "",        3,  false],
+
+        ["Valid colours: orange, "]
+    ]
+}

@@ -1,4 +1,5 @@
 #ALIAS {setsize} {rows 300;cols 110};
+#ALIAS {setmsize} {rows 300;cols 60};
 
 #ALIAS {^clear$} {
     #system {tput clear};

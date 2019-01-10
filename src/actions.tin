@@ -28,6 +28,21 @@
 #NOP ==[Command Color Highlighting]==
 #SUB {%w %w with a total of %* item} {<148>%1 %2<099> with a total of <148>%3<099> item}
 
+#NOP ==[Truffle Found]==
+#HIGHLIGHT {The young truffle pig unearths a truffle from the ground.} {bold green};
+
+#NOP ==[Attention Soul(s)]==
+#ACTION {^{(?!Ryattenoki).+} tugs on your sleeve in a desperate attempt to get some attention.$} {
+    #showme {\a};
+};
+
+#NOP ==[Copperhead Mines]==
+#HIGHLIGHT {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} {bold green underscore};
+#ACTION {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} {
+    #showme {\a};
+};
+
+#NOP ==[End Session On Quit]==
 #ACTION {Thanks for playing.  See you next time.} {
     #end;
 }
