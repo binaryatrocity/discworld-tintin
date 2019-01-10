@@ -1,6 +1,15 @@
 #CLASS {deadletter} {kill};
 #CLASS {deadletter} {open};
 
+#VAR {difficult_customer_targets} {
+    {Triad Boss}{Triad [Boss]}
+    {Queen Shelox}{Queen Shelox}
+    {Ice Giants}{Ice Giants}
+    {Security guards}{Security Guards}
+    {Smuggler Captain}{Smuggler Captain}
+    {The Clown}{Ha'pennywise the Clown}
+};
+
 #VAR {distant_land_targets} {
     {Boy Willie}{Boy [Willie]}
     {Disembowel-Meself-Honourably Dibhala}{Disembowel-Meself-Honourably [Dibhala]}
@@ -37,6 +46,13 @@
         #foreach {$distant_land_targets[]} {target} {
             #regex {$target} {$current_match_line} {
                 #format {letter_solution_line} {%c[DL] %c*%c Deliver to %c%s%c.} {bold blue} {bold yellow} {bold blue} {bold green} {$distant_land_targets[$target]} {bold blue};
+                #echo {$letter_solution_line};
+            };
+        }
+
+        #foreach {$difficult_customer_targets[]} {target} {
+            #regex {$target} {$current_match_line} {
+                #format {letter_solution_line} {%c[DC] %c*%c Deliver to %c%s%c.} {bold blue} {bold yellow} {bold blue} {bold green} {$difficult_customer_targets[$target]} {bold blue};
                 #echo {$letter_solution_line};
             };
         }

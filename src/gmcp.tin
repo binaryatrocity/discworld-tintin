@@ -27,12 +27,18 @@
     #VAR GMCP[vitals] {%0};
 
     #math {hploss} {$GMCP[vitals][hp] - $GMCP[oldvitals][hp]};
-    #if {$hploss < -100} {
+    #if {$hploss < -150} {
         #echo {<139>HP IS FALLING! CAREFUL!<099>};
         #showme {\a\a};
     }
     
     update_prompt;
+}
+
+#EVENT {IAC SB GMCP char.info IAC SE}
+{
+    #IF {$debug} { #SHOWME %1 };
+    #VAR GMCP[charinfo] {%0};
 }
 
 #EVENT {IAC SB GMCP room.info IAC SE}
@@ -49,7 +55,7 @@
     #REPLACE {minimap} {u001b} {};
     #SYSTEM {rm logs/minimap.log && touch logs/minimap.log};
 
-    #LINE {log} {logs/minimap.log} {\n\n $minimap \n\n};
+    #LINE {log} {logs/minimap.log} {\n\n$minimap};
     #SYSTEM {sed -i -e 's/^/     /' logs/minimap.log};
 }
 
@@ -57,7 +63,9 @@
 {
     #IF {$debug} { #SHOWME %1 };
     #VAR GMCP[room][mdt] {%0};
-    #LINE {log} {logs/mapdoortext.log} {\n\n\n %0};
+    #REPLACE {GMCP[room][mdt]} {\\n} {};
+    #SYSTEM {rm logs/mapdoortext.log && touch logs/mapdoortext.log};
+    #LINE {log} {logs/mapdoortext.log} {$GMCP[room][mdt]};
 }
 
 #EVENT {IAC WILL GMCP}
@@ -66,7 +74,7 @@
     #SEND {$IAC$DO$GMCP\};
     #nop #SEND {$IAC$SB$GMCP Core.Hello { "client": "$CLIENT_NAME", "version": "$CLIENT_VERSION" } $IAC$SE\};
     #SEND {$IAC$SB$GMCP Core.Hello { "client": "TinTin++", "version": "2.01.2" } $IAC$SE\};
-    #SEND {$IAC$SB$GMCP Core.Supports.Set ["Char.Vitals", "room.info", "room.map", "room.writtenmap"] $IAC$SE\}
+    #SEND {$IAC$SB$GMCP Core.Supports.Set ["Char.Vitals", "room.info", "room.map", "room.writtenmap", "char.info"] $IAC$SE\}
 }
 
 #EVENT {PROGRAM START}

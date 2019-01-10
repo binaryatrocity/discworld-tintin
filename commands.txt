@@ -1,0 +1,7 @@
+minimap:
+    clear && watch -c -n 0.25 -t 'clear && cat logs/minimap.log'
+
+timers:
+    clear && watch -t -n 5 cat xptimers.log
+
+
