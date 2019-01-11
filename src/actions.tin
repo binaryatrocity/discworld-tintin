@@ -19,7 +19,15 @@
 #HIGHLIGHT {hoplite} {red};
 #HIGHLIGHT {shadowy gentleman} {red};
 #HIGHLIGHT {Coffee Nostra hitman} {red};
- 
+#HIGHLIGHT {Triad heavy} {red};
+#HIGHLIGHT {Triad heavies} {red};
+#HIGHLIGHT {nobleman} {green}; 
+#HIGHLIGHT {courtier} {green};
+#HIGHLIGHT {noblewoman} {green};
+#HIGHLIGHT {rich man} {green};
+#HIGHLIGHT {rich woman} {green};
+#HIGHLIGHT {Jolene} {purple};
+
 #NOP ==[Incident Highlighting]==
 #HIGHLIGHT {^%1 grabs %2 from you.  You struggle briefly but %3 wrests it from your grip and makes for a hasty retreat.$} {bold red underscore};
 #HIGHLIGHT {^As %1 dies %2 drops %3 in shock.$} {bold green underscore};
@@ -48,5 +56,17 @@
 #ACTION {Thanks for playing.  See you next time.} {
     #end;
 }
+
+#NOP ==[Sound Triggers]==
+#ACTION {^{(?!Ryattenoki).+} tugs on your sleeve in a desperate attempt to get some attention.$} {
+  #showme {\a};
+};
+#ACTION {^It is your turn to fight... enter the combat ring.$} {
+  #showme {\a};
+};
+
+#ACTION {^Ruhsbaar is up$} {
+  #showme {\a};
+};
 
 #CLASS {actions} {close};
