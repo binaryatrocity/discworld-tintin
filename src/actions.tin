@@ -15,18 +15,21 @@
 
 #NOP ==[NPC Highlighting]==
 #HIGHLIGHT {thug } {red};
+#HIGHLIGHT {thug,} {red};
 #HIGHLIGHT {bodyguard} {red};
 #HIGHLIGHT {hoplite} {red};
 #HIGHLIGHT {shadowy gentleman} {red};
 #HIGHLIGHT {Coffee Nostra hitman} {red};
 #HIGHLIGHT {Triad heavy} {red};
 #HIGHLIGHT {Triad heavies} {red};
+#HIGHLIGHT {city guard} {red};
 #HIGHLIGHT {nobleman} {green}; 
 #HIGHLIGHT {courtier} {green};
 #HIGHLIGHT {noblewoman} {green};
 #HIGHLIGHT {rich man} {green};
 #HIGHLIGHT {rich woman} {green};
-#HIGHLIGHT {Jolene} {purple};
+#HIGHLIGHT {Jolene} {pink};
+#HIGHLIGHT {Reverend Khepresh} {pink};
 
 #NOP ==[Incident Highlighting]==
 #HIGHLIGHT {^%1 grabs %2 from you.  You struggle briefly but %3 wrests it from your grip and makes for a hasty retreat.$} {bold red underscore};
@@ -62,10 +65,6 @@
   #showme {\a};
 };
 #ACTION {^It is your turn to fight... enter the combat ring.$} {
-  #showme {\a};
-};
-
-#ACTION {^Ruhsbaar is up$} {
   #showme {\a};
 };
 
