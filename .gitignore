@@ -1,2 +1,1 @@
-logs/*.log
-logs/active/*.log
+*.log
