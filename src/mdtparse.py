@@ -250,6 +250,7 @@ class MapDoorText:
                                             entry,
                                             self.colour_map['reset']
                                         )
+
                                     this_value = custom_match[2]
 
                         if add_player_value == True:

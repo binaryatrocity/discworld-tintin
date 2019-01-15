@@ -11,7 +11,6 @@
 #HIGHLIGHT {^You {viciously |messily |barely |neatly |}{poke|kick|punch|jab|boot|tickle|kick out} %1 in %2} {$my_attacks_color};
 #HIGHLIGHT {^You {punch|kick out} at %1 but {his|her} %2 absorbs {some|most} of the blow\.$} {$my_attacks_color};
 
-
 #NOP ==[My Specials]==
 #HIGHLIGHT {^You attempt to prepare %1} {bold red};
 #HIGHLIGHT {^You prepare to {stab|slice|trip|shove|impale|kick|punch} %2} {bold green};
@@ -23,9 +22,7 @@
 #HIGHLIGHT {^You trip %1} {bold green};
 #HIGHLIGHT {^You lose the moment.} {bold red};
 #HIGHLIGHT {^You {skillfully |silently|}sneak around %1 without being spotted and manage to catch %w by surprise.$} {bold green};
-#HIGHLIGHT {^You hold your cover as you {skilfully |silently|}sneak around %1 and manage to catch %w by surprise.$} {bold green};
-
-
+#HIGHLIGHT {^You hold your cover as you {skillfully |silently|}sneak around %1 and manage to catch %w by surprise.$} {bold green};
 
 #NOP ==[Them Attacking Me]==
 #HIGHLIGHT {%1 but your %2 absorbs {some|most} of the blow.$} {$enemy_attack_color};
