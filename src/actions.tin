@@ -42,6 +42,12 @@
     #showme {\a};
 };
 
+#NOP ==[Gemcutting/Finesmithing]==
+#HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and delicately chip %1} {bold green};
+#HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and chip away %1} {bold red};
+#HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and, struggling with %1} {bold red};
+
+
 #NOP ==[End Session On Quit]==
 #ACTION {Thanks for playing.  See you next time.} {
     #end;

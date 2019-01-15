@@ -22,8 +22,8 @@
 #HIGHLIGHT {^You shove %1} {bold green};
 #HIGHLIGHT {^You trip %1} {bold green};
 #HIGHLIGHT {^You lose the moment.} {bold red};
-#HIGHLIGHT {^You {skilfully |silently|}sneak around %1 without being spotted and manage to catch %w by surprise.$} {bold green};
-#HIGHLIGHT {^You hold your cover as you {skilfully |silently|}sneak around %1 and manage to catch %w by surprise.$} {bold green};
+#HIGHLIGHT {^You {skillfully |silently|}sneak around %1 without being spotted and manage to catch %w by surprise.$} {bold green};
+#HIGHLIGHT {^You hold your cover as you {skillfully |silently|}sneak around %1 and manage to catch %w by surprise.$} {bold green};
 
 
 
