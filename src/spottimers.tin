@@ -283,11 +283,11 @@
     #send {$sync_message};
 }
 
-#EVENT {IAC SB GMCP room.info IAC SE}
-{
-    #var {room_info} {%0};
+#nop #EVENT {IAC SB GMCP room.info IAC SE}
+#ALIAS {/spottimercheckroomid %1} {
+    #var {room_info} {%1};
     #foreach {$visittimers[]} {spot} {
-        #regex {$room_info[identifier]} {$spot} {
+        #regex {$room_info} {$spot} {
             #format {visittimers[$spot]} {%T};
         }
     }

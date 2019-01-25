@@ -60,16 +60,25 @@
   {57}{Skund Wolf Trail}
 }
 
+#LIST {last_query_list} {create};
+
 #ALIAS {db gatherable %1} {
     #unvariable {gatherable_display};
 
-    #format {query} {SELECT item_name, room_short, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price = 'gather';} {%1};
+    #format {query} {SELECT item_name, room_short, shop_items.room_id, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price = 'gather';} {%1};
     #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
 
     #script {gatherable_query_result} {$db_command};
     #list {gatherable_query_result} {size} {gatherable_result_size};
 
+    #list {last_query_list} {clear};
+
     #if {$gatherable_result_size > 0} {
+        #format {gatherable_display} {%cResults for gatherables matching %c"%c%s%c"%c.} {bold blue}{green}{yellow}{%1}{green}{bold blue};
+        #echo {$gatherable_display};
+
+        #var {gather_count} {0};
+
         #foreach {$gatherable_query_result[%*]} {inner_query_result} {
             #replace {inner_query_result} {\\} {};
             #list gatherable_results create {${inner_query_result}};
@@ -77,11 +86,15 @@
             #variable {gatherable_info} {
                 {item_name}{$gatherable_results[1]}
                 {room_short}{$gatherable_results[2]}
-                {map_name}{$map_id_names[$gatherable_results[3]]}
+                {room_id}{$gatherable_results[3]}
+                {map_name}{$map_id_names[$gatherable_results[4]]}
             };
 
-            #format {gatherable_display} {%cQuery Result:  %c%s%c found in %c%s, %s%c} {bold blue}{green}{$gatherable_info[item_name]}{bold blue}{orange}{$gatherable_info[room_short]}{$gatherable_info[map_name]}{bold blue};
+            #format {gatherable_display} {%c  [%c%d%c]: %c%s%c found in %c%s%c,%c %s%c} {bold blue}{cyan}{$gather_count}{bold blue}{green}{$gatherable_info[item_name]}{bold blue}{orange}{$gatherable_info[room_short]}{bold blue}{orange}{$gatherable_info[map_name]}{bold blue};
             #echo {$gatherable_display};
+
+            #variable {last_query_list[$gather_count]} {$gatherable_info};
+            #math {gather_count} {$gather_count + 1};
         }
     } {
         #format {gatherable_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
@@ -89,35 +102,158 @@
     }
 }
 
-#ALIAS {db buyable %1} {
-    #unvariable {buyable_display};
+#ALIAS {db npc %1} {
+    #unvariable {npc_display};
 
-    #format {query} {SELECT item_name, sale_price, room_short, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price != 'gather' LIMIT 10;} {%1};
+    #format {query} {SELECT npc_name, rooms.map_id, rooms.room_id, rooms.room_short, INSTR(npc_name, '%s') pos FROM npc_info INNER JOIN rooms on rooms.room_id = npc_info.room_id WHERE pos > 0 LIMIT 10} {%1};
     #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
 
-    #script {buyable_query_result} {$db_command};
-    #echo {RESULT: $buyable_query_result};
-    #list {buyable_query_result} {size} {buyable_result_size};
+    #script {npc_query_result} {$db_command};
+    #list {npc_query_result} {size} {npc_result_size};
 
-    #if {$buyable_result_size > 0} {
-        #foreach {$buyable_query_result[%*]} {inner_query_result} {
+    #list {last_query_list} {clear};
+
+    #if {$npc_result_size > 0} {
+        #format {npc_display} {%cResults for NPCs matching %c"%c%s%c"%c.} {bold blue}{green}{yellow}{%1}{green}{bold blue};
+        #echo {$npc_display};
+
+        #var {npc_count} {0};
+
+        #foreach {$npc_query_result[%*]} {inner_query_result} {
             #replace {inner_query_result} {\\} {};
-            #list buyable_results create {${inner_query_result}};
+            #list npc_results create {${inner_query_result}};
 
-            #variable {buyable_info} {
-                {item_name}{$buyable_results[1]}
-                {sale_price}{$buyable_results[2]}
-                {room_short}{$buyable_results[3]}
-                {map_name}{$map_id_names[$buyable_results[4]]}
+            #variable {npc_info} {
+                {npc_name}{$npc_results[1]}
+                {map_name}{$map_id_names[$npc_results[2]]}
+                {room_id}{$npc_results[3]}
+                {room_short}{$npc_results[4]}
             };
 
-            #format {buyable_display} {%cQuery Result: %c%s%c (%c%s%c) found in %c%s, %s%c} {bold blue}{green}{$buyable_info[item_name]}{bold blue}{yellow}{$buyable_info[sale_price]}{bold blue}{orange}{$buyable_info[room_short]}{$buyable_info[map_name]}{bold blue};
-            #echo {$buyable_display};
+            #format {npc_display} {%c  [%c%d%c]: %c%s%c found in %c%s%c,%c %s%c} {bold blue}{cyan}{$npc_count}{bold blue}
+            {green}{$npc_info[npc_name]}{bold blue}{orange}{$npc_info[room_short]}{bold blue}{orange}{$npc_info[map_name]}{bold blue};
+            #echo {$npc_display};
+
+            #variable {last_query_list[$npc_count]} {$npc_info};
+            #math {npc_count} {$npc_count + 1};
         }
     } {
-        #format {buyable_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
-        #echo {$buyable_display};
+        #format {npc_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #echo {$npc_display};
     }
+};
+
+#ALIAS {db item %1} {
+    #unvariable {item_display};
+
+    #format {query} {SELECT item_name, sale_price, room_short, shop_items.room_id, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price != 'gather' LIMIT 10;} {%1};
+    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
+
+    #script {item_query_result} {$db_command};
+    #list {item_query_result} {size} {item_result_size};
+
+    #list {last_query_list} {clear};
+
+    #if {$item_result_size > 0} {
+        #format {item_display} {%cResults for items matching %c"%c%s%c"%c.} {bold blue}{green}{yellow}{%1}{green}{bold blue};
+        #echo {$item_display};
+
+        #var {item_count} {0};
+
+        #foreach {$item_query_result[%*]} {inner_query_result} {
+            #replace {inner_query_result} {\\} {};
+            #list item_results create {${inner_query_result}};
+
+            #variable {item_info} {
+                {item_name}{$item_results[1]}
+                {sale_price}{$item_results[2]}
+                {room_short}{$item_results[3]}
+                {room_id}{$item_results[4]}
+                {map_name}{$map_id_names[$item_results[5]]}
+            };
+
+            #format {item_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c,%c %s%c} {bold blue}{cyan}{$item_count}{bold blue}{green}{$item_info[item_name]}{bold blue}{yellow}{$item_info[sale_price]}{bold blue}{orange}{$item_info[room_short]}{bold blue}{orange}{$item_info[map_name]}{bold blue};
+            #echo {$item_display};
+
+            #variable {last_query_list[$item_count]} {$item_info};
+            #math {item_count} {$item_count + 1};
+        }
+    } {
+        #format {item_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #echo {$item_display};
+    }
+}
+
+#ALIAS {db room %1} {
+    #unvariable {room_display};
+
+    #format {query} {SELECT room_id, map_id, room_short, room_type, INSTR(room_short, '%s') pos FROM rooms WHERE pos > 0 LIMIT 10;} {%1};
+    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
+
+    #script {room_query_result} {$db_command};
+    #list {room_query_result} {size} {room_result_size};
+
+    #list {last_query_list} {clear};
+
+    #if {$room_result_size > 0} {
+        #format {room_display} {%cResults for rooms matching %c"%c%s%c"%c.} {bold blue}{green}{yellow}{%1}{green}{bold blue};
+        #echo {$room_display};
+
+        #var {room_count} {0};
+
+        #foreach {$room_query_result[%*]} {inner_query_result} {
+            #replace {inner_query_result} {\\} {};
+            #list room_results create {${inner_query_result}};
+
+            #variable {room_info} {
+                {room_id}{$room_results[1]}
+                {map_name}{$map_id_names[$room_results[2]]}
+                {room_short}{$room_results[3]}
+                {room_type}{$room_results[4]}
+            };
+
+            #format {room_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c} {bold blue}{cyan}{$room_count}{bold blue}{green}{$room_info[room_short]}{bold blue}{yellow}{$room_info[room_type]}{bold blue}{orange}{$room_info[map_name]}{bold blue};
+            #echo {$room_display};
+
+            #variable {last_query_list[$room_count]} {$room_info};
+            #math {room_count} {$room_count + 1};
+        }
+    } {
+        #format {room_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #echo {$room_display};
+    };
+};
+
+#ALIAS {db route %1} {
+    #if {&last_query_list[%1]} {
+        #var {target_room} {$last_query_list[%1]};
+        #format {route_display} {%c[speedwalk] Generating speedwalk from current location to %c%s%c, %c%s%c...} {bold blue}{green}{$target_room[room_short]}{bold blue}{orange}{$target_room[map_name]}{bold blue};
+        
+        #echo {$route_display};
+
+        #var {route_current_room_id} {$GMCP[room][info][identifier]};
+        #var {route_target_room_id} {$target_room[room_id]};
+
+        #format {route_command} {python src/maproute.py %s %s} {$route_current_room_id} {$route_target_room_id};
+        #script {speedwalk_result} {$route_command};
+
+        #if {$speedwalk_result[1] = 0} {
+            #format {route_error} {%c[speedwalk] Unable to find route to %c%s%c or unknown current room.} {bold blue}{green}{$target_room[room_short]}{bold blue};
+            #echo {$route_error};
+            #return;
+        }
+        #send {$speedwalk_result[1]};
+        
+        #format {route_confirm} {%c[speedwalk] A route was found, type "%cspeedwalk%c" to fast travel.} {bold blue}{green}{bold blue};
+        #echo {$route_confirm};
+    } {
+        #format {route_display} {%c[speedwalk] No previous query data found, try searching first.} {bold blue};
+        #echo {$route_display};
+    }
+};
+
+#ALIAS {speedwalk} {
+    #send {RuhsSpeedRun};
 }
 
 #CLASS {quow} {close};

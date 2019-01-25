@@ -28,8 +28,16 @@
 
     #math {hploss} {$GMCP[vitals][hp] - $GMCP[oldvitals][hp]};
     #if {$hploss < -150} {
-        #echo {<139>HP IS FALLING! CAREFUL!<099>};
+        #format {hp_loss_display} {<139>HP IS FALLING! CAREFUL! (Lost %s HP)<099>} {$hploss};
+        #echo {$hp_loss_display};
         #showme {\a\a};
+    }
+
+    #math {xpgain} {$GMCP[vitals][xp] - $GMCP[oldvitals][xp]};
+    #if {$xpgain > 5000} {
+        #format {xp_gain_display} {<179>(+%g XP)<099>} {$xpgain};
+    
+        #echo {$xp_gain_display};
     }
     
     update_prompt;
@@ -45,7 +53,9 @@
 {
     #IF {$debug} { #SHOWME %1 };
     #VAR GMCP[room][info] {%0};
-    #nop;
+
+    /spottimercheckroomid $GMCP[room][info][identifier]
+    #nop Run our spot timer logic against new identifier
 }
 
 #EVENT {IAC SB GMCP room.map IAC SE}
@@ -70,11 +80,13 @@
 
 #EVENT {IAC WILL GMCP}
 {
-    #SHOWME {GMCP ENABLED};
     #SEND {$IAC$DO$GMCP\};
     #nop #SEND {$IAC$SB$GMCP Core.Hello { "client": "$CLIENT_NAME", "version": "$CLIENT_VERSION" } $IAC$SE\};
-    #SEND {$IAC$SB$GMCP Core.Hello { "client": "TinTin++", "version": "2.01.2" } $IAC$SE\};
-    #SEND {$IAC$SB$GMCP Core.Supports.Set ["Char.Vitals", "room.info", "room.map", "room.writtenmap", "char.info"] $IAC$SE\}
+    #nop #SEND {$IAC$SB$GMCP Core.Hello { "client": "TinTin++", "version": "2.01.2" } $IAC$SE\};
+    #nop #SEND {$IAC$SB$GMCP Core.Supports.Set ["Char.Vitals", "char.info", "char.login", "room.info", "room.map", "room.writtenmap"] $IAC$SE\}
+    #SEND {$IAC$SB$GMCP core.hello { "client" : "TinTin++", "version" : "2.01.2" } $IAC$SE\};
+    #SEND {$IAC$SB$GMCP core.supports.set [ "char.login", "char.info", "char.vitals", "room.info", "room.map", "room.writtenmap" ] $IAC$SE\};
+    #nop;
 }
 
 #EVENT {PROGRAM START}

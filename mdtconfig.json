@@ -25,7 +25,7 @@
         ["imperial guard",                                          "orange", 5, false],
         ["^(.+?) (tang|sung|mcsweeney|fang|hong) bodyguards{0,1}$", "orange", 4, true],
         ["^(.+?) (tang|sung|mcsweeney|fang|hong) noblem(en|an)$",   "orange", 3, true],
-        ["^(.+?) (tang|sung|mcsweeney|fang|hong) captain$",         "orange", 3, true],
+        ["^(tang|sung|mcsweeney|fang|hong) captain$",               "orange", 3, true],
 
         ["Djelibeybi Highlights"],
         ["^(.+?) pries(t|ts|tess|tesses)$",  "",       0, true],
@@ -50,6 +50,9 @@
         ["grflx worker",      "",        3,  false],
         ["grflx workleader",  "",        3,  false],
 
-        ["Valid colours: orange, "]
+        ["Ramtops Highlights"],
+        ["headless horse rider", "red", 8, false],
+
+        ["Valid colours: orange, red"]
     ]
 }

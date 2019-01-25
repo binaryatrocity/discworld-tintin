@@ -47,6 +47,11 @@
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and chip away %1} {bold red};
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and, struggling with %1} {bold red};
 
+#NOP ==[Kick Consortium]==
+#ACTION {^It is your turn to fight... enter the combat ring.$} {
+    #showme {\a};
+}
+
 
 #NOP ==[End Session On Quit]==
 #ACTION {Thanks for playing.  See you next time.} {
