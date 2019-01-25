@@ -1,3 +1,4 @@
+cd ~/documents/MUD/Discworld
 
 if [[ ! $(tmux ls -F '#S') =~ discworld ]]; then
     rm logs/minimap.log && touch logs/minimap.log
@@ -6,6 +7,7 @@ if [[ ! $(tmux ls -F '#S') =~ discworld ]]; then
 
     tmux new-session -d -A -D -s discworld 'tail -fs .5 logs/chat.log'
     tmux select-window -t discworld:0
+    tmux split-window -v -p 85 'sh mdt'
     tmux split-window -v -p 85 'bash'
     tmux send-keys 'tt++ -G config.tin' 'C-m'
     # clear && watch -n10 logs/xptimers.log

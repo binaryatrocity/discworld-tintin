@@ -20,7 +20,7 @@
     #NOP;
 }
 
-#EVENT {IAC SB GMCP Char.Vitals IAC SE}
+#EVENT {IAC SB GMCP char.vitals IAC SE}
 {
     #IF {$debug} { #SHOWME %1 };
     #VAR GMCP[oldvitals] {$GMCP[vitals]};

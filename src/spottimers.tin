@@ -181,6 +181,10 @@
         #line {log} {$xptimer_file} {$spotstring};
     }
 
+    #line {log} {$xptimer_file} {};
+    #line {log} {$xptimer_file} {};
+    #line {log} {$xptimer_file} {\n\r\n\r.:: Visit Timers ::. };
+
     #foreach {$visittimers[]} {spot} {
         #format {spotname} {$visittimer_names[$spot]};
 

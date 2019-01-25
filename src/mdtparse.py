@@ -65,6 +65,7 @@ class MapDoorText:
     colour_map = {
         # http://terminal-color-builder.mudasobwa.ru/
         "orange": "\033[01;38;05;214m",
+        "red": "\033[01;38;05;196m",
         "reset":  "\033[00;39;49m"
     }
 

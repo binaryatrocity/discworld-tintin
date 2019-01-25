@@ -74,7 +74,7 @@
     #list {last_query_list} {clear};
 
     #if {$gatherable_result_size > 0} {
-        #format {gatherable_display} {%cResults for gatherables matching %c"%c%s%c"%c.} {bold blue}{green}{yellow}{%1}{green}{bold blue};
+        #format {gatherable_display} {%cResults for gatherables matching %c"%c%s%c"%c:} {bold blue}{green}{yellow}{%1}{green}{bold blue};
         #echo {$gatherable_display};
 
         #var {gather_count} {0};
@@ -114,7 +114,7 @@
     #list {last_query_list} {clear};
 
     #if {$npc_result_size > 0} {
-        #format {npc_display} {%cResults for NPCs matching %c"%c%s%c"%c.} {bold blue}{green}{yellow}{%1}{green}{bold blue};
+        #format {npc_display} {%cResults for NPCs matching %c"%c%s%c"%c:} {bold blue}{green}{yellow}{%1}{green}{bold blue};
         #echo {$npc_display};
 
         #var {npc_count} {0};
@@ -155,7 +155,7 @@
     #list {last_query_list} {clear};
 
     #if {$item_result_size > 0} {
-        #format {item_display} {%cResults for items matching %c"%c%s%c"%c.} {bold blue}{green}{yellow}{%1}{green}{bold blue};
+        #format {item_display} {%cResults for items matching %c"%c%s%c"%c:} {bold blue}{green}{yellow}{%1}{green}{bold blue};
         #echo {$item_display};
 
         #var {item_count} {0};
@@ -196,7 +196,7 @@
     #list {last_query_list} {clear};
 
     #if {$room_result_size > 0} {
-        #format {room_display} {%cResults for rooms matching %c"%c%s%c"%c.} {bold blue}{green}{yellow}{%1}{green}{bold blue};
+        #format {room_display} {%cResults for rooms matching %c"%c%s%c"%c:} {bold blue}{green}{yellow}{%1}{green}{bold blue};
         #echo {$room_display};
 
         #var {room_count} {0};
