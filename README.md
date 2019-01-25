@@ -7,7 +7,7 @@ A collection of configurations and scripts for use with [DiscworldMUD](http://di
 
 For reference, I host this configuration on a Linux VPS and thus am able to "take over" the Tmux session as I move between devices/lose internet without being disconnected from the game. This may help to explain some decisions made.
 
-![Screenshot](https://imgur.com/a/M0JfZui)
+![Screenshot](https://i.imgur.com/WVZaQwn.png)
 
 
 ## Features and Bits
