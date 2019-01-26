@@ -299,7 +299,13 @@
         }
         #send {$speedwalk_result[1]};
         
-        #format {route_confirm} {%c[speedwalk] A route was found, type "%cspeedwalk%c" to fast travel.} {bold blue}{green}{bold blue};
+        #variable {route_length} {$speedwalk_result[1]};
+        #replace {route_length} {\\\;} {;};
+        #replace {route_length} { } {};
+        #list {route_length} {create} {$route_length};
+        #list {route_length} {size} {route_length};
+
+        #format {route_confirm} {%c[speedwalk] A route was found, type "%cspeedwalk%c" to fast travel. [%g steps]} {bold blue}{green}{bold blue}{$route_length};
         #echo {$route_confirm};
     } {
         #format {route_display} {%c[speedwalk] No previous query data found, try searching first.} {bold blue};
