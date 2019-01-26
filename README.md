@@ -51,7 +51,7 @@ This python script (`src/mdtparse.py`) parses the mapdoortext data delivered by 
 A series of TinTin aliases that invoke SQLite to search through Quow's database and retrieve various information about game items, people and places.
 
 ##### Item Search
-> `db item sword`
+> `db item sword`, `db npcitem sword`
 ```
 Results for items matching "sword":
   [0]: sword necklace (A$4.25) found in occult jewellery stall, Ankh-Morpork
@@ -65,6 +65,8 @@ Results for items matching "sword":
   [8]: short sword [build-a-bear] (8Rh 60s) found in Assemble an Animal Workshop, Bes Pelargic
   [9]: short sword scabbard (A$1) found in Sartorn and Son Scabbard Store, Ankh-Morpork
 ```
+
+The "item" keyword is searching shops, while "npcitem" searches NPC inventories.
 
 ##### NPC Search
 > `db npc villager`
@@ -262,11 +264,6 @@ You can find Oki's repository here: <https://git.tubul.net/richard/tt_dw.git>
 
 
 ## Disclaimer
-The contents herein were created/modified/copied by me for my own personal use and come with no guarantee to work for you or your fairy godmother. I provide these files "as-is" and offer no support whatsoever to get them working. 
-
-I'm a fairly nice fellow and if you approach me on the right day when I'm not busy I might be bothered to answer a few questions, but reserve the right to ignore any and all requests for help. After all, there's XP to be made.
-
-I've freely shared my work so that others might benefit from what I've put together out of my love and passion for the game, and I hope that some of you enjoy it.
-
-Any content here-in that is my own is released under the terms and conditions of the [GNU Affero General Public Licence v3.0](https://www.gnu.org/licenses/agpl-3.0.en.html)
+The files in this repository were created/modified/copied by me for my own personal use and come with no guarantee to work for you or your fairy godmother. I provide these files "as-is" and offer no support whatsoever to get them working. 
+Any content herein that is my own is released under the terms and conditions of the [GNU Affero General Public Licence v3.0](https://www.gnu.org/licenses/agpl-3.0.en.html)
 
