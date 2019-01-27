@@ -4,14 +4,6 @@
 #VARIABLE {my_attacks_color} {orange};
 #VARIABLE {enemy_attack_color} {red};
 
-#NOP ==[Me Attacking Them]==
-#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{thrust|snick|fillet|poke|chop up|chop|jab|scratch|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|take} {a sliver off |into |}%1{'?s?} %2 {on|with} %3} {$my_attacks_color};
-#HIGHLIGHT {^You {viciously |messily |barely |neatly |}stab %1 {deeply |}in %2 with %3} {$my_attacks_color};
-#HIGHLIGHT {^You stab %1 right through %2's %3} {$my_attacks_color};
-#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{poke|kick|punch|jab|boot|tickle|kick out} %1 in %2} {$my_attacks_color};
-#HIGHLIGHT {^You {punch|kick out} at %1 but {his|her} %2 absorbs {some|most} of the blow\.$} {$my_attacks_color};
-
-
 #NOP ==[My Specials]==
 #HIGHLIGHT {^You attempt to prepare %1} {bold red};
 #HIGHLIGHT {^You prepare to {stab|slice|trip|shove|impale|kick|punch} %2} {bold green};
@@ -22,12 +14,28 @@
 #HIGHLIGHT {^You shove %1} {bold green};
 #HIGHLIGHT {^You trip %1} {bold green};
 #HIGHLIGHT {^You lose the moment.} {bold red};
-#HIGHLIGHT {^You {skillfully |silently|}sneak around %1 without being spotted and manage to catch %w by surprise.$} {bold green};
-#HIGHLIGHT {^You hold your cover as you {skillfully |silently|}sneak around %1 and manage to catch %w by surprise.$} {bold green};
 
 
+#NOP ==[Backstabs]==
+#HIGHLIGHT {^You {skilfully |silently |}sneak around %1 without being spotted and manage to %2.$} {bold green};
+#HIGHLIGHT {^You hold your cover as you {skillfully |silently |}sneak around %1 and manage to catch %w by surprise.$} {bold green};
+#HIGHLIGHT {^You %1 with %2 but despite the surprise %3.$} {bold red} {2};
+#HIGHLIGHT {^Moving {swiftly|quickly|too fast to see}, you %1 {with|right through} %2.$} {bold green};
+#HIGHLIGHT {^Catching %w {by surprise|off balance}, you %1 {with|right through} %2.$} {bold green};
+#HIGHLIGHT {^With {a blur of speed|surprising speed}, you %1 {with|right through} %2.$} {bold green};
+#HIGHLIGHT {^Quick as lightning, you %1 {with|right through} %2.$} {bold green};
+#HIGHLIGHT {Striking like a cobra, you %1 {with|right through} %2.$} {bold green};
 
-#NOP ==[Them Attacking Me]==
+
+#NOP ==[Me Attacking Them]==
+#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{thrust|snick|fillet|poke|chop up|chop|jab|scratch|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|take} {a sliver off |into |}%1{'?s?} %2 {on|with} %3} {$my_attacks_color};
+#HIGHLIGHT {^You {viciously |messily |barely |neatly |}stab %1 {deeply |}in %2 with %3} {$my_attacks_color};
+#HIGHLIGHT {^You stab %1 right through %2's %3} {$my_attacks_color};
+#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{poke|kick|punch|jab|boot|tickle|kick out} %1 in %2} {$my_attacks_color};
+#HIGHLIGHT {^You {punch|kick out} at %1 but {his|her} %2 absorbs {some|most} of the blow\.$} {$my_attacks_color};
+
+
+#NOP == [Them Attacking Me]==
 #HIGHLIGHT {%1 but your %2 absorbs {some|most} of the blow.$} {$enemy_attack_color};
 #HIGHLIGHT {%1 runs you through the %2 with %3.$} {$enemy_attack_color};
 #HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s %w %3 into your %4.$} {$enemy_attack_color};

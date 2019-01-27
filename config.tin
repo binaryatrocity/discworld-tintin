@@ -22,10 +22,10 @@
 
 #READ {src/combat.tin};
 #READ {src/deadletter.tin};
-#READ {src/quow.tin};
+#READ {src/db.tin};
 #READ {src/magic.tin};
 
-#READ {src/missiontimers.tin};
+#READ {src/missions.tin};
 
 #SESSION {discworld} {discworld.starturtle.net} {4242};
 

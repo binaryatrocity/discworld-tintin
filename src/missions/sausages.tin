@@ -1,0 +1,111 @@
+#CLASS {missiontimers_sausages} {kill};
+#CLASS {missiontimers_sausages} {open};
+
+#NOP =======================
+#NOP =====  VARIABLES  =====
+#NOP =======================
+#VARIABLE {missions[sausage]} {
+    {current_difficulty}{1}
+    {current_primer}{1}
+}
+
+#NOP =======================
+#NOP =====   Aliases   =====
+#NOP =======================
+#ALIAS {/sd_prep} {
+    #send {frimble Sam Slager asks you: So, you want to try filling a sausage order?  You'll have four hours to hunt a lobster, gather spices};
+};
+#ALIAS {/sd_start} {
+    #send {frimble You have four hours to deliver 100 fresh pepper lobster sausages to Sam Slager.};
+};
+#ALIAS {/sd_resign} {
+    #send {frimble Sam Slager says to you: I'll have to take care of this one later.};
+};
+#ALIAS {/sd_complete} {
+    #send {frimble Sam Slager gives you 5 Ankh-Morpork ten-dollars, 9 Ankh-Morpork dollars, one Ankh-Morpork half-dollar and 5 Ankh-Morpork pence.};
+};
+
+#ALIAS {/sausage_mission_end} {
+    #unaction {You have four hours to deliver %%1 fresh %%2 sausages to Sam Slager.$};
+    #unaction {Sam Slager says to you: I'll have to take care of this one later.$};
+    #unaction {Sam Slager gives you %%1{dollar|pence}%%3$};
+};
+
+#ALIAS {/sausage_mission_start} {
+    #unaction {You have four hours to deliver %%1 fresh %%2 sausages to Sam Slager.$};
+    #var {missions[sausage][current_difficulty]} {$missions[sausage][current_primer]};
+    
+    #nop [A mission started, start checking for resignations];
+    #action {Sam Slager says to you: I'll have to take care of this one later.$} {
+        /sausage_mission_end;
+        #format {missions[sausage][retry_list][$GMCP[charinfo][capname]]} {%T};
+
+        #line sub variable {
+            #delay {600} {
+                #format {sausage_retry_line} {%c[MH] %c*%c %s%c can now ask for a new sausage mission from Sam Slager.} {bold blue} {bold yellow} {bold green}{$GMCP[charinfo][capname]} {bold blue};
+                #echo {$sausage_retry_line};
+                #unvar {sausage_retry_line};
+
+                #unvar {missions[sausage][retry_list][$GMCP[charinfo][capname]]};
+            };
+        };
+    };
+
+    #nop [A mission started, start checking for completions];
+    #action {Sam Slager gives you %%1{dollar|pence}%%3$} {
+        /sausage_mission_end;
+
+        #if {"$missions[sausage][current_difficulty]" == "1"} {
+            #format {missions[sausage][active_list][$GMCP[charinfo][capname]][easy]} {%T};
+
+            #line sub variable {
+                #format {delayname} {sausage_easy_%s} {$GMCP[charinfo][capname]};
+                #delay {$delayname} {
+                    #format {sausage_timer_line} {%c[MH] %c*%c %s can now do another unspiced sausage mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #echo {$sausage_timer_line};
+                    #unvar {sausage_timer_line};
+
+                    #unvar {missions[sausage][active_list][$GMCP[charinfo][capname]][easy]};
+                } {3600};
+            };
+            #unvar {delayname};
+        };
+        #else {
+            #format {missions[sausage][active_list][$GMCP[charinfo][capname]][hard]} {%T};
+
+            #line sub variable {
+                #format {delayname} {sausage_hard_%s} {$GMCP[charinfo][capname]};
+                #delay {$delayname} {
+                    #format {sausage_timer_line} {%c[MH] %c*%c %s last finished a spiced sausage mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #echo {$sausage_timer_line};
+                    #unvar {sausage_timer_line};
+
+                    #unvar {missions[sausage][active_list][$GMCP[charinfo][capname]][hard]};
+                } {3600};
+            };
+            #unvar {delayname};
+        };
+    };
+};
+
+#ALIAS {/sausage_mission_prep} {
+    #action {You have four hours to deliver %%1 fresh %%2 sausages to Sam Slager.$} {
+        /sausage_mission_start;
+    }; 
+}
+
+#NOP =======================
+#NOP =====   Actions   =====
+#NOP =======================
+
+#NOP ==[Sausage Missions]==
+#ACTION {Sam Slager asks you: So, you want to try filling a sausage order?  You'll have four hours to hunt %1, gather %2} {
+    #var {missions[sausage][current_primer]} {2};
+    /sausage_mission_prep;
+};
+#ACTION {Sam Slager asks you: So, you want to try filling a sausage order?  You'll have four hours to hunt %1, make %2} { 
+    #var {missions[sausage][current_primer]} {1};
+    /sausage_mission_prep
+};
+
+#CLASS {missiontimers_sausages} {close};

@@ -1,0 +1,56 @@
+#CLASS {missiontimers} {kill};
+#CLASS {missiontimers} {open};
+
+#NOP ==[ Load Sausage Mission stuff ]==
+#READ {src/missions/sausages.tin};
+
+#ALIAS {missions} {
+    #if {&missions} { 
+        #echo {<149>[MT] Active Mission Timers:<099>}; 
+    } { #return; };
+
+    #format {current_time} {%T};
+    #var {mission_display_list} {};
+
+    #if {&missions[sausage]} {
+        #foreach {$missions[sausage][active_list][]} {player} {
+            #if {&missions[sausage][active_list][$player][easy]} {
+                #math {mins} { (($current_time - $missions[sausage][active_list][$player][easy]) + 0.5) / 60 };
+                #math {mins} {60 - $mins};
+
+                #format {mt_display} {\t<129>%s<099> can do another unspiced sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
+
+            #if {&missions[sausage][active_list][$player][hard]} {
+                #math {mins} { (($current_time - $missions[sausage][active_list][$player][hard]) + 0.5) / 60 };
+                #math {mins} {60 - $mins};
+
+                #format {mt_display} {\t<129>%s<099> can do another spiced sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
+        };
+
+        #foreach {$missions[sausage][retry_list][]} {player} {
+            #math {mins} { (($current_time - $missions[sausage][retry_list][$player]) + 0.5) / 60 };
+            #math {mins} {10 - $mins};
+
+            #format {mt_display} {\t<129>%s<099> can request a new sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
+            #list {mission_display_list[$player]} {add} {$mt_display};
+        };
+    };
+
+
+    #nop We've compiled all of the different mission timers by-character, now print them out;
+    #foreach {$mission_display_list[]} {player} {
+        #foreach {$mission_display_list[$player][%*]} {mt_display} {
+            #showme {$mt_display};
+        };
+    };
+
+};
+
+#nop "#event {RECEIVED OUTPUT} {%0}" catches all the things.... one event trigger
+#nop and process a bunch of stuff?
+
+#CLASS {missiontimers} {close};
