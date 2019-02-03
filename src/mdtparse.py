@@ -66,6 +66,7 @@ class MapDoorText:
         # http://terminal-color-builder.mudasobwa.ru/
         "orange": "\033[01;38;05;214m",
         "red": "\033[01;38;05;196m",
+        "cyan": "\033[01;38;05;37m",
         "reset":  "\033[00;39;49m"
     }
 
@@ -286,6 +287,9 @@ class MapDoorText:
                 # Only show if this room meets the minimum value
                 if square[3] >= self.minimum_room_value:
                     done_here = False
+
+                    # add colour to points output
+                    square[3] = '{}{}{}'.format(self.colour_map['cyan'], square[3], self.colour_map['reset'])
                     fstring = '{{:<{}}} [{{}}] '.format(data['longest_direction'])
                     output = fstring.format(square[1], square[3])
                     for entity in data['entity_table']:
