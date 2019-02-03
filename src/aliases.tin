@@ -1,4 +1,4 @@
-#ALIAS {setsize} {rows 300;cols 110};
+#ALIAS {setsize} {rows 300;cols 148};
 #ALIAS {setmsize} {rows 300;cols 60};
 
 #ALIAS {^clear$} {
@@ -21,4 +21,25 @@
     #system {w3m https://dwwiki.mooo.com/w/index.php?search=%0};
     #split {2} {1};
     setsize;
+};
+
+
+#ALIAS {colourpalette}
+{
+	#foreach {a;b;c;d;e;f} {cnt1}
+	{
+		#foreach {a;b;c;d;e;f} {cnt2}
+		{
+			#var result <000>;
+			#foreach {a;b;c;d;e;f} {cnt3}
+			{
+				#var result $result  <$cnt1$cnt2$cnt3> <<888>$cnt1$cnt2$cnt3><088>
+			};
+			#showme $result
+		}
+	}
+}
+
+#ALIAS {easyvote} {
+	#system {lynx http://www.topmudsites.com/vote-pinkfish.html};
 };

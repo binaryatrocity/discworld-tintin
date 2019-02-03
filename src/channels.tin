@@ -1,13 +1,50 @@
 #CLASS {channels} {kill};
 #CLASS {channels} {open};
 
+#VARIABLE {talker_log_toggle} {1};
+
 #ACTION {^You {tell|ask|exclaim to} %1:%2} {#LINE {LOG} {$chat_file}};
 #ACTION {^%1 {tells|asks|exclaims to} %*you{|(?: in \w+)?}: %4} {#LINE {LOG} {$chat_file}};
 #ACTION {^[%1] %2{:|} %3} {#LINE {LOG} {$chat_file}};
-#ACTION {^(newbiehelpers)} {#LINE {LOG} {$chat_file}};
-#ACTION {^(newbie)} {#LINE {LOG} {$chat_file}};
-#ACTION {^(Playerkillers) %1 wisps:? %2} {#LINE {LOG} {$chat_file}};
-#ACTION {^(Thieves) %1 wisps:? %2} {#LINE {LOG} {$chat_file}};
+
 #ACTION {^(They Might Be Alts) } {#LINE {LOG} {$chat_file}};
+
+#ACTION {^(newbiehelpers)} {#LINE {LOG} {$chat_file}};
+#ACTION {^You newbiehelper-tell:%1} {#LINE {LOG} {$chat_file}};
+#ACTION {^(newbie)} {#LINE {LOG} {$chat_file}};
+#ACTION {^You newbie-tell:%1} {#LINE {LOG} {$chat_file}};
+#ACTION {^You special-tell:%1} {#LINE {LOG} {$chat_file}};
+#ACTION {^You cre-tell:%1} {#LINE {LOG} {$chat_file}};
+
+
+#ACTION {^(Playerkillers) %1 wisps{:|} %2} {
+    #if {"$talker_log_toggle" == "1"} {
+        #LINE {LOG} {$chat_file}
+    };
+};
+#ACTION {^(Thieves) %1 wisps{:|} %2} {
+    #if {"$talker_log_toggle" == "1"} {
+        #LINE {LOG} {$chat_file}
+    };
+};
+#ACTION {^(Wizards) %1 wisps{:|} %2} {
+    #if {"$talker_log_toggle" == "1"} {
+        #LINE {LOG} {$chat_file}
+    };
+};
+#ACTION {^(Igame) %1 wisps{:|} %2} {
+    #if {"$talker_log_toggle" == "1"} {
+        #LINE {LOG} {$chat_file}
+    };
+};
+
+#ALIAS {talker log %1} {
+    #if {%1 == "on"} {
+        #var {talker_log_toggle} {1};
+    };
+    #if {%1 == "off"} {
+        #var {talker_log_toggle} {0};
+    };
+};
 
 #CLASS {channels} {close};
