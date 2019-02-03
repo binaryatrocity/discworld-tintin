@@ -12,11 +12,6 @@
 #NOP ==[T-Shop Alerts]==
 #HIGHLIGHT {Greasy sparks crawl over the %1 wall, and a door silently materialises.} {bold green underscore};
 #HIGHLIGHT {There is a doorway in the %1 wall leading into a curious shop.} {bold green underscore};
-
-#NOP ==[NPC Highlighting]==
-#HIGHLIGHT {thug} {red};
-#HIGHLIGHT {bodyguard} {red};
-#HIGHLIGHT {hoplite} {red};
  
 #NOP ==[Incident Highlighting]==
 #HIGHLIGHT {^%1 grabs %2 from you.  You struggle briefly but %3 wrests it from your grip and makes for a hasty retreat.$} {bold red underscore};
@@ -26,7 +21,7 @@
 #HIGHLIGHT {%1 juggles around his stuff and fumbles %2} {red underscore}; 
 
 #NOP ==[Command Color Highlighting]==
-#SUB {%w %w with a total of %* item} {<148>%1 %2<099> with a total of <148>%3<099> item}
+#SUB {%w %w with a total of %* item} {<148>%1 %2<099> with a total of <148>%3<099> item};
 
 #NOP ==[Truffle Found]==
 #HIGHLIGHT {The young truffle pig unearths a truffle from the ground.} {bold green};
@@ -37,8 +32,13 @@
 };
 
 #NOP ==[Copperhead Mines]==
+#SUB {you think that %1 of the surrounding crates contain} {you think that <138>%1<099> of the surrounding crates contain};
 #HIGHLIGHT {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} {bold green underscore};
+#HIGHLIGHT {Somewhere above you, you hear the rumble of falling rock.} {bold green underscore};
 #ACTION {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} {
+    #showme {\a};
+};
+#ACTION {Somewhere above you, you hear the rumble of falling rock.} {
     #showme {\a};
 };
 
