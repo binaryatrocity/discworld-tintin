@@ -1,0 +1,7 @@
+#!/bin/sh
+
+clear && while true; do 
+    output=$(clear; cat logs/groupshields.log);
+    echo "$output";
+    sleep 0.5;
+done

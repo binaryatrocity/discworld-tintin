@@ -1,9 +1,24 @@
 #!/bin/sh
 
 # clear && watch --color -t -n 0.4 'python src/mdtparse.py logs/mapdoortext.log | tail -n `tput lines`'
+
 clear && while true; do 
-    output=$(python src/mdtparse.py logs/mapdoortext.log | tail -n `tput lines`);
-    clear;
+    output=$(printf "\ec"; python src/mdtparse.py logs/mapdoortext.log | tail -n `tput lines`);
     echo "$output";
-    sleep 0.3;
+    sleep 0.5;
 done
+
+# HOME=$(tput cup 0 0)
+# ED=$(tput ed)
+# EL=$(tput el)
+# printf '%s%s' "$HOME" "$ED"
+# while true; do
+#     ROWS=$(tput lines)
+#     COLS=$(tput cols)
+#     CMD="python src/mdtparse.py logs/mapdoortext.log"
+#     ${SHELL:=sh} -c "$CMD" | tail -n $ROWS | while IFS= read LINE; do
+#         printf '%-*.*s%s\n' $COLS $COLS "$LINE" "$EL"
+#     done
+#     printf '%s%s' "$ED" "$HOME"
+#     sleep 0.3;
+# done

@@ -1,0 +1,1 @@
+watch -ctn 0.4 'clear;cat logs/minimap.log'
