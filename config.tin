@@ -7,12 +7,14 @@
 #CONFIG {MCCP} {ON};
 #CONFIG {LOG} {RAW};
 #CONFIG {BUFFER SIZE} {2000000};
+#config {COMMAND COLOR} {<fcf>}; 
 
 #SPLIT {2} {1};
 
 #READ {src/channels.tin};
 #READ {src/actions.tin};
 #READ {src/aliases.tin};
+#READ {src/macros.tin};
 #READ {src/gmcp.tin};
 
 #READ {src/prompt.tin};
@@ -26,6 +28,7 @@
 #READ {src/magic.tin};
 
 #READ {src/missions.tin};
+#READ{src/group.tin};
 
 #SESSION {discworld} {discworld.starturtle.net} {4242};
 

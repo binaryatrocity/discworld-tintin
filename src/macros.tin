@@ -1,0 +1,36 @@
+#nop ==[Keyboard macros]==
+
+
+#nop Function key macros for JuiceSSH keyboard
+#nop F1 F2 F3 F4  F5  F6
+#nop F7 F8 F9 F10 F11 F12
+#macro {[[A} {ka};
+#macro {[[B} {north};
+#macro {[[C} {ba};
+#macro {[[E} {stab};
+#macro {[17~} {k elephant};
+#macro {[[D} {tpa};
+#macro {[18~} {west};
+#macro {[19~} {south};
+#macro {[20~} {east};
+#macro {[21~} {ha};
+#macro {[23~} {bandage me};
+#macro {[24~} {afk Mobile and idle, expect that I don't see this;afk on};
+
+
+#nop Number pad key macros
+#macro {OQ} {sac};       #nop /;
+#macro {OR} {stab};      #nop *;
+#macro {OS} {};          #nop -;
+#macro {Ow} {northwest}; #nop 7;
+#macro {Ox} {north};     #nop 8;
+#macro {Oy} {northeast}; #nop 9;
+#macro {Ot} {west};      #nop 4;
+#macro {Ou} {ka};        #nop 5;
+#macro {Ov} {east};      #nop 6;
+#macro {Oq} {southwest}; #nop 1;
+#macro {Or} {south};     #nop 2;
+#macro {Os} {southeast}; #nop 3;
+#macro {Op} {id};        #nop 0;
+#macro {On} {};          #nop .;
+#macro {Ol} {};          #nop +;
