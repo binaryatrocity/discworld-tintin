@@ -1,0 +1,194 @@
+#CLASS {missiontimers_letters} {kill};
+#CLASS {missiontimers_letters} {open};
+
+#NOP =======================
+#NOP =====  VARIABLES  =====
+#NOP =======================
+
+#NOP [1 = Local, 2 = Far Away, 3 = Distant Lands, 4 = Difficult Customer]
+#VAR {dead_letter_rewards} {
+  {4 Ankh-Morpork dollars}{1}
+  {8 Ankh-Morpork dollars}{2}
+  {3 Djelian talents and 5 Djelian tooni}{3}
+  {4 Lancre crowns and 2 Lancre shillings}{3}
+  {7 Ephebian decadrachmae and 2 Ephebian stater}{3}
+  {2 Ankh-Morpork ten-dollars}{3}
+  {2 Genuan forins and 5 Genuan livres}{3}
+  {1 Klatchian ten dinar and 2 Klatchian two dinar coins}{3}
+  {1 Agatean Empire ten-rhinu and 5 Agatean Empire rhinu}{3}
+  {7 Lancre crowns and 5 Lancre shillings}{4}
+  {2 Agatean Empire ten-rhinu and 5 Agatean Empire rhinu}{4}
+  {6 Djelian talents and 5 Djelian tooni}{4}
+  {4 Genuan forins and 3 Genuan livres}{4}
+  {3 Ankh-Morpork ten-dollars and 2 Ankh-Morpork dollars}{4}
+  {1 Ephebian mina and 5 Ephebian decadrachmae}{4}
+  {1 Agatean Empire fifty-rhinu and 2 Agatean Empire ten-rhinu}{5}
+  {9 Ankh-Morpork ten-dollars}{5}
+  {1 Lancre sovereign and 1 Lancre tencrown}{5}
+  {3 Ephebian minae and 5 Ephebian decadrachmae}{5}
+  {1 Genuan ducat and 2 Genuan forins}{5}
+}
+
+#VARIABLE {missions[letter]} {
+    {last_difficulty}{0}
+}
+
+
+
+#NOP =======================
+#NOP =====   Aliases   =====
+#NOP =======================
+
+#ALIAS {/letter_returned} {
+    #format {missions[letter][retry_list][$GMCP[charinfo][capname]]} {%T};
+
+    #line sub variable {
+        #format {delayname} {letter_retry_%s} {$GMCP[charinfo][capname]};
+        #delay {$delayname} {
+            #format {letter_timer_line} {%c[MT] %c*%c %s can now request another letter from Frank.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+            #echo {$letter_timer_line};
+            #unvar {letter_timer_line};
+
+            #unvar {missions[letter][retry_list][$GMCP[charinfo][capname]]};
+        } {600};
+    };
+    #unvar {delayname};
+};
+
+#ALIAS {return letter} {
+    #send {return letter};
+    #format {missions[letter][retry_list][$GMCP[charinfo][capname]]} {%T};
+
+    #line sub variable {
+        #format {delayname} {letter_retry_%s} {$GMCP[charinfo][capname]};
+        #delay {$delayname} {
+            #format {letter_timer_line} {%c[MT] %c*%c %s can now request another letter from Frank.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+            #echo {$letter_timer_line};
+            #unvar {letter_timer_line};
+
+            #unvar {missions[letter][retry_list][$GMCP[charinfo][capname]]};
+        } {600};
+    };
+    #unvar {delayname};
+    #nop /letter_returned;
+};
+
+
+
+#NOP =======================
+#NOP =====   Actions   =====
+#NOP =======================
+
+#ACTION {^You offer to give a letter to Frank} {
+    #nop letter_returned;
+};
+
+#ACTION {^You have been awarded %d experience points and given %2.$} {
+    #nop You have been awarded 60407 experience points and given 2 Agatean Empire ten-rhinu and 5 Agatean Empire rhinu.
+
+    #var {missions[letter][last_difficulty]} {0};
+    #if  {&dead_letter_rewards[%2]} {
+        #var {missions[letter][last_difficulty]} {$dead_letter_rewards[%2]};
+    };
+};
+
+
+
+#ACTION {^You salute smartly as you deliver a letter} {
+    #nop If we don't have a difficulty match, we can't act.
+    #if {"$missions[letter][last_difficulty]" == "0"} {
+        #return;
+    };
+
+    #nop If we know the difficulty, set the appropriate timer;
+    #switch {$missions[letter][last_difficulty]} {
+        #case {1} {
+            #nop Local;
+            #if {&missions[letter][active_list][$GMCP[charinfo][capname]][local]} { #break; };
+            #format {missions[letter][active_list][$GMCP[charinfo][capname]][local]} {%T};
+
+            #line sub variable {
+                #format {delayname} {letter_distant_%s} {$GMCP[charinfo][capname]};
+                #delay {$delayname} {
+                    #format {letter_timer_line} {%c[MT] %c*%c %s can now do another local letter.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #echo {$letter_timer_line};
+                    #unvar {letter_timer_line};
+
+                    #unvar {missions[letter][active_list][$GMCP[charinfo][capname]][local]};
+                } {3600};
+            };
+            #unvar {delayname};
+        };
+        #case {2} {
+            #nop Closeby;
+            #if {&missions[letter][active_list][$GMCP[charinfo][capname]][close]} { #break; };
+            #format {missions[letter][active_list][$GMCP[charinfo][capname]][close]} {%T};
+
+            #line sub variable {
+                #format {delayname} {letter_distant_%s} {$GMCP[charinfo][capname]};
+                #delay {$delayname} {
+                    #format {letter_timer_line} {%c[MT] %c*%c %s can now do another close-by letter.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #echo {$letter_timer_line};
+                    #unvar {letter_timer_line};
+
+                    #unvar {missions[letter][active_list][$GMCP[charinfo][capname]][close]};
+                } {3600};
+            };
+            #unvar {delayname};
+        };
+        #case {3} {
+            #nop Faraway;
+            #if {&missions[letter][active_list][$GMCP[charinfo][capname]][far]} { #break; };
+            #format {missions[letter][active_list][$GMCP[charinfo][capname]][far]} {%T};
+
+            #line sub variable {
+                #format {delayname} {letter_distant_%s} {$GMCP[charinfo][capname]};
+                #delay {$delayname} {
+                    #format {letter_timer_line} {%c[MT] %c*%c %s can now do another far away letter.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #echo {$letter_timer_line};
+                    #unvar {letter_timer_line};
+
+                    #unvar {missions[letter][active_list][$GMCP[charinfo][capname]][far]};
+                } {3600};
+            };
+            #unvar {delayname};
+        };
+        #case {4} {
+            #nop Distantland;
+            #if {&missions[letter][active_list][$GMCP[charinfo][capname]][distant]} { #break; };
+            #format {missions[letter][active_list][$GMCP[charinfo][capname]][distant]} {%T};
+
+            #line sub variable {
+                #format {delayname} {letter_distant_%s} {$GMCP[charinfo][capname]};
+                #delay {$delayname} {
+                    #format {letter_timer_line} {%c[MT] %c*%c %s can now do another distant land letter.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #echo {$letter_timer_line};
+                    #unvar {letter_timer_line};
+
+                    #unvar {missions[letter][active_list][$GMCP[charinfo][capname]][distant]};
+                } {3600};
+            };
+            #unvar {delayname};
+        };
+        #case {5} {
+            #nop Difficultcustomer;
+            #if {&missions[letter][active_list][$GMCP[charinfo][capname]][difficult]} { #break; };
+            #format {missions[letter][active_list][$GMCP[charinfo][capname]][difficult]} {%T};
+
+            #line sub variable {
+                #format {delayname} {letter_distant_%s} {$GMCP[charinfo][capname]};
+                #delay {$delayname} {
+                    #format {letter_timer_line} {%c[MT] %c*%c %s can now do another difficult customer letter.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #echo {$letter_timer_line};
+                    #unvar {letter_timer_line};
+
+                    #unvar {missions[letter][active_list][$GMCP[charinfo][capname]][difficult]};
+                } {3600};
+            };
+            #unvar {delayname};
+        };
+    };
+    #var {missions[letter][last_difficulty]} {0};
+};
+
+#CLASS {missiontimers_letters} {close};
