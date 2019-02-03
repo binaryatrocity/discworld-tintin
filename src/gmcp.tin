@@ -14,15 +14,15 @@
 
 #ALIAS {debug {on|off}}
 {
-    #IF {"%1" == "on"} { #VARIABLE debug 1 };
-    #ELSE { #VARIABLE debug 0 };
+    #IF {"%1" == "on"} { #VARIABLE {debug} {1}; };
+    #ELSE { #VARIABLE {debug} {0} };
     #SHOWME { Debug is <139>$debug<099> };
     #NOP;
 }
 
 #EVENT {IAC SB GMCP char.vitals IAC SE}
 {
-    #IF {$debug} { #SHOWME %1 };
+    #IF {"$debug" == "1"} { #SHOWME %1 };
     #VAR GMCP[oldvitals] {$GMCP[vitals]};
     #VAR GMCP[vitals] {%0};
 
@@ -45,13 +45,13 @@
 
 #EVENT {IAC SB GMCP char.info IAC SE}
 {
-    #IF {$debug} { #SHOWME %1 };
+    #IF {"$debug" == "1"} { #SHOWME %1 };
     #VAR GMCP[charinfo] {%0};
 }
 
 #EVENT {IAC SB GMCP room.info IAC SE}
 {
-    #IF {$debug} { #SHOWME %1 };
+    #IF {"$debug" == "1"} { #SHOWME %1 };
     #VAR GMCP[room][info] {%0};
 
     /spottimercheckroomid $GMCP[room][info][identifier]
@@ -60,18 +60,18 @@
 
 #EVENT {IAC SB GMCP room.map IAC SE}
 {
-    #IF {$debug} { #SHOWME %1 };
+    #IF {"$debug" == "1"} { #SHOWME %1 };
     #VAR {minimap} {%0};
     #REPLACE {minimap} {u001b} {};
     #SYSTEM {rm logs/minimap.log && touch logs/minimap.log};
 
-    #LINE {log} {logs/minimap.log} {\n\n$minimap};
+    #LINE {log} {logs/minimap.log} {$minimap};
     #SYSTEM {sed -i -e 's/^/     /' logs/minimap.log};
 }
 
 #EVENT {IAC SB GMCP room.writtenmap IAC SE}
 {
-    #IF {$debug} { #SHOWME %1 };
+    #IF {"$debug" == "1"} { #SHOWME %1 };
     #VAR GMCP[room][mdt] {%0};
     #REPLACE {GMCP[room][mdt]} {\\n} {};
     #SYSTEM {rm logs/mapdoortext.log && touch logs/mapdoortext.log};

@@ -42,7 +42,7 @@
 
         #line sub variable {
             #delay {600} {
-                #format {sausage_retry_line} {%c[MH] %c*%c %s%c can now ask for a new sausage mission from Sam Slager.} {bold blue} {bold yellow} {bold green}{$GMCP[charinfo][capname]} {bold blue};
+                #format {sausage_retry_line} {%c[MT] %c*%c %s%c can now ask for a new sausage mission from Sam Slager.} {bold blue} {bold yellow} {bold green}{$GMCP[charinfo][capname]} {bold blue};
                 #echo {$sausage_retry_line};
                 #unvar {sausage_retry_line};
 
@@ -61,7 +61,7 @@
             #line sub variable {
                 #format {delayname} {sausage_easy_%s} {$GMCP[charinfo][capname]};
                 #delay {$delayname} {
-                    #format {sausage_timer_line} {%c[MH] %c*%c %s can now do another unspiced sausage mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #format {sausage_timer_line} {%c[MT] %c*%c %s can now do another unspiced sausage mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
                     #echo {$sausage_timer_line};
                     #unvar {sausage_timer_line};
 
@@ -76,7 +76,7 @@
             #line sub variable {
                 #format {delayname} {sausage_hard_%s} {$GMCP[charinfo][capname]};
                 #delay {$delayname} {
-                    #format {sausage_timer_line} {%c[MH] %c*%c %s last finished a spiced sausage mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #format {sausage_timer_line} {%c[MT] %c*%c %s can now do another spiced sausage mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
                     #echo {$sausage_timer_line};
                     #unvar {sausage_timer_line};
 

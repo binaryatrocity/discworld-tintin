@@ -1,17 +1,21 @@
 #CLASS {missiontimers} {kill};
 #CLASS {missiontimers} {open};
 
-#NOP ==[ Load Sausage Mission stuff ]==
+#NOP ==[ Load Individual Mission stuff ]==
 #READ {src/missions/sausages.tin};
+#READ {src/missions/letters.tin};
 
 #ALIAS {missions} {
-    #if {&missions} { 
-        #echo {<149>[MT] Active Mission Timers:<099>}; 
-    } { #return; };
+    #if {&missions == 0} { 
+        #return;
+    };
 
     #format {current_time} {%T};
     #var {mission_display_list} {};
 
+    #nop ==============================;
+    #nop =====  Sausage Missions  =====;
+    #nop ==============================;
     #if {&missions[sausage]} {
         #foreach {$missions[sausage][active_list][]} {player} {
             #if {&missions[sausage][active_list][$player][easy]} {
@@ -40,17 +44,74 @@
         };
     };
 
+    #nop ==============================;
+    #nop =====    Dead Letters    =====;
+    #nop ==============================;
+    #if {&missions[letter]} {
+        #foreach {$missions[letter][active_list][]} {player} {
+            #if {&missions[letter][active_list][$player][difficult]} {
+                #math {mins} { (($current_time - $missions[letter][active_list][$player][difficult]) + 0.5) / 60 };
+                #math {mins} {60 - $mins};
 
-    #nop We've compiled all of the different mission timers by-character, now print them out;
-    #foreach {$mission_display_list[]} {player} {
-        #foreach {$mission_display_list[$player][%*]} {mt_display} {
-            #showme {$mt_display};
+                #format {mt_display} {\t<129>%s<099> can do another difficult customer letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
+            #if {&missions[letter][active_list][$player][distant]} {
+                #math {mins} { (($current_time - $missions[letter][active_list][$player][distant]) + 0.5) / 60 };
+                #math {mins} {60 - $mins};
+
+                #format {mt_display} {\t<129>%s<099> can do another distant lands letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
+            #if {&missions[letter][active_list][$player][far]} {
+                #math {mins} { (($current_time - $missions[letter][active_list][$player][far]) + 0.5) / 60 };
+                #math {mins} {60 - $mins};
+
+                #format {mt_display} {\t<129>%s<099> can do another far away letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
+            #if {&missions[letter][active_list][$player][close]} {
+                #math {mins} { (($current_time - $missions[letter][active_list][$player][close]) + 0.5) / 60 };
+                #math {mins} {60 - $mins};
+
+                #format {mt_display} {\t<129>%s<099> can do another close-by letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
+            #if {&missions[letter][active_list][$player][local]} {
+                #math {mins} { (($current_time - $missions[letter][active_list][$player][local]) + 0.5) / 60 };
+                #math {mins} {60 - $mins};
+
+                #format {mt_display} {\t<129>%s<099> can do another local letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
         };
+        #foreach {$missions[letter][retry_list][]} {player} {
+            #format {missions[letter][retry_list][$GMCP[charinfo][capname]]} {%T};
+            #math {mins} { (($current_time - $missions[letter][retry_list][$player]) + 0.5) / 60 };
+            #math {mins} {10 - $mins};
+
+            #format {mt_display} {\t<129>%s<099> can request another letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+            #list {mission_display_list[$player]} {add} {$mt_display};
+        };
+
+    };
+
+
+    #nop ==============================;
+    #nop =====   Print Missions   =====;
+    #nop ==============================;
+    #list {mission_display_list} {size} {mdl_count};
+    #if {$mdl_count > 0} {
+        #echo {<149>[MT] Active Mission Timers:<099>}; 
+        #foreach {$mission_display_list[]} {player} {
+            #foreach {$mission_display_list[$player][%*]} {mt_display} {
+                #showme {$mt_display};
+            };
+        };
+    } {
+        #echo {<149>[MT] No current mission timers.<099>};
     };
 
 };
-
-#nop "#event {RECEIVED OUTPUT} {%0}" catches all the things.... one event trigger
-#nop and process a bunch of stuff?
 
 #CLASS {missiontimers} {close};

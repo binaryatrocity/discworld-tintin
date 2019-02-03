@@ -55,5 +55,9 @@
 #NOP ==[Colour FCI Output]==
 #SUB {The weave indicates that %1 is a %2, with %3 charges remaining.} {The weave indicates that <138>%1<098> is a <138>%2<098> with <158>%3<098> charges remaining.};
 
+#NOP ==[Library/Distortions]==
+#HIGHLIGHT {^The area seems more mundane than before\.$} {green underscore};
+#HIGHLIGHT {^{?>You notice an odd rippling in the air\.|The awful sound of nails being dragged down a blackboard fills the area briefly\.|A distortion in time and space is forming!}$} {red underscore};
+
 
 #CLASS {magic} {close};
