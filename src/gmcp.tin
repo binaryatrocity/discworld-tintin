@@ -47,6 +47,9 @@
 {
     #IF {"$debug" == "1"} { #SHOWME %1 };
     #VAR GMCP[charinfo] {%0};
+
+    #nop New login, invalidate stale info;
+    #unvar {quota};
 }
 
 #EVENT {IAC SB GMCP room.info IAC SE}

@@ -21,6 +21,7 @@
 #READ {src/xpmonitor.tin};
 #READ {src/tpamonitor.tin};
 #READ {src/spottimers.tin};
+#READ {src/quota.tin};
 
 #READ {src/combat.tin};
 #READ {src/deadletter.tin};
@@ -28,7 +29,7 @@
 #READ {src/magic.tin};
 
 #READ {src/missions.tin};
-#READ{src/group.tin};
+#READ {src/group.tin};
 
 #SESSION {discworld} {discworld.starturtle.net} {4242};
 

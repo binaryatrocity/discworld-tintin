@@ -17,15 +17,22 @@
 
 
 #ALIAS {update_prompt} {
+    #nop XP monitor details;
     xp_monitor;
     #format {prompt_xp} {%Gxp in %s (%Gk/h)} {$session_xp} {$uptime[display]} {$xprate};
 
+    #nop TPA monitor details;
     #var {prompt_tpa} {};
-
     #if {$tpa_status == 1} {
         #format {prompt_tpa} {%cTPA%c} {@tpa_col{$tpa_color}} {<098>};
     };
 
-    #format {prompt_line} {%+5s %+40s} {$prompt_tpa} {$prompt_xp};
+    #nop Quota monitor details;
+    #var {prompt_quota} {};
+    #if {&quota} {
+        #format {prompt_quota} {Quota: %s} {@quota_time_left{}};
+    };
+
+    #format {prompt_line} {%+5s %+40s %+15s} {$prompt_tpa} {$prompt_xp} {$prompt_quota};
     #showme {$prompt_line} {-1};
 }

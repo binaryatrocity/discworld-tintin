@@ -1,0 +1,142 @@
+#CLASS {QUOTA} {KILL};
+#CLASS {QUOTA} {OPEN};
+
+#unvar quota;
+
+#nop ==[ Parse 'read quota brief' output ]==;
+#action {^  Receipts received: A\$%1.$}
+{
+	#var quota[reciepts] %1;
+}
+#action {^  Receipts received: %1p.$}
+{
+	#math quota[reciepts] {%1 * 0.01};
+}
+
+#action {^  Min quota: A\$%1.$}
+{
+	#var quota[min] %1;
+}
+
+#action {^  Max quota: A\$%1.$}
+{
+	#var quota[max] %1;
+}
+
+#action {^  Amount owed: A\$%1.$}
+{
+	#var quota[owed] %1;
+}
+#action {^  Amount owed: %1p.$}
+{
+	#math quota[owed] {%1 * 0.01};
+}
+
+#action {^  Amount paid: A\$%1.$}
+{
+	#var quota[paid] %1;
+}
+#action {^  Amount paid: %1p.$}
+{
+	#math quota[paid] {%1 * 0.01};
+}
+#action {^  Time left: %1.$} {
+    #regex {%1} {%d hour{s?}} {
+        #var {quota[time][hour]} {&1};
+    } { #var {quota[time][hour]} {0} };
+    #regex {%1} {%d minute{s?}} {
+        #var {quota[time][min]} {&1};
+    } { #var {quota[time][min]} {0} };
+    #regex {%1} {%d second{s?}} {
+        #var {quota[time][sec]} {&1};
+    } { #var {quota[time][sec]} {0} };
+
+    #var {quota[who]} {$GMCP[charinfo][capname]};
+    #var {quota[alert]} {on};
+}
+
+
+#tick {quota_time}
+{
+    #nop If we have no quota info, do nothing;
+	#if {!&{quota[time]}} {
+		#return;
+	};
+
+    #nop Subtract a second, calculate new times;
+	#math {quota[time][sec]} {$quota[time][sec] - 1};
+	#if {$quota[time][sec] < 0} {
+		#math {quota[time][min]} {$quota[time][min] - 1};
+		#math {quota[time][sec]} {$quota[time][sec] + 60};
+
+        #nop Update prompt;
+        update_prompt;
+	};
+	#if {$quota[time][min] < 0} {
+		#math {quota[time][hour]} {$quota[time][hour] - 1};
+		#math {quota[time][min]} {$quota[time][min] + 60};
+	};
+	#if {$quota[time][hour] < 0} {
+		#math {quota[time][hour]} {$quota[time][hour] + 12};
+		#var {quota[reciepts]} {0};
+
+        #nop Quota period is over, announce it.;
+        #format {quota_display_line} {%c[Quota] %c*%c %s's quota has %creset%c.} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
+		#showme {$quota_display_line};
+	};
+
+    #nop Alert when quota is ending;
+    #if {"$quota[alert]" == "on"} {
+        #nop Message an hour before;
+        #if {$quota[time][hour] == 0 && $quota[time][min] == 59 && $quota[time][sec] == 59} {
+            #format {quota_display_line} {%c[Quota] %c*%c %s's quota flips over in %cone hour%c.} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
+            #echo {$quota_display_line \a};
+        };
+
+        #nop Message 30 minutes before;
+        #if {$quota[time][hour] == 0 && $quota[time][min] == 29 && $quota[time][sec] == 59} {
+            #format {quota_display_line} {%c[Quota] %c*%c %s's quota flips over in %chalf an hour%c.} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
+            #echo {$quota_display_line \a};
+        };
+
+        #nop Message 10 minutes before;
+        #if {$quota[time][hour] == 0 && $quota[time][min] == 9 && $quota[time][sec] == 59} {
+            #format {quota_display_line} {%c[Quota] %c*%c %s's quota flips over in %cten minutes%c.} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
+            #echo {$quota_display_line \a};
+        };
+    };
+} {1};
+
+
+#alias {quota alert %1} {
+    #if {"%1" == "on"}  { 
+        #var {quota[alert]} {on}; 
+    } {
+        #var {quota[alert]} {off};
+    };
+};
+
+
+#function {zero_pad} {
+    #if {%1 < 10} {
+        #format {result} {0%d} {%0};
+    };
+    #else {
+        #format {result} {%d} {%0};
+    };
+
+    #return $result;
+};
+
+#function {quota_time_left} {
+    #if {$quota[time][hour] == 0 && $quota[time][min] < 60} {
+        #format {result} {<eac> %s:%s<099>} {@zero_pad{$quota[time][hour]}} {@zero_pad{$quota[time][min]}};
+    } {
+        #format {result} {%s:%s<099>} {$quota[time][hour]} {@zero_pad{$quota[time][min]}};
+    };
+
+    #return $result;
+};
+
+
+#CLASS {QUOTA} {CLOSE};
