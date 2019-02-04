@@ -1,5 +1,7 @@
 sed -i "1s?^?cd "`pwd`"\n?" Discworld
 
+mkdir logs
+
 if [[ $PREFIX = *"com.termux"* ]]; then
     ln -s "$(pwd)/Discworld" $PREFIX/bin/disc;
 else
