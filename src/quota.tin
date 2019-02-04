@@ -13,16 +13,6 @@
 	#math quota[reciepts] {%1 * 0.01};
 }
 
-#action {^  Min quota: A\$%1.$}
-{
-	#var quota[min] %1;
-}
-
-#action {^  Max quota: A\$%1.$}
-{
-	#var quota[max] %1;
-}
-
 #action {^  Amount owed: A\$%1.$}
 {
 	#var quota[owed] %1;
@@ -40,6 +30,7 @@
 {
 	#math quota[paid] {%1 * 0.01};
 }
+
 #action {^  Time left: %1.$} {
     #regex {%1} {%d hour{s?}} {
         #var {quota[time][hour]} {&1};
@@ -54,6 +45,21 @@
     #var {quota[who]} {$GMCP[charinfo][capname]};
     #var {quota[alert]} {on};
 }
+
+#action {^  Min quota: A\$%1.$}
+{
+	#var quota[min] %1;
+}
+
+#action {^  Max quota: A\$%1.$}
+{
+	#var quota[max] %1;
+    #math {quota_diff} {$quota[max] - $quota[reciepts]};
+
+    #format {quota_left_display} {<179>  Left To Steal: <099>A$%f} {$quota_diff};
+    #echo {$quota_left_display};
+}
+
 
 
 #tick {quota_time}
@@ -118,6 +124,9 @@
 
 
 #function {zero_pad} {
+    #var {result} {%1};
+    #if {$result < 0} { #var {result} {0}; };
+
     #if {%1 < 10} {
         #format {result} {0%d} {%0};
     };
