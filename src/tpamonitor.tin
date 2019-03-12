@@ -17,7 +17,11 @@
     #var {tpa_status} {1};
     #var {tpa_color} {invisible};
     #format {tpa_start} {%T};
-    update_prompt;
+
+    #nop Update ourselves in the group shield monitor;
+    #variable {group_shields[$GMCP[charinfo][capname]][tpa]} {1};
+    /writegroupshieldstofile
+    update_prompt
 }
 
 
@@ -61,9 +65,13 @@
         #echo {<168>*** TPA broken! (lasted for $tpa_dur minutes) ***<099>};
     }
 
+    #nop Update ourselves in the group shield monitor;
+    #variable {group_shields[$GMCP[charinfo][capname]][tpa]} {0};
+    /writegroupshieldstofile
+
     #unvar {tpa_start};
     #unvar {tpa_end};
-    update_prompt;
+    update_prompt
 }
 
 #nop ### alias to reset TPA status, if it breaks and we didn't catch it ###

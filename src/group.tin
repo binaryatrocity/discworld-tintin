@@ -241,6 +241,7 @@
     #variable {group_shields} {};
     #variable {group_shields_current} {};
     #send {group shields};
+    /writegroupshieldstofile
 };
 
 #ALIAS {sgs} {

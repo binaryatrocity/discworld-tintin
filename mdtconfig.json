@@ -53,6 +53,12 @@
         ["Ramtops Highlights"],
         ["headless horse rider", "red", 8, false],
 
+        ["Ankh-Morpork Highlights"],
+        ["tourist", "red", 10, false],
+
+        ["Genua Highlights"],
+        ["Tfat Chick", "red", 10, false],
+
         ["Valid colours: orange, red"]
     ]
 }

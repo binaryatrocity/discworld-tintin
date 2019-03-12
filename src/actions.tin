@@ -15,6 +15,7 @@
  
 #NOP ==[Incident Highlighting]==
 #HIGHLIGHT {^%1 grabs %2 from you.  You struggle briefly but %3 wrests it from your grip and makes for a hasty retreat.$} {bold red underscore};
+#HIGHLIGHT {^%1 grabs {his|her|its} %2.  You struggle briefly but {he|she|it} wrests it from your grip and makes for a hasty retreat.} {bold red underscore};
 #HIGHLIGHT {^As %1 dies %2 drops %3 in shock.$} {bold green underscore};
 #HIGHLIGHT {^When you open the %1 you think you can hear a faint rumbling sound from it.$} {red underscore}; 
 #HIGHLIGHT {^Whoops!  You tried to carry too many things and fumbled %1} {red underscore};
@@ -46,11 +47,20 @@
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and delicately chip %1} {bold green};
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and chip away %1} {bold red};
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and, struggling with %1} {bold red};
+#SUB {You estimate that the %1 is worth A$%2.  You} {You estimate that the <149>%1<099> is worth A$<139>%2<099>.  You};
 
 #NOP ==[Kick Consortium]==
 #ACTION {^It is your turn to fight... enter the combat ring.$} {
     #showme {\a};
 }
+
+#NOP ==[PK Actions]==
+#HIGHLIGHT {You reach towards your goal but apuse suddenly as %1 seems to sense something.  {She|He|It} doesn't spot you and %2} {bold green};
+#HIGHLIGHT {You try to filch %1 from %2 but {she|he|it} notices you and manages to %3} {bold red};
+#ACTION {A stream of expletives drifts down from above with %1} { #showme {\a}; };
+#ACTION {There is the faintest of sounds, as of a gnat yawning, then a WHOOSH sound. %2} { #showme {\a}; };
+#HIGHLIGHT {A stream of expletives drifts down from above with %1} {bold red underscore};
+#HIGHLIGHT {There is the faintest of sounds, as of a gnat yawning, then a WHOOSH sound. %2} {bold red underscore};
 
 
 #NOP ==[End Session On Quit]==

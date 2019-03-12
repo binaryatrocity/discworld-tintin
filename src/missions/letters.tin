@@ -57,22 +57,13 @@
 
 #ALIAS {return letter} {
     #send {return letter};
-    #format {missions[letter][retry_list][$GMCP[charinfo][capname]]} {%T};
-
-    #line sub variable {
-        #format {delayname} {letter_retry_%s} {$GMCP[charinfo][capname]};
-        #delay {$delayname} {
-            #format {letter_timer_line} {%c[MT] %c*%c %s can now request another letter from Frank.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
-            #echo {$letter_timer_line};
-            #unvar {letter_timer_line};
-
-            #unvar {missions[letter][retry_list][$GMCP[charinfo][capname]]};
-        } {600};
-    };
-    #unvar {delayname};
-    #nop /letter_returned;
+    /letter_returned
 };
 
+#ALIAS {give letter to {f|F}rank} {
+    #send {give letter to Frank};
+    /letter_returned;
+};
 
 
 #NOP =======================
