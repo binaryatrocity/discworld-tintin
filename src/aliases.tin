@@ -43,3 +43,18 @@
 #ALIAS {easyvote} {
 	#system {lynx http://www.topmudsites.com/vote-pinkfish.html};
 };
+
+#ALIAS {minesolve %1 %2 %3} {
+    #var {total} {%1};
+    #var {hammer} {%2};
+    #var {pickaxe} {%3};
+
+    #var {solvecommand} {python3 -c 'import math; t,p,h = $total,$pickaxe,$hammer; pu,hu = int(math.floor(t/p)+1), int(math.floor(t/h)+1); print(*sorted([(i, j) for j in range(0,hu) for i in range(0,pu) if ((i*p) + (j*h) == t)], key=lambda t: t[1])[0]);'};
+    #script {result} {$solvecommand};
+
+    #replace {result[1]} { } {;};
+    #list {solution} {create} {$result[1]};
+
+    #format {minesolvedisplay} {<149>[MineSolver] Best solution is <139>%d<149> pickaxe strikes and <139>%d<149> hammer chips for a total of <159>%f<149> inches.<099>} {$solution[1]} {$solution[2]} {$total};
+    #echo {$minesolvedisplay};
+};
