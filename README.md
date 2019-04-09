@@ -7,7 +7,7 @@ A collection of configurations and scripts for use with [DiscworldMUD](http://di
 
 For reference, I host this configuration on a Linux VPS and thus am able to "take over" the Tmux session as I move between devices/lose internet without being disconnected from the game. This may help to explain some decisions made.
 
-![Screenshot](https://i.imgur.com/WVZaQwn.png)
+![Screenshot](https://i.imgur.com/f9BdfsL.png)
 
 
 ## Features and Bits
@@ -18,6 +18,7 @@ For reference, I host this configuration on a Linux VPS and thus am able to "tak
 * Chat Monitor
 * Map Door Text parser
 * Hotspot timers
+* Group shield monitor
 * ASCII map
 
 ### Commands and Scripts
@@ -28,8 +29,8 @@ For reference, I host this configuration on a Linux VPS and thus am able to "tak
 
 Read a letter in your inventory and print a solution, with the term to scry highlighted. Mostly uses the data from the Dead Letters page on the [wiki](https://dwwiki.mooo.com/wiki/Dead_letter_office_jobs). Works only for **difficult customers** and **distant lands**.
 
-#### Prompt: TPA/XP Monitor
-* Files: `src/prompt.tin`, `src/xpmonitor.tin`, `src/tpamonitor.tin`
+#### Prompt: TPA/XP/Quota Monitor
+* Files: `src/prompt.tin`, `src/xpmonitor.tin`, `src/tpamonitor.tin`, `src/quota.tin`
 
 A tintin++ split across the top of the MUD window proper that displays a few bits of information:
 1) How long has the session been running
@@ -37,6 +38,9 @@ A tintin++ split across the top of the MUD window proper that displays a few bit
 3) The average XP/hour rate over that time
 4) Do you have a TPA active
 5) What colour is your TPA currently
+6) How long until quota flips (appears if relevant)
+7) Quota timer is coloured when in the last hour
+8) In-game alerts for 1 hour, 30m, 10m left of quota
 
 #### Map Door Text GMCP Parser
 * Files: `src/mdtparse.py`, `mdtconfig.json`, `src/gmcp.tin`
@@ -45,7 +49,7 @@ A tintin++ split across the top of the MUD window proper that displays a few bit
 This python script (`src/mdtparse.py`) parses the mapdoortext data delivered by GMCP as you move rooms and displays a nice formatted list. Customizable with a configuration file (`mdtconfig.json`) that allows for picking out particular NPCs, assigning them point values, and colouring.
 
 #### Item/NPC/Room Search
-* Files: `src/quow.tin`
+* Files: `src/db.tin`
 * Made possible by [Quow's](http://quow.co.uk) fantastic data collection and publicly available database.
 
 A series of TinTin aliases that invoke SQLite to search through Quow's database and retrieve various information about game items, people and places.
@@ -104,7 +108,7 @@ Results for gatherables matching "thyme".
 ```
 
 #### Speedwalking
-* Files: `src/maproute.py`, `src/gmcp.tin`, `src/quow.tin`
+* Files: `src/maproute.py`, `src/gmcp.tin`, `src/db.tin`
 * Route-finding logic and of course the database taken directly from [Quow's](http://quow.co.uk) lovely MUSHclient package.
 
 A python script (`src/maproute.py`) is handed the room_identifier of your current location and of your target location and attempts to create an alias to walk you there. This functionality can be invoked in-game with the `db route #` command, where `#`  is the result number (0-9) that preceeds the results in any of the previously mentioned database search commands (`db item`, `db npc`, `db room`, `db gatherable`)
@@ -227,6 +231,11 @@ The syncing is done via a `tell` in game, and works between both my tt++ and MUS
 
 Note that because the tell containing sync information is full of lengthy unix timestamps, you'll need to make sure to set your `cols 999` in-game before having another player sync to you (this is only needed on tt++, MUSH handles this gracefully).
 
+
+#### Group Shield Monitor
+* File `src/group.tin`
+> Show the shield output inline: `sgs` (show group shields)
+> Reset the monitor and re-capture: `rgs` (reset group shields)
 
 
 ### Highlights/Actions/Other
