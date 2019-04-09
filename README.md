@@ -7,7 +7,7 @@ A collection of configurations and scripts for use with [DiscworldMUD](http://di
 
 For reference, I host this configuration on a Linux VPS and thus am able to "take over" the Tmux session as I move between devices/lose internet without being disconnected from the game. This may help to explain some decisions made.
 
-![Screenshot](https://i.imgur.com/f9BdfsL.png)
+![Screenshot](https://i.imgur.com/WVZaQwn.png)
 
 
 ## Features and Bits
@@ -236,6 +236,7 @@ Note that because the tell containing sync information is full of lengthy unix t
 * File `src/group.tin`
 > Show the shield output inline: `sgs` (show group shields)
 > Reset the monitor and re-capture: `rgs` (reset group shields)
+Window appears above the ASCII map to display output at all times.
 
 
 ### Highlights/Actions/Other
@@ -252,6 +253,9 @@ Note that because the tell containing sync information is full of lengthy unix t
 * Copperhead mines gases
 * Per day separated log files
 * More...
+
+### Layouts
+The "Discworld" shell script will configure a slim (mobile friendly) layout when run with no arguments. This adds a split for chat and MDT stacked above the MUD window itself. If run with "full" as an argument, the timers, shield monitor, ascii-map will be off to the right hand side. If you are already inside of the "discworld" tmux session, running "Discworld" will re-arrange the layout as specified for easy switching between desktop and mobile.
 
 
 ## Credit Where It's Due
