@@ -53,45 +53,70 @@
                 #math {mins} { (($current_time - $missions[letter][active_list][$player][difficult]) + 0.5) / 60 };
                 #math {mins} {60 - $mins};
 
-                #format {mt_display} {\t<129>%s<099> can do another difficult customer letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-                #list {mission_display_list[$player]} {add} {$mt_display};
+                #if {$mins < 0} {
+                    #unvar {missions[letter][active_list][$player][difficult]};
+                } {
+                    #format {mt_display} {\t<129>%s<099> can do another difficult customer letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                    #list {mission_display_list[$player]} {add} {$mt_display};
+                };
             };
             #if {&missions[letter][active_list][$player][distant]} {
                 #math {mins} { (($current_time - $missions[letter][active_list][$player][distant]) + 0.5) / 60 };
                 #math {mins} {60 - $mins};
 
-                #format {mt_display} {\t<129>%s<099> can do another distant lands letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-                #list {mission_display_list[$player]} {add} {$mt_display};
+                #if {$mins < 0} {
+                    #unvar {missions[letter][active_list][$player][distant]};
+                } {
+                    #format {mt_display} {\t<129>%s<099> can do another distant lands letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                    #list {mission_display_list[$player]} {add} {$mt_display};
+                };
             };
             #if {&missions[letter][active_list][$player][far]} {
                 #math {mins} { (($current_time - $missions[letter][active_list][$player][far]) + 0.5) / 60 };
                 #math {mins} {60 - $mins};
 
-                #format {mt_display} {\t<129>%s<099> can do another far away letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-                #list {mission_display_list[$player]} {add} {$mt_display};
+                #if {$mins < 0} {
+                    #unvar {missions[letter][active_list][$player][far]};
+                } {
+                    #format {mt_display} {\t<129>%s<099> can do another far away letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                    #list {mission_display_list[$player]} {add} {$mt_display};
+                };
             };
             #if {&missions[letter][active_list][$player][close]} {
                 #math {mins} { (($current_time - $missions[letter][active_list][$player][close]) + 0.5) / 60 };
                 #math {mins} {60 - $mins};
 
-                #format {mt_display} {\t<129>%s<099> can do another close-by letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-                #list {mission_display_list[$player]} {add} {$mt_display};
+                #if {$mins < 0} {
+                    #unvar {missions[letter][active_list][$player][close]};
+                } {
+                    #format {mt_display} {\t<129>%s<099> can do another close-by letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                    #list {mission_display_list[$player]} {add} {$mt_display};
+                };
             };
             #if {&missions[letter][active_list][$player][local]} {
                 #math {mins} { (($current_time - $missions[letter][active_list][$player][local]) + 0.5) / 60 };
                 #math {mins} {60 - $mins};
 
-                #format {mt_display} {\t<129>%s<099> can do another local letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-                #list {mission_display_list[$player]} {add} {$mt_display};
+                #if {$mins < 0} {
+                    #unvar {missions[letter][active_list][$player][local]};
+                } {
+                    #format {mt_display} {\t<129>%s<099> can do another local letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                    #list {mission_display_list[$player]} {add} {$mt_display};
+                };
             };
         };
         #foreach {$missions[letter][retry_list][]} {player} {
             #format {missions[letter][retry_list][$GMCP[charinfo][capname]]} {%T};
             #math {mins} { (($current_time - $missions[letter][retry_list][$player]) + 0.5) / 60 };
+            #showme {Mission Debug: $current_time - $missions[letter][retry_list][$player]};
             #math {mins} {10 - $mins};
 
-            #format {mt_display} {\t<129>%s<099> can request another letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-            #list {mission_display_list[$player]} {add} {$mt_display};
+            #if {$mins < 0} {
+                #unvar {missions[letter][retry_list][player]};
+            } {
+                #format {mt_display} {\t<129>%s<099> can request another letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
         };
 
     };
