@@ -1,0 +1,15 @@
+#CLASS {loot} {kill};
+#CLASS {loot} {open};
+
+#NOP ==[Mission Loot]==
+#HIGHLIGHT {black sowrong} {purple};
+#HIGHLIGHT {black lace shawl} {purple};
+#HIGHLIGHT {freshwater pearl bracelet} {purple};
+
+#NOP ==[Lucrative Loot]==
+#HIGHLIGHT {ruby ring{s?}} {green}; 
+#HIGHLIGHT {sapphire ring{s?}} {green};
+#HIGHLIGHT {diamond ring{s?}} {green};
+#HIGHLIGHT {emerald ring{s?}} {green};
+
+#CLASS {loot} {close};
