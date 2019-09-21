@@ -1,5 +1,5 @@
-#CLASS {quow} {kill};
-#CLASS {quow} {open};
+#CLASS {database} {kill};
+#CLASS {database} {open};
 
 #VARIABLE {map_id_names} {
   {1}{Ankh-Morpork}
@@ -60,6 +60,26 @@
   {57}{Skund Wolf Trail}
 }
 
+#FUNCTION {map_parse} {
+    #unvar {map_term} {search_map};
+    #format {search_map} {%l} {%1};
+
+    #regex {$search_map} {^am} { #var {map_term} {1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 51} };
+    #regex {$search_map} {^ankh-morpork$} { #var {map_term} {1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 51} };
+    #regex {$search_map} {^bp$} { #var {map_term} {17, 18, 19, 20, 21} };
+    #regex {$search_map} {^bes pelargic$} { #var {map_term} {17, 18, 19, 20, 21} };
+    #regex {$search_map} {^djb$} { #var {map_term} {23, 24} };
+    #regex {$search_map} {^djelibeybi} { #var {map_term} {23, 24} };
+    #regex {$search_map} {^ephebe$} { #var {map_term} {25, 26} };
+    #regex {$search_map} {^genua$} { #var {map_term} {27, 28, 16} };
+    #regex {$search_map} {^ramtops$} { #var {map_term} {38, 32, 54, 55} };
+    #regex {$search_map} {^sto$} { #var {map_term} {29, 45} };
+    #regex {$search_map} {^sto plains$} { #var {map_term} {29, 45} };
+    #regex {$search_map} {^sto-lat$} { #var {map_term} {39, 40, 41, 42, 43} };
+
+    #return {$search_map};
+};
+
 #LIST {last_query_list} {create};
 
 #ALIAS {db gatherable %1} {
@@ -105,15 +125,23 @@
     }
 }
 
-#ALIAS {db npc %1} {
-    #unvariable {npc_display};
+#ALIAS {db npc {[^{}\n]+}{( \{([\w\s-]+)\})?}$} {
+    #unvariable {npc_display} {search_term} {query};
 
     #variable {search_term} {%1};
     #replace {search_term} {'} {''};
 
-    #format {query} {SELECT npc_name, rooms.map_id, rooms.room_id, rooms.room_short, INSTR(npc_name, '%s') pos FROM npc_info INNER JOIN rooms on rooms.room_id = npc_info.room_id WHERE pos > 0 LIMIT 10} {$search_term};
-    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
+    #nop If we found an area name in curly braces, try to match a map-set;
+    #var {search_map} {@map_parse{%4}};
 
+    #if {&map_term} {
+        #format {query} {SELECT npc_name, rooms.map_id, rooms.room_id, rooms.room_short, INSTR(npc_name, '%s') pos FROM npc_info INNER JOIN rooms on rooms.room_id = npc_info.room_id WHERE pos > 0 AND rooms.map_id IN (%s) LIMIT 10} {$search_term} {$map_term};
+    };
+    #else {
+        #format {query} {SELECT npc_name, rooms.map_id, rooms.room_id, rooms.room_short, INSTR(npc_name, '%s') pos FROM npc_info INNER JOIN rooms on rooms.room_id = npc_info.room_id WHERE pos > 0 LIMIT 10} {$search_term};
+    }
+
+    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
     #script {npc_query_result} {$db_command};
     #list {npc_query_result} {size} {npc_result_size};
 
@@ -148,15 +176,23 @@
     }
 };
 
-#ALIAS {db npcitem %1} {
-    #unvariable {npcitem_display};
+#ALIAS {db npcitem {[^{}\n]+}{( \{([\w\s-]+)\})?}$} {
+    #unvariable {npcitem_display} {search_term} {query};
 
     #variable {search_term} {%1};
     #replace {search_term} {'} {''};
 
-    #format {query} {SELECT npc_info.map_id, npc_name, npc_info.room_id, item_name, room_short, INSTR(item_name, '%s') pos FROM 'npc_info' INNER JOIN npc_items ON npc_items.npc_id = npc_info.npc_id INNER JOIN rooms on npc_info.room_id = rooms.room_id WHERE pos > 0 LIMIT 10} {$search_term};
-    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
+    #nop If we found an area name in curly braces, try to match a map-set;
+    #var {search_map} {@map_parse{%4}};
 
+    #if {&map_term} {
+        #format {query} {SELECT npc_info.map_id, npc_name, npc_info.room_id, item_name, room_short, INSTR(item_name, '%s') pos FROM 'npc_info' INNER JOIN npc_items ON npc_items.npc_id = npc_info.npc_id INNER JOIN rooms on npc_info.room_id = rooms.room_id WHERE pos > 0 AND rooms.map_id IN (%s) LIMIT 10} {$search_term} {$map_term};
+    };
+    #else {
+        #format {query} {SELECT npc_info.map_id, npc_name, npc_info.room_id, item_name, room_short, INSTR(item_name, '%s') pos FROM 'npc_info' INNER JOIN npc_items ON npc_items.npc_id = npc_info.npc_id INNER JOIN rooms on npc_info.room_id = rooms.room_id WHERE pos > 0 LIMIT 10} {$search_term};
+    }
+
+    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
     #script {npcitem_query_result} {$db_command};
     #list {npcitem_query_result} {size} {npcitem_result_size};
 
@@ -192,22 +228,30 @@
     }
 };
 
-#ALIAS {db item %1} {
-    #unvariable {item_display};
+#ALIAS {^db item {[^{}\n]+}{( \{([\w\s-]+)\})?}$} {
+    #unvariable {item_display} {search_term} {query};
 
     #variable {search_term} {%1};
     #replace {search_term} {'} {''};
 
-    #format {query} {SELECT item_name, sale_price, room_short, shop_items.room_id, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price != 'gather' LIMIT 10;} {$search_term};
-    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
+    #nop If we found an area name in curly braces, try to match a map-set;
+    #var {search_map} {@map_parse{%4}};
 
+    #if {&map_term} {
+        #format {query} {SELECT item_name, sale_price, room_short, shop_items.room_id, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price != 'gather' AND map_id IN (%s) LIMIT 10;} {$search_term} {$map_term};
+    };
+    #else {
+        #format {query} {SELECT item_name, sale_price, room_short, shop_items.room_id, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price != 'gather' LIMIT 10;} {$search_term};
+    }
+
+    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
     #script {item_query_result} {$db_command};
     #list {item_query_result} {size} {item_result_size};
 
     #list {last_query_list} {clear};
 
     #if {$item_result_size > 0} {
-        #format {item_display} {%cResults for items items matching "%c%s%c":} {bold blue}{yellow}{%1}{bold blue};
+        #format {item_display} {%cResults for items matching "%c%s%c":} {bold blue}{yellow}{%1}{bold blue};
         #echo {$item_display};
 
         #var {item_count} {0};
@@ -229,22 +273,32 @@
 
             #variable {last_query_list[$item_count]} {$item_info};
             #math {item_count} {$item_count + 1};
-        }
+        };
     } {
         #format {item_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
         #echo {$item_display};
-    }
-}
+    };
+};
 
-#ALIAS {db room %1} {
-    #unvariable {room_display};
+#ALIAS {^db room {[^{}\n]+}{( \{([\w\s-]+)\})?}$} {
+    #unvariable {room_display} {search_term} {query};
 
     #variable {search_term} {%1};
     #replace {search_term} {'} {''};
 
-    #format {query} {SELECT room_id, map_id, room_short, room_type, INSTR(room_short, '%s') pos FROM rooms WHERE pos > 0 LIMIT 10;} {$search_term};
-    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
+    #nop If we found an area name in curly braces, try to match a map-set;
+    #var {search_map} {@map_parse{%4}};
 
+    #if {&map_term} {
+        #format {query} {SELECT room_id, map_id, room_short, room_type, INSTR(room_short, '%s') pos FROM rooms WHERE pos > 0 AND map_id IN (%s) LIMIT 10;} {$search_term} {$map_term};
+    };
+    #else {
+        #format {query} {SELECT room_id, map_id, room_short, room_type, INSTR(room_short, '%s') pos FROM rooms WHERE pos > 0 LIMIT 10;} {$search_term};
+    }
+
+    #showme {Search Map: $query};
+
+    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
     #script {room_query_result} {$db_command};
     #list {room_query_result} {size} {room_result_size};
 
@@ -317,4 +371,4 @@
     #send {RuhsSpeedRun};
 }
 
-#CLASS {quow} {close};
+#CLASS {database} {close};
