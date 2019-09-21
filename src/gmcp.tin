@@ -58,7 +58,6 @@
     #VAR GMCP[room][info] {%0};
 
     /spottimercheckroomid $GMCP[room][info][identifier]
-    #nop Run our spot timer logic against new identifier
 }
 
 #EVENT {IAC SB GMCP room.map IAC SE}

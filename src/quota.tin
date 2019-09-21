@@ -87,7 +87,7 @@
 		#var {quota[reciepts]} {0};
 
         #nop Quota period is over, announce it.;
-        #format {quota_display_line} {%c[Quota] %c*%c %s's quota has %creset%c.} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
+        #format {quota_display_line} {%c[Quota] %c*%c %s's quota has %creset%c.<099>} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
 		#showme {$quota_display_line};
 	};
 
@@ -95,19 +95,19 @@
     #if {"$quota[alert]" == "on"} {
         #nop Message an hour before;
         #if {$quota[time][hour] == 0 && $quota[time][min] == 59 && $quota[time][sec] == 59} {
-            #format {quota_display_line} {%c[Quota] %c*%c %s's quota flips over in %cone hour%c.} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
+            #format {quota_display_line} {%c[Quota] %c*%c %s's quota flips over in %cone hour%c.<099>} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
             #echo {$quota_display_line \a};
         };
 
         #nop Message 30 minutes before;
         #if {$quota[time][hour] == 0 && $quota[time][min] == 29 && $quota[time][sec] == 59} {
-            #format {quota_display_line} {%c[Quota] %c*%c %s's quota flips over in %chalf an hour%c.} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
+            #format {quota_display_line} {%c[Quota] %c*%c %s's quota flips over in %chalf an hour%c.<099>} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
             #echo {$quota_display_line \a};
         };
 
         #nop Message 10 minutes before;
         #if {$quota[time][hour] == 0 && $quota[time][min] == 9 && $quota[time][sec] == 59} {
-            #format {quota_display_line} {%c[Quota] %c*%c %s's quota flips over in %cten minutes%c.} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
+            #format {quota_display_line} {%c[Quota] %c*%c %s's quota flips over in %cten minutes%c.<099>} {bold blue} {bold yellow} {bold blue} {$quota[who]} {bold red} {bold blue};
             #echo {$quota_display_line \a};
         };
     };

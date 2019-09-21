@@ -49,11 +49,11 @@
 
 #nop No shields at all
 #ACTION {^{(\w+\b\W*?){1,8}} has no arcane protection.$} {
-    #variable {group_shields[$group_shields_current][ccc]} {0};
-    #variable {group_shields[$group_shields_current][tpa]} {0};
-    #variable {group_shields[$group_shields_current][eff]} {0};
-    #variable {group_shields[$group_shields_current][kii]} {0};
-    #variable {group_shields[$group_shields_current][ms]} {0};
+    #variable {group_shields[%1][ccc]} {0};
+    #variable {group_shields[%1][tpa]} {0};
+    #variable {group_shields[%1][eff]} {0};
+    #variable {group_shields[%1][kii]} {0};
+    #variable {group_shields[%1][ms]} {0};
     /writegroupshieldstofile
 };
 
