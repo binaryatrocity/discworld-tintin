@@ -19,7 +19,9 @@
     #if {&missions[sausage]} {
         #foreach {$missions[sausage][active_list][]} {player} {
             #if {&missions[sausage][active_list][$player][easy]} {
-                #math {mins} { (($current_time - $missions[sausage][active_list][$player][easy]) + 0.5) / 60 };
+                #math {mins} {$current_time - $missions[sausage][active_list][$player][easy]};
+                #math {mins} {($mins - (60 - 1)) / 60};
+
                 #math {mins} {60 - $mins};
 
                 #format {mt_display} {\t<129>%s<099> can do another unspiced sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
@@ -27,7 +29,9 @@
             };
 
             #if {&missions[sausage][active_list][$player][hard]} {
-                #math {mins} { (($current_time - $missions[sausage][active_list][$player][hard]) + 0.5) / 60 };
+                #math {mins} {$current_time - $missions[sausage][active_list][$player][hard]};
+                #math {mins} {($mins - (60 - 1)) / 60};
+
                 #math {mins} {60 - $mins};
 
                 #format {mt_display} {\t<129>%s<099> can do another spiced sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
@@ -36,7 +40,9 @@
         };
 
         #foreach {$missions[sausage][retry_list][]} {player} {
-            #math {mins} { (($current_time - $missions[sausage][retry_list][$player]) + 0.5) / 60 };
+            #math {mins} {$current_time - $missions[sausage][retry_list][$player]};
+            #math {mins} {($mins - (60 - 1)) / 60};
+
             #math {mins} {10 - $mins};
 
             #format {mt_display} {\t<129>%s<099> can request a new sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
@@ -50,7 +56,9 @@
     #if {&missions[letter]} {
         #foreach {$missions[letter][active_list][]} {player} {
             #if {&missions[letter][active_list][$player][difficult]} {
-                #math {mins} { (($current_time - $missions[letter][active_list][$player][difficult]) + 0.5) / 60 };
+                #math {mins} {$current_time - $missions[letter][active_list][$player][difficult]};
+                #math {mins} {($mins - (60 - 1)) / 60};
+
                 #math {mins} {60 - $mins};
 
                 #if {$mins < 0} {
@@ -61,7 +69,9 @@
                 };
             };
             #if {&missions[letter][active_list][$player][distant]} {
-                #math {mins} { (($current_time - $missions[letter][active_list][$player][distant]) + 0.5) / 60 };
+                #math {mins} {$current_time - $missions[letter][active_list][$player][distant]};
+                #math {mins} {($mins - (60 - 1)) / 60};
+
                 #math {mins} {60 - $mins};
 
                 #if {$mins < 0} {
@@ -72,7 +82,9 @@
                 };
             };
             #if {&missions[letter][active_list][$player][far]} {
-                #math {mins} { (($current_time - $missions[letter][active_list][$player][far]) + 0.5) / 60 };
+                #math {mins} {$current_time - $missions[letter][active_list][$player][far]};
+                #math {mins} {($mins - (60 - 1)) / 60};
+
                 #math {mins} {60 - $mins};
 
                 #if {$mins < 0} {
@@ -83,7 +95,9 @@
                 };
             };
             #if {&missions[letter][active_list][$player][close]} {
-                #math {mins} { (($current_time - $missions[letter][active_list][$player][close]) + 0.5) / 60 };
+                #math {mins} {$current_time - $missions[letter][active_list][$player][close]};
+                #math {mins} {($mins - (60 - 1)) / 60};
+
                 #math {mins} {60 - $mins};
 
                 #if {$mins < 0} {
@@ -94,7 +108,9 @@
                 };
             };
             #if {&missions[letter][active_list][$player][local]} {
-                #math {mins} { (($current_time - $missions[letter][active_list][$player][local]) + 0.5) / 60 };
+                #math {mins} {$current_time - $missions[letter][active_list][$player][local]};
+                #math {mins} {($mins - (60 - 1)) / 60};
+
                 #math {mins} {60 - $mins};
 
                 #if {$mins < 0} {
@@ -105,10 +121,11 @@
                 };
             };
         };
+
         #foreach {$missions[letter][retry_list][]} {player} {
-            #format {missions[letter][retry_list][$GMCP[charinfo][capname]]} {%T};
-            #math {mins} { (($current_time - $missions[letter][retry_list][$player]) + 0.5) / 60 };
-            #showme {Mission Debug: $current_time - $missions[letter][retry_list][$player]};
+            #math {mins} {$current_time - $missions[letter][retry_list][$player]};
+            #math {mins} {($mins - (60 - 1)) / 60};
+
             #math {mins} {10 - $mins};
 
             #if {$mins < 0} {
