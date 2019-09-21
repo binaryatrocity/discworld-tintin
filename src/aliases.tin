@@ -23,7 +23,6 @@
     setsize;
 };
 
-
 #ALIAS {colourpalette}
 {
 	#foreach {a;b;c;d;e;f} {cnt1}
@@ -40,10 +39,6 @@
 	}
 }
 
-#ALIAS {easyvote} {
-	#system {lynx http://www.topmudsites.com/vote-pinkfish.html};
-};
-
 #ALIAS {minesolve %1 %2 %3} {
     #var {total} {%1};
     #var {hammer} {%2};
@@ -57,4 +52,37 @@
 
     #format {minesolvedisplay} {<149>[MineSolver] Best solution is <139>%d<149> pickaxe strikes and <139>%d<149> hammer chips for a total of <159>%f<149> inches.<099>} {$solution[1]} {$solution[2]} {$total};
     #echo {$minesolvedisplay};
+};
+
+
+#nop Resizing aliases for when we're in "cols 999" mode;
+#ALIAS {^skills%1} {
+    #send {cols 130};
+    #send {skills %1};
+    #send {cols 999};
+};
+#ALIAS {^{speak|language}$} {
+    #send {cols 130};
+    #send {speak};
+    #send {cols 999};
+};
+#ALIAS {^spells$} { #send {cols 130}; #send {spells}; #send {cols 999}; };
+#ALIAS {^rituals$} { #send {cols 130}; #send {rituals}; #send {cols 999}; };
+
+#ALIAS {^group status$} { #send {cols 130}; #send {group status}; #send {cols 999}; };
+
+#ALIAS {^{who$|who (.+)$}} {
+    #send {cols 130};
+    #send {%0};
+    #send {cols 999};
+};
+#ALIAS {^help %1} {
+    #send {cols 130};
+    #send {help %1};
+    #send {cols 999};
+};
+#ALIAS {^nickname$} {
+    #send {cols 130};
+    #send {nickname};
+    #send {cols 999};
 };
