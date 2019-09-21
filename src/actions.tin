@@ -16,6 +16,7 @@
 #NOP ==[Incident Highlighting]==
 #HIGHLIGHT {^%1 grabs %2 from you.  You struggle briefly but %3 wrests it from your grip and makes for a hasty retreat.$} {bold red underscore};
 #HIGHLIGHT {^%1 grabs {his|her|its} %2.  You struggle briefly but {he|she|it} wrests it from your grip and makes for a hasty retreat.} {bold red underscore};
+#HIGHLIGHT {^%1 grabs your %2.  You struggle briefly but {she|he|it} wrests it from your grip and makes for a hasty retreat.} {bold red underscore};
 #HIGHLIGHT {^As %1 dies %2 drops %3 in shock.$} {bold green underscore};
 #HIGHLIGHT {^When you open the %1 you think you can hear a faint rumbling sound from it.$} {red underscore}; 
 #HIGHLIGHT {^Whoops!  You tried to carry too many things and fumbled %1} {red underscore};
@@ -49,9 +50,12 @@
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and, struggling with %1} {bold red};
 #SUB {You estimate that the %1 is worth A$%2.  You} {You estimate that the <149>%1<099> is worth A$<139>%2<099>.  You};
 
-#NOP ==[Kick Consortium]==
+#NOP ==[Achievements]==
 #ACTION {^It is your turn to fight... enter the combat ring.$} {
     #showme {\a};
+}
+#ACTION {^The %1 camel gallops away abruptly.$} {
+    #showme {[Pushover] %0};
 }
 
 #NOP ==[PK Actions]==
@@ -61,6 +65,17 @@
 #ACTION {There is the faintest of sounds, as of a gnat yawning, then a WHOOSH sound. %2} { #showme {\a}; };
 #HIGHLIGHT {A stream of expletives drifts down from above with %1} {bold red underscore};
 #HIGHLIGHT {There is the faintest of sounds, as of a gnat yawning, then a WHOOSH sound. %2} {bold red underscore};
+
+
+#NOP ==[Shelox]==
+#HIGHLIGHT {^Screaming echoes throughout the lair!$} {bold red};
+#HIGHLIGHT {^You see a thick string of web hurtling at you and then everything suddenly goes black.$} {bold green};
+#HIGHLIGHT {^Webbing shoots out from the frog that looks an awful lot like Queen Shelox's abdomen and slams into %1.$} {bold green};
+#HIGHLIGHT {^Webbing shoots out from Queen Shelox's abdomen and slams into %1.$} {bold green};
+#ACTION {^An ominous gurgling noise can be heard coming from the frog that looks an awful lot like Queen Shelox's abdomen.$} { #showme {\a}; };
+#ACTION {^An ominous gurgling noise can be heard coming from Queen Shelox's abdomen.$} { #showme {\a}; };
+#HIGHLIGHT {^%1 giant spiders climb up from below!} {bold violet};
+#HIGHLIGHT {^%1 spiders scuttle up from below and join the fight!} {bold violet};
 
 
 #NOP ==[End Session On Quit]==
