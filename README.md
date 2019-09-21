@@ -33,14 +33,14 @@ Read a letter in your inventory and print a solution, with the term to scry high
 * Files: `src/prompt.tin`, `src/xpmonitor.tin`, `src/tpamonitor.tin`, `src/quota.tin`
 
 A tintin++ split across the top of the MUD window proper that displays a few bits of information:
-1) How long has the session been running
-2) How much XP you've earned total this session
-3) The average XP/hour rate over that time
-4) Do you have a TPA active
-5) What colour is your TPA currently
-6) How long until quota flips (appears if relevant)
-7) Quota timer is coloured when in the last hour
-8) In-game alerts for 1 hour, 30m, 10m left of quota
+1. How long has the session been running
+2. How much XP you've earned total this session
+3. The average XP/hour rate over that time
+4. Do you have a TPA active
+5. What colour is your TPA currently
+6. How long until quota flips (appears if relevant)
+7. Quota timer is coloured when in the last hour
+8. In-game alerts for 1 hour, 30m, 10m left of quota
 
 #### Map Door Text GMCP Parser
 * Files: `src/mdtparse.py`, `mdtconfig.json`, `src/gmcp.tin`
@@ -108,9 +108,7 @@ Results for gatherables matching "thyme".
 ```
 
 ##### Search Filter By Area
->`db room temple {djb}`
->`db npc guard {am}`
->`db npcitem sword {ramtops}`
+>`db room temple {djb}`, `db npc guard {am}`, `db npcitem sword {ramtops}`
 
 All of the above searches (room, npc, npcitem, item) are filterable by area, just include the area name in curly braces after your search terms. See below for a breakdown of possible areas.
 
