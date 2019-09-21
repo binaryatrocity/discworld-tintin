@@ -61,7 +61,8 @@
 #alias {/break_tpa} {
     #showme {\a\a};
 	#if {&{tpa_start}} {
-        #math {tpa_dur} { (($tpa_end - $tpa_start) + 0.5) / 60 };
+        #math {tpa_dur} {$tpa_end - $tpa_start};
+        #math {tpa_dur} {($tpa_dur - (60 - 1)) / 60};
         #echo {<168>*** TPA broken! (lasted for $tpa_dur minutes) ***<099>};
     }
 
