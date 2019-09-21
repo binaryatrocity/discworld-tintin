@@ -28,6 +28,12 @@
         #return @log_line_to_chat{};
     };
 };
+#ACTION {(>CTF<) %1} {
+    #return @log_line_to_chat{};
+};
+#ACTION {%1Inform: %2} {
+    #return @log_line_to_chat{};
+};
 #ACTION {^(Thieves) %1 wisps{:|} %2} {
     #if {"$talker_log_toggle" == "1"} {
         #return @log_line_to_chat{};
