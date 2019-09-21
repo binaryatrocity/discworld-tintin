@@ -3,5 +3,3 @@ minimap:
 
 timers:
     clear && watch -t -n 5 cat xptimers.log
-
-

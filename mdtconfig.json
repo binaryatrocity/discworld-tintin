@@ -1,6 +1,6 @@
 {
     "default_npc_value": 1,
-    "bonus_player_value": -1,
+    "bonus_player_value": 0,
     "minimum_room_value": 1,
     "show_hidden_room_count": false,
     "custom_matches": [
@@ -54,7 +54,7 @@
         ["headless horse rider", "red", 8, false],
 
         ["Ankh-Morpork Highlights"],
-        ["tourist", "red", 10, false],
+        ["barbarian", "red", 5, false],
 
         ["Genua Highlights"],
         ["Tfat Chick", "red", 10, false],
