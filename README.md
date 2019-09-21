@@ -7,7 +7,7 @@ A collection of configurations and scripts for use with [DiscworldMUD](http://di
 
 For reference, I host this configuration on a Linux VPS and thus am able to "take over" the Tmux session as I move between devices/lose internet without being disconnected from the game. This may help to explain some decisions made.
 
-![Screenshot](https://i.imgur.com/WVZaQwn.png)
+![Screenshot](https://i.imgur.com/dZkaqR6.png)
 
 
 ## Features and Bits
@@ -103,6 +103,25 @@ Results for gatherables matching "thyme".
   [7]: some thyme found in cottage herb garden, Ramtops Regions
 ```
 
+##### Search Filter By Area
+>`db room temple {djb}`
+>`db npc guard {am}`
+>`db npcitem sword {ramtops}`
+
+All of the above searches (room, npc, npcitem, item) are filterable by area, just include the area name in curly braces after your search terms. See below for a breakdown of possible areas.
+
+```
+    am/ankh-morpork
+    bp/bes pelargic
+    djb/djelibeybi
+    ephebe
+    genua
+    ramtops
+    sto
+    sto plains
+    sto-lat
+```
+
 #### Speedwalking
 * Files: `src/maproute.py`, `src/gmcp.tin`, `src/quow.tin`
 * Route-finding logic and of course the database taken directly from [Quow's](http://quow.co.uk) lovely MUSHclient package.
@@ -158,6 +177,19 @@ RuhsSpeedRun: s;e;e;n $*$
 
 We found a way there, and our speedwalking alias was updated. Now typing `speedwalk` would walk us over to the Mended Drum (s;e;e;n).
 
+#### Thiefey Things
+* File: `src/quota.tin`
+
+Parses the output of 'read quota brief'. I recommend adding this to the .afterinventory alias of your thief characters so it kicks in right away. Has a number of different features:
+
+##### Status Bar Quota Time Left
+Shows a HOURS:MINUTES countdown until your quota is due in the top bar near the TPA/XP monitors. This timer changes to a bright color when you near the final hour.
+
+##### Quota Flipping Alerts
+A bright blue alert pops up an hour, thirty minutes and ten minutes before your quota flips over. There is a follow-up alert when your quota actually flips. On a per-session basis these alerts can be disabled with `quota alert off` and re-enabled with `quota alert on`.
+
+##### Left to Steal Calculation
+When you 'read quota brief' a new line will be inserted calculating how much you have left to steal.
 
 #### Hunting Hotspot Timers (with Syncing!)
 * File: `src/spottimers.tin`
@@ -228,13 +260,23 @@ The syncing is done via a `tell` in game, and works between both my tt++ and MUS
 Note that because the tell containing sync information is full of lengthy unix timestamps, you'll need to make sure to set your `cols 999` in-game before having another player sync to you (this is only needed on tt++, MUSH handles this gracefully).
 
 
+#### Group Shield Monitor
+* File: `src/group.tin`
+
+Actions/Triggers capture the shield-status of your groupmates and keeps track of who is protected by what. These get written to a file in grid-form for display in the UI and are also displayed by command in the regular output.
+
+##### See group shields
+> `sgs`
+Shows the grid of allies and their shields in the MUD window. I use this when on mobile/small-terminal and don't have the grid up in its own pane - useful because its unaffected by queued commands unlike a fresh "group shields".
+
+##### Reset group shields
+> `rgs`
+Clears out all current group shield data, and then runs "group shields" again to refresh itself. The system isn't perfect, if something is wonky, use this to get a fresh start.
+
 
 ### Highlights/Actions/Other
 * HP loss and XP gain notifications
-* Dagger/Unarmed outgoing attacks
-* Outgoing special attempts/lands/fails
-* Outgoing backstabs
-* Incoming attacks
+* Shelox fight highlights
 * TPA shield drops
 * T-Shop rooms
 * Snatch/Filch
@@ -257,8 +299,6 @@ You can find Quow's work on his website: <http://quow.co.uk>
 
 ### Oki
 I've never even met Oki in game, but I stumbled upon their repository of tintin scripts some time ago and happily copied some of their magic/combat substitutions and highlights for my own use.
-
-There's some cool stuff in here I  haven't gotten around to copying over yet but plan to, like Thief quota monitoring etc.
 
 You can find Oki's repository here: <https://git.tubul.net/richard/tt_dw.git>
 
