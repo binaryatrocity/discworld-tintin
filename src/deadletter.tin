@@ -1,62 +1,793 @@
 #CLASS {deadletter} {kill};
 #CLASS {deadletter} {open};
 
+#var {letter_difficulty} {none};
+
 #VAR {difficult_customer_targets} {
-    {Triad Boss}{Triad [Boss]}
-    {Queen Shelox}{Queen Shelox}
-    {Ice Giants}{Ice Giants}
-    {Security guards}{Security Guards}
-    {Smuggler Captain}{Smuggler Captain}
-    {The Clown}{Ha'pennywise the Clown}
+    {Triad Boss}{
+        {show}{Triad [Boss]}
+        {search}{Triad boss}
+    }
+    {Queen Shelox}{
+        {show}{Queen [Shelox]}
+        {search}{false}
+    }
+    {ice giants}{
+        {show}{Ice Giants}
+        {search}{false}
+    }
+    {Security guards}{
+        {show}{First Imperial Bank Security Guards}
+        {search}{false}
+    }
+    {Smuggler Captain}{
+        {show}{Smuggler Captain}
+        {search}{false}
+    }
+    {The Clown}{
+        {show}{Ha'pennywise the Clown}
+        {search}{false}
+    }
+    {Hotan Hwoar Ni}{
+        {show}{[Hotan] Hwoar Ni (Inner Snail)}
+        {search}{Hotan}
+    }
+    {Thursday}{
+        {show}{Thursday}
+        {search}{false}
+    }
+    {The Grflx}{
+        {show}{The [Grflx]}
+        {search}{false}
+    }
+    {Vyrt}{
+        {show}{Vyrt}
+        {search}{Vyrt}
+    }
+    {Bug}{
+        {show}{Bug, Ramtops}
+        {search}{false}
+    }
+    {Avalanche Preventore}{
+        {show}{Avalance Preventore, Endless Halls}
+        {search}{false}
+    }
 };
 
 #VAR {distant_land_targets} {
-    {Boy Willie}{Boy [Willie]}
-    {Disembowel-Meself-Honourably Dibhala}{Disembowel-Meself-Honourably [Dibhala]}
-    {Glod-san}{[Glod-san]}
-    {Laggy-san}{[Laggy-san]}
-    {Lon Fah Lo}{Lon Fah [Lo]}
-    {Mad Hamish}{Mad [Hamish]}
-    {No Go Wan}{No Go [Wan]}
-    {Quisoda}{[Quisoda]}
-    {Ruto of Fish}{[Ruto] of Fish}
-    {Ryattenoki}{[Ryattenoki]}
-    {Shi Do Gai}{Shi Do [Gai]}
-    {Lap-lip}{[Lap-lip]}
-    {Lip-phon Lap-top}{Lip-phon [Lap-top]}
-    {Mihk-gran-bohp}{Mihk-gran-[bohp]}
-    {Phos-phor}{[Phos]-phor}
-    {Very Reverend Khepresh}{Very Reverend [Khepresh]}
-    {Yclept}{[Yclept]}
-    {Tuffy}{[Tuffy]}
-    {Casanunda}{[Casanunda]}
-    {Greig Schwitz}{Greig [Schwitz]}
-    {Noobie}{[Noobie]}
-    {Tfat Chick}{Tfat [Chick]}
-    {Cut Me Own Hand Off Dhblah}{Cut Me Own Hand Off [Dhblah]}
-    {Miss Pennie Laced}{Miss Pennie [Laced]}
-    {Berti Boggis}{[Berti] Boggis}
-    {The Proprietor}{The Proprietor}
-}
+    {Boy Willie}{
+        {show}{Boy [Willie]}
+        {search}{Willie}
+    }
+    {Disembowel-Meself-Honourably Dibhala}{
+        {show}{Disembowel-Meself-Honourably [Dibhala]}
+        {search}{false}
+    }
+    {Glod-san}{
+        {show}{[Glod-san]}
+        {search}{false}
+    }
+    {Laggy-san}{
+        {show}{[Laggy-san]}
+        {search}{false}
+    }
+    {Lon Fah Lo}{
+        {show}{Lon Fah [Lo]}
+        {search}{false}
+    }
+    {Mad Hamish}{
+        {show}{Mad [Hamish]}
+        {search}{false}
+    }
+    {No Go Wan}{
+        {show}{No Go [Wan]}
+        {search}{false}
+    }
+    {Quisoda}{
+        {show}{[Quisoda]}
+        {search}{false}
+    }
+    {Ruto of Fish}{
+        {show}{[Ruto] of Fish}
+        {search}{false}
+    }
+    {Ryattenoki}{
+        {show}{[Ryattenoki]}
+        {search}{false}
+    }
+    {Shi Do Gai}{
+        {show}{Shi Do [Gai]}
+        {search}{false}
+    }
+    {Lap-lip}{
+        {show}{[Lap-lip]}
+        {search}{false}
+    }
+    {Lip-phon Lap-top}{
+        {show}{Lip-phon [Lap-top]}
+        {search}{false}
+    }
+    {Mihk-gran-bohp}{
+        {show}{Mihk-gran-[bohp]}
+        {search}{false}
+    }
+    {Phos-phor}{
+        {show}{[Phos]-phor}
+        {search}{false}
+    }
+    {Very Reverend Khepresh}{
+        {show}{Very Reverend [Khepresh]}
+        {search}{false}
+    }
+    {Yclept}{
+        {show}{[Yclept]}
+        {search}{false}
+    }
+    {Tuffy}{
+        {show}{[Tuffy]}
+        {search}{false}
+    }
+    {Casanunda}{
+        {show}{[Casanunda]}
+        {search}{false}
+    }
+    {Greig Schwitz}{
+        {show}{Greig [Schwitz]}
+        {search}{false}
+    }
+    {Noobie}{
+        {show}{[Noobie]}
+        {search}{false}
+    }
+    {Tfat Chick}{
+        {show}{Tfat [Chick]}
+        {search}{false}
+    }
+    {Cut Me Own Hand Off Dhblah}{
+        {show}{Cut Me Own Hand Off [Dhblah]}
+        {search}{false}
+    }
+    {Miss Pennie Laced}{
+        {show}{Miss Pennie [Laced]}
+        {search}{false}
+    }
+    {Berti Boggis}{
+        {show}{[Berti] Boggis}
+        {search}{false}
+    }
+    {The Proprietor}{
+        {show}{The Proprietor}
+        {search}{false}
+    }
+};
+
+#VAR {far_away_targets} {
+    {Cern Smith}{
+        {show}{[Cern] Smith}
+        {search}{Cern Smith}
+    }
+    {Granny Weatherwax}{
+        {show}{Granny [Weatherwax]}
+        {search}{Weatherwax}
+    }
+    {Gulta Smith}{
+        {show}{[Gulta] Smith}
+        {search}{Gulta}
+    }
+    {Hanlo Shepston}{
+        {show}{[Hanlo] Shepston}
+        {search}{Hanlo}
+    }
+    {Jaims Smith}{
+        {show}{[Jaims] Smith}
+        {search}{Jaims}
+    }
+    {Kev Ogg}{
+        {show}{[Kev] Ogg}
+        {search}{Kev}
+    }
+    {Mr. Ogg}{
+        {show}{Mr. Ogg}
+        {search}{false}
+    }
+    {Martha Headlock}{
+        {show}{[Martha] Headlock}
+        {search}{Martha}
+    }
+    {Mrs Smith}{
+        {show}{Mrs Smith}
+        {search}{false}
+    }
+    {Cohen the Barbarian}{
+        {show}{Cohen the Barbarian}
+        {search}{Cohen}
+    }
+    {Morchella Esculenta}{
+        {show}{[Morchella] Esculenta}
+        {search}{Morchella}
+    }
+    {Emile}{
+        {show}{Emile}
+        {search}{Emile}
+    }
+    {Fern Golly}{
+        {show}{[Fern] Golly}
+        {search}{Fern}
+    }
+    {Granville}{
+        {show}{Granville}
+        {search}{Granville}
+    }
+    {Virgo Vango}{
+        {show}{[Virgo] Vango}
+        {search}{Virgo}
+    }
+    {The Proprietor}{
+        {show}{The Proprietor}
+        {search}{}
+    }
+    {shopkeeping native}{
+        {show}{shopkeeping native}
+        {search}{shopkeeping native}
+    }
+    {Scuttle Me Own Canoe Dihbl}{
+        {show}{Scuttle Me Own Canoe [Dihbl]}
+        {search}{Dihbl}
+    }
+    {SMOC Dihbl}{
+        {show}{Scuttle Me Own Canoe Dihbl}
+        {search}{Dihbl}
+    }
+    {Dia Shale}{
+        {show}{Dia [Shale]}
+        {search}{Shale}
+    }
+    {Esther Elderbury}{
+        {show}{[Esther] Elderbury}
+        {search}{Esther}
+    }
+    {DEATH}{
+        {show}{DEATH}
+        {search}{Death}
+    }
+    {Dil the Embalmer}{
+        {show}{Dil the Embalmer}
+        {search}{Dil}
+    }
+    {Khip-en-dahl}{
+        {show}{Khip-en-dahl}
+        {search}{Khip-en-dahl}
+    }
+    {Master Bibh-lat}{
+        {show}{Master Bibh-Lat}
+        {search}{Bibh}
+    }
+    {Merk}{
+        {show}{Merk}
+        {search}{Merk}
+    }
+    {Ptep-ptip-ptop}{
+        {show}{Ptep-ptip-ptop}
+        {search}{Ptep}
+    }
+    {Ptik-ptak-ptoe}{
+        {show}{Ptik-ptak-[ptoe]}
+        {search}{ptoe}
+    }
+    {Pugh Alighieri}{
+        {show}{[Pugh] Alighieri}
+        {search}{Pugh}
+    }
+    {Teh-takk-eht}{
+        {show}{[Teh]-takk-eht}
+        {search}{Teh}
+    }
+    {Toohumi}{
+        {show}{Toohumi}
+        {search}{Toohumi}
+    }
+    {Ug Ogg}{
+        {show}{Ug Ogg}
+        {search}{Ug Ogg}
+    }
+    {Wan-tew-iit}{
+        {show}{Wan-tew-iit}
+        {search}{Wan-tew-iit}
+    }
+    {Arms trader}{
+        {show}{Arms trader}
+        {search}{arms trader}
+    }
+    {Awaiting-Rain}{
+        {show}{Awaiting-Rain}
+        {search}{Awaiting}
+    }
+    {Captain Ptargos}{
+        {show}{Captain Ptargos}
+        {search}{Ptargos}
+    }
+    {Fis'n-tsips}{
+        {show}{Fis'n-tsips}
+        {search}{tsips}
+    }
+    {One of them Dibblers with a long name}{
+        {show}{One of them Dibblers with a long name}
+        {search}{Dih-bah-lah}
+    }
+    {May-I-be-Dipped-in-My-Own-Grease Dih-bah-lah}{
+        {show}{May-I-be-Dipped-in-My-Own-Grease Dih-bah-lah}
+        {search}{Dih-bah-lah}
+    }
+    {Abraxas}{
+        {show}{Abraxas}
+        {search}{Abraxas}
+    }
+    {Ania}{
+        {show}{Ania}
+        {search}{Ania}
+    }
+    {Arimasticopoulous the Mosaicist}{
+        {show}{Arimasticopoulous the Mosaicist}
+        {search}{Arimasticopoulous}
+    }
+    {Aurinax}{
+        {show}{Aurinax}
+        {search}{Aurinax}
+    }
+    {Betty}{
+        {show}{Betty}
+        {search}{Betty}
+    }
+    {Endos the Listener}{
+        {show}{Endos the Listener}
+        {search}{Endos}
+    }
+    {Kakia}{
+        {show}{Kakia}
+        {search}{Kakia}
+    }
+    {Klepton}{
+        {show}{Klepton}
+        {search}{Klepton}
+    }
+    {Maintenance man}{
+        {show}{Maintenance man}
+        {search}{maintenance}
+    }
+    {Master Zosimos}{
+        {show}{Master Zosimos}
+        {search}{Zosimos}
+    }
+    {Rimasticopoulous the Mosaicist}{
+        {show}{Rimasticopoulous the Mosaicist}
+        {search}{Rimasticopoulous}
+    }
+    {Souvlakios}{
+        {show}{Souvlakios}
+        {search}{Souvlakios}
+    }
+    {The owner}{
+        {show}{The owner [Spiros]}
+        {search}{Spiros}
+    }
+    {Xenophobios}{
+        {show}{Xenophobios}
+        {search}{Xenophobios}
+    }
+    {Clara}{
+        {show}{Clara}
+        {search}{Clara}
+    }
+    {Ema Nymton}{
+        {show}{Ema Nymton}
+        {search}{Ema Nymton}
+    }
+    {Ivor von Kaeyya}{
+        {show}{Ivor von Kaeyya}
+        {search}{Ivor}
+    }
+    {SMOH Dybbler}{
+        {show}{SMOH Dybbler}
+        {search}{Dybbler}
+    }
+    {Trau Mirnicht}{
+        {show}{Trau Mirnicht}
+        {search}{Trau}
+    }
+    {Verkauft Keinfleisch}{
+        {show}{Verkauft Keinfleisch}
+        {search}{Verkauft}
+    }
+    {Generic employee}{
+        {show}{A generic Charre Bux employee}
+        {search}{generic}
+    }
+    {Ayna}{
+        {show}{Ayna}
+        {search}{Ayna}
+    }
+    {Blloddwyn}{
+        {show}{Blloddwyn}
+        {search}{Blloddwyn}
+    }
+    {Brittnee}{
+        {show}{Brittnee}
+        {search}{Brittnee}
+    }
+    {Captain Merreaux Vingian}{
+        {show}{Captain Merreaux Vingian}
+        {search}{Merreaux}
+    }
+    {Cogsworth}{
+        {show}{Cogsworth}
+        {search}{Cogsworth}
+    }
+    {David Leatherman}{
+        {show}{David Leatherman}
+        {search}{Leatherman}
+    }
+    {Edna Scum}{
+        {show}{Edna Scum}
+        {search}{Edna}
+    }
+    {Fredd S'Vage}{
+        {show}{Fredd S'Vage}
+        {search}{Fredd}
+    }
+    {Harbour Master}{
+        {show}{Harbour Master}
+        {search}{harbour master}
+    }
+    {Harbour mistress}{
+        {show}{Harbour mistress}
+        {search}{harbour mistress}
+    }
+    {Hotel Reception}{
+        {show}{Hotel Reception}
+        {search}{false}
+    }
+    {Jolly Roger}{
+        {show}{Jolly Roger}
+        {search}{Jolly Roger}
+    }
+    {Mamie Olivia}{
+        {show}{Mamie Olivia}
+        {search}{Olivia}
+    }
+    {Mr Ray}{
+        {show}{Mr Ray}
+        {search}{Ray}
+    }
+    {Mr Myrtle}{
+        {show}{Mr Myrtle}
+        {search}{Myrtle}
+    }
+    {Myrtle}{
+        {show}{Myrtle}
+        {search}{Myrtle}
+    }
+    {Mrs Gogol}{
+        {show}{Mrs Gogol}
+        {search}{Gogol}
+    }
+    {Sno-ball vendor}{
+        {show}{Sno-ball vendor}
+        {search}{sno-ball}
+    }
+    {Spritz Peltanque}{
+        {show}{Spritz Peltanque}
+        {search}{Spritz}
+    }
+    {Talula}{
+        {show}{Talula}
+        {search}{Talula}
+    }
+    {The shopkeeper}{
+        {show}{The shopkeeper [chandlery, Genua]}
+        {search}{false}
+    }
+    {The tipster}{
+        {show}{The tipster}
+        {search}{tipster}
+    }
+    {Thom Cru'ez}{
+        {show}{Thom Cru'ez}
+        {search}{Thom}
+    }
+    {Watch clerk}{
+        {show}{Watch clerk}
+        {search}{false}
+    }
+    {Wounded soldier}{
+        {show}{Wounded soldier}
+        {search}{false}
+    }
+    {Private Inside Leg}{
+        {show}{Private Inside Leg}
+        {search}{Private}
+    }
+    {Monster}{
+        {show}{Monster}
+        {search}{Monster}
+    }
+    {Bestiality Carter}{
+        {show}{Bestiality Carter}
+        {search}{Bestiality}
+    }
+    {Brother Turbil}{
+        {show}{Brother Turbil}
+        {search}{Turbil}
+    }
+    {Embezile Thatcher}{
+        {show}{Embezile Thatcher}
+        {search}{Embezile}
+    }
+    {J. Ogg}{
+        {show}{J. Ogg}
+        {search}{Jason}
+    }
+    {giant leader}{
+        {show}{giant leader}
+        {search}{giant leader}
+    }
+    {Len}{
+        {show}{Len}
+        {search}{Len}
+    }
+    {Maggie}{
+        {show}{Maggie}
+        {search}{Maggie}
+    }
+    {Nicholas Winston}{
+        {show}{Nicholas Winston}
+        {search}{Nicholas}
+    }
+    {Serb}{
+        {show}{Serb Unglish}
+        {search}{Serb}
+    }
+    {Sharn}{
+        {show}{Sharn Unglish}
+        {search}{Sharn}
+    }
+    {Our Wullie}{
+        {show}{Our Wullie}
+        {search}{Wullie}
+    }
+    {Stephan}{
+        {show}{Stephan}
+        {search}{Stephan}
+    }
+    {Young Steven}{
+        {show}{Young Steven}
+        {search}{Young Steven}
+    }
+    {Suhm-wil-deih}{
+        {show}{Suhm-wil-deih}
+        {search}{Suhm}
+    }
+    {Vic}{
+        {show}{Vic}
+        {search}{Vic}
+    }
+    {Twoflower the tourist}{
+        {show}{Twoflower the tourist}
+        {search}{Twoflower}
+    }
+    {My poor kidnapped daughter}{
+        {show}{My poor kidnapped daughter}
+        {search}{captive}
+    }
+    {beautiful female captive}{
+        {show}{beautiful female captive}
+        {search}{captive}
+    }
+    {Allen Kingfisher}{
+        {show}{Allen Kingfisher}
+        {search}{Allen}
+    }
+    {Lobsang}{
+        {show}{Abbot Lobsang}
+        {search}{Lobsang}
+    }
+    {Asap (Brother Asap)}{
+        {show}{Asap (Brother Asap)}
+        {search}{Asap}
+    }
+    {Brother Hotpot}{
+        {show}{Brother Hotpot}
+        {search}{Hotpot}
+    }
+    {Morchella Esculenta}{
+        {show}{Morchella Esculenta}
+        {search}{Morchella}
+    }
+    {Bi-Bi Effenne}{
+        {show}{Sister Bi-Bi Effenne}
+        {search}{Bi-Bi}
+    }
+    {Ti-Ti Effenne}{
+        {show}{Sister Ti-Ti Effenne}
+        {search}{Ti-Ti}
+    }
+    {Heinz Blauhimmel}{
+        {show}{Heinz Blauhimmel}
+        {search}{Heinz}
+    }
+    {Lichtenstein}{
+        {show}{Lichtenstein}
+        {search}{Lichtenstein}
+    }
+    {Mad Gammer Nudity}{
+        {show}{Mad Gammer Nudity}
+        {search}{Nudify}
+    }
+    {Candice Little}{
+        {show}{Candice Little}
+        {search}{Candice}
+    }
+    {Cleetus Patterson}{
+        {show}{Cleetus Patterson}
+        {search}{Cleetus}
+    }
+    {Granma Muckloe}{
+        {show}{Granma Muckloe}
+        {search}{Muckloe}
+    }
+    {Peggy Little}{
+        {show}{Peggy Little}
+        {search}{Peggy}
+    }
+    {Ann Celeria}{
+        {show}{Ann [Celeria]}
+        {search}{Celeria}
+    }
+    {Doctor Lancreman}{
+        {show}{Doctor Lancreman}
+        {search}{Lancreman}
+    }
+    {Hardenfast}{
+        {show}{Hardenfast}
+        {search}{Hardenfast}
+    }
+    {Honest Dachshund}{
+        {show}{Honest Dachshund}
+        {search}{Dachshund}
+    }
+    {Frank Doberman}{
+        {show}{Frank Doberman}
+        {search}{Doberman}
+    }
+    {Irkabod Stork}{
+        {show}{Irkabod Stork}
+        {search}{Irkabod}
+    }
+    {Kortina Van Dryver}{
+        {show}{Kortina Van Dryver}
+        {search}{Kortina}
+    }
+    {Miss Van Dryer}{
+        {show}{Miss Van Dryer}
+        {search}{false}
+    }
+    {Mr Smith (Mr Shopkeeper)}{
+        {show}{Mr Smith (Mr Shopkeeper)}
+        {search}{false}
+    }
+    {Mrs Van Carrot}{
+        {show}{Mrs Van Carrot}
+        {search}{Van Carrot}
+    }
+    {My good friend at the post office}{
+        {show}{My good friend at the post office (Slippery)}
+        {search}{false}
+    }
+    {One and Only Manclef}{
+        {show}{One and Only Manclef}
+        {search}{Manclef}
+    }
+    {Shopkeeper Bunch}{
+        {show}{Shopkeeper Bunch}
+        {search}{Shopkeeper}
+    }
+    {The Magistrate}{
+        {show}{The Magistrate}
+        {search}{Magistrate}
+    }
+    {Magistrate Flathead}{
+        {show}{Magistrate Flathead}
+        {search}{Magistrate}
+    }
+    {Young Bran}{
+        {show}{Young Bran}
+        {search}{Young Bran}
+    }
+    {A maitre d'}{
+        {show}{A maitre d'}
+        {search}{maitre}
+    }
+    {Fleppo}{
+        {show}{Fleppo}
+        {search}{Fleppo}
+    }
+    {Isobel Kingdom}{
+        {show}{Isobel Kingdom}
+        {search}{Isobel}
+    }
+    {71-Hour Ahmed}{
+        {show}{71-hour Ahmed}
+        {search}{Ahmed}
+    }
+    {Temple Guardian}{
+        {show}{Temple Guardian [templeguard]}
+        {search}{guardian}
+    }
+    {Fione mac Feegle}{
+        {show}{Fione mac Feegle}
+        {search}{Fione}
+    }
+    {Abe}{
+        {show}{Abe}
+        {search}{Abe}
+    }
+    {Innkeeper}{
+        {show}{grim innkeeper - Slaughtered Lamb, Uberwald}
+        {search}{grim innkeeper}
+    }
+    {Spiegal}{
+        {show}{Spiegal}
+        {search}{Spiegal}
+    }
+};
 
 #alias {/solveletter} {
     #if {&{letter_lines[1]}} {
         #var {current_match_line} {^$letter_lines[1]$};
         #replace {current_match_line} {_} {%.};
-        #foreach {$distant_land_targets[]} {target} {
-            #regex {$target} {$current_match_line} {
-                #format {letter_solution_line} {%c[DL] %c*%c Deliver to %c%s%c.} {bold blue} {bold yellow} {bold blue} {bold green} {$distant_land_targets[$target]} {bold blue};
-                #echo {$letter_solution_line};
-            };
-        }
 
-        #foreach {$difficult_customer_targets[]} {target} {
-            #regex {$target} {$current_match_line} {
-                #format {letter_solution_line} {%c[DC] %c*%c Deliver to %c%s%c.} {bold blue} {bold yellow} {bold blue} {bold green} {$difficult_customer_targets[$target]} {bold blue};
-                #echo {$letter_solution_line};
-            };
+        #nop Check against far away targets;
+        #if {"$letter_difficulty" == "none" || "$letter_difficulty" == "far"} {
+            #foreach {$far_away_targets[]} {target} {
+                #regex {$target} {$current_match_line} {
+                    #format {letter_solution_line} {%c[FA] %c*%c Deliver to %c%s%c.} {bold blue} {bold yellow} {bold blue} {bold green} {$far_away_targets[$target][show]} {bold blue};
+                    #echo {$letter_solution_line};
+
+                    #if {"$far_away_targets[$target][search]" != "false"} {
+                        db npc $far_away_targets[$target][search];
+                    };
+                };
+            }
         }
         
+        #nop Check against distant lands targets;
+        #if {"$letter_difficulty" == "none" || "$letter_difficulty" == "distant"} {
+            #foreach {$distant_land_targets[]} {target} {
+                #regex {$target} {$current_match_line} {
+                    #format {letter_solution_line} {%c[DL] %c*%c Deliver to %c%s%c.} {bold blue} {bold yellow} {bold blue} {bold green} {$distant_land_targets[$target][show]} {bold blue};
+                    #echo {$letter_solution_line};
+
+                    #if {"$distant_land_targets[$target][search]" != "false"} {
+                        db npc $distant_land_targets[$target][search];
+                    };
+                };
+            }
+        }
+
+        #nop Check against difficult customer targets;
+        #if {"$letter_difficulty" == "none" || "$letter_difficulty" == "difficult"} {
+            #foreach {$difficult_customer_targets[]} {target} {
+                #regex {$target} {$current_match_line} {
+                    #format {letter_solution_line} {%c[DC] %c*%c Deliver to %c%s%c.} {bold blue} {bold yellow} {bold blue} {bold green} {$difficult_customer_targets[$target][show]} {bold blue};
+                    #echo {$letter_solution_line};
+
+                    #if {"$difficult_customer_targets[$target][search]" != "false"} {
+                        db npc $difficult_customer_targets[$target][search];
+                    };
+                };
+            }
+        }
+
+        #nop var {letter_difficulty} {none};
     };
 };
 
@@ -64,27 +795,27 @@
 #NOP ==[Halt Parsing Letter]==
 #alias {/stopparsingletter} {
     #unvar {parsing_dead_letter};
-    /solveletter;
+    /solveletter
 };
 
 #action {^Deliver by %1.$} {
     #if {&{parsing_dead_letter}} {
-        /stopparsingletter;
+        /stopparsingletter
     }
 };
 #action {does not have anything written on it.} {
     #if {&{parsing_dead_letter}} {
-        /stopparsingletter;
+        /stopparsingletter
     }
 };
 #action {Cannot find "letter", no match.} {
     #if {&{parsing_dead_letter}} {
-        /stopparsingletter;
+        /stopparsingletter
     }
 };
 #action {You are too busy fighting to read at the moment.} {
     #if {&{parsing_dead_letter}} {
-        /stopparsingletter;
+        /stopparsingletter
     }
 };
 
@@ -104,6 +835,27 @@
     #send {read letter};
     #var {parsing_dead_letter} {0};
     #list {letter_lines} {create};
+}
+
+
+#NOP ==[Actions to catch Frank telling you which delivery type]==
+#action {^Frank asks: So you want to try delivering a letter to someone far away then, %1\?} {
+    #nop far away;
+    #if {%1 == $GMCP[charinfo][capname]} {
+        #var {letter_difficulty} {far};
+    };
+}
+#action {^Frank asks: So you want to try delivering a letter to someone really far away then, %1\?} {
+    #nop distant land;
+    #if {%1 == $GMCP[charinfo][capname]} {
+        #var {letter_difficulty} {distant};
+    };
+}
+#action {^Frank exclaims: Sometimes we end up with letters addressed to people who we've had problems with before.  They are not easy letters to deliver.  Do you want to try delivering one?  You'll have to do it in less than an hour.  Think carefully now, %1, it could be dangerous!} {
+    #nop difficult;
+    #if {%1 == $GMCP[charinfo][capname]} {
+        #var {letter_difficulty} {difficult};
+    };
 }
 
 #CLASS {deadletter} {close};
