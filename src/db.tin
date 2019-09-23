@@ -296,8 +296,6 @@
         #format {query} {SELECT room_id, map_id, room_short, room_type, INSTR(room_short, '%s') pos FROM rooms WHERE pos > 0 LIMIT 10;} {$search_term};
     }
 
-    #showme {Search Map: $query};
-
     #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
     #script {room_query_result} {$db_command};
     #list {room_query_result} {size} {room_result_size};
