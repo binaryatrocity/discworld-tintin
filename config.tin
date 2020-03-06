@@ -15,6 +15,8 @@
 #READ {src/actions.tin};
 #READ {src/aliases.tin};
 #READ {src/macros.tin};
+#READ {src/loot.tin};
+#READ {src/npcs.tin};
 #READ {src/gmcp.tin};
 
 #READ {src/prompt.tin};

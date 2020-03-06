@@ -1,0 +1,24 @@
+#CLASS {npcs} {kill};
+#CLASS {npcs} {open};
+
+#NOP ==[XP NPCs]==
+#HIGHLIGHT {thug{ |,}} {red};
+#HIGHLIGHT {bodyguard} {red};
+#HIGHLIGHT {hoplite} {red};
+#HIGHLIGHT {Coffee Nostra hitm{an|en}} {red};
+#HIGHLIGHT {Triad heav{y|ies}} {red};
+#HIGHLIGHT {city guard{s?}} {red};
+#HIGHLIGHT {little old ladies} {red};
+
+#NOP ==[Lucrative NPCs]==
+#HIGHLIGHT {noblem{an|en}} {green}; 
+#HIGHLIGHT {courtiers?} {green};
+#HIGHLIGHT {noblewom{an|en}} {green};
+#HIGHLIGHT {rich {man|woman}} {green};
+
+#NOP ==[Other NPCs]==
+#HIGHLIGHT {Jolene} {pink};
+#HIGHLIGHT {Reverend Khepresh} {pink};
+#HIGHLIGHT {Jocasta Wiggs} {pink};
+
+#CLASS {npcs} {close};
