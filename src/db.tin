@@ -341,7 +341,7 @@
         #var {route_current_room_id} {$GMCP[room][info][identifier]};
         #var {route_target_room_id} {$target_room[room_id]};
 
-        #format {route_command} {python src/maproute.py %s %s} {$route_current_room_id} {$route_target_room_id};
+        #format {route_command} {python3 src/maproute.py %s %s} {$route_current_room_id} {$route_target_room_id};
         #script {speedwalk_result} {$route_command};
 
         #if {"$speedwalk_result[1]" == "0"} {
@@ -368,5 +368,35 @@
 #ALIAS {speedwalk} {
     #send {RuhsSpeedRun};
 }
+
+#ALIAS {db routeto %1} {
+    #var {target_room} {%1};
+    #format {route_display} {[speedwalk] Generating speedwalk from current location to specified id %s.} {%1};
+
+    #echo {$route_display};
+
+    #var {route_current_room_id} {$GMCP[room][info][identifier]};
+    #var {route_target_room_id} {%1};
+
+    #format {route_command} {python3 src/maproute.py %s %s} {$route_current_room_id} {$route_target_room_id};
+    #script {speedwalk_result} {$route_command};
+
+    #if {"$speedwalk_result[1]" == "0"} {
+        #format {route_error} {%c[speedwalk] Unable to find route to %c%s%c or unknown current room.} {bold blue}{green}{$target_room[room_short]}{bold blue};
+        #echo {$route_error};
+        #return;
+    }
+    #send {$speedwalk_result[1]};
+
+    #variable {route_length} {$speedwalk_result[1]};
+    #replace {route_length} {\\\;} {;};
+    #replace {route_length} { } {};
+    #list {route_length} {create} {$route_length};
+    #list {route_length} {size} {route_length};
+
+    #format {route_confirm} {%c[speedwalk] A route was found, type "%cspeedwalk%c" to fast travel. [%g steps]} {bold blue}{green}{bold blue}{$route_length};
+    #echo {$route_confirm};
+};
+
 
 #CLASS {database} {close};

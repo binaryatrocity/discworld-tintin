@@ -11,12 +11,16 @@
 
 #ACTION {^You {tell|ask|exclaim to} %1:%2} {#return @log_line_to_chat{};};
 #ACTION {^%1 {tells|asks|exclaims to} %*you{|(?: in \w+)?}: %4} {#return @log_line_to_chat{};};
-#ACTION {^[%1] %2{:|} %3} {#return @log_line_to_chat{};};
+#ACTION {^[%1] %2{:|} %3} {
+    #tab {%2};
+    #return @log_line_to_chat{};
+};
 
 #ACTION {^(They Might Be Alts) } {#return @log_line_to_chat{};};
+#ACTION {^(The Unsinkables) } {#return @log_line_to_chat{};};
 
 #ACTION {^(newbiehelpers)} {#return @log_line_to_chat{};};
-#ACTION {^You newbiehelper-tell:%1} {#return @log_line_to_chat{};};
+#ACTION {^You newbiehelpers-tell:%1} {#return @log_line_to_chat{};};
 #ACTION {^(newbie)} {#return @log_line_to_chat{};};
 #ACTION {^You newbie-tell:%1} {#return @log_line_to_chat{};};
 #ACTION {^You special-tell:%1} {#return @log_line_to_chat{};};
@@ -27,9 +31,6 @@
     #if {"$talker_log_toggle" == "1"} {
         #return @log_line_to_chat{};
     };
-};
-#ACTION {(>CTF<) %1} {
-    #return @log_line_to_chat{};
 };
 #ACTION {%1Inform: %2} {
     #return @log_line_to_chat{};

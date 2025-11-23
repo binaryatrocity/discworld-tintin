@@ -23,32 +23,39 @@ if [ -n "$TMUX" ] || [ "$DISC_SESSION_CREATE" = "1" ]; then
     fi
 
     # Create the chat monitor window on top
-    tmux split-window -v -b -l 4
+    echo "Making chat monitor window"
+    #tmux split-window -v -b -l 4
+    tmux split-window -v -b -l 6
     tmux send-keys 'clear && tail -fs .5 logs/chat.log' 'C-m'
 
     # Did we ask for the full layout?
-    if [[ $1 == "full" ]]; then
+    if [[ $1 == "full" || $1 != "full" ]]; then
         # Horizontal split and load spottimers
-        tmux select-pane -t discworld:0.0
+        echo "Making death timer window"
+        tmux select-pane -t discworld:0.1
         tmux split-window -h -l 28
         tmux send-keys './bin/dt' 'C-m'
 
         # Splice a section for group shield monitor
+        echo "Making group shield window"
         tmux split-window -v -p 50
         tmux send-keys './bin/grp' 'C-m'
 
         # Place the ASCII map at the bottom
+        echo "Making map window"
         tmux split-window -v -p 50
         tmux send-keys './bin/map' 'C-m'
     fi
 
     # Cut back to main window, vertical split for mapdoortext
-    tmux select-pane -t discworld:0.0
-    tmux split-window -v -b -l 5
+    echo "Making MDT window"
+    tmux select-pane -t discworld:0.4
+    #tmux split-window -v -b -l 5
+    tmux split-window -v -b -l 6
     tmux send-keys './bin/mdt' 'C-m'
 
     # Select main pane again and load TinTin++ with our config
-    tmux select-pane -t discworld:0.0
+    tmux select-pane -t discworld:0.1
     tmux send-keys 'clear && tt++ -G config.tin' 'C-m'
 fi
 

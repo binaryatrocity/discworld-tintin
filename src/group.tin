@@ -70,6 +70,7 @@
     };
 };
 #ACTION {[%1] {[A-Za-z]+} has joined the group.} {
+    #tab {%2};
     #variable {group_shields[%2]} {{tpa}{0}{ccc}{0}{eff}{0}{ms}{0}{kii}{0}};
     /writegroupshieldstofile
 };
@@ -265,7 +266,7 @@
 #ALIAS {/writegroupshieldstofile} {
     #system {rm $groupshield_file && touch $groupshield_file};
 
-    #line {log} {$groupshield_file} {.:: Group Shields ::. \n\r};
+    #line {log} {$groupshield_file} {.:: Group Shields ::.};
     #foreach {$group_shields[]} {name} {
         #format {gs_namelength} {%L} {$name};
         #math {gs_namelength} {6 - $gs_namelength};

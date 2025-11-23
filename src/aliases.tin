@@ -1,5 +1,4 @@
-#ALIAS {setsize} {rows 300;cols 148};
-#ALIAS {setmsize} {rows 300;cols 60};
+#ALIAS {setsize} {rows 300;cols 999};
 
 #ALIAS {^clear$} {
     #system {tput clear};
@@ -57,32 +56,40 @@
 
 #nop Resizing aliases for when we're in "cols 999" mode;
 #ALIAS {^skills%1} {
-    #send {cols 130};
+    #send {cols 60};
     #send {skills %1};
     #send {cols 999};
 };
 #ALIAS {^{speak|language}$} {
-    #send {cols 130};
+    #send {cols 60};
     #send {speak};
     #send {cols 999};
 };
-#ALIAS {^spells$} { #send {cols 130}; #send {spells}; #send {cols 999}; };
-#ALIAS {^rituals$} { #send {cols 130}; #send {rituals}; #send {cols 999}; };
+#ALIAS {^spells$} { #send {cols 60}; #send {spells}; #send {cols 999}; };
+#ALIAS {^rituals$} { #send {cols 60}; #send {rituals}; #send {cols 999}; };
 
-#ALIAS {^group status$} { #send {cols 130}; #send {group status}; #send {cols 999}; };
+#ALIAS {^group status$} { #send {cols 60}; #send {group status}; #send {cols 999}; };
 
 #ALIAS {^{who$|who (.+)$}} {
-    #send {cols 130};
+    #send {cols 60};
     #send {%0};
     #send {cols 999};
 };
 #ALIAS {^help %1} {
-    #send {cols 130};
+    #send {cols 60};
     #send {help %1};
     #send {cols 999};
 };
 #ALIAS {^nickname$} {
-    #send {cols 130};
+    #send {cols 60};
     #send {nickname};
     #send {cols 999};
 };
+
+#ALIAS {^sotp} {
+    #send {stop};
+}
+
+#ALIAS {gatherstones} {
+    #10 get rock;put white rocks&white stones&white pebbles in knapsack;bury rocks in me&stones in me&pebbles in me
+}

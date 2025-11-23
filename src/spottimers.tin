@@ -18,7 +18,7 @@
     }
     {the bandit leader}{
         {time}{0}
-        {name}{bandit leader}
+        {name}{bandits}
         {group}{false}
         {respawn}{30}
     }
@@ -60,7 +60,7 @@
     }
     {the smuggler captain}{
         {time}{0}
-        {name}{smug captain}
+        {name}{smug cap}
         {group}{false}
         {respawn}{30}
     }
@@ -90,9 +90,15 @@
     }
     {the %* lion}{
         {time}{0}
-        {name}{shaker lions}
+        {name}{shaker}
         {group}{false}
         {respawn}{30}
+    }
+    {the %* crocodile}{
+        {time}{0}
+        {name}{offler}
+        {group}{false}
+        {respawn}{25}
     }
     {Louis Accardo}{
         {time}{0}
@@ -142,6 +148,66 @@
         {group}{true}
         {respawn}{30}
     }
+    {a %* hermit}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{30}
+    }
+    {a %* patroller}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{30}
+    }
+    {a %* captain}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{30}
+    }
+    {a %* desert nomad}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{30}
+    }
+    {a peacekeeper commander}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{30}
+    }
+    {a %* mystic}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{30}
+    }
+    {the Tang captain}{
+        {time}{0}
+        {name}{bmarket}
+        {group}{true}
+        {respawn}{30}
+    }
+    {the Fang captain}{
+        {time}{0}
+        {name}{bmarket}
+        {group}{true}
+        {respawn}{30}
+    }
+    {the McSweeney captain}{
+        {time}{0}
+        {name}{bmarket}
+        {group}{true}
+        {respawn}{30}
+    }
+    {the citadel guard}{
+        {time}{0}
+        {name}{citguard}
+        {group}{false}
+        {respawn}{30}
+    }
 }
 
 #VARIABLE {visittimers} {
@@ -163,27 +229,33 @@
         {group}{false}
         {respawn}{30}
     }
+    {2950a174f65ef8e38eee444295c9b4832d36ab60}{
+        {time}{0}
+        {name}{dragon}
+        {group}{false}
+        {respawn}{30}
+    }
     {f6c60dd36ed38707eb954c3a670f2f9370a79399}{
         {time}{0}
-        {name}{black market}
+        {name}{bmarket}
         {group}{true}
         {respawn}{30}
     }
     {e4646eab906aef1187a9dd3e980441b8f6b8d68c}{
         {time}{0}
-        {name}{black market}
+        {name}{bmarket}
         {group}{true}
         {respawn}{30}
     }
     {0ae9d8c4f2b48f4fcc4cb57fd85443399be2ecc5}{
         {time}{0}
-        {name}{black market}
+        {name}{bmarket}
         {group}{true}
         {respawn}{30}
     }
     {c7c6f5720d2c587f80696b6f0ec7f9ac0f084b06}{
         {time}{0}
-        {name}{black market}
+        {name}{bmarket}
         {group}{true}
         {respawn}{30}
     }
@@ -196,6 +268,12 @@
     {cca9645565f2bb0d017ea9b1dcc9d1b3e9fcfe72}{
         {time}{0}
         {name}{cabbage}
+        {group}{false}
+        {respawn}{30}
+    }
+    {7377f4483763eca72e0b97a87f71c5266e33f2cd}{
+        {time}{0}
+        {name}{cocoons}
         {group}{false}
         {respawn}{30}
     }
@@ -317,7 +395,7 @@
                 #var {spot_groups[$killtimers[$spot][name]]} {$killtimers[$spot][time]};
                 #var {spot_groups_respawn[$killtimers[$spot][name]]} {$killtimers[$spot][respawn]};
             };
-            #if {$killtimers[$spot][time] < $spot_groups[$killtimers[$spot][name]]} {
+            #if {$killtimers[$spot][time] != 0 && $killtimers[$spot][time] > $spot_groups[$killtimers[$spot][name]]} {
                 #var {spot_groups[$killtimers[$spot][name]]} {$killtimers[$spot][time]};
                 #var {spot_groups_respawn[$killtimers[$spot][name]]} {$killtimers[$spot][respawn]};
             };
@@ -347,7 +425,7 @@
                 #var {spot_groups[$visittimers[$spot][name]]} {$visittimers[$spot][time]};
                 #var {spot_groups_respawn[$visittimers[$spot][name]]} {$visittimers[$spot][respawn]};
             };
-            #if {$visittimers[$spot][time] < $spot_groups[$visittimers[$spot][name]]} {
+            #if {$visittimers[$spot][time] != 0 && $visittimers[$spot][time] > $spot_groups[$visittimers[$spot][name]]} {
                 #var {spot_groups[$visittimers[$spot][name]]} {$visittimers[$spot][time]};
                 #var {spot_groups_respawn[$visittimers[$spot][name]]} {$visittimers[$spot][respawn]};
             };
@@ -381,7 +459,7 @@
                 #var {spot_groups[$killtimers[$spot][name]]} {$killtimers[$spot][time]};
                 #var {spot_groups_respawn[$killtimers[$spot][name]]} {$killtimers[$spot][respawn]};
             };
-            #if {$killtimers[$spot][time] != 0 && $killtimers[$spot][time] < $spot_groups[$killtimers[$spot][name]]} {
+            #if {$killtimers[$spot][time] != 0 && $killtimers[$spot][time] > $spot_groups[$killtimers[$spot][name]]} {
                 #var {spot_groups[$killtimers[$spot][name]]} {$killtimers[$spot][time]};
                 #var {spot_groups_respawn[$killtimers[$spot][name]]} {$killtimers[$spot][respawn]};
             };
@@ -408,7 +486,7 @@
                 #var {spot_groups[$visittimers[$spot][name]]} {$visittimers[$spot][time]};
                 #var {spot_groups_respawn[$visittimers[$spot][name]]} {$visittimers[$spot][respawn]};
             };
-            #if {$visittimers[$spot][time] != 0 && $visittimers[$spot][time] < $spot_groups[$visittimers[$spot][name]]} {
+            #if {$visittimers[$spot][time] != 0 && $visittimers[$spot][time] > $spot_groups[$visittimers[$spot][name]]} {
                 #var {spot_groups[$visittimers[$spot][name]]} {$visittimers[$spot][time]};
                 #var {spot_groups_respawn[$visittimers[$spot][name]]} {$visittimers[$spot][respawn]};
             };
@@ -522,6 +600,7 @@
 
         #if {$killtimers[$spot][time] == 0} {
             #format {spotstring} {%s: ??? |} {$spotname};
+            #continue;
         };
         #else {
             #math {mins} {$current_time - $killtimers[$spot][time]};
@@ -566,6 +645,7 @@
 
         #if {$visittimers[$spot][time] == 0} {
             #format {spotstring} {%s: ??? |} {$spotname};
+            #continue;
         };
         #else {
             #math {mins} {$current_time - $visittimers[$spot][time]};

@@ -26,11 +26,12 @@
     #VAR GMCP[oldvitals] {$GMCP[vitals]};
     #VAR GMCP[vitals] {%0};
 
+    #nop TODO: If oldvitals doesnt exist, skip this (to prevent HP loss alerts on SU)
     #math {hploss} {$GMCP[vitals][hp] - $GMCP[oldvitals][hp]};
     #if {$hploss < -150} {
         #format {hp_loss_display} {<139>HP IS FALLING! CAREFUL! (Lost %s HP)<099>} {$hploss};
         #echo {$hp_loss_display};
-        #showme {\a\a};
+        #showme {\a};
     }
 
     #math {xpgain} {$GMCP[vitals][xp] - $GMCP[oldvitals][xp]};
@@ -49,6 +50,8 @@
     #VAR GMCP[charinfo] {%0};
 
     #nop New login, invalidate stale info;
+    #unvar {GMCP[oldvitals]};
+    #var {tpa_status} {0};
     #unvar {quota};
 }
 

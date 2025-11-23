@@ -1,1 +1,3 @@
 *.log
+notes/
+src/quow.db.old

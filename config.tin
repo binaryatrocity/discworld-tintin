@@ -32,6 +32,7 @@
 #READ {src/group.tin};
 
 #SESSION {discworld} {discworld.starturtle.net} {4242};
+#nop #SESSION {discworld} {disctemp.starturtle.net} {23};
 
 #FORMAT {log_file} {logs/active/%t.log} {%Y-%m-%d};
 #LOG {APPEND} {$log_file};

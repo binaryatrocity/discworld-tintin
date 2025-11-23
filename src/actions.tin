@@ -21,12 +21,13 @@
 #HIGHLIGHT {^When you open the %1 you think you can hear a faint rumbling sound from it.$} {red underscore}; 
 #HIGHLIGHT {^Whoops!  You tried to carry too many things and fumbled %1} {red underscore};
 #HIGHLIGHT {%1 juggles around his stuff and fumbles %2} {red underscore}; 
+#HIGHLIGHT {^The sparkles around you fall to the ground and vanish.$} {red underscore};
 
 #NOP ==[Command Color Highlighting]==
 #SUB {%w %w with a total of %* item} {<148>%1 %2<099> with a total of <148>%3<099> item};
 
 #NOP ==[Truffle Found]==
-#HIGHLIGHT {The young truffle pig unearths a truffle from the ground.} {bold green};
+#HIGHLIGHT {truffle pigs? unearths a truffle from the ground.} {bold green};
 
 #NOP ==[Attention Soul(s)]==
 #ACTION {^{(?!Ryattenoki).+} tugs on your sleeve in a desperate attempt to get some attention.$} {
@@ -35,28 +36,44 @@
 
 #NOP ==[Copperhead Mines]==
 #SUB {you think that %1 of the surrounding crates contain} {you think that <138>%1<099> of the surrounding crates contain};
+#SUB {a hammer chip would break %1 of rock} {a hammer chip would break <138>%1<099> of rock};
+#SUB {pickaxe strike would break %1 inches.} {pickaxe strike would break <138>%1<099> inches.};
+#SUB {You determine that directly behind this wall is a small gem vein of %1, exactly %2 deep.} {You determine that directly behind this wall is a small gem vein of %1, exactly <138>%2<099> deep.};
+#HIGHLIGHT {You shake your pan gently, as glittering purple gathers under the cloudy water.} {bold magenta};
+#HIGHLIGHT {You shake your pan from side to side, as the last of the sediment leaves the pan and the water runs clear for just a moment.} {bold magenta};
 #HIGHLIGHT {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} {bold green underscore};
 #HIGHLIGHT {Somewhere above you, you hear the rumble of falling rock.} {bold green underscore};
-#ACTION {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} {
-    #showme {\a};
-};
-#ACTION {Somewhere above you, you hear the rumble of falling rock.} {
-    #showme {\a};
-};
+#HIGHLIGHT {You suddenly feel like you can't breathe.} {bold green underscore};
+#HIGHLIGHT {You collapse on the ground, your muscles spasming uncontrollably.} {bold green underscore};
+#HIGHLIGHT {You can't smell it any more, but you're getting a dizzy sort of headache.  Maybe you should get out of here.} {bold green underscore};
+#HIGHLIGHT {The air here is just as choking as before.} {bold green underscore};
+#ACTION {You shake your pan gently, as glittering purple gathers under the cloudy water.} { #showme {\a}; };
+#ACTION {You shake your pan from side to side, as the last of the sediment leaves the pan and the water runs clear for just a moment.} { #showme {\a}; };
+#ACTION {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} { #showme {\a}; };
+#ACTION {Somewhere above you, you hear the rumble of falling rock.} { #showme {\a}; };
+#ACTION {You suddenly feel like you can't breathe.} { #showme {\a}; };
+#ACTION {You collapse on the ground, your muscles spasming uncontrollably.} { #showme {\a}; };
+#ACTION {You can't smell it any more, but you're getting a dizzy sort of headache.  Maybe you should get out of here.} { #showme {\a}; };
+#ACTION {The air here is just as choking as before.} { #showme {\a}; };
 
 #NOP ==[Gemcutting/Finesmithing]==
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and delicately chip %1} {bold green};
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and chip away %1} {bold red};
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and, struggling with %1} {bold red};
+#HIGHLIGHT {With a start, you realise that you've been going about this all wrong, %1} {bold red};
 #SUB {You estimate that the %1 is worth A$%2.  You} {You estimate that the <149>%1<099> is worth A$<139>%2<099>.  You};
 
 #NOP ==[Achievements]==
-#ACTION {^It is your turn to fight... enter the combat ring.$} {
+#HIGHLIGHT {the {green|aqua|cyan|blue|yellow|red|orange|beige|brown|grey|black|violet|mauve|pink|purple} ball} {bold cyan};
+#ACTION {^The %1 duellist has yielded to you, if this satisfies you then enter "accept surrender from duellist" to accept} {
     #showme {\a};
 }
-#ACTION {^The %1 camel gallops away abruptly.$} {
-    #showme {[Pushover] %0};
-}
+#HIGHLIGHT {blackbird} {violet};
+#HIGHLIGHT {old {men|man|women|woman|shopper|shoppers|beggar|beggars}} {bold magenta};
+#ACTION {^One of the truffle pigs unearths a truffle from the ground.$} { 
+    #delay {120} { #showme {<ccc>CAN TRUFFLE FARM AGAIN<999>} }
+};
+
 
 #NOP ==[PK Actions]==
 #HIGHLIGHT {You reach towards your goal but apuse suddenly as %1 seems to sense something.  {She|He|It} doesn't spot you and %2} {bold green};
@@ -76,6 +93,45 @@
 #ACTION {^An ominous gurgling noise can be heard coming from Queen Shelox's abdomen.$} { #showme {\a}; };
 #HIGHLIGHT {^%1 giant spiders climb up from below!} {bold violet};
 #HIGHLIGHT {^%1 spiders scuttle up from below and join the fight!} {bold violet};
+
+#NOP ==[Sailing]==
+#HIGHLIGHT {^%1 kraken reaches for you from %2.  Run!$} {bold red};
+#HIGHLIGHT {^%1 kraken %2, then {whips|launches} it {towards|forward at} you from %3.  Run!$} {bold red};
+#HIGHLIGHT {^%1 kraken reaches for %2.$} {bold blue};
+#HIGHLIGHT {^%1 kraken %2, then {whips|launches} it {towards|forward at} %3.$} {bold blue};
+
+#HIGHLIGHT {^{Quick as lightning|Striking like a cobra|In the blink of an eye|With a blur of speed|Moving too fast to see}, the tentacle snakes around %1 legs and coils its way up to {your|his|her|its} torso, binding {you|him|her|it} in an unescapable embrace.} {bold red};
+#HIGHLIGHT {^The tentacle wrapped around %1 unwraps itself and {slips|retreats} back into the sea.} {bold white};
+#HIGHLIGHT {^The tentacle coils tighter, making %1 go blue in the face.} {bold red};
+#HIGHLIGHT {^Limbs bound tightly by the kraken's tentacle, %1 struggles to move but gets nowhere.} {yellow};
+#HIGHLIGHT {^%1 looks pained as the tentacle slowly constricts the life out of {her|him|it}.} {bold red};
+#HIGHLIGHT {^%1 swing{s?} {your|his|her|its} %2at the tentacle wrapped around %2, scoring a light scratch into its rubbery skin.} {bold blue};
+
+#HIGHLIGHT {^The sea serpent {reaches for|lunges towards|strikes forward swiftly at} you from %1.  Run!} {bold red};
+#HIGHLIGHT {^%1, the sea serpent {reaches for|lunges towards|strikes forward swiftly at} you from %2.  Run!} {bold red};
+#HIGHLIGHT {^The sea serpent {reaches for|lunges towards|strikes forward swiftly at} %1.$} {bold blue};
+#HIGHLIGHT {^%1, the sea serpent {reaches for|lunges towards|strikes forward swiftly at} %2.$} {bold blue};
+
+#HIGHLIGHT {%1.  It sounds like ice might be forming on the hull!$} {<aef>};
+#HIGHLIGHT {^A small fire has started here.  } {bold orange};
+#HIGHLIGHT {^Several small blazes are eagerly licking at the floorboards.  } {bold orange};
+#HIGHLIGHT {^The room is filled with a huge conflagration, sparks spilling out into the nearby rooms.} {bold orange};
+#HIGHLIGHT {^Fire fills the room, burning merrily without regard for the structural integrity of the ship.} {bold orange};
+#HIGHLIGHT {^The dire seaweed clinging onto the hull glows faintly, %1 its way through the hull.$} {bold jade};
+#HIGHLIGHT {^The ship plows through a field of floating dire seaweed, some of which glows green and latches onto the hull aggressively!$} {bold jade};
+
+#HIGHLIGHT {^{Squinting|Gazing} up at the {sun|stars}, you determine that the ship is heading %1.$} {bold pink};
+#HIGHLIGHT {^{Squinting|Gazing} up at the {sun|stars}, you guess that the ship is heading %1.$} {bold tan};
+#HIGHLIGHT {^You feel too tired to tie any knots at the moment.$} {red};
+
+
+#NOP ==[Horses]==
+#HIGHLIGHT {brindle horse} orange;
+
+#NOP ==[Tab Completions]==
+#ACTION {^[%1 has gained the %2 achievement %3]$} {
+    #tab {%1};
+}
 
 
 #NOP ==[End Session On Quit]==

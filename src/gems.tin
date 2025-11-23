@@ -1,0 +1,107 @@
+#CLASS {gems} {kill};
+#CLASS {gems} {open};
+
+#var {gem} {};
+
+#action {^It is a{n|} %2 quality %3 that could be cut into a %4 gem with one of the following forms: %5\; or could be tumbled and then cut into %6.$} {
+    #var {gem[quality]} {%2};
+    #var {gem[type]} {%3};
+    #var {gem[size]} {%4};
+
+    #nop ==[Parse the cut output]==;
+    #var {gem[cut_list]} {%5};
+
+    #nop What's our best available cut?;
+    #var {gem[best_cut]} {octagonal step};
+    #regex {$gem[cut_list]} {trillion} {#var {gem[best_cut]}{trillion};};
+    #regex {$gem[cut_list]} {pear\-shaped} {#var {gem[best_cut]}{pear-shaped};};
+    #regex {$gem[cut_list]} {cushion} {#var {gem[best_cut]} {cushion};};
+    #regex {$gem[cut_list]} {rose} {#var {gem[best_cut]} {rose};};
+    #regex {$gem[cut_list]} {marquise} {#var {gem[best_cut]} {marquise};};
+    #regex {$gem[cut_list]} {brilliant} {#var {gem[best_cut]} {brilliant};};
+    #regex {$gem[cut_list]} {heart\-shaped} {#var {gem[best_cut]} {heart-shaped};};
+    #regex {$gem[cut_list]} {oval\-shaped} {#var {gem[best_cut]} {oval-shaped};};
+    #regex {$gem[cut_list]} {teardrop} {#var {gem[best_cut]} {teardrop};};
+    #regex {$gem[cut_list]} {princess} {#var {gem[best_cut]} {princess};};
+
+    #if {$gem[active] == 1} {
+        #if {"$gem[size]" != "tiny"}  { 
+            #echo {<149>[Gemcrafting] Found a non-tiny gem, chipping and returning to crate<099>};
+            #send {chip uncut gem with gemcutting tool};
+            #send {put gems in crate};
+
+            #return;
+        };
+
+        #else {
+            #echo {<149>[Gemcrafting] Found a $gem[size] $gem[type], cutting to a $gem[best_cut] cut.<099>};
+            #send {cut uncut gem into a tiny $gem[best_cut] cut gem with gemcutting tools};
+            #send {grind gem on wheel};
+            #send {polish gem with cloth};
+            #send {put gems in crate};
+        };
+
+        #var {gem[active]} {0};
+    };
+
+};
+
+#alias {workgem} {
+    #nop Get a gem and appraise it;
+    #send {get uncut gem from crate in me};
+    #send {appraise uncut gem};
+
+    #var {gem[active]} {1};
+};
+
+#alias {workgem2} {
+    #send {get uncut gem from crate in me};
+    #send {appraise gem};
+
+    #action { cabochon cut}  {
+        #unaction { cabochon cut};
+
+        #if {$gem[size] != "tiny"}  { 
+            #echo {<149>[Gemcrafting] Found a non-tiny gem, chipping and returning to crate<099>};
+            #send {chip gem with gemcutting tool};
+            #send {put gems in crate};
+
+            #return;
+        };
+
+        #echo {<149>[Gemcrafting] Found a $gem[size] $gem[type], cutting to a $gem[best_cut] cut.<099>};
+        #send {cut gem into a tiny $gem[best_cut] cut gem with gemcutting tools};
+        #send {put gems in crate};
+    };
+
+    #action {^It is a %1 quality %2 that could be cut into a %3 gem with one of the following forms: %4} {
+        #var {gem[quality]} {%1};
+        #var {gem[type]} {%2};
+        #var {gem[size]} {%3};
+    };
+
+    #action {octagonal step cut{, | }{[\w\s-,]+}} {
+        #var {gem[cut_list]} {%2};
+
+        #nop Turn the raw cuts into a proper list
+        #replace {gem[cut_list]} { cut} {};
+        #replace {gem[cut_list]} {, } {;};
+        #replace {gem[cut_list]} { and } {;};
+
+        #nop What's our best available cut?;
+        #var {gem[best_cut]} {octagonal step};
+        #regex {$gem[cut_list]} {trillion} {#var {gem[best_cut]}{trillion};};
+        #regex {$gem[cut_list]} {pear\-shaped} {#var {gem[best_cut]}{pear-shaped};};
+        #regex {$gem[cut_list]} {cushion} {#var {gem[best_cut]} {cushion};};
+        #regex {$gem[cut_list]} {rose} {#var {gem[best_cut]} {rose};};
+        #regex {$gem[cut_list]} {marquise} {#var {gem[best_cut]} {marquise};};
+        #regex {$gem[cut_list]} {brilliant} {#var {gem[best_cut]} {brilliant};};
+        #regex {$gem[cut_list]} {heart\-shaped} {#var {gem[best_cut]} {heart-shaped};};
+        #regex {$gem[cut_list]} {oval\-shaped} {#var {gem[best_cut]} {oval-shaped};};
+        #regex {$gem[cut_list]} {teardrop} {#var {gem[best_cut]} {teardrop};};
+        #regex {$gem[cut_list]} {princess} {#var {gem[best_cut]} {princess};};
+    };
+
+};
+
+#CLASS {gems} {close};

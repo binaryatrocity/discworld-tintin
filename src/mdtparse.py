@@ -61,6 +61,14 @@ class MapDoorText:
         "sw": "sw",
         "w": "w",
         "nw": "nw",
+        "fore": "f",
+        "aft": "a",
+        "starboard": "s",
+        "port": "p",
+        "port aft": "pa",
+        "port fore": "pf",
+        "starboard aft": "sa",
+        "starboard fore": "sf"
     }
     colour_map = {
         # http://terminal-color-builder.mudasobwa.ru/
@@ -179,6 +187,30 @@ class MapDoorText:
                     elif entry.startswith("west"):
                         is_direction = 1
                         this_direction = "west"
+                    elif entry.startswith("port fore"):
+                        is_direction = 1
+                        this_direction = "port fore"
+                    elif entry.startswith("port aft"):
+                        is_direction = 1
+                        this_direction = "port aft"
+                    elif entry.startswith("starboard fore"):
+                        is_direction = 1
+                        this_direction = "starboard fore"
+                    elif entry.startswith("starboard aft"):
+                        is_direction = 1
+                        this_direction = "starboard aft"
+                    elif entry.startswith("port"):
+                        is_direction = 1
+                        this_direction = "port"
+                    elif entry.startswith("starboard"):
+                        is_direction = 1
+                        this_direction = "starboard"
+                    elif entry.startswith("fore"):
+                        is_direction = 1
+                        this_direction = "fore"
+                    elif entry.startswith("aft"):
+                        is_direction = 1
+                        this_direction = "aft"
 
                     if is_direction == 1:
                         if not data['ignoring_exits']:
