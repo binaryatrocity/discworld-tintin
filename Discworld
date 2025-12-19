@@ -25,7 +25,7 @@ if [ -n "$TMUX" ] || [ "$DISC_SESSION_CREATE" = "1" ]; then
     # Create the chat monitor window on top
     echo "Making chat monitor window"
     #tmux split-window -v -b -l 4
-    tmux split-window -v -b -l 6
+    tmux split-window -v -b -l 4
     tmux send-keys 'clear && tail -fs .5 logs/chat.log' 'C-m'
 
     # Did we ask for the full layout?
@@ -49,9 +49,9 @@ if [ -n "$TMUX" ] || [ "$DISC_SESSION_CREATE" = "1" ]; then
 
     # Cut back to main window, vertical split for mapdoortext
     echo "Making MDT window"
-    tmux select-pane -t discworld:0.4
+    tmux select-pane -t discworld:0.0
     #tmux split-window -v -b -l 5
-    tmux split-window -v -b -l 6
+    tmux split-window -v -l 1
     tmux send-keys './bin/mdt' 'C-m'
 
     # Select main pane again and load TinTin++ with our config

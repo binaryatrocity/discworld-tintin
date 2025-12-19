@@ -55,6 +55,7 @@
 #ACTION {You collapse on the ground, your muscles spasming uncontrollably.} { #showme {\a}; };
 #ACTION {You can't smell it any more, but you're getting a dizzy sort of headache.  Maybe you should get out of here.} { #showme {\a}; };
 #ACTION {The air here is just as choking as before.} { #showme {\a}; };
+#HIGHLIGHT {The air here seems fresher.} {bold yellow underscore};
 
 #NOP ==[Gemcutting/Finesmithing]==
 #HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and delicately chip %1} {bold green};
