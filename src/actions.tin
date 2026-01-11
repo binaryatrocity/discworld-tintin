@@ -9,6 +9,13 @@
     #line {log} {$chat_file};
 };
 
+#SUB {^In blocking the attack {(?:.+)} floating around {(?:\w+\b\W*?){1,8}} is knocked out of orbit.$} 
+    {<199><438>In blocking the attack <788>%1<099><188><438> floating around <788>%2<099><188><438> is knocked out of orbit.<099>};
+#ACTION {^In blocking the attack {(?:.+)} floating around {(?:\w+\b\W*?){1,8}} is knocked out of orbit.$} {
+    #showme {\a};
+    #line {log} {$chat_file};
+};
+
 #NOP ==[T-Shop Alerts]==
 #HIGHLIGHT {Greasy sparks crawl over the %1 wall, and a door silently materialises.} {bold green underscore};
 #HIGHLIGHT {There is a doorway in the %1 wall leading into a curious shop.} {bold green underscore};
