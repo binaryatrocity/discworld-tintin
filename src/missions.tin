@@ -4,6 +4,8 @@
 #NOP ==[ Load Individual Mission stuff ]==
 #READ {src/missions/sausages.tin};
 #READ {src/missions/letters.tin};
+#READ {src/missions/sailing.tin};
+
 
 #ALIAS {missions} {
     #if {&missions == 0} { 
@@ -12,6 +14,29 @@
 
     #format {current_time} {%T};
     #var {mission_display_list} {};
+
+    #nop ==============================;
+    #nop =====  Sailing Missions  =====;
+    #nop ==============================;
+    #if {&missions[sailing]} {
+        #foreach {$missions[sailing][active_list][]} {player} {
+            #math {mins} {$current_time - $missions[sailing][active_list][$player]};
+            #math {mins} {($mins - (60 - 1)) / 60};
+
+            #math {mins} {120 - $mins};
+
+            #math {hours} {$mins / 60};
+            #math {mins} {$mins % 60};
+
+            #if {$mins < 0} {
+                #unvar {missions[sailing][active_list][$player]};
+            }  {
+                #format {mt_display} {\t<129>%s<099> can do another sailing mission in <139>%d<099> hour and <139>%d<099> minutes.<099>} {$player}{$hours}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
+        };
+    };
+
 
     #nop ==============================;
     #nop =====  Sausage Missions  =====;

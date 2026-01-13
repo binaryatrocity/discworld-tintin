@@ -1,0 +1,184 @@
+#CLASS {missiontimers_sailing} {kill};
+#CLASS {missiontimers_sailing} {open};
+
+#VARIABLE {missions[sailing]} {
+    {experience}{0}
+    {active}{0}
+};
+
+#FUNCTION {display_timestamp} {
+    #math {min} {%1 / 60};
+    #math {sec} {%1 % 60};
+
+    #format {result} {%%02d minutes and %%02d second(s)} {$min} {$sec};
+    #return {$result};
+};
+
+#NOP ==[Mission begins trigger]==;
+#ACTION {^The loading of the ship complete, {Captain Smith|Chidder} wishes you a safe and profitable trip} {
+    #var {missions[sailing][experience]} {0};
+    #var {missions[sailing][active]} {1};
+    #format {missions[sailing][active_list][$GMCP[charinfo][capname]]} {%T};
+
+    #NOP == configure a message display when the timer is up ==;
+    #line sub variable {
+        #format {delayname} {sailing_%s} {$GMCP[charinfo][capname]};
+        #delay {$delayname} {
+            #format {sailing_timer_line} {%c[MT] %c*%c %s can now do another sailing mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+            #echo {$sailing_timer_line};
+            #unvar {$sailing_timer_line};
+
+            #unvar {missions[sailing][active_list][$GMCP[charinfo][capname]]};
+        } {7200};
+    };
+    #unvar {delayname};
+};
+
+#NOP ==[Capture experience gains]==;
+#ACTION {^As you {finish|complete} the {first|second|third} leg of your impossible voyage%*\(%d xp\)$} {
+    #math {missions[sailing][experience]} {$missions[sailing][experience] + %4};
+};
+
+#NOP ==[Final XP trigger]==;
+#ACTION {^As you {finish|complete} the final leg of your impossible voyage%*\(%1 xp\)%*$} {
+    #var {missions[sailing][active]} {0};
+    #format {current_time} {%T};
+    #math {missions[sailing][experience]} {$missions[sailing][experience] + %1};
+
+    #math {missions[sailing][duration]} {$current_time - $missions[sailing][active_list][$GMCP[charinfo][capname]]};
+    #showme {<169>[sail] Sailing Report: $missions[sailing][experience] xp earned in @display_timestamp{$missions[sailing][duration]}.<099>};
+};
+
+#NOP ==[Group sailing report]==
+#ALIAS {gssail} {
+    #if {$missions[sailing][experience] > 0} {
+        #send {group say [sail] Sailing Report: $missions[sailing][experience] xp earned in @display_timestamp{$missions[sailing][duration]}.};
+    }; 
+    #else {
+        #showme {<169>[sail] No sailing experience to report.<099>};
+    };
+};
+
+#NOP ==[Monster identification highlights]==;
+#SUB {^A massive {kraken|sea serpent} crests} {A massive <168>%1<099> crests};
+#SUB {^The faint popping sounds of suction cups} {The faint popping sounds of <168>suction cups<099>};
+#SUB {^The grinding of scales against wood} {The grinding of <168>scales<099> against wood};
+
+#NOP ==[Monster goes away]==;
+#SUB {^As the {kraken|serpent} sinks back beneath the waves} {As the <168>%1<099> sinks back beneath the waves};
+
+#NOP ==[Stage transitions]==;
+#ACTION {^{The ship leaves the huge bank of fog as the weather calms.|The howling winds fade away as the weather calms.|The worst of the thunderstorm passes and the clouds overhead lighten and scatter to the winds as the weather calms.|The rain of hailstones slowly peters off and the clouds overhead lighten and scatter to the winds as the weather calms.|The last of the fog seeping in from overhead dissipates.|The sound of hailstones pounding overhead gradually peters out.|The sound of thunder overhead gradually peters out.|The faint howl of the wind overhead gradually peters out.}$} {
+    #showme {<168>[sail] Calm Stage Begins<099>};
+};
+
+#ACTION {^{The previously calm weather fades away as grey clouds gather overhead and hailstones begin to rain from the sky.|The howling winds fade away as grey clouds gather overhead and hailstones begin to rain from the sky.|The worst of the thunderstorm passes as hailstones begin to rain from the sky.|The ship leaves the huge bank of fog as grey clouds gather overhead and hailstones begin to rain from the sky.|The sound of pounding hail starts to filter through from the deck above.|The sound of thunder overhead gradually peters out and is replaced by the sound of pounding hail.|The faint howl of the wind overhead gradually peters out and is replaced by the sound of pounding hail.|The last of the fog seeping in from overhead dissipates as the sound of pounding hail starts to filter through from the deck above.}$} {
+    #showme {<168>[sail] Hail Stage Begins<099>};
+};
+
+#ACTION {^{The previously calm weather fades away as a rimwards gale starts building up, the sheer force of the wind pushing the ship backwards.|The worst of the thunderstorm passes and the clouds overhead lighten and scatter to the winds just as a rimwards gale starts building up, the sheer force of the wind pushing the ship backwards.|The rain of hailstones slowly peters off and the clouds overhead lighten and scatter to the winds just as a rimwards gale starts building up, the sheer force of the wind pushing the ship backwards.|The ship leaves the huge bank of fog as a rimwards gale starts building up, the sheer force of the wind pushing the ship backwards.|The faint howling of what must be quite a strong wind begins to filter through the deck above.|The last of the fog seeping in from overhead dissipates as the faint howling of what must be quite a strong wind begins to filter through the deck above.|The sound of hailstones pounding overhead gradually peters out and is replaced by the faint howling of what must be quite a strong wind.|The sound of thunder overhead gradually peters out and is replaced by the faint howling of what must be quite a strong wind.}$} {
+    #showme {<168>[sail] Gale Stage Begins<099>};
+};
+
+#ACTION {^{The previously calm weather fades away as a growing wind sweeps in dark clouds from all directions, lightning flashes and thunder booms, the beginning of a thunderstorm.|The ship leaves the huge bank of fog as a growing wind sweeps in dark clouds from all directions, lightning flashes and thunder booms, the beginning of a thunderstorm.|The howling winds fade away as a growing wind sweeps in dark clouds from all directions, lightning flashes and thunder booms, the beginning of a thunderstorm.|The rain of hailstones slowly peters off as lightning flashes and thunder booms, the beginning of a thunderstorm.|The rumble of thunder comes through from the deck above.|The sound of hailstones pounding overhead gradually peters out and is replaced by the rumble of thunder.|The last of the fog seeping in from overhead dissipates as the rumble of thunder comes through from the deck above.|The faint howl of the wind overhead gradually peters out and is replaced by the rumble of thunder.}$} {
+    #showme {<168>[sail] Storm Stage Begins<099>};
+};
+
+#ACTION {^{The previously calm weather fades away as the ship enters a huge bank of fog.|The rain of hailstones slowly peters off and the clouds overhead lighten and scatter to the winds just as the ship enters a huge bank of fog.|The worst of the thunderstorm passes and the clouds overhead lighten and scatter to the winds just as the ship enters a huge bank of fog.|The howling winds fade away as the ship enters a huge bank of fog.|Wisps of fog begin to drift in through tiny gaps in the deck above.|The sound of hailstones pounding overhead gradually peters out as wisps of fog begin to drift in through tiny gaps in the deck above.|The sound of thunder overhead gradually peters out as wisps of fog begin to drift in through tiny gaps in the deck above.|The faint howl of the wind overhead gradually peters out as wisps of fog begin to drift in through tiny gaps in the deck above.}$} {
+  next_stage Fog;
+    #showme {<168>[sail] Fog Stage Begins<099>};
+};
+
+#NOP ==[Ship starts/stops moving]==;
+#HIGHLIGHT {^{Steam whistles from the smokestack as the ship begins to move|You feel the ship begin to move}%*} {bold cyan underscore};
+#HIGHLIGHT {^{You feel the ship slow to a halt.|The steam from the smokestack dwindles to nothing as the ship slows to a halt.}} {bold cyan underscore};
+
+#NOP ==[Overboard drag messages]==;
+#SUB {^The ship steams off, dragging you along by the rope tied around your waist.} {The ship steams off, dragging you along by the <128>rope<099> tied around your waist.};
+#SUB {^The ship steams off and you hurriedly swim along to keep up with it.} {The ship steams off and you hurriedly <118>swim along<099> to keep up with it.};
+
+#NOP ==[Monster phase highlights - Serpent]==;
+#HIGHLIGHT {^The sea serpent {reaches for|lunges towards|strikes forward swiftly at} you from %1.  Run!} {bold red};
+#HIGHLIGHT {^%1, the sea serpent {reaches for|lunges towards|strikes forward swiftly at} you from %2.  Run!} {bold red};
+#HIGHLIGHT {^The sea serpent {reaches for|lunges towards|strikes forward swiftly at} %1.$} {bold blue};
+#HIGHLIGHT {^%1, the sea serpent {reaches for|lunges towards|strikes forward swiftly at} %2.$} {bold blue};
+#HIGHLIGHT {^The sea serpent aborts its strike and draws its head back, looking for its missing prey.} {light green};
+#HIGHLIGHT {^The sea serpent's venomous fangs gouge long scratches in the deck as its strike misses.} {light green};
+#HIGHLIGHT {^The sea serpent chomps down on nothing but air, its prey having escaped.} {light green};
+
+#NOP ==[Monster phase highlights - Kraken]==;
+#HIGHLIGHT {^{Quick as lightning|Striking like a cobra|In the blink of an eye|With a blur of speed|Moving too fast to see}, the tentacle snakes around %1 legs and coils its way up to {your|his|her|its} torso, binding {you|him|her|it} in an unescapable embrace.} {bold red};
+#HIGHLIGHT {^%1 swing{s?} {your|his|her|its} %2at the tentacle wrapped around %2, {cutting|scoring} a {shallow|small|light} scratch into its rubbery skin.} {bold blue};
+#HIGHLIGHT {^The tentacle wrapped around %1 unwraps itself and {slips|retreats|retracts} back into the sea.} {bold white};
+#HIGHLIGHT {^The tentacle coils tighter, making %1 go blue in the face.} {bold red};
+#HIGHLIGHT {^Limbs bound tightly by the kraken's tentacle, %1 struggles to move but gets nowhere.} {yellow};
+#HIGHLIGHT {^%1 looks pained as the tentacle slowly constricts the life out of {her|him|it}.} {bold red};
+#HIGHLIGHT {^You feel your bones creaking as the tentacle slowly constricts the life out of you.} {bold red};
+
+#NOP ==[Fire related highlights]==;
+#SUB {^Long shadows dance as flickering firelight from %1 {blazes into|illuminates|casts light on} the room.} {Long shadows dance as flickering firelight from <419>%1<099> %2 the room.};
+#SUB {^Flickering firelight can be seen to %1{\.$|, }} {Flickering firelight can be seen to <119>%1<099>%2};
+
+#HIGHLIGHT {^A small fire has started here.} {bold orange};
+#HIGHLIGHT {^Several small blazes are eagerly licking at the floorboards.} {bold orange};
+#HIGHLIGHT {^The room is filled with a huge conflagration, sparks spilling out into the nearby rooms.} {bold orange};
+#HIGHLIGHT {^Fire fills the room, burning merrily without regard for the structural integrity of the ship.} {bold orange};
+
+#NOP ==[Ice and Seaweed highlights]==;
+#HIGHLIGHT {%1.  It sounds like ice might be forming on the hull!$} {<aef>};
+#HIGHLIGHT {%*ice has formed%*$} {<aef>};
+#HIGHLIGHT {%*slippery layer of ice%*$} {<aef>};
+#HIGHLIGHT {^The dire seaweed clinging onto the hull glows faintly, %1 its way {through|into} the {hull|wood|ship}.$} {bold jade};
+#HIGHLIGHT {^The ship plows through a field of floating dire seaweed, some of which glows green and latches onto the hull aggressively!$} {bold jade};
+
+#NOP ==[Wrangling job highlights]==;
+#SUB {According to the dials on the side, it seems to be %1 and %2\.} {According to the dials on the side, it seems to be <039>%1<099> and <039>%2<099>\.};
+#HIGHLIGHT {^%*A little bell on the MK I Boiling Engine rings to indicate that it's out of water.%*$} {light red underscore};
+#HIGHLIGHT {^%*dragon looks up at %* accidentally spraying flame over the floorboards\.$} {light red underscore};
+#HIGHLIGHT {^%*swamp dragon leaps upon the squeaky toy animal and spends an enjoyable three and a half minutes tearing it to squeaking shreds.  Finally, it climbs atop the pile of rubber scraps and sits there triumphantly.%*$} {light green};
+#HIGHLIGHT {^%*You throw the ball a few more times, getting a little further each time to keep %* swamp dragon entertained, until a particularly hard throw sends it bouncing right off the ship.  Oh well.$} {light green};
+#HIGHLIGHT {very {bored|hungry}} {red};
+#HIGHLIGHT {somewhat {bored|hungry}} {orange};
+#HIGHLIGHT {a little {bored|hungry}} {yellow};
+#HIGHLIGHT {not at all {bored|hungry}} {green};
+#HIGHLIGHT {^%*finishe%. off the last of the%*$} {green};
+#HIGHLIGHT {^%*where it sits down and starts breathing fire onto the Boiling Engine.} {green};
+
+#NOP ==[Deckhanding job highlights]==;
+#HIGHLIGHT {You manage to shatter all the reamining sea ice on the hull.} {bold blue};
+#HIGHLIGHT {You manage to hack off all the reamining dire seaweed from the hull.} {bold green};
+#HIGHLIGHT {^You feel too tired to tie any knots at the moment.$} {red};
+#HIGHLIGHT {^You tie %1 of rope securely in a %2 knot around %3 waist.$} {bold yellow};
+#HIGHLIGHT {^Under the strain, your rope gives up the ghost and unravels completely into wispy threads that float away in the wind.$} {light red underscore};
+#HIGHLIGHT {^You tie one of the cargo crates down securely %* with {(one of)?} the coil{(s)?} of rope, preventing it from sliding.} {light green};
+#HIGHLIGHT {^You tie one of the cargo crates down securely in a running bowline with the coil of rope, preventing it from sliding.} {light green};
+#HIGHLIGHT {colossal amount of sea ice} {red};
+#HIGHLIGHT {thick mass of sea ice} {red};
+#HIGHLIGHT {thin layer of sea ice} {yellow};
+#HIGHLIGHT {few patches of sea ice} {yellow};
+#HIGHLIGHT {badly cracked} {red};
+#HIGHLIGHT {rather dented} {yellow};
+#HIGHLIGHT {a little scuffed up} {yellow};
+#HIGHLIGHT {in perfect condition} {green};
+#HIGHLIGHT {hanging on by a thread} {red};
+#HIGHLIGHT {very frayed} {red};
+#HIGHLIGHT {somewhat frayed} {yellow};
+#HIGHLIGHT {a little frayed} {yellow};
+
+#NOP ==[Helming job highlights]==;
+#HIGHLIGHT {^Caught in a strong backwards current, the ship shudders intensely as it zooms back a few miles.$} {light orange};
+#HIGHLIGHT {^Caught in a strong forwards current, the ship vibrates intensely as it zooms ahead a few miles.$} {light green};
+#HIGHLIGHT {The ship abruptly starts spinning in circles.  After a few rounds, it manages to escape the whirlpool, heading in a different direction from before.} {bold yellow underscore};
+#SUB {^The impact knocks the ship slightly off course to port.$} {<488><138>The impact knocks the ship slightly off course to port. <099><178>(TURN STARBOARD)<099>};
+#SUB {^The impact knocks the ship slightly off course to starboard.$} {<488><138>The impact knocks the ship slightly off course to starboard. <099><178>(TURN PORT)<099>};
+#SUB {^The powerful headwind causes the ship to drift off course towards port.$} {<488><138>The powerful headwind causes the ship to drift off course towards port. <099><178>(TURN STARBOARD)<099>};
+#SUB {^The powerful headwind causes the ship to drift off course towards starboard.$} {<488><138>The powerful headwind causes the ship to drift off course towards starboard.<099><178>(TURN PORT)<099>};
+
+#NOP ==[Helming directionality or compass highlights]==;
+#SUB {^From the compass, you can see that the ship is heading %1.} {From the compass, you can see that the ship is heading <868>%1<099>.};
+#HIGHLIGHT {{Gazing up at the stars|Noting the positions of some key constellations|Reading the stars like a chart|Squinting up at the sun|Carefully looking up out of the corner of your eye|From a careful squint at the sun}, you {are confident|decide|determine|are able to ascertain|decide from the sun's position|determine from the sun's position|guess} that the ship is {currently heading|heading|heading directly} %4.} {bold pink};
+#HIGHLIGHT {{Gazing up at the stars|Noting the positions of some key constellations|Reading the stars like a chart|Squinting up at the sun|Carefully looking up out of the corner of your eye|From a careful squint at the sun}, you {are confident|decide|determine|are able to ascertain|decide from the sun's position|determine from the sun's position|guess} that the ship is {currently heading|heading|heading directly} %4 and that you're %5 rimwards of {Ankh-Morpork|Ephebe}.$} {bold pink};
+#HIGHLIGHT {{Gazing up at the stars|Noting the positions of some key constellations|Reading the stars like a chart|Squinting up at the sun|Carefully looking up out of the corner of your eye|From a careful squint at the sun}, you {are confident|decide|determine|are able to ascertain|decide from the sun's position|determine from the sun's position|guess} that the ship is {currently heading|heading|heading directly} %4 and that you're %5 rimwards and %6 miles %7 of {Ankh-Morpork|Ephebe}.$} {bold pink};
+
+
+#CLASS {missiontimers_sailing} {close};

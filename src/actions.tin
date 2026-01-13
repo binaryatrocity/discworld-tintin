@@ -102,36 +102,6 @@
 #HIGHLIGHT {^%1 giant spiders climb up from below!} {bold violet};
 #HIGHLIGHT {^%1 spiders scuttle up from below and join the fight!} {bold violet};
 
-#NOP ==[Sailing]==
-#HIGHLIGHT {^%1 kraken reaches for you from %2.  Run!$} {bold red};
-#HIGHLIGHT {^%1 kraken %2, then {whips|launches} it {towards|forward at} you from %3.  Run!$} {bold red};
-#HIGHLIGHT {^%1 kraken reaches for %2.$} {bold blue};
-#HIGHLIGHT {^%1 kraken %2, then {whips|launches} it {towards|forward at} %3.$} {bold blue};
-
-#HIGHLIGHT {^{Quick as lightning|Striking like a cobra|In the blink of an eye|With a blur of speed|Moving too fast to see}, the tentacle snakes around %1 legs and coils its way up to {your|his|her|its} torso, binding {you|him|her|it} in an unescapable embrace.} {bold red};
-#HIGHLIGHT {^The tentacle wrapped around %1 unwraps itself and {slips|retreats} back into the sea.} {bold white};
-#HIGHLIGHT {^The tentacle coils tighter, making %1 go blue in the face.} {bold red};
-#HIGHLIGHT {^Limbs bound tightly by the kraken's tentacle, %1 struggles to move but gets nowhere.} {yellow};
-#HIGHLIGHT {^%1 looks pained as the tentacle slowly constricts the life out of {her|him|it}.} {bold red};
-#HIGHLIGHT {^%1 swing{s?} {your|his|her|its} %2at the tentacle wrapped around %2, scoring a light scratch into its rubbery skin.} {bold blue};
-
-#HIGHLIGHT {^The sea serpent {reaches for|lunges towards|strikes forward swiftly at} you from %1.  Run!} {bold red};
-#HIGHLIGHT {^%1, the sea serpent {reaches for|lunges towards|strikes forward swiftly at} you from %2.  Run!} {bold red};
-#HIGHLIGHT {^The sea serpent {reaches for|lunges towards|strikes forward swiftly at} %1.$} {bold blue};
-#HIGHLIGHT {^%1, the sea serpent {reaches for|lunges towards|strikes forward swiftly at} %2.$} {bold blue};
-
-#HIGHLIGHT {%1.  It sounds like ice might be forming on the hull!$} {<aef>};
-#HIGHLIGHT {^A small fire has started here.  } {bold orange};
-#HIGHLIGHT {^Several small blazes are eagerly licking at the floorboards.  } {bold orange};
-#HIGHLIGHT {^The room is filled with a huge conflagration, sparks spilling out into the nearby rooms.} {bold orange};
-#HIGHLIGHT {^Fire fills the room, burning merrily without regard for the structural integrity of the ship.} {bold orange};
-#HIGHLIGHT {^The dire seaweed clinging onto the hull glows faintly, %1 its way through the hull.$} {bold jade};
-#HIGHLIGHT {^The ship plows through a field of floating dire seaweed, some of which glows green and latches onto the hull aggressively!$} {bold jade};
-
-#HIGHLIGHT {^{Squinting|Gazing} up at the {sun|stars}, you determine that the ship is heading %1.$} {bold pink};
-#HIGHLIGHT {^{Squinting|Gazing} up at the {sun|stars}, you guess that the ship is heading %1.$} {bold tan};
-#HIGHLIGHT {^You feel too tired to tie any knots at the moment.$} {red};
-
 
 #NOP ==[Horses]==
 #HIGHLIGHT {brindle horse} orange;
