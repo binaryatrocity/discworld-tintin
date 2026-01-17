@@ -28,11 +28,14 @@
 
 #ALIAS {xpreset} {
     #var {session_xp} {0};
-    #var {previous_xp} {0}
+    #var {previous_xp} {0};
+    #var {latest_xp} {0};
+    #var {gained_xp} {0};
     
     #var {uptime[hours]} {0};
     #var {uptime[minutes]} {0};
     #var {uptime[seconds]} {0};
+    #var {uptime[display]} {0};
 
     #format {start_time} {%T};
     #format {check_time} {%T};

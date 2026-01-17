@@ -1,3 +1,6 @@
 *.log
 notes/
 src/quow.db.old
+src/personal.tin
+src/wamgsaver.tin
+src/constants.tin
