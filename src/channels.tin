@@ -7,7 +7,7 @@
 #ACTION {^%1 {tells|asks|exclaims to} %*you{|(?: in \w+)?}: %4} {#return @log_line_to_chat{};};
 
 #nop Capture group chat best we can, but ignore any of our client-side [x] messages at least;
-#ACTION {^[{(?!(talker|spottimers|missions|speedwalk|sail|quota|mdt)).+}] %2{: | }%4} {
+#ACTION {^[{(?!(talker|spottimers|missions|speedwalk|sail|quota|mdt|group)).+}] %2{: | }%4} {
     #nop %1 is group name, %3 is player name, %6 is message;
     #tab {%3};
     #return @log_line_to_chat{};
