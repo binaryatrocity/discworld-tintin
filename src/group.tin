@@ -128,7 +128,10 @@
             #variable {group_shields[$name][eff]} {0};
             /writegroupshieldstofile;
 
-            #showme {\a};
+            #if {"$gs_eff_alerts" == "1"} {
+                #showme {\a};
+            };
+
             #return @log_line_to_chat{};
 
         };
@@ -287,6 +290,26 @@
             };
         };
         #showme {$gs_displayline};
+    };
+};
+#VARIABLE {gs_eff_alerts} {1};
+#ALIAS {^gs eff on$} {
+    #VARIABLE {gs_eff_alerts} {1};
+    #showme {<acf>[<fff>group<acf>] Group shield EFF bell alerts are <128>ON<acf>.<900>};
+    #showme {<acf>[<fff>group<acf>] Syntax: 'gs eff <on|off>'.<900>};
+};
+#ALIAS {^gs eff off$} {
+    #VARIABLE {gs_eff_alerts} {0};
+    #showme {<acf>[<fff>group<acf>] Group shield EFF bell alerts are <118>OFF<acf>.<900>};
+    #showme {<acf>[<fff>group<acf>] Syntax: 'gs eff <on|off>'.<900>};
+};
+#ALIAS {^gs eff$} {
+    #IF {"$gs_eff_alerts" == "0"} {
+        #showme {<acf>[<fff>group<acf>] Group shield EFF bell alerts are <118>OFF<acf>.<900>};
+        #showme {<acf>[<fff>group<acf>] Syntax: 'gs eff <on|off>'.<900>};
+    } {
+        #showme {<acf>[<fff>group<acf>] Group shield EFF bell alerts are <128>ON<acf>.<900>};
+        #showme {<acf>[<fff>group<acf>] Syntax: 'gs eff <on|off>'.<900>};
     };
 };
 
