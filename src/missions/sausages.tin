@@ -42,7 +42,7 @@
 
         #line sub variable {
             #delay {600} {
-                #format {sausage_retry_line} {%c[MT] %c*%c %s%c can now ask for a new sausage mission from Sam Slager.} {bold blue} {bold yellow} {bold green}{$GMCP[charinfo][capname]} {bold blue};
+                #format {sausage_retry_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s<acf>can now ask for a new sausage mission from Sam Slager.<099>} {$GMCP[charinfo][capname]};
                 #echo {$sausage_retry_line};
                 #unvar {sausage_retry_line};
 
@@ -61,7 +61,7 @@
             #line sub variable {
                 #format {delayname} {sausage_easy_%s} {$GMCP[charinfo][capname]};
                 #delay {$delayname} {
-                    #format {sausage_timer_line} {%c[MT] %c*%c %s can now do another unspiced sausage mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #format {sausage_timer_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s <acf>can now do another unspiced sausage mission.<099>} {$GMCP[charinfo][capname]};
                     #echo {$sausage_timer_line};
                     #unvar {sausage_timer_line};
 
@@ -76,7 +76,7 @@
             #line sub variable {
                 #format {delayname} {sausage_hard_%s} {$GMCP[charinfo][capname]};
                 #delay {$delayname} {
-                    #format {sausage_timer_line} {%c[MT] %c*%c %s can now do another spiced sausage mission.} {bold blue} {bold yellow} {bold blue} {$GMCP[charinfo][capname]};
+                    #format {sausage_timer_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s <acf>can now do another spiced sausage mission.<099>} {$GMCP[charinfo][capname]};
                     #echo {$sausage_timer_line};
                     #unvar {sausage_timer_line};
 
@@ -84,6 +84,72 @@
                 } {3600};
             };
             #unvar {delayname};
+        };
+    };
+};
+
+#ALIAS {/sausage_recreate_delays} {
+    #format {current_time} {%T};
+
+    #nop == start with retry list;
+    #foreach {*missions[sausage][retry_list][]} {player} {
+        #local {delay_time} {$missions[sausage][retry_list][$player]};
+        #math {delay_time} {600 - ($current_time - $delay_time)};
+
+        #if {$delay_time < 1} {
+            #unvar {missions[sausage][retry_list][$player]};
+            #continue;
+        };
+
+        #line sub variable {
+            #delay {$delay_time} {
+                #format {sausage_retry_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s<acf> can now ask for a new sausage mission from Sam Slager.<099>} {$player};
+                #echo {$sausage_retry_line};
+                #unvar {sausage_retry_line};
+
+                #unvar {missions[sausage][retry_list][$player]};
+            };
+        };
+    };
+    #nop == easy and hard missions;
+    #foreach {*missions[sausage][active_list][]} {player} {
+        #if {&missions[sausage][active_list][$player][easy]} {
+            #local {delay_time} {$missions[sausage][active_list][$player][easy]};
+            #math {delay_time} {3600 - ($current_time - $delay_time)};
+
+            #if {$delay_time < 1} {
+                #unvar {missions[sausage][active_list][$player][easy]};
+                #continue;
+            };
+
+            #line sub variable {
+                #delay {$delay_time} {
+                    #format {sausage_timer_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s <acf>can now do another unspiced sausage mission.<099>} {$player};
+                    #echo {$sausage_timer_line};
+                    #unvar {sausage_timer_line};
+
+                    #unvar {missions[sausage][active_list][$player][easy]};
+                };
+            };
+        };
+        #if {&missions[sausage][active_list][$player][hard]} {
+            #local {delay_time} {$missions[sausage][active_list][$player][hard]};
+            #math {delay_time} {3600 - ($current_time - $delay_time)};
+
+            #if {$delay_time < 1} {
+                #unvar {missions[sausage][active_list][$player][hard]};
+                #continue;
+            };
+
+            #line sub variable {
+                #delay {$delay_time} {
+                    #format {sausage_timer_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s <acf>can now do another unspiced sausage mission.<099>} {$player};
+                    #echo {$sausage_timer_line};
+                    #unvar {sausage_timer_line};
+
+                    #unvar {missions[sausage][active_list][$player][hard]};
+                };
+            };
         };
     };
 };
