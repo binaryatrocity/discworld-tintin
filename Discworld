@@ -1,4 +1,5 @@
 cd ~/documents/MUD/Discworld
+rm logs/history.log
 
 # No existing discworld session? Then create one
 if [[ ! $(tmux ls -F '#S') =~ discworld ]]; then
