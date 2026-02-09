@@ -97,7 +97,7 @@
     #list {last_query_list} {clear};
 
     #if {$gatherable_result_size > 0} {
-        #format {gatherable_display} {%cResults for gatherables matching "%c%s%c":} {bold blue}{yellow}{%1}{bold blue};
+        #format {gatherable_display} {%cResults for gatherables matching "%c%s%c":<099>} {Azure}{Yellow}{%1}{Azure};
         #echo {$gatherable_display};
 
         #var {gather_count} {0};
@@ -113,14 +113,14 @@
                 {map_name}{$map_id_names[$gatherable_results[4]]}
             };
 
-            #format {gatherable_display} {%c  [%c%d%c]: %c%s%c found in %c%s%c,%c %s%c} {bold blue}{cyan}{$gather_count}{bold blue}{green}{$gatherable_info[item_name]}{bold blue}{orange}{$gatherable_info[room_short]}{bold blue}{orange}{$gatherable_info[map_name]}{bold blue};
+            #format {gatherable_display} {%c  [%c%d%c]: %c%s%c found in %c%s%c,%c %s%c<099>} {Azure}{Cyan}{$gather_count}{Azure}{Green}{$gatherable_info[item_name]}{Azure}{Orange}{$gatherable_info[room_short]}{Azure}{Orange}{$gatherable_info[map_name]}{Azure};
             #echo {$gatherable_display};
 
             #variable {last_query_list[$gather_count]} {$gatherable_info};
             #math {gather_count} {$gather_count + 1};
         }
     } {
-        #format {gatherable_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #format {gatherable_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$gatherable_display};
     }
 }
@@ -134,12 +134,12 @@
     #nop If we found an area name in curly braces, try to match a map-set;
     #var {search_map} {@map_parse{%4}};
 
-    #if {&map_term} {
+    #if {&{map_term}} {
         #format {query} {SELECT npc_name, rooms.map_id, rooms.room_id, rooms.room_short, INSTR(npc_name, '%s') pos FROM npc_info INNER JOIN rooms on rooms.room_id = npc_info.room_id WHERE pos > 0 AND rooms.map_id IN (%s) LIMIT 10} {$search_term} {$map_term};
     };
     #else {
         #format {query} {SELECT npc_name, rooms.map_id, rooms.room_id, rooms.room_short, INSTR(npc_name, '%s') pos FROM npc_info INNER JOIN rooms on rooms.room_id = npc_info.room_id WHERE pos > 0 LIMIT 10} {$search_term};
-    }
+    };
 
     #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
     #script {npc_query_result} {$db_command};
@@ -148,7 +148,7 @@
     #list {last_query_list} {clear};
 
     #if {$npc_result_size > 0} {
-        #format {npc_display} {%cResults for NPCs matching "%c%s%c":} {bold blue}{yellow}{%1}{bold blue};
+        #format {npc_display} {%cResults for NPCs matching "%c%s%c":<099>} {Azure}{Yellow}{%1}{Azure};
         #echo {$npc_display};
 
         #var {npc_count} {0};
@@ -164,14 +164,14 @@
                 {room_short}{$npc_results[4]}
             };
 
-            #format {npc_display} {%c  [%c%d%c]: %c%s%c found in %c%s%c,%c %s%c} {bold blue}{cyan}{$npc_count}{bold blue}{green}{$npc_info[npc_name]}{bold blue}{orange}{$npc_info[room_short]}{bold blue}{orange}{$npc_info[map_name]}{bold blue};
+            #format {npc_display} {%c  [%c%d%c]: %c%s%c found in %c%s%c,%c %s%c<099>} {Azure}{Cyan}{$npc_count}{Azure}{Green}{$npc_info[npc_name]}{Azure}{Orange}{$npc_info[room_short]}{Azure}{Orange}{$npc_info[map_name]}{Azure};
             #echo {$npc_display};
 
             #variable {last_query_list[$npc_count]} {$npc_info};
             #math {npc_count} {$npc_count + 1};
         }
     } {
-        #format {npc_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #format {npc_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$npc_display};
     }
 };
@@ -185,12 +185,12 @@
     #nop If we found an area name in curly braces, try to match a map-set;
     #var {search_map} {@map_parse{%4}};
 
-    #if {&map_term} {
+    #if {&{map_term}} {
         #format {query} {SELECT npc_info.map_id, npc_name, npc_info.room_id, item_name, room_short, INSTR(item_name, '%s') pos FROM 'npc_info' INNER JOIN npc_items ON npc_items.npc_id = npc_info.npc_id INNER JOIN rooms on npc_info.room_id = rooms.room_id WHERE pos > 0 AND rooms.map_id IN (%s) LIMIT 10} {$search_term} {$map_term};
     };
     #else {
         #format {query} {SELECT npc_info.map_id, npc_name, npc_info.room_id, item_name, room_short, INSTR(item_name, '%s') pos FROM 'npc_info' INNER JOIN npc_items ON npc_items.npc_id = npc_info.npc_id INNER JOIN rooms on npc_info.room_id = rooms.room_id WHERE pos > 0 LIMIT 10} {$search_term};
-    }
+    };
 
     #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
     #script {npcitem_query_result} {$db_command};
@@ -199,7 +199,7 @@
     #list {last_query_list} {clear};
 
     #if {$npcitem_result_size > 0} {
-        #format {npcitem_display} {%cResults for NPC items matching "%c%s%c":} {bold blue}{yellow}{%1}{bold blue};
+        #format {npcitem_display} {%cResults for NPC items matching "%c%s%c":<099>} {Azure}{Yellow}{%1}{Azure};
         #echo {$npcitem_display};
 
         #var {npcitem_count} {0};
@@ -216,14 +216,14 @@
                 {room_short}{$npcitem_results[5]}
             };
 
-            #format {npcitem_display} {%c  [%c%d%c]: %c%s%c found on %c%s%c in %c%s%c,%c %s%c} {bold blue}{cyan}{$npcitem_count}{bold blue}{green}{$npcitem_info[item_name]}{bold blue}{white}{$npcitem_info[npc_name]}{bold blue}{orange}{$npcitem_info[room_short]}{bold blue}{orange}{$npcitem_info[map_name]}{bold blue};
+            #format {npcitem_display} {%c  [%c%d%c]: %c%s%c found on %c%s%c in %c%s%c,%c %s%c<099>} {Azure}{Cyan}{$npcitem_count}{Azure}{Green}{$npcitem_info[item_name]}{Azure}{White}{$npcitem_info[npc_name]}{Azure}{Orange}{$npcitem_info[room_short]}{Azure}{Orange}{$npcitem_info[map_name]}{Azure};
             #echo {$npcitem_display};
 
             #variable {last_query_list[$npcitem_count]} {$npcitem_info};
             #math {npcitem_count} {$npcitem_count + 1};
         }
     } {
-        #format {npcitem_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #format {npcitem_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$npcitem_display};
     }
 };
@@ -237,12 +237,12 @@
     #nop If we found an area name in curly braces, try to match a map-set;
     #var {search_map} {@map_parse{%4}};
 
-    #if {&map_term} {
+    #if {&{map_term}} {
         #format {query} {SELECT item_name, sale_price, room_short, shop_items.room_id, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price != 'gather' AND map_id IN (%s) LIMIT 10;} {$search_term} {$map_term};
     };
     #else {
         #format {query} {SELECT item_name, sale_price, room_short, shop_items.room_id, map_id, INSTR(item_name, '%s') pos FROM shop_items INNER JOIN rooms on rooms.room_id = shop_items.room_id WHERE pos > 0 AND sale_price != 'gather' LIMIT 10;} {$search_term};
-    }
+    };
 
     #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
     #script {item_query_result} {$db_command};
@@ -251,7 +251,7 @@
     #list {last_query_list} {clear};
 
     #if {$item_result_size > 0} {
-        #format {item_display} {%cResults for items matching "%c%s%c":} {bold blue}{yellow}{%1}{bold blue};
+        #format {item_display} {%cResults for items matching "%c%s%c":<099>} {Azure}{Yellow}{%1}{Azure};
         #echo {$item_display};
 
         #var {item_count} {0};
@@ -268,14 +268,14 @@
                 {map_name}{$map_id_names[$item_results[5]]}
             };
 
-            #format {item_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c,%c %s%c} {bold blue}{cyan}{$item_count}{bold blue}{green}{$item_info[item_name]}{bold blue}{yellow}{$item_info[sale_price]}{bold blue}{orange}{$item_info[room_short]}{bold blue}{orange}{$item_info[map_name]}{bold blue};
+            #format {item_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c,%c %s%c<099>} {Azure}{Cyan}{$item_count}{Azure}{Green}{$item_info[item_name]}{Azure}{Yellow}{$item_info[sale_price]}{Azure}{Orange}{$item_info[room_short]}{Azure}{Orange}{$item_info[map_name]}{Azure};
             #echo {$item_display};
 
             #variable {last_query_list[$item_count]} {$item_info};
             #math {item_count} {$item_count + 1};
         };
     } {
-        #format {item_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #format {item_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$item_display};
     };
 };
@@ -289,12 +289,12 @@
     #nop If we found an area name in curly braces, try to match a map-set;
     #var {search_map} {@map_parse{%4}};
 
-    #if {&map_term} {
+    #if {&{map_term}} {
         #format {query} {SELECT room_id, map_id, room_short, room_type, INSTR(room_short, '%s') pos FROM rooms WHERE pos > 0 AND map_id IN (%s) LIMIT 10;} {$search_term} {$map_term};
     };
     #else {
         #format {query} {SELECT room_id, map_id, room_short, room_type, INSTR(room_short, '%s') pos FROM rooms WHERE pos > 0 LIMIT 10;} {$search_term};
-    }
+    };
 
     #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
     #script {room_query_result} {$db_command};
@@ -303,7 +303,7 @@
     #list {last_query_list} {clear};
 
     #if {$room_result_size > 0} {
-        #format {room_display} {%cResults for items items matching "%c%s%c":} {bold blue}{yellow}{%1}{bold blue};
+        #format {room_display} {%cResults for items items matching "%c%s%c":<099>} {Azure}{Yellow}{%1}{Azure};
         #echo {$room_display};
 
         #var {room_count} {0};
@@ -319,14 +319,14 @@
                 {room_type}{$room_results[4]}
             };
 
-            #format {room_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c} {bold blue}{cyan}{$room_count}{bold blue}{green}{$room_info[room_short]}{bold blue}{yellow}{$room_info[room_type]}{bold blue}{orange}{$room_info[map_name]}{bold blue};
+            #format {room_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c<099>} {Azure}{Cyan}{$room_count}{Azure}{Green}{$room_info[room_short]}{Azure}{Yellow}{$room_info[room_type]}{Azure}{Orange}{$room_info[map_name]}{Azure};
             #echo {$room_display};
 
             #variable {last_query_list[$room_count]} {$room_info};
             #math {room_count} {$room_count + 1};
         }
     } {
-        #format {room_display} {%cQuery Result: %c%s%c was not found.} {bold blue}{green}{%1}{bold blue};
+        #format {room_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$room_display};
     };
 };
@@ -334,8 +334,7 @@
 #ALIAS {db route %1} {
     #if {&last_query_list[%1]} {
         #var {target_room} {$last_query_list[%1]};
-        #format {route_display} {%c[speedwalk] Generating speedwalk from current location to %c%s%c, %c%s%c...} {bold blue}{green}{$target_room[room_short]}{bold blue}{orange}{$target_room[map_name]}{bold blue};
-        
+        #format {route_display} {<acf>[<fff>speedwalk<acf>] Generating speedwalk from current location to %c%s<acf>, %c%s<acf>...<099>} {Green}{$target_room[room_short]}{Orange}{$target_room[map_name]};
         #echo {$route_display};
 
         #var {route_current_room_id} {$GMCP[room][info][identifier]};
@@ -345,10 +344,10 @@
         #script {speedwalk_result} {$route_command};
 
         #if {"$speedwalk_result[1]" == "0"} {
-            #format {route_error} {%c[speedwalk] Unable to find route to %c%s%c or unknown current room.} {bold blue}{green}{$target_room[room_short]}{bold blue};
+            #format {route_error} {<acf>[<fff>speedwalk<acf>] Unable to find route to %c%s<acf> or unknown current room.<099>} {Green}{$target_room[room_short]};
             #echo {$route_error};
             #return;
-        }
+        };
         #send {$speedwalk_result[1]};
         
         #variable {route_length} {$speedwalk_result[1]};
@@ -357,12 +356,12 @@
         #list {route_length} {create} {$route_length};
         #list {route_length} {size} {route_length};
 
-        #format {route_confirm} {%c[speedwalk] A route was found, type "%cspeedwalk%c" to fast travel. [%g steps]} {bold blue}{green}{bold blue}{$route_length};
+        #format {route_confirm} {<acf>[<fff>speedwalk<acf>] A route was found, type "%cspeedwalk<acf>" to fast travel. [%c%g<acf> steps]<099>} {Green}{Cyan}{$route_length};
         #echo {$route_confirm};
     } {
-        #format {route_display} {%c[speedwalk] No previous query data found, try searching first.} {bold blue};
+        #format {route_display} {<acf>[<fff>speedwalk<acf>] No previous query data found, try searching first.<099>};
         #echo {$route_display};
-    }
+    };
 };
 
 #ALIAS {speedwalk} {
@@ -371,7 +370,7 @@
 
 #ALIAS {db routeto %1} {
     #var {target_room} {%1};
-    #format {route_display} {[speedwalk] Generating speedwalk from current location to specified id %s.} {%1};
+    #format {route_display} {<acf>[<fff>speedwalk<acf>] Generating speedwalk from current location to specified id <cfa>%s<acf>.<099>} {%1};
 
     #echo {$route_display};
 
@@ -382,10 +381,10 @@
     #script {speedwalk_result} {$route_command};
 
     #if {"$speedwalk_result[1]" == "0"} {
-        #format {route_error} {%c[speedwalk] Unable to find route to %c%s%c or unknown current room.} {bold blue}{green}{$target_room[room_short]}{bold blue};
+        #format {route_error} {<acf>[<fff>speedwalk<acf>] Unable to find route to %c%s<acf> or unknown current room.<099>} {Green}{$target_room[room_short]};
         #echo {$route_error};
         #return;
-    }
+    };
     #send {$speedwalk_result[1]};
 
     #variable {route_length} {$speedwalk_result[1]};
@@ -394,8 +393,24 @@
     #list {route_length} {create} {$route_length};
     #list {route_length} {size} {route_length};
 
-    #format {route_confirm} {%c[speedwalk] A route was found, type "%cspeedwalk%c" to fast travel. [%g steps]} {bold blue}{green}{bold blue}{$route_length};
+    #format {route_confirm} {<acf>[<ffF>speedwalk<acf>] A route was found, type %cspeedwalk<acf> to fast travel. [%c%g<acf> steps]<099>} {Green}{Cyan}{$route_length};
     #echo {$route_confirm};
+};
+
+#ALIAS {^db$} {
+    #showme {<acf>[<fff>speedwalk<acf>] Try "<fab>db help<acf>" for usage instructions.<099>};
+};
+
+#ALIAS {db help} {
+    #showme {<acf>[<fff>speedwalk<acf>] Speedwalk and Database Lookup Commands:<099>};
+    #showme {\t<138>*<acf> "<bbd>db room <cfa><query><acf>" - search for a room by name<099>};
+    #showme {\t<138>*<acf> "<bbd>db item <cfa><query><acf>" - search for an item in shops by name<099>};
+    #showme {\t<138>*<acf> "<bbd>db npc <cfa><query><acf>" - search for an NPC by name<099>};
+    #showme {\t<138>*<acf> "<bbd>db npcitem <cfa><query><acf>" - search for an item in NPC inventories by name<099>};
+    #showme {\t<138>*<acf> "<bbd>db gatherable <cfa><query><acf>" - search for a gatherable item by name<099>};
+    #showme {<099>};
+    #showme {<acf>After searching with one of the above commands, find a route there with "<bbd>db route <cfa>#<acf>"<099>};
+    #showme {<acf>Then type "<fab>speedwalk<acf>" to start moving.<099>};
 };
 
 
