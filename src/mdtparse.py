@@ -86,6 +86,12 @@ class MapDoorText:
         with open('mdtconfig.json', 'r') as config_file:
             config = json.load(config_file)
 
+        # Load any additional custom matches
+        with open('logs/features/mdt_custom_matches.json', 'r') as custom_file:
+            additional_matches = json.load(custom_file)
+
+        config['custom_matches'] = config['custom_matches'] + additional_matches;
+
         # Strip comments from custom matches
         for match in config['custom_matches']:
             if len(match) > 1:
