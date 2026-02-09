@@ -1,16 +1,23 @@
 #CLASS {tpamonitor} {kill};
 #CLASS {tpamonitor} {open};
 
+
 #nop  ### Turn TPA indicator on ###
 #action {^ * You are surrounded by a magical impact shield.$} {
     #var {tpa_status} {1};
     #var {tpa_color} {invisible};
+    #nop Update ourselves in the group shield monitor;
+    #variable {group_shields[$GMCP[charinfo][capname]][tpa]} {1};
+    /softwritegroupshieldstofile;
     update_prompt;
 }
 #action {^ * You are surrounded by a %+ magical impact shield.$}
 {
     #var {tpa_status} {1};
     #var {tpa_color} {%1};
+    #nop Update ourselves in the group shield monitor;
+    #variable {group_shields[$GMCP[charinfo][capname]][tpa]} {1};
+    /softwritegroupshieldstofile;
     update_prompt;
 }
 #action {^With a noise that sounds like "Plink!", everything around you flashes red for a moment.$} {
@@ -20,18 +27,30 @@
 
     #nop Update ourselves in the group shield monitor;
     #variable {group_shields[$GMCP[charinfo][capname]][tpa]} {1};
-    /writegroupshieldstofile
-    update_prompt
+    /writegroupshieldstofile;
+    update_prompt;
 }
 
 
 #nop  ### Turn TPA indicator off ###
 #action {^There is a sudden white flash.  Your magical shield has broken.$} {
-    #line {log} {$chat_file};
     #var {tpa_status} {0};
+    #var {tpa_color} {0};
     #format {tpa_end} {%T};
-    /break_tpa
+    /break_tpa;
+
+    #return @log_line_to_chat{};
 }
+#action {^You do not have any arcane or divine protection.$} {
+    #var {tpa_status} {0};
+    #var {tpa_color} {0};
+
+    #nop Update ourselves in the group shield monitor;
+    #variable {group_shields[$GMCP[charinfo][capname]][tpa]} {0};
+    #variable {group_shields[$GMCP[charinfo][capname]][ccc]} {0};
+    #variable {group_shields[$GMCP[charinfo][capname]][ms]} {0};
+    #variable {group_shields[$GMCP[charinfo][capname]][kii]} {0};
+};
 
 #nop ### Track TPA colors ###
 #action {^As your shield absorbs the impact, it becomes visible as a %1 glow.$}
@@ -64,24 +83,25 @@
         #math {tpa_dur} {$tpa_end - $tpa_start};
         #math {tpa_dur} {($tpa_dur - (60 - 1)) / 60};
         #echo {<168>*** TPA broken! (lasted for $tpa_dur minutes) ***<099>};
-    }
+    };
 
     #nop Update ourselves in the group shield monitor;
     #variable {group_shields[$GMCP[charinfo][capname]][tpa]} {0};
-    /writegroupshieldstofile
+    /writegroupshieldstofile;
 
     #unvar {tpa_start};
     #unvar {tpa_end};
-    update_prompt
+    update_prompt;
 }
 
-#nop ### alias to reset TPA status, if it breaks and we didn't catch it ###
+#nop ### alias to reset TPA status, if it breaks and we didn't catch it ###;
 #alias {tpareset} {
     #unvar {tpa_start};
     #unvar {tpa_end};
     #var {tpa_status} {0};
-}
+};
 
 #var {tpa_status} {0};
+#variable {tpa_color} {0};
 
 #CLASS {tpamonitor} {close};

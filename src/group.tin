@@ -16,45 +16,61 @@
 #nop EFF
 #ACTION {^ * %1 is floating around {him|her|it}:$} {
     #variable {group_shields[$group_shields_current][eff]} {1};
-    /writegroupshieldstofile
+    /writegroupshieldstofile;
 }
 
 #nop TPA
 #ACTION {^ * {She|He|It} is surrounded by a {(dull red |bright red |wobbling orange |flickering yellow |)?}magical impact shield\.$} {
-    #variable {group_shields[$group_shields_current][tpa]} {1};
-    /writegroupshieldstofile
+    #if {"$group_shields_current" != ""} {
+        #variable {group_shields[$group_shields_current][tpa]} {1};
+        /softwritegroupshieldstofile;
+    };
 }
 
 #nop CCC
 #ACTION {^ * {Her|His|Its} skin has been {hardened|covered} {with|to}{a?} %4, although {the \w+|it} seems {weaker|not to be}} {
-    #variable {group_shields[$group_shields_current][ccc]} {1};
-    /writegroupshieldstofile
+    #if {"$group_shields_current" != ""} {
+        #variable {group_shields[$group_shields_current][ccc]} {1};
+        /softwritegroupshieldstofile;
+    };
 }
+#ACTION {^ * Your skin has been {hardened|covered} {with|to}{a?} %4, although {the \w+|it} seems {weaker|not to be}} {
+    #variable {group_shields[$GMCP[charinfo][capname]][ccc]} {1};
+        /softwritegroupshieldstofile;
+};
 #ACTION {^ * Tiny threads of metal run criss-cross all over {her|his|its} skin, although it seems weaker} {
-    #variable {group_shields[$group_shields_current][ccc]} {1};
-    /writegroupshieldstofile
+    #if {"$group_shields_current" != ""} {
+        #variable {group_shields[$group_shields_current][ccc]} {1};
+        /softwritegroupshieldstofile;
+    };
 }
 
 #nop MS
 #ACTION {^ * {She|He|It} is {(really )?}protected by the power of {Pishe|Gufnork|Gapp|Sandelfon|Fish|Hat|Sek|Aegadon|Cubal|Reebox}} {
-    #variable {group_shields[$group_shields_current][ms]} {1};
-    /writegroupshieldstofile
+    #if {"$group_shields_current" != ""} {
+        #variable {group_shields[$group_shields_current][ms]} {1};
+        /softwritegroupshieldstofile;
+    };
 }
 
 #nop KII
 #ACTION {^ * {She|He|It} is surrounded by a {handful|cloud|small swarm|large swarm|vast sawrm|plague} of} {
     #variable {group_shields[$group_shields_current][kii]} {1};
-    /writegroupshieldstofile
+    /softwritegroupshieldstofile;
 };
 
 #nop No shields at all
 #ACTION {^{(\w+\b\W*?){1,8}} has no arcane protection.$} {
-    #variable {group_shields[%1][ccc]} {0};
-    #variable {group_shields[%1][tpa]} {0};
-    #variable {group_shields[%1][eff]} {0};
-    #variable {group_shields[%1][kii]} {0};
-    #variable {group_shields[%1][ms]} {0};
-    /writegroupshieldstofile
+    #if {"$group_shields_current" != ""} {
+        #if {"%1" != "%+ the %+ horse"} {
+            #variable {group_shields[%1][ccc]} {0};
+            #variable {group_shields[%1][tpa]} {0};
+            #variable {group_shields[%1][eff]} {0};
+            #variable {group_shields[%1][kii]} {0};
+            #variable {group_shields[%1][ms]} {0};
+            /softwritegroupshieldstofile;
+        };
+    };
 };
 
 
@@ -66,17 +82,17 @@
 #ACTION {[%1] {[A-Za-z]+} has left the group.} {
     #if {&group_shields[%2]} {
         #unvariable {group_shields[%2]};
-        /writegroupshieldstofile
+        /writegroupshieldstofile;
     };
 };
 #ACTION {[%1] {[A-Za-z]+} has joined the group.} {
     #tab {%2};
     #variable {group_shields[%2]} {{tpa}{0}{ccc}{0}{eff}{0}{ms}{0}{kii}{0}};
-    /writegroupshieldstofile
+    /softwritegroupshieldstofile;
 };
 #ACTION {[%1] You have left the group.} {
     #var {group_shields} {};
-    /writegroupshieldstofile
+    /writegroupshieldstofile;
 };
 #ACTION {[%1] You have joined the group.} {
     #var {group_shields} {};
@@ -95,17 +111,26 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][eff]} {0};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
 #ACTION {^In blocking the attack {(?:.+)} floating around {(?:\w+\b\W*?){1,8}} is knocked out of orbit.$} {
+    #nop Record room of drop even for non group mates... might come in handy;
+    #variable {group_eff_item} {%1};
+    #variable {group_eff_target} {%2};
+    #variable {group_eff_room} {$GMCP[room][info][name]};
+
     #variable {gs_dropname} {%2};
     #replace {gs_dropname} { } {;};
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][eff]} {0};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
+
+            #showme {\a};
+            #return @log_line_to_chat{};
+
         };
     };
 };
@@ -115,7 +140,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][eff]} {1};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -124,16 +149,17 @@
 #nop TPA
 #ACTION {^There is a sudden white flash around {(?!a passing wizard)(\w+\b\W*?){1,8}}.$} {
     #showme {\a};
-    #line {log} {$chat_file};
 
     #variable {gs_dropname} {%1};
     #replace {gs_dropname} { } {;};
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][tpa]} {0};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
+
+    #return @log_line_to_chat{};
 };
 #ACTION {^With a noise that sounds like "Plink!", the air around {(\w+\b\W*?){1,8}} flashes {yellow|red} for a moment.$} {
     #variable {gs_dropname} {%1};
@@ -141,7 +167,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][tpa]} {1};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -154,7 +180,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][ccc]} {0};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -164,7 +190,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][ccc]} {0};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -174,7 +200,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][ccc]} {1};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -184,7 +210,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][ccc]} {1};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -194,7 +220,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][ccc]} {1};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -207,7 +233,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][kii]} {1};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -217,7 +243,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][kii]} {1};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -227,7 +253,7 @@
     #foreach {$gs_dropname} {name} {
         #if {&group_shields[$name]} {
             #variable {group_shields[$name][kii]} {1};
-            /writegroupshieldstofile
+            /writegroupshieldstofile;
         };
     };
 };
@@ -241,12 +267,13 @@
 #ALIAS {rgs} {
     #variable {group_shields} {};
     #variable {group_shields_current} {};
+    /writegroupshieldstofile;
     #send {group shields};
-    /writegroupshieldstofile
 };
 
 #ALIAS {sgs} {
-    #foreach {$group_shields[]} {name} {
+    #showme {.:: Group Shields ::.};
+    #foreach {*group_shields[]} {name} {
         #format {gs_namelength} {%L} {$name};
         #math {gs_namelength} {9 - $gs_namelength};
         #if {$gs_namelength < 0} { #var {gs_namelength} {0}; };
@@ -254,24 +281,41 @@
 
         #foreach {tpa;ccc;eff;ms;kii} {shield} {
             #if {&group_shields[$name][$shield] && "$group_shields[$name][$shield]" == "1"} {
-                #format {gs_displayline} {%s <fef>%s<099>} {$gs_displayline} {$shield};
+                #format {gs_displayline} {%s <fef>%u<099>} {$gs_displayline} {$shield};
             } {
-                #format {gs_displayline} {%s <aaa>%s<099>} {$gs_displayline} {$shield};
+                #format {gs_displayline} {%s <aaa>%u<099>} {$gs_displayline} {$shield};
             };
         };
         #showme {$gs_displayline};
     };
 };
 
+#FORMAT {shieldfile_lastwrite} {%T};
+#MATH {shieldfile_lastwrite} {$shieldfile_lastwrite - 10};
+#ALIAS {/softwritegroupshieldstofile} {
+    #format {current_time} {%T};
+    #math {shieldfile_lastdelta} {$current_time - $shieldfile_lastwrite};
+    #if {$shieldfile_lastdelta < 2} {
+        #nop Don't bother writing if its been less than 5 seconds;
+        #delay {swgstf} {/softwritegroupshieldstofile;} {2};
+        #return;
+    };
+
+    /writegroupshieldstofile;
+    #format {shieldfile_lastwrite} {%T};
+};
+
 #ALIAS {/writegroupshieldstofile} {
+    #nop Delete and recreate an empty file;
     #system {rm $groupshield_file && touch $groupshield_file};
 
+    #nop Log a title then iterate over group members to display line by line;
     #line {log} {$groupshield_file} {.:: Group Shields ::.};
-    #foreach {$group_shields[]} {name} {
+    #foreach {*group_shields[]} {name} {
         #format {gs_namelength} {%L} {$name};
         #math {gs_namelength} {6 - $gs_namelength};
-        #nop #if {$gs_namelength < 0} { #var {gs_namelength} {0}; };
-        #format {gs_displayline} { %.6s:%+${gs_namelength}s } {$name};
+        #format {gs_displayline} {%.6s: } {$name};
+        #format {gs_displayline} {%-8s} {$gs_displayline};
 
         #foreach {tpa;ccc;eff;kii} {shield} {
             #if {&group_shields[$name][$shield] && "$group_shields[$name][$shield]" == "1"} {
@@ -282,49 +326,49 @@
         };
         #line {log} {$groupshield_file} {$gs_displayline};
     };
-    #return;
+    #format {shieldfile_lastwrite} {%T};
 };
 
+
+#nop =======================================================;
+#nop ===[ Capture incidents and be able to report them ]===;
+#nop =======================================================;
+#ACTION {^The %1 grabs your %2.  You struggle briefly but {she|he|it} wrests it from your grip and makes for a hasty retreat.} {
+    #variable {group_snatch_target} {%1};
+    #variable {group_snatch_victim} {$GMCP[charinfo][capname]};
+    #variable {group_snatch_item} {%2};
+};
+#ACTION {^The %1 and %2 struggle briefly over %3 before the %4 wrests it free%5$} {
+    #variable {group_snatch_target} {%1};
+    #variable {group_snatch_victim} {%2};
+    #variable {group_snatch_item} {%3};
+};
+#ACTION {^The %1 suddenly snatches %2 from %3 and makes a run for it.$} {
+    #variable {group_snatch_target} {%1};
+    #variable {group_snatch_victim} {%3};
+    #variable {group_snatch_item} {%2};
+};
+#ALIAS {gssnatch} {
+    #if {"$group_snatch_target" != "0"} {
+        #send {group say [snatch] $group_snatch_victim's "$group_snatch_item" was stolen by \{$group_snatch_target\}};
+    } {
+        #showme {<188><acf>[snatch] No recent snatch to report.<900>};
+    };
+};
+#ALIAS {gseff} {
+    #if {"$group_eff_target" != "0"} {
+        #send {group say [eff] $group_eff_target's floating "$group_eff_item" was dropped in \{$group_eff_room\}};
+    } {
+        #showme {<188><acf>[eff] No recent EFF drops to report.<900>};
+    };
+};
+
+
+#VARIABLE {group_snatch_target} {0};
+#VARIABLE {group_snatch_victim} {0};
+#VARIABLE {group_snatch_item} {0};
+#VARIABLE {group_eff_item} {0};
+#VARIABLE {group_eff_target} {0};
+#VARIABLE {group_eff_room} {0};
+
 #CLASS {group} {close};
-
-
-
-#nop EFF for you;
-#nop ^(?:> )?(?P<effitem>(?:\w+\b\W*?){1,6}) floating around you breaks!$
-#nop ^(?:> )?You realise that (?P<effitem>(?:\w+\b\W*?){1,6}) is no longer floating around you\.$
-#nop ^(?:> )?In blocking the attack (?P<effitem>(?:\w+\b\W*?){1,6}) floating around you is knocked out of orbit\.$
-#nop ^(?:> )?(?P<effitem>(?:\w+\b\W*?){1,6}) begins to float around you\.$
-#nop ^ \* (?P<effitem>(?:\w+\b\W*?){1,6}) is floating around you\:$
-
-#nop TPA for you
-#nop ^(?:> )?There is a sudden white flash\.  Your magical shield has broken\.$
-#nop ^(?:> )?With a noise that sounds like "Plink!", everything around you flashes (?>yellow|red) for a moment\.$
-#nop ^ \* You are surrounded by a (?P<colour>|dull red |bright red |wobbling orange |flickering yellow )magical impact shield\.$
-
-#nop CCC for you
-#nop ^(?:> )?With a brief flash of magic, your (?>metallic|stony|elastic) skin falls away\.$
-#nop ^(?:> )?Your skin feels itchy<semicolon> large pieces flake off as you scratch it\.$
-#nop ^(?:> )?The metallic network on your skin feels a fair bit stronger now\.$
-#nop ^(?:> )?Your? (?>feel your skin become (?>rock hard|elastic as rubber)|skin (?>feels (?>even harder now|much more elastic now)|is now as (?>hard|elastic|thickly covered) as it can get))\.$
-#nop ^ \* Tiny threads of metal run criss-cross all over your skin, although
-#nop ^ \* Your skin (?>has been|has|is) (?>hardened to a rock-like form|hardened with numerous layers of a mineral-like substance|hardened with a chalk-like substance|covered with several layers of a chalk-like substance|covered with a thin layer of chalk|covered with a thick metal net|metal bands running all over it, forming a kind of net|covered with a thin metal net|covered with a thin, net-like metal coating|solidified into a rubberous form|made elastic with numerous layers of a rubber-like substance|treated with a latex-like substance|covered with several layers of a latex-like substance|covered with a thin layer of latex), although 
-
-
-#nop Major for you;
-#nop ^(?:> )?Your divine protection expires\.$
-#nop ^(?:> )?You are protected by the power of (?>Pishe|Gufnork|Gapp|Sandelfon|Fish|Hat|Sek|Aegadon|Cubal|Reebox)\.$
-#nop ^ \* You are (?>(?>barely |really |perfectly )?protected|shielded) by the (?>power |protective armour |grace )of (?>Pishe|Gufnork|Gapp|Sandelfon|Fish|Hat|Sek|Aegadon|Cubal|Reebox)\.  You will be protected for
-
-
-#nop Bug shield for you;
-#nop ^(?:> )?The last of the injured (?>lacewings|stick insects|mayflies|praying mantids|butterflies|ladybirds|dragonflies|damselflies|moths|grasshoppers|winged termites|sandflies|mosquitoes|gnats|crickets|flying ants|locusts|horseflies|cicadas|bees|wasps|hornets|elephant beetles|assassin bugs) surrounding you crash to the ground\.$
-#nop ^(?:> )?The (?>lacewings|stick insects|mayflies|praying mantids|butterflies|ladybirds|dragonflies|damselflies|moths|grasshoppers|winged termites|sandflies|mosquitoes|gnats|crickets|flying ants|locusts|horseflies|cicadas|bees|wasps|hornets|elephant beetles|assassin bugs) surrounding you scatter in different directions and fly off\.$
-#nop ^(?:> )?(?>Buzzing drowsily, t|Buzzing loudly, t|Buzzing threateningly, t|Clicking and buzzing, t|Whirring gently, t|Rather clumsily, t|With a rasping noise, t|With a high-pitched whining noise, t|With a low, menacing buzzing, t|With a buzzing sound so loud and meaty it's almost like a dog growling, t|T)he (?>handful|cloud|small swarm|large swarm|vast swarm|plague) of (?>lacewings|stick insects|mayflies|praying mantids|butterflies|ladybirds|dragonflies|damselflies|moths|grasshoppers|winged termites|sandflies|mosquitoes|gnats|crickets|flying ants|locusts|horseflies|cicadas|bees|wasps|hornets|elephant beetles|assassin bugs) (?>flutters into a loosely-formed orbit around |forms a chaotic web of small white bodies around |starts to hover near |begins to circle |begins to circle around |begins to orbit |begins to cluster around |begins to buzz erratically around |begins to buzz around |flutters into a chaotic formation around )you
-#nop ^ \* You are surrounded by a (?>handful|cloud|small swarm|large swarm|vast swarm|plague) of
-
-
-
-#nop Arcane statuses
-#nop ^(?:> )?Arcane protection status:$;
-
-
