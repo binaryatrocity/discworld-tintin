@@ -116,4 +116,16 @@
 #HIGHLIGHT {{?:(?!You )(?:\w+\b\W*?){1,8}} runs %2 through %3 with {his|her|its} %4} {$color_melee_third_success};
 #HIGHLIGHT {{?:(?!You )(?:\w+\b\W*?){1,8}} takes a sliver off %2 with {his|her|its} %3} {$color_melee_third_success};
 
+#nop ===== DOCUMENTING ISSUES TO FIX LATER =====;
+#nop A burnt torch is hanging from a stall and a pair of plain leather boots is on the ground.;
+#nop A green wool shirt, a pair of hard leather boots and a pair of heavy cotton breeches are on the ground.;
+#nop A pair of heavy socks, a pair of hard leather boots and a pair of heavy cotton breeches are on the ground.;
+#nop A pair of plain leather boots is on the ground.;
+#nop A street lamp is here and a pair of light grey kidskin ladies' boots is on the ground.;
+#nop The Grand Wizard clock strikes the half-hour with a deep, rolling chime that sounds like a death knell.;
+#nop ===========================================;
+#nop == BELOW IS UNHIGHLIGHTED BUT SHOULD BE ==;
+#nop You attempt to punch Arlof Eetmmot but you move too slowly and lose the initiative.;
+
+
 #CLASS {combat} {close};
