@@ -5,8 +5,12 @@
 #READ {src/missions/sausages.tin};
 #READ {src/missions/letters.tin};
 #READ {src/missions/sailing.tin};
+#READ {src/missions/jobmarket.tin};
+
+#VARIABLE {missiontimers_file} {logs/features/missiontimers_sync.tin};
 
 
+#NOP ==[ Missions command reports on each modules active/retry lists ]==;
 #ALIAS {missions} {
     #if {&missions == 0} { 
         #return;
@@ -19,10 +23,8 @@
     #nop =====  Sailing Missions  =====;
     #nop ==============================;
     #if {&missions[sailing]} {
-        #foreach {$missions[sailing][active_list][]} {player} {
-            #math {mins} {$current_time - $missions[sailing][active_list][$player]};
-            #math {mins} {($mins - (60 - 1)) / 60};
-
+        #foreach {*missions[sailing][active_list][]} {player} {
+            #var {mins}  {@ts_to_min{$current_time;$missions[sailing][active_list][$player]}};
             #math {mins} {120 - $mins};
 
             #math {hours} {$mins / 60};
@@ -30,8 +32,14 @@
 
             #if {$mins < 0} {
                 #unvar {missions[sailing][active_list][$player]};
-            }  {
-                #format {mt_display} {\t<129>%s<099> can do another sailing mission in <139>%d<099> hour and <139>%d<099> minutes.<099>} {$player}{$hours}{$mins};
+            };
+            #else {
+                #if {$hours <= 0} {
+                    #format {mt_display} {\t<138>*<099> <acf>%s<099> can do another sailing mission in <139>%d<099> minute(s).<099>} {$player}{$mins};
+                };
+                #else {
+                    #format {mt_display} {\t<138>*<099> <acf>%s<099> can do another sailing mission in <139>%d<099> hour and <139>%d<099> minute(s).<099>} {$player}{$hours}{$mins};
+                };
                 #list {mission_display_list[$player]} {add} {$mt_display};
             };
         };
@@ -42,121 +50,82 @@
     #nop =====  Sausage Missions  =====;
     #nop ==============================;
     #if {&missions[sausage]} {
-        #foreach {$missions[sausage][active_list][]} {player} {
+        #foreach {*missions[sausage][active_list][]} {player} {
             #if {&missions[sausage][active_list][$player][easy]} {
-                #math {mins} {$current_time - $missions[sausage][active_list][$player][easy]};
-                #math {mins} {($mins - (60 - 1)) / 60};
-
+                #var {mins}  {@ts_to_min{$current_time;$missions[sausage][active_list][$player][easy]}};
                 #math {mins} {60 - $mins};
 
-                #format {mt_display} {\t<129>%s<099> can do another unspiced sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #format {mt_display} {\t<138>*<099> <acf>%s<099> can do another unspiced sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
                 #list {mission_display_list[$player]} {add} {$mt_display};
             };
 
             #if {&missions[sausage][active_list][$player][hard]} {
-                #math {mins} {$current_time - $missions[sausage][active_list][$player][hard]};
-                #math {mins} {($mins - (60 - 1)) / 60};
-
+                #var {mins}  {@ts_to_min{$current_time;$missions[sausage][active_list][$player][hard]}};
                 #math {mins} {60 - $mins};
 
-                #format {mt_display} {\t<129>%s<099> can do another spiced sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #format {mt_display} {\t<138>*<099> <acf>%s<099> can do another spiced sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
                 #list {mission_display_list[$player]} {add} {$mt_display};
             };
         };
 
-        #foreach {$missions[sausage][retry_list][]} {player} {
-            #math {mins} {$current_time - $missions[sausage][retry_list][$player]};
-            #math {mins} {($mins - (60 - 1)) / 60};
-
+        #foreach {*missions[sausage][retry_list][]} {player} {
+            #var {mins}  {@ts_to_min{$current_time;$missions[sausage][retry_list][$player]}};
             #math {mins} {10 - $mins};
 
-            #format {mt_display} {\t<129>%s<099> can request a new sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
+            #format {mt_display} {\t<138>*<099> <acf>%s<099> can request a new sausage mission in <139>%d<099> minutes.<099>} {$player}{$mins};
             #list {mission_display_list[$player]} {add} {$mt_display};
         };
     };
+
+    #nop =================================;
+    #nop =====  Job Market Missions  =====;
+    #nop =================================;
+    #if {&missions[jobmarket]} {
+        #foreach {*missions[jobmarket][active_list][]} {player} {
+            #foreach {*missions[jobmarket][active_list][$player][]} {job} {
+                #var {mins}  {@ts_to_min{$current_time;$missions[jobmarket][active_list][$player][$job]}};
+                #math {mins} {60 - $mins};
+
+                #format {mt_display} {\t<138>*<099> <acf>%s<099> can do another Job Market "%c%s%c" mission in <139>%d<099> minutes.<099>} {$player}{Jade}{$job}{<099>}{$mins};
+                #list {mission_display_list[$player]} {add} {$mt_display};
+            };
+        };
+
+        #foreach {*missions[jobmarket][retry_list][]} {player} {
+            #var {mins}  {@ts_to_min{$current_time;$missions[jobmarket][retry_list][$player]}};
+            #math {mins} {10 - $mins};
+
+            #format {mt_display} {\t<138>*<099> <acf>%s<099> can request a new Job Market mission in <139>%d<099> minutes.<099>} {$player}{$mins};
+            #list {mission_display_list[$player]} {add} {$mt_display};
+        };
+    };
+
 
     #nop ==============================;
     #nop =====    Dead Letters    =====;
     #nop ==============================;
     #if {&missions[letter]} {
-        #foreach {$missions[letter][active_list][]} {player} {
-            #if {&missions[letter][active_list][$player][difficult]} {
-                #math {mins} {$current_time - $missions[letter][active_list][$player][difficult]};
-                #math {mins} {($mins - (60 - 1)) / 60};
-
+        #foreach {*missions[letter][active_list][]} {player} {
+            #foreach {*missions[letter][active_list][$player][]} {difficulty} {
+                #var {mins}  {@ts_to_min{$current_time;$missions[letter][active_list][$player][$difficulty]}};
                 #math {mins} {60 - $mins};
 
                 #if {$mins < 0} {
-                    #unvar {missions[letter][active_list][$player][difficult]};
+                    #unvar {missions[letter][active_list][$player][$difficulty]};
                 } {
-                    #format {mt_display} {\t<129>%s<099> can do another difficult customer letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-                    #list {mission_display_list[$player]} {add} {$mt_display};
-                };
-            };
-            #if {&missions[letter][active_list][$player][distant]} {
-                #math {mins} {$current_time - $missions[letter][active_list][$player][distant]};
-                #math {mins} {($mins - (60 - 1)) / 60};
-
-                #math {mins} {60 - $mins};
-
-                #if {$mins < 0} {
-                    #unvar {missions[letter][active_list][$player][distant]};
-                } {
-                    #format {mt_display} {\t<129>%s<099> can do another distant lands letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-                    #list {mission_display_list[$player]} {add} {$mt_display};
-                };
-            };
-            #if {&missions[letter][active_list][$player][far]} {
-                #math {mins} {$current_time - $missions[letter][active_list][$player][far]};
-                #math {mins} {($mins - (60 - 1)) / 60};
-
-                #math {mins} {60 - $mins};
-
-                #if {$mins < 0} {
-                    #unvar {missions[letter][active_list][$player][far]};
-                } {
-                    #format {mt_display} {\t<129>%s<099> can do another far away letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-                    #list {mission_display_list[$player]} {add} {$mt_display};
-                };
-            };
-            #if {&missions[letter][active_list][$player][close]} {
-                #math {mins} {$current_time - $missions[letter][active_list][$player][close]};
-                #math {mins} {($mins - (60 - 1)) / 60};
-
-                #math {mins} {60 - $mins};
-
-                #if {$mins < 0} {
-                    #unvar {missions[letter][active_list][$player][close]};
-                } {
-                    #format {mt_display} {\t<129>%s<099> can do another close-by letter in <139>%d<099> minutes.<099>} {$player}{$mins};
-                    #list {mission_display_list[$player]} {add} {$mt_display};
-                };
-            };
-            #if {&missions[letter][active_list][$player][local]} {
-                #math {mins} {$current_time - $missions[letter][active_list][$player][local]};
-                #math {mins} {($mins - (60 - 1)) / 60};
-
-                #math {mins} {60 - $mins};
-
-                #if {$mins < 0} {
-                    #unvar {missions[letter][active_list][$player][local]};
-                } {
-                    #format {mt_display} {\t<129>%s<099> can do another local letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                    #format {mt_display} {\t<138>*<099> <acf>%s<099> can do another "<188><afc>%s<099>" letter in <139>%d<099> minutes.<099>} {$player}{$letter_types[$difficulty]}{$mins};
                     #list {mission_display_list[$player]} {add} {$mt_display};
                 };
             };
         };
-
-        #foreach {$missions[letter][retry_list][]} {player} {
-            #math {mins} {$current_time - $missions[letter][retry_list][$player]};
-            #math {mins} {($mins - (60 - 1)) / 60};
-
+        #foreach {*missions[letter][retry_list][]} {player} {
+            #var {mins}  {@ts_to_min{$current_time;$missions[letter][retry_list][$player]}};
             #math {mins} {10 - $mins};
 
             #if {$mins < 0} {
                 #unvar {missions[letter][retry_list][player]};
             } {
-                #format {mt_display} {\t<129>%s<099> can request another letter in <139>%d<099> minutes.<099>} {$player}{$mins};
+                #format {mt_display} {\t<138>*<099> <acf>%s<099> can request another letter in <139>%d<099> minutes.<099>} {$player}{$mins};
                 #list {mission_display_list[$player]} {add} {$mt_display};
             };
         };
@@ -169,16 +138,59 @@
     #nop ==============================;
     #list {mission_display_list} {size} {mdl_count};
     #if {$mdl_count > 0} {
-        #echo {<149>[MT] Active Mission Timers:<099>}; 
-        #foreach {$mission_display_list[]} {player} {
+        #echo {<acf>[<fff>missions<acf>] Active Mission Timers:<099>}; 
+        #foreach {*mission_display_list[]} {player} {
             #foreach {$mission_display_list[$player][%*]} {mt_display} {
                 #showme {$mt_display};
             };
         };
     } {
-        #echo {<149>[MT] No current mission timers.<099>};
+        #echo {<acf>[<fff>missions<acf>] No current mission timers.<099>};
     };
 
+};
+
+#FUNCTION {ts_to_min} {
+    #nop @ts_to_min{<current_time>\;<missiontime>};
+    #math {mins} {%1 - %2};
+    #math {mins} {($mins - (60 - 1)) / 60};
+
+    #return {$mins};
+};
+
+#NOP ==[ read/write from file for persistence ]==;
+#ALIAS {mtsave} {
+    /writemissiontimerstofile;
+
+    #format {mtsync_message} {<acf>[<fff>missions<acf>] <138>*<900><acf> Saved all available mission timers from %cthis session%c to the disk.<099>} {Green}{<acf>};
+    #echo {$mtsync_message};
+};
+
+#ALIAS {/writemissiontimerstofile} {
+    #class {mtsync} {clear};
+    #class {mtsync} {open};
+    #var {missions_sync} {$missions};
+    #class {mtsync} {close};
+
+    #system {touch $missiontimers_file};
+    #class {mtsync} {write} {$missiontimers_file};
+}
+
+#ALIAS {mtload} {
+    #class {mtsync} {clear};
+    #class {mtsync} {read} {$missiontimers_file};
+
+    #nop == overwrite mission variable with loaded data;
+    #variable {missions} {$missions_sync};
+
+    #nop == recreate delays for all mission modules;
+    /sausage_recreate_delays;
+    /sailing_recreate_delays;
+    /letters_recreate_delays;
+    /jobmarket_recreate_delays;
+
+    #format {mtsync_message} {<acf>[<fff>missions<acf>] <138>*<900><acf> Synced all available mission timers from %clast session%c off the disk.<099>} {Green}{<188><acf>};
+    #echo {$mtsync_message};
 };
 
 #CLASS {missiontimers} {close};
