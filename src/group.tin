@@ -14,9 +14,14 @@
 #nop ======================================================;
 
 #nop EFF
-#ACTION {^ * %1 is floating around {him|her|it}:$} {
-    #variable {group_shields[$group_shields_current][eff]} {1};
-    /writegroupshieldstofile;
+#ACTION {^ * %1 is floating around {him|her|it|you}:$} {
+    #if {"%2" == "you"} {
+        #variable {group_shields[$GMCP[charinfo][capname]][eff]} {1};
+    };
+    #else {
+        #variable {group_shields[$group_shields_current][eff]} {1};
+    }
+    /softwritegroupshieldstofile;
 }
 
 #nop TPA
@@ -54,8 +59,13 @@
 }
 
 #nop KII
-#ACTION {^ * {She|He|It} is surrounded by a {handful|cloud|small swarm|large swarm|vast sawrm|plague} of} {
-    #variable {group_shields[$group_shields_current][kii]} {1};
+#ACTION {^ * {You|She|He|It} are surrounded by a {handful|cloud|small swarm|large swarm|vast sawrm|plague} of} {
+    #if {"%1" == "You"} {
+        #variable {group_shields[$GMCP[charinfo][capname]][kii]} {1};
+    };
+    #else {
+        #variable {group_shields[$group_shields_current][kii]} {1};
+    };
     /softwritegroupshieldstofile;
 };
 
