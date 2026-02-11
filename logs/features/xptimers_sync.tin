@@ -1,0 +1,311 @@
+#CLASS {dtsync} OPEN
+
+#VARIABLE {killtimers_sync}
+{
+    {Charles Marchella} 
+    {
+        {group} {true}
+        {name} {casino}
+        {respawn} {40}
+        {time} {1770772056}
+    }
+    {Delbert} 
+    {
+        {group} {false}
+        {name} {delbert}
+        {respawn} {40}
+        {time} {1770771775}
+    }
+    {Enrico Persuica} 
+    {
+        {group} {true}
+        {name} {stables}
+        {respawn} {40}
+        {time} {0}
+    }
+    {Frankie Harvard} 
+    {
+        {group} {true}
+        {name} {casino}
+        {respawn} {40}
+        {time} {1770772051}
+    }
+    {Geraldo Ciaco} 
+    {
+        {group} {true}
+        {name} {casino}
+        {respawn} {40}
+        {time} {1770772043}
+    }
+    {Hlakket the Bartender} 
+    {
+        {group} {false}
+        {name} {hlakket}
+        {respawn} {40}
+        {time} {1770770657}
+    }
+    {Joe Corrola} 
+    {
+        {group} {true}
+        {name} {stables}
+        {respawn} {40}
+        {time} {0}
+    }
+    {Louis Accardo} 
+    {
+        {group} {true}
+        {name} {stables}
+        {respawn} {40}
+        {time} {0}
+    }
+    {Marlon Gumboni} 
+    {
+        {group} {true}
+        {name} {casino}
+        {respawn} {40}
+        {time} {1770772078}
+    }
+    {Samuel Casso} 
+    {
+        {group} {true}
+        {name} {stables}
+        {respawn} {40}
+        {time} {0}
+    }
+    {Slim Stevie} 
+    {
+        {group} {false}
+        {name} {rogues}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the %* crocodile} 
+    {
+        {group} {false}
+        {name} {offler}
+        {respawn} {40}
+        {time} {1770771089}
+    }
+    {the %* desert nomad} 
+    {
+        {group} {true}
+        {name} {oasis}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the %* grflx worker} 
+    {
+        {group} {false}
+        {name} {grflx}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the %* hermit} 
+    {
+        {group} {true}
+        {name} {oasis}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the %* lion} 
+    {
+        {group} {false}
+        {name} {shaker}
+        {respawn} {40}
+        {time} {1770771120}
+    }
+    {the %* mystic} 
+    {
+        {group} {true}
+        {name} {oasis}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the %* nitsuni} 
+    {
+        {group} {true}
+        {name} {snail}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the %* patroller} 
+    {
+        {group} {true}
+        {name} {oasis}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the %* rujona} 
+    {
+        {group} {true}
+        {name} {snail}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the %* student} 
+    {
+        {group} {false}
+        {name} {dojo}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the Ome outlaw} 
+    {
+        {group} {true}
+        {name} {snail}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the Triad boss} 
+    {
+        {group} {false}
+        {name} {medina boss}
+        {respawn} {40}
+        {time} {1770770069}
+    }
+    {the Zoon Liar} 
+    {
+        {group} {false}
+        {name} {zoon liar}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the bandit leader} 
+    {
+        {group} {false}
+        {name} {bandits}
+        {respawn} {40}
+        {time} {1770771258}
+    }
+    {the ceremonial guard} 
+    {
+        {group} {false}
+        {name} {cguards}
+        {respawn} {40}
+        {time} {1770771023}
+    }
+    {the citadel guard} 
+    {
+        {group} {false}
+        {name} {citguard}
+        {respawn} {40}
+        {time} {1770770873}
+    }
+    {the giant leader} 
+    {
+        {group} {false}
+        {name} {giants}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the peacekeeper commander} 
+    {
+        {group} {true}
+        {name} {oasis}
+        {respawn} {40}
+        {time} {0}
+    }
+    {the smuggler captain} 
+    {
+        {group} {false}
+        {name} {smug cap}
+        {respawn} {40}
+        {time} {1770771880}
+    }
+    {the {Tang|Fang|Sung|Hong|McSweeney} captain} 
+    {
+        {group} {true}
+        {name} {bmarket}
+        {respawn} {40}
+        {time} {1770770324}
+    }
+    {the {strict|serious|grim|tough|stern} captain} 
+    {
+        {group} {true}
+        {name} {oasis}
+        {respawn} {40}
+        {time} {0}
+    }
+}
+#VARIABLE {visittimers_sync}
+{
+    {0ae9d8c4f2b48f4fcc4cb57fd85443399be2ecc5} 
+    {
+        {group} {true}
+        {name} {bmarket}
+        {respawn} {40}
+        {time} {0}
+    }
+    {2950a174f65ef8e38eee444295c9b4832d36ab60} 
+    {
+        {group} {false}
+        {name} {dragon}
+        {respawn} {40}
+        {time} {1770771696}
+    }
+    {3862c5fd0fe83f4080bdb9b94519bf8da89d5015} 
+    {
+        {group} {true}
+        {name} {parades}
+        {respawn} {40}
+        {time} {1770772136}
+    }
+    {70546ec71867645ab5c51e9ce6087b75dcf4176f} 
+    {
+        {group} {false}
+        {name} {offler}
+        {respawn} {40}
+        {time} {1770771072}
+    }
+    {7377f4483763eca72e0b97a87f71c5266e33f2cd} 
+    {
+        {group} {false}
+        {name} {cocoons}
+        {respawn} {40}
+        {time} {1770771126}
+    }
+    {AMShades} 
+    {
+        {group} {false}
+        {name} {shades}
+        {respawn} {20}
+        {time} {1770771752}
+    }
+    {c7c6f5720d2c587f80696b6f0ec7f9ac0f084b06} 
+    {
+        {group} {true}
+        {name} {bmarket}
+        {respawn} {40}
+        {time} {1770770328}
+    }
+    {cca9645565f2bb0d017ea9b1dcc9d1b3e9fcfe72} 
+    {
+        {group} {false}
+        {name} {cabbage}
+        {respawn} {40}
+        {time} {0}
+    }
+    {e4646eab906aef1187a9dd3e980441b8f6b8d68c} 
+    {
+        {group} {true}
+        {name} {bmarket}
+        {respawn} {40}
+        {time} {1770770282}
+    }
+    {ebff897af2b8bb6800a9a8636143099d0714be07} 
+    {
+        {group} {false}
+        {name} {smugglers}
+        {respawn} {20}
+        {time} {1770771920}
+    }
+    {f6c60dd36ed38707eb954c3a670f2f9370a79399} 
+    {
+        {group} {true}
+        {name} {bmarket}
+        {respawn} {40}
+        {time} {1770770284}
+    }
+}
+
+#CLASS {dtsync} CLOSE
