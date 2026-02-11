@@ -133,7 +133,16 @@
             };
 
             #return @log_line_to_chat{};
+        };
+        #elseif {"$name" == "you"} {
+            #variable {group_shields[$GMCP[charinfo][capname]][eff]} {0};
+            /writegroupshieldstofile;
 
+            #if {"$gs_eff_alerts" == "1"} {
+                #showme {\a};
+            };
+
+            #return @log_line_to_chat{};
         };
     };
 };
