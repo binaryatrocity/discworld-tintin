@@ -350,6 +350,16 @@
     };
 };
 
+#nop The smuggler captain dies.
+#ACTION {^%1 dies.$} {
+    #foreach {*killtimers[]} {spot} {
+        #nop Force case insensitivity on the match due to "The" "A" being capitalized
+        #regex {%1} {%i$spot} {
+            #format {killtimers[$spot][time]} {%T};
+        };
+    };
+};
+
 #FUNCTION {write_spot} {
     #var {spotname} {%1};
     #var {spottime} {%2};
