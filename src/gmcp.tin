@@ -118,7 +118,7 @@
     #SYSTEM {rm logs/mapdoortext.log && touch logs/mapdoortext.log};
     #LINE {log} {logs/mapdoortext.log} {$GMCP[room][mdt]};
 
-    /wamgsaver $GMCP[room][info][identifier];
+    /personal.gmcp.writtenmap $GMCP[room][info][identifier];
 }
 
 #EVENT {IAC WILL GMCP}
