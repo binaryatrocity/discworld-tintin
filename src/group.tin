@@ -206,7 +206,7 @@
         };
     };
 };
-#ACTION {^{(\w+\b\W*?){1,8}}'s skin is now as {elastic|thicky covered|hard} as it can get.$} {
+#ACTION {^{(\w+\b\W*?){1,8}}'s skin is now as {elastic|thickly covered|hard} as it can get.$} {
     #variable {gs_dropname} {%1};
     #replace {gs_dropname} { } {;};
     #foreach {$gs_dropname} {name} {
@@ -235,6 +235,14 @@
             /writegroupshieldstofile;
         };
     };
+};
+#ACTION {^With a brief flash of magic, your %1 skin falls away.$} {
+    #variable {group_shields[$GMCP[charinfo][capname]][ccc]} {0};
+    /writegroupshieldstofile;
+};
+#ACTION {^Your skin is {already|now} as {elastic|thickly covered|hard} as it can get.$} {
+    #variable {group_shields[$GMCP[charinfo][capname]][ccc]} {1};
+    /writegroupshieldstofile;
 };
 
 
