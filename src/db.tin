@@ -1,6 +1,8 @@
 #CLASS {database} {kill};
 #CLASS {database} {open};
 
+
+#VARIABLE {dbbookmark_file} {logs/features/dbbookmarksync.tin};
 #VARIABLE {map_id_names} {
   {1}{Ankh-Morpork}
   {2}{AM Assassins}
@@ -113,17 +115,18 @@
                 {map_name}{$map_id_names[$gatherable_results[4]]}
             };
 
-            #format {gatherable_display} {%c  [%c%d%c]: %c%s%c found in %c%s%c,%c %s%c<099>} {Azure}{Cyan}{$gather_count}{Azure}{Green}{$gatherable_info[item_name]}{Azure}{Orange}{$gatherable_info[room_short]}{Azure}{Orange}{$gatherable_info[map_name]}{Azure};
-            #echo {$gatherable_display};
+            #showme {<acf>  [<cfe>@dbroute_link{$gather_count;$gather_count}<acf>]: <cfa>@dbroute_link{$gather_count;$gatherable_info[item_name]}<acf> found in <fca>@dbroute_link{$gather_count;$gatherable_info[room_short]}<acf>,<fca> $gatherable_info[map_name]<099>};
 
             #variable {last_query_list[$gather_count]} {$gatherable_info};
             #math {gather_count} {$gather_count + 1};
-        }
+        };
+        #showme {<acf>Generate a walking path with "<cfa>db route #<acf>" or *clicking* the number or name of one of the results above.};
+        #showme {};
     } {
         #format {gatherable_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$gatherable_display};
-    }
-}
+    };
+};
 
 #ALIAS {db npc {[^{}\n]+}{( \{([\w\s-]+)\})?}$} {
     #unvariable {npc_display} {search_term} {query};
@@ -164,12 +167,13 @@
                 {room_short}{$npc_results[4]}
             };
 
-            #format {npc_display} {%c  [%c%d%c]: %c%s%c found in %c%s%c,%c %s%c<099>} {Azure}{Cyan}{$npc_count}{Azure}{Green}{$npc_info[npc_name]}{Azure}{Orange}{$npc_info[room_short]}{Azure}{Orange}{$npc_info[map_name]}{Azure};
-            #echo {$npc_display};
+            #showme {<acf>  [<cfe>@dbroute_link{$npc_count;$npc_count}<acf>]: <cfa>@dbroute_link{$npc_count;$npc_info[npc_name]}<acf> found in <fca>@dbroute_link{$npc_count;$npc_info[room_short]}<acf>,<fca> $npc_info[map_name]<099>};
 
             #variable {last_query_list[$npc_count]} {$npc_info};
             #math {npc_count} {$npc_count + 1};
-        }
+        };
+        #showme {<acf>Generate a walking path with "<cfa>db route #<acf>" or *clicking* the number or name of one of the results above.};
+        #showme {};
     } {
         #format {npc_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$npc_display};
@@ -216,12 +220,13 @@
                 {room_short}{$npcitem_results[5]}
             };
 
-            #format {npcitem_display} {%c  [%c%d%c]: %c%s%c found on %c%s%c in %c%s%c,%c %s%c<099>} {Azure}{Cyan}{$npcitem_count}{Azure}{Green}{$npcitem_info[item_name]}{Azure}{White}{$npcitem_info[npc_name]}{Azure}{Orange}{$npcitem_info[room_short]}{Azure}{Orange}{$npcitem_info[map_name]}{Azure};
-            #echo {$npcitem_display};
+            #showme {<acf>  [<cfe>@dbroute_link{$npcitem_count;$npcitem_count}<acf>]: <cfa>@dbroute_link{$npcitem_count;$npcitem_info[item_name]}<acf> found on <fff>$npcitem_info[npc_name]<acf> in <fca>@dbroute_link{$npcitem_count;$npcitem_info[room_short]}<acf>,<fca> $npcitem_info[map_name]<099>};
 
             #variable {last_query_list[$npcitem_count]} {$npcitem_info};
             #math {npcitem_count} {$npcitem_count + 1};
-        }
+        };
+        #showme {<acf>Generate a walking path with "<cfa>db route #<acf>" or *clicking* the number or name of one of the results above.};
+        #showme {};
     } {
         #format {npcitem_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$npcitem_display};
@@ -268,12 +273,15 @@
                 {map_name}{$map_id_names[$item_results[5]]}
             };
 
-            #format {item_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c,%c %s%c<099>} {Azure}{Cyan}{$item_count}{Azure}{Green}{$item_info[item_name]}{Azure}{Yellow}{$item_info[sale_price]}{Azure}{Orange}{$item_info[room_short]}{Azure}{Orange}{$item_info[map_name]}{Azure};
-            #echo {$item_display};
+            #nop #format {item_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c,%c %s%c<099>} {Azure}{Cyan}{$item_count}{Azure}{Green}{$item_info[item_name]}{Azure}{Yellow}{$item_info[sale_price]}{Azure}{Orange}{$item_info[room_short]}{Azure}{Orange}{$item_info[map_name]}{Azure};
+            #nop #echo {$item_display};
+            #showme {<acf>  [<cfe>@dbroute_link{$item_count;$item_count}<acf>]: <cfa>@dbroute_link{$item_count;$item_info[item_name]}<acf> (<ffa>$item_info[sale_price]<acf>) found in <fca>@dbroute_link{$item_count;$item_info[room_short]}<acf>,<fca> $item_info[map_name]<099>};
 
             #variable {last_query_list[$item_count]} {$item_info};
             #math {item_count} {$item_count + 1};
         };
+        #showme {<acf>Generate a walking path with "<cfa>db route #<acf>" or *clicking* the number or name of one of the results above.};
+        #showme {};
     } {
         #format {item_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$item_display};
@@ -319,12 +327,14 @@
                 {room_type}{$room_results[4]}
             };
 
-            #format {room_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c<099>} {Azure}{Cyan}{$room_count}{Azure}{Green}{$room_info[room_short]}{Azure}{Yellow}{$room_info[room_type]}{Azure}{Orange}{$room_info[map_name]}{Azure};
-            #echo {$room_display};
+            #nop #format {room_display} {%c  [%c%d%c]: %c%s%c (%c%s%c) found in %c%s%c<099>} {Azure}{Cyan}{$room_count}{Azure}{Green}{$room_info[room_short]}{Azure}{Yellow}{$room_info[room_type]}{Azure}{Orange}{$room_info[map_name]}{Azure};
+            #showme {<acf>  [<cfe>@dbroute_link{$room_count;$room_count}<acf>]: <cfa>@dbroute_link{$room_count;$room_info[room_short]} <acf>(<ffa>$room_info[room_type]<acf>) found in <fca>$room_info[map_name]<099>};
 
             #variable {last_query_list[$room_count]} {$room_info};
             #math {room_count} {$room_count + 1};
-        }
+        };
+        #showme {<acf>Generate a walking path with "<cfa>db route #<acf>" or *clicking* the number or name of one of the results above.};
+        #showme {};
     } {
         #format {room_display} {%cQuery Result: %c%s%c was not found.<099>} {Azure}{Green}{%1}{Azure};
         #echo {$room_display};
@@ -356,7 +366,7 @@
         #list {route_length} {create} {$route_length};
         #list {route_length} {size} {route_length};
 
-        #format {route_confirm} {<acf>[<fff>speedwalk<acf>] A route was found, type "%cspeedwalk<acf>" to fast travel. [%c%g<acf> steps]<099>} {Green}{Cyan}{$route_length};
+        #format {route_confirm} {<acf>[<fff>speedwalk<acf>] A route was found, type "%c@dbspeedwalk_link{}<acf>" to fast travel. [%c%g<acf> steps]<099>} {Green}{Cyan}{$route_length};
         #echo {$route_confirm};
     } {
         #format {route_display} {<acf>[<fff>speedwalk<acf>] No previous query data found, try searching first.<099>};
@@ -366,11 +376,11 @@
 
 #ALIAS {speedwalk} {
     #send {RuhsSpeedRun};
-}
+};
 
 #ALIAS {db routeto %1} {
     #var {target_room} {%1};
-    #format {route_display} {<acf>[<fff>speedwalk<acf>] Generating speedwalk from current location to specified id <cfa>%s<acf>.<099>} {%1};
+    #format {route_display} {<acf>[<fff>speedwalk<acf>] Generating speedwalk from current location to specified room. <aaa>%s<099>} {%1};
 
     #echo {$route_display};
 
@@ -393,24 +403,184 @@
     #list {route_length} {create} {$route_length};
     #list {route_length} {size} {route_length};
 
-    #format {route_confirm} {<acf>[<ffF>speedwalk<acf>] A route was found, type %cspeedwalk<acf> to fast travel. [%c%g<acf> steps]<099>} {Green}{Cyan}{$route_length};
+    #format {route_confirm} {<acf>[<fff>speedwalk<acf>] A route was found, type %c@dbspeedwalk_link{}<acf> to fast travel. [%c%g<acf> steps]<099>} {Green}{Cyan}{$route_length};
     #echo {$route_confirm};
 };
 
 #ALIAS {^db$} {
-    #showme {<acf>[<fff>speedwalk<acf>] Try "<fab>db help<acf>" for usage instructions.<099>};
+    #showme {<acf>[<fff>speedwalk<acf>] Try "<afa>db help<acf>" for usage instructions.<099>};
 };
 
 #ALIAS {db help} {
     #showme {<acf>[<fff>speedwalk<acf>] Speedwalk and Database Lookup Commands:<099>};
-    #showme {\t<138>*<acf> "<bbd>db room <cfa><query><acf>" - search for a room by name<099>};
-    #showme {\t<138>*<acf> "<bbd>db item <cfa><query><acf>" - search for an item in shops by name<099>};
-    #showme {\t<138>*<acf> "<bbd>db npc <cfa><query><acf>" - search for an NPC by name<099>};
-    #showme {\t<138>*<acf> "<bbd>db npcitem <cfa><query><acf>" - search for an item in NPC inventories by name<099>};
-    #showme {\t<138>*<acf> "<bbd>db gatherable <cfa><query><acf>" - search for a gatherable item by name<099>};
+    #showme {   <138>*<acf> "<bdc>db room <bbd><query><acf>" - search for a room by name<099>};
+    #showme {   <138>*<acf> "<bdc>db item <bbd><query><acf>" - search for an item in shops by name<099>};
+    #showme {   <138>*<acf> "<bdc>db npc <bbd><query><acf>" - search for an NPC by name<099>};
+    #showme {   <138>*<acf> "<bdc>db npcitem <bbd><query><acf>" - search for an item in NPC inventories by name<099>};
+    #showme {   <138>*<acf> "<bdc>db gatherable <bbd><query><acf>" - search for a gatherable item by name<099>};
     #showme {<099>};
-    #showme {<acf>After searching with one of the above commands, find a route there with "<bbd>db route <cfa>#<acf>"<099>};
-    #showme {<acf>Then type "<fab>speedwalk<acf>" to start moving.<099>};
+    #showme {<acf>After searching with one of the above commands, find a route there with "<bdc>db route <bbd><#><acf>", where "<bbd><#><acf>" is the row number shown in the results. You can then type "<afa>speedwalk<acf>" to start moving. Alternatively, <fbe>mouse-click<acf> on a result to generate a route, then click "<afa>speedwalk<acf>" to begin moving.<099>};
+    #showme {<099>};
+    #showme {<acf>There's also a bookmark system for frequently used rooms, see "<afa>db bookmark help<acf>" for details.<099>};
+    #showme {<099>};
+    #showme {<acf>Tips:<099>};
+    #showme {   <138>*<acf> When searching, the "<bbd>query<acf>" is case-sensitive.<099>};
+    #showme {   <138>*<acf> Searches may be filtered to certain maps by providing a second parameter like "<bbd>\{map_name\}<acf>".<099>};
+    #showme {   <138>*<acf> Example, to find swords in the Ramtops, you could "<bdc>db item <bbd>sword \{ramtops\}<acf>".<099>};
+    #showme {   <138>*<acf> Valid map names include:<099>};
+    #showme {         <138>* <dcf>am/ankh-morpork         <138>* <dcf>bp/bes pelargic<acf><099>};
+    #showme {         <138>* <dcf>djb/djelibeybi          <138>* <dcf>ephebe<acf><099>};
+    #showme {         <138>* <dcf>genua                   <138>* <dcf>ramtops<acf><099>};
+    #showme {         <138>* <dcf>sto/sto plains          <138>* <dcf>sto-lat<acf> <099>};
+};
+
+#nop *** BOOKMARK SYSTEM IMPLEMENTATION ***;
+#ALIAS {^db bookmark help$} {
+    #showme {<acf>[<fff>speedwalk<acf>] Speedwalk Bookmark System Commands:<099>};
+    #showme {   <138>*<acf> "<bdc>db bookmark <bbd>add here<acf>" - add current location to bookmarks.<099>};
+    #showme {   <138>*<acf> "<bdc>db bookmark <bbd>list<acf>" - show a list of saved locations.<099>};
+    #showme {   <138>*<acf> "<bdc>db bookmark <bbd>remove <#><acf>" - remove bookmark at index..<099>};
+    #showme {<099>};
+    #showme {<acf>Generate a route from your current location to a bookmark using "<afa>db bookmark route <bbd><#><acf>" or <fbe>mouse-clicking<acf> on a result from "<afa>db bookmark list<acf>". You can then click or type "<afa>speedwalk<acf> to start moving.<099>};
+};
+
+#nop sync database speedwalk bookmarks from file on load;
+#class {dbsync} {clear};
+#class {dbsync} {read} {$dbbookmark_file};
+#variable {db_bookmark_list} {$bookmark_sync};
+#class {dbsync} {kill};
+
+#ALIAS {^db bookmark list$} {
+    #showme {<acf>[<fff>speedwalk<acf>] Speedwalk Saved Bookmarks:<099>};
+    #list {db_bookmark_list} {size} {db_bookmark_size};
+    #if {$db_bookmark_size > 0} {
+        #var {bookmark_count} {0};
+        #foreach {$db_bookmark_list[%*]} {bookmark_result} {
+            #math {bookmark_list_index} {$bookmark_count + 1};
+            #variable {bookmark_room_id} {$db_bookmark_list[$bookmark_list_index][id]};
+            #showme {<acf>  [<cfe>@dbrouteto_link{$bookmark_room_id;$bookmark_count}<acf>]: Room "<cfa>@dbrouteto_link{$bookmark_room_id;$bookmark_result[name]}<acf>" in <fca>$bookmark_result[map]<acf> (<cde>$bookmark_result[type]<acf>).<099>};
+            #math {bookmark_count} {$bookmark_count + 1};
+        };
+    };
+    #else {
+        #showme {<acf>  No saved bookmarks found, add one with "<cfa>db bookmark add here<acf>" or refer to "<cfa>db bookmark help<acf>".<099>};
+    };
+};
+#ALIAS {^db bookmark add here$} {
+    #nop first - are we at our bookmark capacity?;
+    #list {db_bookmark_list} {size} {db_bookmark_size};
+    #if {$db_bookmark_size > 19} {
+        #showme {<acf>[<fff>speedwalk<acf>] Maximum allowed number of bookmarks already set, remove one first.<099>};
+        #return;
+    };
+
+    #nop next - do we already have this place bookmarked?;
+    #foreach {$db_bookmark_list[%*]} {bookmark_result} {
+        #if {"$bookmark_result[id]" == "$GMCP[room][info][identifier]"} {
+            #showme {<acf>[<fff>speedwalk<acf>] This room is already bookmarked and entitled "<cfa>$bookmark_result[name]<acf>".<099>};
+            #return;
+        };
+    };
+
+    #nop TODO if we decide to allow nicknames then need to check for duplicates there as well;
+    #nop TODO saving class to file each time we add/remove so it persists;
+
+    #nop some places don't have a "name" (e.g. Medina or Shades), don't allow bookmarking those for now.;
+    #if {"$GMCP[room][info][name]" == ""} {
+        #showme {<acf>[<fff>speedwalk<acf>] This room is not able to be bookmarked.<099>};
+        #return;
+    };
+
+    #nop go to the database to get a MapID to store;
+    #format {query} {SELECT room_id, map_id, room_short, room_type FROM rooms WHERE room_id = '%s' LIMIT 1;} {$GMCP[room][info][identifier]};
+    #format {db_command} {sqlite3 -separator ";" src/quow.db "%s"} {$query};
+    #script {room_query_result} {$db_command};
+    #format {room_query_result} {$room_query_result[1]};
+    #replace {room_query_result} {\\} {};
+    #list {room_results} {create} {${room_query_result}};
+
+    #variable {room_info} {
+        {room_id}{$room_results[1]}
+        {map_name}{$map_id_names[$room_results[2]]}
+        {room_short}{$room_results[3]}
+        {room_type}{$room_results[4]}
+    };
+
+    #nop finally put the new bookmark in our list;
+    #list {db_bookmark_list} {add} {{
+        {id}{$room_info[room_id]}
+        {name}{$room_info[room_short]}
+        {map}{$room_info[map_name]}
+        {type}{$room_info[room_type]}
+    }};
+    #showme {<acf>[<fff>speedwalk<acf>] Added a new bookmark for "<cfa>$GMCP[room][info][name]<acf>" in <fca>$room_info[map_name]<acf> (<cde>$room_info[room_type]<acf>).<099>};
+    /writedbbookmarkstofile;
+};
+#ALIAS {^db bookmark remove %d$} {
+    #math {bookmark_removal_index} {%1 + 1};
+
+    #nop is this index in valid range?;
+    #list {db_bookmark_list} {size} {db_bookmark_size};
+    #if {$db_bookmark_size < $bookmark_removal_index} {
+        #showme {<acf>[<fff>speedwalk<acf>] No bookmark with number "<cfa>%1<acf>" set, check "<fca>db bookmark list<acf>".<099>};
+        #return;
+    };
+
+    #nop otherwise seems valid, so remove it;
+    #list {db_bookmark_list} {get} {$bookmark_removal_index} {removed_bookmark};
+    #list {db_bookmark_list} {delete} {$bookmark_removal_index};
+    #showme {<acf>[<fff>speedwalk<acf>] Removed an existing bookmark for "<cfa>$removed_bookmark[name]<acf>" at index "<fca>$bookmark_removal_index<acf>".<099>};
+    /writedbbookmarkstofile;
+};
+#ALIAS {^db bookmark route %d$} {
+    #math {bookmark_route_index} {%1 + 1};
+
+    #nop is this index in valid range?;
+    #list {db_bookmark_list} {size} {db_bookmark_size};
+    #if {$db_bookmark_size < $bookmark_route_index} {
+        #showme {<acf>[<fff>speedwalk<acf>] No bookmark with number "<cfa>%1<acf>" set, check "<fca>db bookmark list<acf>".<099>};
+        #return;
+    };
+
+    #nop otherwise seems valid, so lets route to it;
+    db routeto $db_bookmark_list[$bookmark_route_index][id];
+};
+#ALIAS {^/writedbbookmarkstofile} {
+    #class {dbsync} {clear};
+    #class {dbsync} {open};
+    #var {bookmark_sync} {$db_bookmark_list};
+    #class {dbsync} {close};
+
+    #system {touch $dbbookmark_file};
+    #class {dbsync} {write} {$dbbookmark_file};
+};
+#nop *** END BOOKMARK SYSTEM IMPLEMENTATION ***;
+
+
+#nop ===[ Handle Events for Clickable Links... for the newbs ]===;
+#nop handle DBROUTE click events;
+#EVENT {PRESSED SECURE LINK DBROUTE MOUSE BUTTON ONE} {
+    db route %4;
+};
+#EVENT {PRESSED SECURE LINK DBROUTETO MOUSE BUTTON ONE} {
+    db routeto %4;
+};
+#nop handle SPEEDWALK click events;
+#EVENT {PRESSED SECURE LINK DBSPEEDWALK MOUSE BUTTON ONE} {
+    speedwalk;
+};
+
+#nop ===[ Functions to generate the clickable links ]===;
+#FUNCTION {dbroute_link} {
+    #nop %1 = query result index, %2 = text to display the link as;
+    #return {\e]68;2;DBROUTE;%1\a\e[4;24m%2\e[24m};
+};
+#FUNCTION {dbrouteto_link} {
+    #nop %1 = id to route to, %2 = text to display the link as;
+    #return {\e]68;2;DBROUTETO;%1\a\e[4;24m%2\e[24m};
+};
+#FUNCTION {dbspeedwalk_link} {
+    #return {\e]68;2;DBSPEEDWALK;;\a\e[4mspeedwalk\e[24m};
 };
 
 
