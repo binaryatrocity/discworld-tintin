@@ -1,0 +1,138 @@
+#class {mindspace} {kill};
+#class {mindspace} {open};
+
+#nop ============================================================================= ;
+#nop mindspace.tin - Mindspace calculation (spells in head, used/total/free) ;
+#nop Reads spelldata.tin so spell_data is available. Use #read mindspace.tin to load. ;
+#nop ============================================================================= ;
+
+#read {src/mindspace/spelldata.tin};
+#read {src/mindspace/spellbook.tin};
+
+#nop --- Data: list of spell names currently memorized (filled by triggers in later steps) --- ;
+#list {mindspace_spells} {create};
+
+#nop --- State: current category, in-list flag, running totals, delay-finish control --- ;
+#var {mindspace_category} {};
+#var {mindspace_category_display} {};
+#var {mindspace_in_list} {0};
+#var {mindspace_used_total} {0};
+#var {mindspace_category_used} {0};
+#var {mindspace_category_count} {0};
+#var {mindspace_pending_finish} {0};
+#var {mindspace_done} {0};
+
+#nop --- Step 6/9: per-char data (max capacity, prev spell set). Key = GMCP[charinfo][capname]. Single var for persistence. --- ;
+#var {mindspace_data} {};
+#var {mindspace_waiting_skills} {0};
+
+#nop --- Load data from disk on load if we have a previous run --- ;
+#variable {mindspace_file} {logs/features/mindspace_sync.tin};
+#class {mindsync} {clear};
+#class {mindsync} {read} {$mindspace_file};
+#variable {mindspace_data} {$mindspace_sync};
+#class {mindsync} {kill};
+
+#nop --- Alias: capture max mindspace from "skills ma.sp.sp raw" (special bonus + 30). --- ;
+#alias {^mindspace skills$} {
+  #var {mindspace_waiting_skills} {1};
+  #send {cols 60};
+  #send {skills ma.sp.sp raw};
+  #send {cols 999};
+};
+
+#nop --- Action: parse magic.spells.special. Table format (configurable MUD output). %1 = bonus. --- ;
+#action {^| | special.........  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} {
+    #math {mindspace_data[$GMCP[charinfo][capname]][max]} {%2 + 30};
+    #var {mindspace_waiting_skills} {0};
+    /writemindspacetofile;
+    #delay {1} {#showme {<aee>Mindspace max set to <fff>$mindspace_data[$GMCP[charinfo][capname]][max]<aee> (raw bonus + 30).<099>}};
+  };
+};
+
+#nop --- Action: parse magic.spells.special. Raw/full-path format (other MUD output option). %1 = bonus. --- ;
+#action {^magic\.spells\.special  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} {
+    #math {mindspace_data[$GMCP[charinfo][capname]][max]} {%2 + 30};
+    #var {mindspace_waiting_skills} {0};
+    /writemindspacetofile;
+    #delay {1} {#showme {<aee>Mindspace max set to <fff>$mindspace_data[$GMCP[charinfo][capname]][max]<aee> (raw bonus + 30).<099>}};
+  };
+};
+
+#nop --- Alias: set cols 60, send "spells", enable spell-line action, reset state and memorized list --- ;
+#alias {^spells$} {
+  #list {mindspace_spells} {clear};
+  #var {mindspace_used_total} {0};
+  #var {mindspace_done} {0};
+  #var {mindspace_pending_finish} {0};
+  #send {cols 60};
+
+  #nop Step 5: spell-line. Pattern = title-like line only (avoids Columns, prompt, digits). Alternatives: OR all spell names (huge regex), require two capitals, negative prefix (Columns|You |<). ;
+  #action {^{[A-Z][a-zA-Z'\- ]{10,}}$} {
+    #if {$mindspace_in_list} {
+      #foreach {*spell_data[%*]} {mindspace_spell} {
+        #if {"%%1" == "$mindspace_spell"} {
+          #list {mindspace_spells} {add} {$mindspace_spell};
+          #math {mindspace_used_total} {$mindspace_used_total + $spell_data[$mindspace_spell][mindspace]};
+          #math {mindspace_category_used} {$mindspace_category_used + $spell_data[$mindspace_spell][mindspace]};
+          #math {mindspace_category_count} {$mindspace_category_count + 1};
+          #break;
+        };
+      };
+    };
+  };
+  #nop Step 5: blank line. End-of-category summary, set pending and 1s delay. Unactioned in /mindspace_do_finish. ;
+  #action {^$} {
+    #if {$mindspace_in_list} {
+      #showme {  <fca>$mindspace_category_display: $mindspace_category_used [${mindspace_category_count} spells]<099>};
+      #var {mindspace_in_list} {0};
+      #var {mindspace_pending_finish} {1};
+      #undelay {mindspace_finish};
+      #delay {mindspace_finish} {/mindspace_do_finish} {1};
+    };
+  };
+  #send {spells};
+  #send {cols 999};
+};
+
+#nop --- Step 4: category header - set current category and enable line capture --- ;
+#action {^You know the following {defensive|offensive|misc} magic spell{s?}:$} {
+  #var {mindspace_pending_finish} {0};
+  #var {mindspace_category} {%1};
+  #format {mindspace_category_display} {%n} {%1};
+  #var {mindspace_in_list} {1};
+  #var {mindspace_category_used} {0};
+  #var {mindspace_category_count} {0};
+};
+
+#nop --- Finish: only called when named delay fires (1s after last blank). Categories vary (1-3) so we always use delay. --- ;
+#nop Step 8: /spellbook_do_gained_lost (in spellbook.tin) does diff, report, save. --- ;
+#alias {/mindspace_do_finish} {
+  #undelay {mindspace_finish};
+  #unaction {^{[A-Z][a-zA-Z'\- ]{10,}}$};
+  #unaction {^$};
+  #list {mindspace_spells} {size} {mindspace_spell_count};
+  #if {"$mindspace_data[$GMCP[charinfo][capname]][max]" != "" && "$mindspace_data[$GMCP[charinfo][capname]][max]" != "0"} {
+    #math {mindspace_free} {$mindspace_data[$GMCP[charinfo][capname]][max] - $mindspace_used_total};
+    #showme {<fca>Total Mindspace: $mindspace_used_total / $mindspace_data[$GMCP[charinfo][capname]][max] [${mindspace_spell_count} spells, $mindspace_free free]<099>};
+  } {
+    #showme {<fca>Total Mindspace: $mindspace_used_total [${mindspace_spell_count} spells]<119> (run 'mindspace skills' to set total)<099>};
+  };
+  /spellbook_do_gained_lost;
+  /writemindspacetofile;
+  #var {mindspace_pending_finish} {0};
+};
+
+#nop --- Alias to write out mindspace data to file so we can recall it later --- ;
+#alias {^/writemindspacetofile$} {
+    #class {mindsync} {clear};
+    #class {mindsync} {open};
+    #var {mindspace_sync} {$mindspace_data};
+    #class {mindsync} {close};
+
+    #class {mindsync} {write} {$mindspace_file};
+};
+
+#class {mindspace} {close};

@@ -1,0 +1,77 @@
+#class {spellbook} {kill};
+#class {spellbook} {open};
+
+#nop ============================================================================= ;
+#nop spellbook.tin - Gained/lost spell tracking (Step 8). Called via /spellbook_do_gained_lost from mindspace. ;
+#nop Expects: mindspace_spells (list), mindspace_spell_count (set by mindspace). ;
+#nop Uses: spell_data (from spelldata, read by mindspace). ;
+#nop ============================================================================= ;
+
+#nop --- Previous run is in mindspace_data[char][prev] directly, no working copy. --- ;
+#list {mindspace_current_shorts} {create};
+#list {mindspace_gained} {create};
+#list {mindspace_lost} {create};
+
+#nop --- Build current acronym list, diff vs previous, report gained/lost, save current as previous. --- ;
+#alias {/spellbook_do_gained_lost} {
+  #list {mindspace_current_shorts} {clear};
+  #if {$mindspace_spell_count > 0} {
+    #loop 1 $mindspace_spell_count {idx} {
+      #var {mindspace_sn} {$mindspace_spells[$idx]};
+      #var {mindspace_acr} {$spell_data[$mindspace_sn][short]};
+      #list {mindspace_current_shorts} {add} {$mindspace_acr};
+    };
+  };
+  #list {mindspace_current_shorts} {size} {mindspace_cur_size};
+  #nop --- Previous for current char is mindspace_data[char][prev]. get size (0 if empty/missing). --- ;
+  #if {"$mindspace_data[$GMCP[charinfo][capname]][prev]" == ""} {
+    #var {mindspace_prev_size} {0};
+  } {
+    #list {mindspace_data[$GMCP[charinfo][capname]][prev]} {size} {mindspace_prev_size};
+  };
+  #if {$mindspace_prev_size == 0} {
+    #nop Fresh load: no previous data. Save current for next run, no reporting. --- ;
+    #var {mindspace_data[$GMCP[charinfo][capname]][prev]} {$mindspace_current_shorts};
+    #return;
+  };
+  #nop --- Gained: in current but not in previous --- ;
+  #list {mindspace_gained} {clear};
+  #loop 1 $mindspace_cur_size {ci} {
+    #var {mindspace_acr} {$mindspace_current_shorts[$ci]};
+    #var {mindspace_in_prev} {0};
+    #loop 1 $mindspace_prev_size {pj} {
+      #if {"$mindspace_acr" == "$mindspace_data[$GMCP[charinfo][capname]][prev][$pj]"} { #var {mindspace_in_prev} {1} };
+    };
+    #if {$mindspace_in_prev == 0} { #list {mindspace_gained} {add} {$mindspace_acr} };
+  };
+  #nop --- Lost: in previous but not in current --- ;
+  #list {mindspace_lost} {clear};
+  #loop 1 $mindspace_prev_size {pi} {
+    #var {mindspace_acr} {$mindspace_data[$GMCP[charinfo][capname]][prev][$pi]};
+    #var {mindspace_in_cur} {0};
+    #loop 1 $mindspace_cur_size {cj} {
+      #if {"$mindspace_acr" == "$mindspace_current_shorts[$cj]"} { #var {mindspace_in_cur} {1} };
+    };
+    #if {$mindspace_in_cur == 0} { #list {mindspace_lost} {add} {$mindspace_acr} };
+  };
+  #list {mindspace_gained} {size} {mindspace_gained_count};
+  #list {mindspace_lost} {size} {mindspace_lost_count};
+  #if {$mindspace_gained_count > 0} {
+    #var {mindspace_gained_line} {};
+    #loop 1 $mindspace_gained_count {gi} {
+      #if {"$mindspace_gained_line" != ""} { #var {mindspace_gained_line} {$mindspace_gained_line, $mindspace_gained[$gi]} } { #var {mindspace_gained_line} {$mindspace_gained[$gi]} };
+    };
+    #showme {<aee>You have GAINED the following spell(s) since last update: <fff>$mindspace_gained_line<099>};
+  };
+  #if {$mindspace_lost_count > 0} {
+    #var {mindspace_lost_line} {};
+    #loop 1 $mindspace_lost_count {li} {
+      #if {"$mindspace_lost_line" != ""} { #var {mindspace_lost_line} {$mindspace_lost_line, $mindspace_lost[$li]} } { #var {mindspace_lost_line} {$mindspace_lost[$li]} };
+    };
+    #showme {<119>You have LOST the following spell(s) since last update: <fff>$mindspace_lost_line<099>};
+  };
+  #nop --- Save current as previous for current char. --- ;
+  #var {mindspace_data[$GMCP[charinfo][capname]][prev]} {$mindspace_current_shorts};
+};
+
+#class {spellbook} {close};

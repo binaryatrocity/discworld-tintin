@@ -65,7 +65,7 @@
     #send {speak};
     #send {cols 999};
 };
-#ALIAS {^spells$} { #send {cols 60}; #send {spells}; #send {cols 999}; };
+#nop #ALIAS {^spells$} { #send {cols 60}; #nop #send {spells}; #nop #send {cols 999}; #nop };
 #ALIAS {^rituals$} { #send {cols 60}; #send {rituals}; #send {cols 999}; };
 
 #ALIAS {^group status$} { #send {cols 60}; #send {group status}; #send {cols 999}; };
