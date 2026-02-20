@@ -33,13 +33,13 @@
 }
 
 #nop CCC
-#ACTION {^ * {Her|His|Its} skin has been {hardened|covered} {with|to}{a?} %4, although {the \w+|it} seems {weaker|not to be}} {
+#ACTION {^ * {Her|His|Its} skin {is|has been} {hardened|covered} {with|to}{a?} %4, although {the \w+|it} seems {weaker|not to be}} {
     #if {"$group_shields_current" != ""} {
         #variable {group_shields[$group_shields_current][ccc]} {1};
         /softwritegroupshieldstofile;
     };
 }
-#ACTION {^ * Your skin has been {hardened|covered} {with|to}{a?} %4, although {the \w+|it} seems {weaker|not to be}} {
+#ACTION {^ * Your skin {is|has been} {hardened|covered} {with|to}{a?} %4, although {the \w+|it} seems {weaker|not to be}} {
     #variable {group_shields[$GMCP[charinfo][capname]][ccc]} {1};
         /softwritegroupshieldstofile;
 };
@@ -57,9 +57,13 @@
         /softwritegroupshieldstofile;
     };
 }
+#ACTION {^ * You are {(really )?}protected by the power of {Pishe|Gufnork|Gapp|Sandelfon|Fish|Hat|Sek|Aegadon|Cubal|Reebox}} {
+    #variable {group_shields[$GMCP[charinfo][capname]][ms]} {1};
+    /softwritegroupshieldstofile;
+}
 
 #nop KII
-#ACTION {^ * {You|She|He|It} are surrounded by a {handful|cloud|small swarm|large swarm|vast sawrm|plague} of} {
+#ACTION {^ * {You|She|He|It} {is|are} surrounded by a {handful|cloud|small swarm|large swarm|vast sawrm|plague} of} {
     #if {"%1" == "You"} {
         #variable {group_shields[$GMCP[charinfo][capname]][kii]} {1};
     };
@@ -256,7 +260,7 @@
 };
 
 
-#nop KII
+#nop KII;
 #ACTION {^The last of the injured {lacewings|stick insects|mayflies|praying mantids|butterflies|ladybirds|dragonflies|damselflies|moths|grasshoppers|winged termites|sandflies|mosquitoes|gnats|crickets|flying ants|locusts|horseflies|cicadas|bees|wasps|hornets|elephant beetles|assassin bugs} surrounding {(\w+\b\W*?){1,8}} crash to the ground.$} {
     #variable {gs_dropname} {%1};
     #replace {gs_dropname} { } {;};
@@ -286,6 +290,16 @@
             /writegroupshieldstofile;
         };
     };
+};
+
+#nop MS;
+#ACTION {^You are protected by the power of {Pishe|Gufnork|Gapp|Sandelfon|Fish|Hat|Sek|Aegadon|Cubal|Reebox}.$} {
+    #variable {group_shields[$GMCP[charinfo][capname]][ms]} {1};
+    /writegroupshieldstofile;
+};
+#ACTION {^Your divine protection expires.$} {
+    #variable {group_shields[$GMCP[charinfo][capname]][ms]} {0};
+    /writegroupshieldstofile;
 };
 
 
@@ -367,11 +381,11 @@
         #format {gs_displayline} {%.6s: } {$name};
         #format {gs_displayline} {%-8s} {$gs_displayline};
 
-        #foreach {tpa;ccc;eff;kii} {shield} {
+        #foreach {tpa;ccc;eff;kii;ms} {shield} {
             #if {&group_shields[$name][$shield] && "$group_shields[$name][$shield]" == "1"} {
-                #format {gs_displayline} {%s <fef>%u<099>} {$gs_displayline} {$shield};
+                #format {gs_displayline} {%s <eee>%u<099>} {$gs_displayline} {$shield};
             } {
-                #format {gs_displayline} {%s <aaa>%u<099>} {$gs_displayline} {$shield};
+                #format {gs_displayline} {%s <bbb>%u<099>} {$gs_displayline} {$shield};
             };
         };
         #line {log} {$groupshield_file} {$gs_displayline};

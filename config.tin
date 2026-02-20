@@ -1,7 +1,7 @@
 #VARIABLE {chat_file} {logs/chat.log}
 
 #CONFIG {SPEEDWALK} {OFF};
-#CONFIG {PACKET PATCH} {5};
+#CONFIG {PACKET PATCH} {0.75}; #nop not perfect, yet to find a value that stops all broken lines;
 #CONFIG {COLOR PATCH} {ON};
 #CONFIG {MCCP} {ON};
 #CONFIG {MOUSE} {ON};
@@ -24,11 +24,10 @@
 #READ {src/quota.tin};
 
 #READ {src/combat.tin};
-#READ {src/deadletter.tin};
 #READ {src/db.tin};
 #READ {src/magic.tin};
 
-#READ {src/missions.tin};
+#READ {src/missions.tin}; #nop this file loads all the individual mission files (sailing, sausage, werks);
 #READ {src/group.tin};
 
 #READ {src/personal.tin};

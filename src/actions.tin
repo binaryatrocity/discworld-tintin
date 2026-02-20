@@ -108,6 +108,15 @@
 #NOP ==[Horses]==
 #HIGHLIGHT {brindle horse} orange;
 
+#NOP ==[Magic Items]==;
+#SUB {^You feel you have regained enough strength to invoke a flame weapon again.$} {You feel you have regained enough strength to <fff>invoke<900> a <fcb>flame<900> weapon again.};
+#ACTION {^You feel you have regained enough strength to invoke a flame weapon again.$} { #showme {\a}; };
+#SUB {^You zap your balsa wand at %1.$} {You <ffb>zap<900> your <bfe>balsa wand<900> at <fff>%1<900>.};
+#SUB {^A pulse of light leaves the balsa wand and envelops %1.$} {A <ffb>pulse of light<900> leaves the <bfe>balsa wand<900> and envelops <fff>%1<900>.};
+#SUB {^A pulse of pure night leaves the balsa wand and envelops you.$} {A <ffb>pulse<900> of <bbd>pure night<900> leaves <bfe>the balsa wand<900> and envelops <fff>you<900>.};
+#SUB {^A pulse of pure night leaves the balsa wand and envelops you, while %1 fizzles slightly and dims.$} {A <ffb>pulse<900> of <bbd>pure night<900> leaves <bfe>the balsa wand<900> and envelops <fff>you<900>, while the <fff>black diamond nostril stud<900> fizzles slightly and <bbd>dims<900>.};
+#HIGHLIGHT {^You feel your skin start to ripple uncomfortably...$} {<bbf>};
+
 #NOP ==[Tab Completions]==
 #ACTION {^[%1 has gained the %2 achievement %3]$} {
     #tab {%1};

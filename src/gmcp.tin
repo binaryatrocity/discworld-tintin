@@ -78,7 +78,8 @@
     #nop reset prompt details;
     #var {tpa_status} {0};
     #var {tpa_color} {0};
-    #var {tpa_start} {0};
+    #nop #var {tpa_start} {0};
+    #unvar {tpa_start};
     #unvar {quota};
 
     #nop re-split the screen to wipe out the prompt from last character;
