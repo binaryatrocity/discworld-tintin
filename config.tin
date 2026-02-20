@@ -30,6 +30,8 @@
 #READ {src/missions.tin}; #nop this file loads all the individual mission files (sailing, sausage, werks);
 #READ {src/group.tin};
 
+#READ {src/mindspace/mindspace.tin};
+
 #READ {src/personal.tin};
 
 #SESSION {discworld} {discworld.starturtle.net} {4242};
