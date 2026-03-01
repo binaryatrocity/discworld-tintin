@@ -1,0 +1,265 @@
+#class {spellcheck} {kill};
+#class {spellcheck} {open};
+
+#nop =============================================================================
+#nop spellcheck.tin - Show spell details + spellcheck table. Read by mindspace.tin.
+#nop Expects: mindspace_show_spell_name (set by mindspace before /mindspace_show_spell).
+#nop Uses: spell_data, methods_data, books, type_short, skill_levels, order_shorts, skill_tree, mindspace_data, GMCP (from spelldata / mindspace).
+#nop Events: PRESSED SECURE LINK MINDSPACEBOOK (book listing), PRESSED SECURE LINK MINDSPACESPELL (show spell).
+#nop Colors: xterm 256 format <aaa>-<fff> foreground only.
+#nop =============================================================================
+
+
+
+#nop --- Returns [bonus] with color by level: red->orange->yellow->green (reversed greens: ada=90%, afa=99+). --- ;
+#function {bonus_colored} {
+  #if {"%1" == "1"} {#return {[<faa>%2<099>]}};
+  #if {"%1" == "2"} {#return {[<eaa>%2<099>]}};
+  #if {"%1" == "3"} {#return {[<daa>%2<099>]}};
+  #if {"%1" == "4"} {#return {[<caa>%2<099>]}};
+  #if {"%1" == "5"} {#return {[<fca>%2<099>]}};
+  #if {"%1" == "6"} {#return {[<ffa>%2<099>]}};
+  #if {"%1" == "7"} {#return {[<efa>%2<099>]}};
+  #if {"%1" == "8"} {#return {[<dfa>%2<099>]}};
+  #if {"%1" == "9"} {#return {[<bfa>%2<099>]}};
+  #if {"%1" == "10"} {#return {[<ada>%2<099>]}};
+  #return {[<afa>%2<099>]};
+};
+
+#alias {/mindspace_show_spell} {
+  #var {mindspace_bid} {$spell_data[$mindspace_show_spell_name][bookid]};
+  #format {mindspace_acr} {%u} {$spell_data[$mindspace_show_spell_name][short]};
+  #showme {};
+  #showme {<fff>$mindspace_acr: <aff>$mindspace_show_spell_name<099>.  Mindspace = <fff>$spell_data[$mindspace_show_spell_name][mindspace]<099>, GP Cost = <fff>$spell_data[$mindspace_show_spell_name][gp]<099>};
+  #showme {It is categorised as <fff>$spell_data[$mindspace_show_spell_name][type].<099>};
+  #showme {Components: $spell_data[$mindspace_show_spell_name][components]<099>};
+  #if {"$spell_data[$mindspace_show_spell_name][hasbook]" == "true"} {
+    #showme {This is a witch spell.<099>};
+  } {
+    #if {"$mindspace_bid" != ""} {
+      #showme {It is found in '<fff>@book_link{$mindspace_bid;$books[$mindspace_bid][title]}<099>' - '$books[$mindspace_bid][desc]'.<099>};
+      #showme {<fff>$books[$mindspace_bid][location]<099>};
+    } {
+      #showme {It is unknown where this spell can be obtained.<099>};
+    };
+  };
+  #showme {};
+  #showme {(type '<aff>mindspace skills<099>' to update the plugin with your current bonuses for accurate spellchecks)<099>};
+  #var {mindspace_char} {$GMCP[charinfo][capname]};
+  #var {mindspace_char_order} {0};
+  #if {"$order_shorts[$GMCP[charinfo][guildspec]]" != ""} {
+    #var {mindspace_char_order} {$order_shorts[$GMCP[charinfo][guildspec]]}
+  } {
+    #if {"$GMCP[charinfo][guild]" == "wizards"} {
+      #var {mindspace_char_order} {3}
+    };
+  };
+  #showme {<fff>Skill        Fail <g10>-><g11>-><g12>-><g13>-><g14>-><g15>-><g16>-><g17>-><g18>-><g19>-><g20>-><g20><fff> Equal <g20>-><g20>-><g21>-><g22>-><g23>-><g23>-><g23>-><g23>-><g23>-><g23>-><g23>-><g23>-<fff> Success       Chance [bonus]<099>};
+  #foreach {*methods_data[$mindspace_show_spell_name][%*]} {mindspace_m} {
+    #var {mindspace_bonus} {$mindspace_data[$mindspace_char][skills][$mindspace_m]};
+    #if {"$mindspace_bonus" == ""} {
+      #var {mindspace_bonus} {0}
+    };
+    #var {mindspace_level} {1};
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][1]} {
+      #var {mindspace_level} {2}
+    };
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][2]} {
+      #var {mindspace_level} {3}
+    };
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][3]} {
+      #var {mindspace_level} {4}
+    };
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][4]} {
+      #var {mindspace_level} {5}
+    };
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][5]} {
+      #var {mindspace_level} {6}
+    };
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][6]} {
+      #var {mindspace_level} {7}
+    };
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][7]} {
+      #var {mindspace_level} {8}
+    };
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][8]} {
+      #var {mindspace_level} {9}
+    };
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][9]} {
+      #var {mindspace_level} {10}
+    };
+    #if {$mindspace_bonus >= $methods_data[$mindspace_show_spell_name][$mindspace_m][10]} {
+      #var {mindspace_level} {11}
+    };
+    #var {mindspace_pre} {};
+    #var {mindspace_mid} {};
+    #var {mindspace_post} {};
+    #format {mindspace_cell} {\x3c%s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][1]};
+    #format {mindspace_cell} {%-9s} {$mindspace_cell};
+    #if {1 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {1 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][2]};
+    #if {2 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {2 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][2]};
+    #if {3 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {3 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][3]};
+    #if {4 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {4 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][4]};
+    #if {5 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {5 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][5]};
+    #if {6 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {6 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][6]};
+    #if {7 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {7 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][7]};
+    #if {8 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {8 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][8]};
+    #if {9 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {9 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][9]};
+    #if {10 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {10 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_cell} {%-6s} {$methods_data[$mindspace_show_spell_name][$mindspace_m][10]};
+    #if {11 < $mindspace_level} {
+      #var {mindspace_pre} {$mindspace_pre$mindspace_cell}
+    } {
+      #if {11 == $mindspace_level} {
+        #var {mindspace_mid} {$mindspace_mid$mindspace_cell}
+      } {
+        #var {mindspace_post} {$mindspace_post$mindspace_cell}
+      }
+    };
+    #format {mindspace_skill_fmt} {%-12s } {$mindspace_m};
+    #var {mindspace_p_suffix} {};
+    #if {$mindspace_char_order > 0 && "$skill_tree[$mindspace_m][orders]" != ""} {
+      #foreach {*skill_tree[$mindspace_m][orders][%*]} {_oidx} {
+        #if {"$skill_tree[$mindspace_m][orders][$_oidx]" == "$mindspace_char_order"} {
+          #var {mindspace_p_suffix} { <acf>*P*<099>};
+          #break
+        };
+      };
+    };
+    #showme {$mindspace_skill_fmt<aff>$mindspace_pre<ffa>$mindspace_mid<faa>$mindspace_post<099>   $skill_levels[$mindspace_level]@bonus_colored{$mindspace_level;$mindspace_bonus}<099>$mindspace_p_suffix};
+  };
+  #showme {};
+};
+
+#nop --- MSLP SECURE LINK: book name -> clickable, passes book ID, outputs Quow-style book listing --- ;
+#event {PRESSED SECURE LINK MSBOOK MOUSE BUTTON ONE} {
+  #showme {clicked book link ><><};
+  #var {mindspace_bid} {%4};
+  #if {"$books[$mindspace_bid][title]" == ""} {
+    #showme {<118>Unknown book ID.<099>};
+    #return;
+  };
+  #showme {};
+  #showme {<acf>Listing spells found in book '<fff>$books[$mindspace_bid][title]<acf>'<099>};
+  #showme {<acf>($books[$mindspace_bid][location]):<099>};
+  #showme {};
+  #var {mindspace_book_idx} {0};
+  #foreach {*spell_data[%*]} {mindspace_sn} {
+    #if {"$spell_data[$mindspace_sn][bookid]" == "$mindspace_bid"} {
+      #math {mindspace_book_idx} {$mindspace_book_idx + 1};
+      #var {mindspace_ts} {$type_short[$spell_data[$mindspace_sn][type]]};
+      #format {mindspace_book_fmt} {%-2s} {$mindspace_book_idx};
+      #format {mindspace_acr} {%u} {$spell_data[$mindspace_sn][short]};
+      #showme {<acf>  $mindspace_book_fmt: <099>@spell_link{$mindspace_sn;$mindspace_acr}<acf> - $mindspace_sn ($mindspace_ts) [size:$spell_data[$mindspace_sn][mindspace], GP:$spell_data[$mindspace_sn][gp]]<099>};
+    };
+  };
+  #showme {};
+};
+
+#nop --- MSLP SECURE LINK: spell acronym/name -> clickable, triggers show spell --- ;
+#event {PRESSED SECURE LINK MINDSPACESPELL MOUSE BUTTON ONE} {
+  #var {mindspace_show_spell_name} {%4};
+  /mindspace_show_spell;
+};
+
+#function {spell_link} {
+  #nop %1 = full spell name, %2 = display text (e.g. acronym);
+  #return {\e]68;2;MINDSPACESPELL;%1\a\e[4m%2\e[24m};
+}
+
+#function {book_link} {
+  #showme {created book link ><><};
+  #nop %1 = book id, %2 = display text;
+  #return {\e]68;2;MSBOOK;%1\a\e[4m%2\e[24m};
+}
+
+#class {spellcheck} {close};

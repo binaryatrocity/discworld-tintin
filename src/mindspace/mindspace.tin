@@ -8,6 +8,8 @@
 
 #read {src/mindspace/spelldata.tin};
 #read {src/mindspace/spellbook.tin};
+#read {src/mindspace/skillscapture.tin};
+#read {src/mindspace/spellcheck.tin};
 
 #nop --- Data: list of spell names currently memorized (filled by triggers in later steps) --- ;
 #list {mindspace_spells} {create};
@@ -36,16 +38,54 @@
 #nop --- Alias: capture max mindspace from "skills ma.sp.sp raw" (special bonus + 30). --- ;
 #alias {^mindspace skills$} {
   #var {mindspace_waiting_skills} {1};
+  #var {mindspace_skills_done} {0};
   #send {cols 60};
   #send {skills ma.sp.sp raw};
+  #send {skills $mindspace_skills_paths};
   #send {cols 999};
+};
+
+#nop --- Alias: mindspace help -> show help text. --- ;
+#alias {^mindspace help$} {
+  #showme {};
+  #showme {<fca>Mindspace & Spellcheck Help<099>};
+  #showme {};
+  #showme {<acf>Command: "<aac>mindspace help<acf>"<099>};
+  #showme {  This help information};
+  #showme {};
+  #showme {<acf>Command: "<aac>spells<acf>"<099>};
+  #showme {  Show remembered spells with mindspace used/free and gained/lost since last run};
+  #showme {};
+  #showme {<acf>Command: "<aac>mindspace skills<acf>"<099>};
+  #showme {  Record your skill bonuses. Run after large skill or stat changes for accurate spellchecks};
+  #showme {};
+  #showme {<acf>Command: "<aac>mindspace <acronym><acf>"<099>};
+  #showme {  Lookup spell details, GP cost, mindspace, components, and full spellcheck data (e.g. mindspace tpa)};
+  #showme {};
+  #showme {<acf>Clickable links<099>};
+  #showme {  Book titles in spell output and spell acronyms in book listings are clickable.};
+  #showme {  Click a book title to list all spells in that book; click an acronym to show that spell.};
+  #showme {};
+};
+
+#nop --- Alias: mindspace <acronym> -> show spell. (?!skills$|help$) so skills and help are not caught. ---
+#alias {^mindspace {?!skills$|help$}{.*}$} {
+  #if {"%1" == ""} { #return };
+  #format {mindspace_acr} {%l} {%1};
+  #var {mindspace_full} {$acronym_to_spell[$mindspace_acr]};
+  #if {"$mindspace_full" == ""} {
+    #showme {<118>No spell found for '%1'.<099>};
+    #return;
+  };
+  
+  #var {mindspace_show_spell_name} {$mindspace_full};
+  /mindspace_show_spell;
 };
 
 #nop --- Action: parse magic.spells.special. Table format (configurable MUD output). %1 = bonus. --- ;
 #action {^| | special.........  %+1..4d  %+1..4d$} {
   #if {"$mindspace_waiting_skills" == "1"} {
     #math {mindspace_data[$GMCP[charinfo][capname]][max]} {%2 + 30};
-    #var {mindspace_waiting_skills} {0};
     /writemindspacetofile;
     #delay {1} {#showme {<aee>Mindspace max set to <fff>$mindspace_data[$GMCP[charinfo][capname]][max]<aee> (raw bonus + 30).<099>}};
   };
@@ -55,7 +95,6 @@
 #action {^magic\.spells\.special  %+1..4d  %+1..4d$} {
   #if {"$mindspace_waiting_skills" == "1"} {
     #math {mindspace_data[$GMCP[charinfo][capname]][max]} {%2 + 30};
-    #var {mindspace_waiting_skills} {0};
     /writemindspacetofile;
     #delay {1} {#showme {<aee>Mindspace max set to <fff>$mindspace_data[$GMCP[charinfo][capname]][max]<aee> (raw bonus + 30).<099>}};
   };
@@ -127,11 +166,10 @@
 
 #nop --- Alias to write out mindspace data to file so we can recall it later --- ;
 #alias {^/writemindspacetofile$} {
-    #class {mindsync} {clear};
+    #class {mindsync} {kill};
     #class {mindsync} {open};
     #var {mindspace_sync} {$mindspace_data};
     #class {mindsync} {close};
-
     #class {mindsync} {write} {$mindspace_file};
 };
 

@@ -8,17 +8,17 @@
 
 #nop --- sQuowSkillLevels: 1-based index -> chance string --- ;
 #var {skill_levels} {
-  {1} {<1% chance }
-  {2} {10% chance }
-  {3} {20% chance }
-  {4} {30% chance }
-  {5} {40% chance }
-  {6} {50% chance }
-  {7} {60% chance }
-  {8} {70% chance }
-  {9} {80% chance }
-  {10} {90% chance }
-  {11} {99+% chance}
+  {1}  {<1%  chance }
+  {2}  {10%  chance }
+  {3}  {20%  chance }
+  {4}  {30%  chance }
+  {5}  {40%  chance }
+  {6}  {50%  chance }
+  {7}  {60%  chance }
+  {8}  {70%  chance }
+  {9}  {80%  chance }
+  {10} {90%  chance }
+  {11} {99+% chance }
 };
 
 #nop --- sQuowBooks: Quow's book id -> title, desc, location, libnum (when UU Library) --- ;
@@ -132,7 +132,7 @@
   }
   {20} {
     {title} {Ye Booke of Polymorphe}
-    {desc} {[book appearance changes]}
+    {desc} {\[book appearance changes\]}
     {location} {IIL Library, DJB:  Back-left/West}
   }
   {21} {
@@ -217,47 +217,47 @@
   {octarine} {8}
 };
 
-#nop --- sQuowSkillTree: skill name -> path, orders (semicolon-sep order ids. empty = no primaries) --- ;
+#nop --- sQuowSkillTree: skill name -> path, orders (1-indexed list: {1}{orderId}{2}{orderId}... empty = no primaries) --- ;
 #var {skill_tree} {
   {air} {
     {path} {ma.me.el.air}
-    {orders} {1;2}
+    {orders} {{1}{1}{2}{2}}
   }
   {earth} {
     {path} {ma.me.el.earth}
-    {orders} {1}
+    {orders} {{1}{1}}
   }
   {fire} {
     {path} {ma.me.el.fire}
-    {orders} {1;6;8}
+    {orders} {{1}{1}{2}{6}{3}{8}}
   }
   {water} {
     {path} {ma.me.el.water}
-    {orders} {1}
+    {orders} {{1}{1}}
   }
   {animating} {
     {path} {ma.me.me.animating}
-    {orders} {2;3;5;7;8}
+    {orders} {{1}{2}{2}{3}{3}{5}{4}{7}{5}{8}}
   }
   {channeling} {
     {path} {ma.me.me.channeling}
-    {orders} {1;2;3;5;8}
+    {orders} {{1}{1}{2}{2}{3}{3}{4}{5}{5}{8}}
   }
   {charming} {
     {path} {ma.me.me.charming}
-    {orders} {2;6;7}
+    {orders} {{1}{2}{2}{6}{3}{7}}
   }
   {convoking} {
     {path} {ma.me.me.convoking}
-    {orders} {1;2;3;5;7;8}
+    {orders} {{1}{1}{2}{2}{3}{3}{4}{5}{5}{7}{6}{8}}
   }
   {cursing} {
     {path} {ma.me.me.cursing}
-    {orders} {6}
+    {orders} {{1}{6}}
   }
   {binding} {
     {path} {ma.me.ph.binding}
-    {orders} {1;2;3;4;5;6;7;8}
+    {orders} {{1}{1}{2}{2}{3}{3}{4}{4}{5}{5}{6}{6}{7}{7}{8}{8}}
   }
   {brewing} {
     {path} {ma.me.ph.brewing}
@@ -265,59 +265,59 @@
   }
   {chanting} {
     {path} {ma.me.ph.chanting}
-    {orders} {6}
+    {orders} {{1}{6}}
   }
   {dancing} {
     {path} {ma.me.ph.dancing}
-    {orders} {3;6}
+    {orders} {{1}{3}{2}{6}}
   }
   {enchanting} {
     {path} {ma.me.ph.enchanting}
-    {orders} {3;4;5;7}
+    {orders} {{1}{3}{2}{4}{3}{5}{4}{7}}
   }
   {evoking} {
     {path} {ma.me.ph.evoking}
-    {orders} {1;2;3;5;8}
+    {orders} {{1}{1}{2}{2}{3}{3}{4}{5}{5}{8}}
   }
   {healing} {
     {path} {ma.me.ph.healing}
-    {orders} {7}
+    {orders} {{1}{7}}
   }
   {scrying} {
     {path} {ma.me.ph.scrying}
-    {orders} {5;8}
+    {orders} {{1}{5}{2}{8}}
   }
   {abjuring} {
     {path} {ma.me.sp.abjuring}
-    {orders} {6;7}
+    {orders} {{1}{6}{2}{7}}
   }
   {banishing} {
     {path} {ma.me.sp.banishing}
-    {orders} {6}
+    {orders} {{1}{6}}
   }
   {conjuring} {
     {path} {ma.me.sp.conjuring}
-    {orders} {2}
+    {orders} {{1}{2}}
   }
   {divining} {
     {path} {ma.me.sp.divining}
-    {orders} {5}
+    {orders} {{1}{5}}
   }
   {summoning} {
     {path} {ma.me.sp.summoning}
-    {orders} {1;2;3;6;7;8}
+    {orders} {{1}{1}{2}{2}{3}{3}{4}{6}{5}{7}{6}{8}}
   }
   {wand} {
     {path} {ma.it.he.wand}
-    {orders} {4}
+    {orders} {{1}{4}}
   }
   {rod} {
     {path} {ma.it.he.rod}
-    {orders} {4}
+    {orders} {{1}{4}}
   }
   {staff} {
     {path} {ma.it.he.staff}
-    {orders} {1;2;3;4;5;6;7;8}
+    {orders} {{1}{1}{2}{2}{3}{3}{4}{4}{5}{5}{6}{6}{7}{7}{8}{8}}
   }
   {amulet} {
     {path} {ma.it.wo.amulet}
@@ -325,7 +325,7 @@
   }
   {ring} {
     {path} {ma.it.wo.ring}
-    {orders} {4}
+    {orders} {{1}{4}}
   }
   {talisman} {
     {path} {ma.it.talisman}
@@ -333,7 +333,7 @@
   }
   {gold} {
     {path} {cr.sm.gold}
-    {orders} {4}
+    {orders} {{1}{4}}
   }
   {silver} {
     {path} {cr.sm.silver}
@@ -341,11 +341,11 @@
   }
   {turning} {
     {path} {cr.ca.turning}
-    {orders} {4}
+    {orders} {{1}{4}}
   }
   {whittling} {
     {path} {cr.ca.whittling}
-    {orders} {4}
+    {orders} {{1}{4}}
   }
   {herbal} {
     {path} {cr.hus.pl.herbal}
@@ -407,7 +407,7 @@
   {Miscellaneous} {misc}
 };
 
-#nop --- objQuowSpellData: spell name -> mindspace, short, type, gp, bookid, hasbook, components, methods --- ;
+#nop --- objQuowSpellData: spell name -> mindspace, short, type, gp, bookid, hasbook, components. Methods in methods_data. --- ;
 #var {spell_data} {
   {A Cup of Tea and Sake} {
     {mindspace}{5}
@@ -415,11 +415,6 @@
     {type}{Miscellaneous}
     {gp}{25}
     {bookid}{6}
-    {methods}{
-      {channeling}{31;41;52;58;61;74;80;97;120;156}
-      {divining}{94;101;110;117;123;137;142;152;184;206}
-      {scrying}{140;146;156;162;169;175;182;190;220;250}
-    }
     {hasbook}{false}
     {components}{paper (consumed)}
   }
@@ -429,13 +424,6 @@
     {type}{Miscellaneous}
     {gp}{90}
     {bookid}{15}
-    {methods}{
-      {evoking}{189;197;203;211;218;228;236;250;269;310}
-      {channeling}{225;232;243;249;255;265;272;285;310;340}
-      {evoking}{185;194;198;207;212;220;228;243;260;301}
-      {chanting}{203;212;221;228;234;246;252;270;280;315}
-      {chanting}{230;237;246;255;259;270;277;294;310;345}
-    }
     {hasbook}{false}
     {components}{octogram, wearable jewellery (to blorp)}
   }
@@ -445,13 +433,6 @@
     {type}{Miscellaneous}
     {gp}{10}
     {bookid}{3}
-    {methods}{
-      {evoking}{60;65;70;75;80;85;90;95;105;115}
-      {channeling}{40;45;50;55;60;65;70;80;90;100}
-      {evoking}{60;65;70;75;80;85;90;95;105;115}
-      {chanting}{50;55;60;65;70;75;80;85;95;105}
-      {chanting}{50;55;60;65;70;75;80;85;90;105}
-    }
     {hasbook}{false}
     {components}{rock (to blorp)}
   }
@@ -461,12 +442,6 @@
     {type}{Miscellaneous}
     {gp}{80}
     {bookid}{14}
-    {methods}{
-      {animating}{92;101;109;115;121;134;140;155;178;205}
-      {fire}{76;84;94;101;107;117;123;142;160;190}
-      {binding}{86;94;103;111;117;128;134;152;170;200}
-      {channeling}{84;92;101;109;115;126;132;149;165;195}
-    }
     {hasbook}{false}
     {components}{quill (consumed), torch (consumed)}
   }
@@ -476,12 +451,6 @@
     {type}{Miscellaneous}
     {gp}{50}
     {bookid}{14}
-    {methods}{
-      {animating}{90;98;108;115;121;132;139;157;179;200}
-      {fire}{79;87;96;104;110;121;126;146;168;190}
-      {binding}{106;115;124;130;137;148;153;170;190;210}
-      {channeling}{104;113;121;128;133;143;150;168;187;205}
-    }
     {hasbook}{false}
     {components}{torch (consumed)}
   }
@@ -491,13 +460,6 @@
     {type}{Miscellaneous}
     {gp}{70}
     {bookid}{20}
-    {methods}{
-      {channeling}{164;172;180;187;193;205;211;226;250;280}
-      {convoking}{164;172;180;187;193;205;211;226;250;280}
-      {evoking}{172;178;185;193;199;211;217;234;255;290}
-      {binding}{166;174;182;190;195;210;215;232;252;282}
-      {animating}{168;176;184;192;197;212;217;234;254;285}
-    }
     {hasbook}{false}
     {components}{dwarf arm, human arm, troll arm (all consumed)}
   }
@@ -507,11 +469,6 @@
     {type}{Miscellaneous}
     {gp}{25}
     {bookid}{3}
-    {methods}{
-      {chanting}{40;45;50;55;60;65;70;80;90;100}
-      {charming}{50;55;60;65;70;75;80;90;100;110}
-      {summoning}{80;90;100;105;110;115;120;130;140;150}
-    }
     {hasbook}{false}
     {components}{octogram, potato (consumed)}
   }
@@ -521,11 +478,6 @@
     {type}{Miscellaneous}
     {gp}{25}
     {bookid}{5}
-    {methods}{
-      {evoking}{57;65;76;82;88;99;105;123;144;185}
-      {channeling}{61;70;78;86;91;103;109;125;148;188}
-      {animating}{74;82;90;99;104;115;121;138;161;198}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -535,12 +487,6 @@
     {type}{Miscellaneous}
     {gp}{35}
     {bookid}{11}
-    {methods}{
-      {evoking}{50;55;60;65;70;75;90;105;120;135}
-      {enchanting}{70;75;80;85;90;95;105;120;135;155}
-      {chanting}{60;65;70;75;80;85;95;110;130;145}
-      {enchanting}{75;80;90;100;105;110;120;135;150;160}
-    }
     {hasbook}{false}
     {components}{blue funnel (sometimes consumed)}
   }
@@ -550,12 +496,6 @@
     {type}{Offensive}
     {gp}{50}
     {bookid}{9}
-    {methods}{
-      {conjuring}{150;155;160;170;175;180;185;190;205;220}
-      {charming}{160;170;180;190;195;200;205;215;225;245}
-      {staff}{160;170;180;190;195;200;205;215;225;245}
-      {air}{150;155;160;170;175;180;185;190;205;225}
-    }
     {hasbook}{false}
     {components}{staff, fire cracker or firecracker (consumed)}
   }
@@ -565,11 +505,6 @@
     {type}{Miscellaneous}
     {gp}{25}
     {bookid}{9}
-    {methods}{
-      {air}{115;120;130;135;140;145;150;160;170;185}
-      {channeling}{130;140;150;155;160;165;170;180;190;200}
-      {convoking}{115;120;130;135;140;145;150;160;170;185}
-    }
     {hasbook}{false}
     {components}{octogram}
   }
@@ -579,11 +514,6 @@
     {type}{Defensive}
     {gp}{60}
     {bookid}{17}
-    {methods}{
-      {binding}{125;130;140;145;150;155;160;165;175;180}
-      {earth}{130;135;145;150;155;160;165;175;180;190}
-      {binding}{190;200;210;215;220;225;230;240;250;270}
-    }
     {hasbook}{false}
     {components}{sap, varnish, agent [chalk, latex, filings] - all consumed}
   }
@@ -593,12 +523,6 @@
     {type}{Miscellaneous}
     {gp}{20}
     {bookid}{3}
-    {methods}{
-      {conjuring}{70;80;90;95;100;110;115;125;130;140}
-      {evoking}{90;100;110;115;120;130;140;150;160;170}
-      {wand}{115;125;135;145;150;155;165;174;183;192}
-      {dancing}{70;80;90;95;100;110;115;125;130;140}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -608,11 +532,6 @@
     {type}{Miscellaneous}
     {gp}{25}
     {bookid}{10}
-    {methods}{
-      {staff}{89;98;108;114;120;132;138;156;175;210}
-      {gold}{94;102;110;118;124;134;140;158;178;214}
-      {turning}{81;89;100;106;112;124;130;148;170;204}
-    }
     {hasbook}{false}
     {components}{gold ring, staff}
   }
@@ -622,13 +541,6 @@
     {type}{Miscellaneous}
     {gp}{350}
     {bookid}{18}
-    {methods}{
-      {staff}{178;184;189;194;199;204;209;222;235;263}
-      {ring}{276;281;286;291;297;302;310;316;328;360}
-      {convoking}{202;208;214;220;226;232;240;249;268;286}
-      {enchanting}{275;280;285;290;295;300;305;316;330;368}
-      {binding}{275;281;286;291;296;303;309;320;333;364}
-    }
     {hasbook}{false}
     {components}{octogram, sapphire ring (consumed), handful of pmp (consumed)}
   }
@@ -638,12 +550,6 @@
     {type}{Miscellaneous}
     {gp}{150}
     {bookid}{10}
-    {methods}{
-      {staff}{100;105;110;115;125;130;140;146;160;180}
-      {whittling}{75;85;90;100;105;113;120;128;141;160}
-      {binding}{90;95;100;105;115;120;130;136;150;190}
-      {enchanting}{105;110;115;120;128;132;142;155;185;210}
-    }
     {hasbook}{false}
     {components}{octogram, ankhstone (consumed)}
   }
@@ -653,12 +559,6 @@
     {type}{Miscellaneous}
     {gp}{30}
     {bookid}{2}
-    {methods}{
-      {enchanting}{30;35;40;45;50;55;65;75;85;100}
-      {healing}{60;65;70;75;80;85;90;100;115;130}
-      {binding}{70;75;80;85;90;100;110;120;130;140}
-      {animating}{105;110;115;120;130;140;150;160;170;180}
-    }
     {hasbook}{false}
     {components}{index finger (consumed), pinch of chalk powder (consumed)}
   }
@@ -668,13 +568,6 @@
     {type}{Offensive}
     {gp}{55}
     {bookid}{13}
-    {methods}{
-      {dancing}{291;300;306;315;322;330;337;355;377;414}
-      {cursing}{284;293;302;311;316;326;333;350;369;410}
-      {summoning}{293;302;313;319;324;337;344;358;381;421}
-      {abjuring}{295;304;315;321;326;337;344;358;381;421}
-      {banishing}{293;300;311;317;322;333;339;353;379;419}
-    }
     {hasbook}{false}
     {components}{human heart (consumed)}
   }
@@ -684,12 +577,6 @@
     {type}{Miscellaneous}
     {gp}{100}
     {bookid}{18}
-    {methods}{
-      {turning}{172;185;190;195;200;205;214;221;236;260}
-      {gold}{204;209;214;219;224;231;236;250;280;286}
-      {enchanting}{230;236;241;246;251;256;261;281;288;310}
-      {binding}{254;260;265;270;276;281;286;296;313;333}
-    }
     {hasbook}{false}
     {components}{octogram, knife, small rowan orb (consumed), red crystal (consumed), gold ring (consumed)}
   }
@@ -699,12 +586,6 @@
     {type}{Miscellaneous}
     {gp}{30}
     {bookid}{14}
-    {methods}{
-      {chanting}{17;25;31;40;46;58;64;82;103;145}
-      {fire}{49;58;67;76;82;91;97;115;136;175}
-      {channeling}{52;61;70;79;85;94;100;118;139;178}
-      {banishing}{91;100;112;117;123;133;139;160;175;210}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -714,13 +595,6 @@
     {type}{Offensive}
     {gp}{40}
     {bookid}{12}
-    {methods}{
-      {evoking}{160;165;170;175;180;185;190;200;225;240}
-      {channeling}{160;165;170;175;180;185;190;200;220;240}
-      {binding}{160;165;170;175;180;185;190;200;220;240}
-      {dancing}{180;185;190;195;200;210;220;230;240;260}
-      {air}{180;185;190;195;200;205;210;220;240;260}
-    }
     {hasbook}{false}
     {components}{jar of screaming mandrake roots, beeswax candle (consumed)}
   }
@@ -730,12 +604,6 @@
     {type}{Miscellaneous}
     {gp}{15}
     {bookid}{18}
-    {methods}{
-      {wand}{127;132;138;144;150;158;164;183;210;243}
-      {water}{100;106;111;116;121;129;135;154;181;215}
-      {binding}{176;182;190;195;200;208;214;233;260;291}
-      {silver}{96;101;106;111;116;124;130;149;176;210}
-    }
     {hasbook}{false}
     {components}{wand, silver necklace (consumed), water (minimum 2 pints)}
   }
@@ -745,11 +613,6 @@
     {type}{Defensive}
     {gp}{30}
     {bookid}{11}
-    {methods}{
-      {evoking}{80;90;100;105;110;120;130;140;150;160}
-      {animating}{110;115;125;135;140;150;160;170;180;185}
-      {binding}{120;130;140;150;160;170;180;190;200;210}
-    }
     {hasbook}{false}
     {components}{shield (to float)}
   }
@@ -759,11 +622,6 @@
     {type}{Miscellaneous}
     {gp}{10}
     {bookid}{3}
-    {methods}{
-      {channeling}{55;65;70;75;80;85;90;95;100;110}
-      {evoking}{40;45;50;55;60;65;70;75;80;90}
-      {charming}{30;35;40;45;50;55;60;65;70;80}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -773,11 +631,6 @@
     {type}{Miscellaneous}
     {gp}{45}
     {bookid}{11}
-    {methods}{
-      {divining}{57;65;74;83;88;98;105;122;147;184}
-      {evoking}{76;83;94;99;105;116;122;140;162;202}
-      {convoking}{72;81;87;94;101;112;118;138;158;197}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -787,11 +640,6 @@
     {type}{Offensive}
     {gp}{50}
     {bookid}{18}
-    {methods}{
-      {wand}{200;205;215;220;230;240;250;260;270;290}
-      {gold}{210;220;230;235;240;250;260;270;280;300}
-      {animating}{200;205;215;220;230;240;250;260;270;290}
-    }
     {hasbook}{false}
     {components}{wand, gold ring (consumed)}
   }
@@ -801,12 +649,6 @@
     {type}{Miscellaneous}
     {gp}{40}
     {bookid}{12}
-    {methods}{
-      {air}{175;180;190;200;205;210;220;230;240;260}
-      {evoking}{190;200;210;215;225;240;255;265;275;285}
-      {summoning}{200;210;220;225;235;250;265;270;280;290}
-      {air}{215;225;235;245;255;260;270;280;290;300}
-    }
     {hasbook}{false}
     {components}{feather (consumed)}
   }
@@ -816,11 +658,6 @@
     {type}{Miscellaneous}
     {gp}{40}
     {bookid}{7}
-    {methods}{
-      {channeling}{115;124;130;139;144;154;160;178;196;240}
-      {divining}{124;129;139;145;154;160;169;187;208;245}
-      {scrying}{199;205;214;223;229;238;244;262;286;315}
-    }
     {hasbook}{false}
     {components}{mirror}
   }
@@ -830,11 +667,6 @@
     {type}{Miscellaneous}
     {gp}{10}
     {bookid}{3}
-    {methods}{
-      {water}{45;50;60;65;70;75;80;90;100;110}
-      {evoking}{60;70;80;85;90;95;100;110;120;130}
-      {water}{80;90;100;105;110;115;120;125;130;140}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -844,11 +676,6 @@
     {type}{Offensive}
     {gp}{25}
     {bookid}{11}
-    {methods}{
-      {evoking}{75;80;90;95;100;105;115;120;130;140}
-      {channeling}{120;125;135;140;150;155;160;170;175;185}
-      {binding}{130;140;150;160;170;180;190;200;210;225}
-    }
     {hasbook}{false}
     {components}{iron chain}
   }
@@ -858,14 +685,6 @@
     {type}{Miscellaneous}
     {gp}{75}
     {bookid}{12}
-    {methods}{
-      {water}{105;110;120;125;130;135;140;150;160;170}
-      {fire}{90;95;100;110;115;120;130;140;150;160}
-      {air}{110;120;125;130;135;140;150;164;183;200}
-      {summoning}{125;130;140;145;150;160;175;184;203;215}
-      {abjuring}{90;95;100;110;115;120;130;140;150;160}
-      {channeling}{150;160;165;175;180;185;190;200;215;230}
-    }
     {hasbook}{false}
     {components}{candle, wet towel (gets damaged)}
   }
@@ -875,13 +694,6 @@
     {type}{Offensive}
     {gp}{40}
     {bookid}{12}
-    {methods}{
-      {evoking}{160;165;170;175;180;185;195;205;220;240}
-      {air}{160;165;170;175;180;185;195;205;220;240}
-      {dancing}{170;175;180;185;190;195;205;215;230;250}
-      {fire}{160;165;170;175;180;185;195;205;220;240}
-      {air}{180;185;190;195;200;205;210;220;240;260}
-    }
     {hasbook}{false}
     {components}{block of sulphur (consumed)}
   }
@@ -891,12 +703,6 @@
     {type}{Miscellaneous}
     {gp}{100}
     {bookid}{19}
-    {methods}{
-      {gold}{191;200;211;218;223;232;240;260;282;315}
-      {binding}{207;216;224;231;238;249;254;273;295;330}
-      {enchanting}{194;200;211;218;223;236;242;260;282;318}
-      {ring}{194;200;211;218;223;236;242;260;282;318}
-    }
     {hasbook}{false}
     {components}{gold ring (consumed)}
   }
@@ -906,10 +712,6 @@
     {type}{Miscellaneous}
     {gp}{10}
     {bookid}{3}
-    {methods}{
-      {summoning}{60;70;80;85;90;95;100;110;120;130}
-      {healing}{80;90;100;105;110;115;120;130;140;150}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -919,12 +721,6 @@
     {type}{Defensive}
     {gp}{70}
     {bookid}{4}
-    {methods}{
-      {summoning}{170;180;185;190;195;200;205;210;230;255}
-      {binding}{170;180;185;190;195;200;205;210;230;255}
-      {animating}{155;160;165;170;175;180;185;190;205;215}
-      {healing}{260;270;275;280;285;295;305;315;325;335}
-    }
     {hasbook}{false}
     {components}{fully intact human corpse (consumed)}
   }
@@ -934,12 +730,6 @@
     {type}{Miscellaneous}
     {gp}{60}
     {bookid}{12}
-    {methods}{
-      {summoning}{130;140;150;155;160;165;170;180;190;210}
-      {air}{140;150;160;170;180;185;195;205;220;240}
-      {binding}{125;135;140;145;150;155;160;170;180;200}
-      {channeling}{155;160;170;175;180;185;195;205;220;240}
-    }
     {hasbook}{false}
     {components}{feather (consumed), silver necklace}
   }
@@ -949,13 +739,6 @@
     {type}{Defensive}
     {gp}{50}
     {bookid}{11}
-    {methods}{
-      {channeling}{150;155;165;170;175;185;195;205;215;230}
-      {evoking}{170;180;185;190;200;205;215;225;235;250}
-      {binding}{155;165;170;175;180;190;200;210;220;240}
-      {enchanting}{155;165;170;175;180;190;200;210;220;240}
-      {convoking}{185;190;200;210;220;230;240;250;260;280}
-    }
     {hasbook}{false}
     {components}{octogram (consumed), small rhokshial crystal (consumed - can use multiple crystals)}
   }
@@ -965,11 +748,6 @@
     {type}{Miscellaneous}
     {gp}{15}
     {bookid}{3}
-    {methods}{
-      {channeling}{50;55;60;65;70;75;85;95;105;120}
-      {binding}{90;100;110;115;120;125;130;140;150;160}
-      {evoking}{60;65;70;75;80;85;95;105;115;130}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -979,13 +757,6 @@
     {type}{Miscellaneous}
     {gp}{100}
     {bookid}{11}
-    {methods}{
-      {enchanting}{130;140;150;155;160;170;180;192;205;220}
-      {evoking}{130;140;150;155;160;170;180;192;205;220}
-      {binding}{130;140;150;155;160;170;180;192;210;225}
-      {dancing}{130;140;150;155;160;170;180;192;210;225}
-      {banishing}{160;165;170;180;190;200;210;222;235;250}
-    }
     {hasbook}{false}
     {components}{blorped jewellery or rock}
   }
@@ -995,11 +766,6 @@
     {type}{Miscellaneous}
     {gp}{50}
     {bookid}{22}
-    {methods}{
-      {channeling}{159;168;178;183;188;200;206;224;248;284}
-      {binding}{156;166;176;182;188;200;205;222;241;281}
-      {evoking}{123;130;140;146;154;166;171;188;212;248}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -1009,13 +775,6 @@
     {type}{Offensive}
     {gp}{100}
     {bookid}{8}
-    {methods}{
-      {water}{320;334;344;349;354;365;372;389;410;449}
-      {air}{320;334;344;349;354;365;372;389;410;449}
-      {earth}{320;334;344;349;354;365;372;389;410;449}
-      {fire}{320;334;344;349;354;365;372;389;410;449}
-      {channeling}{355;365;370;380;385;395;401;420;440;480}
-    }
     {hasbook}{false}
     {components}{torch (consumed), staff}
   }
@@ -1025,12 +784,6 @@
     {type}{Offensive}
     {gp}{50}
     {bookid}{14}
-    {methods}{
-      {convoking}{90;100;110;115;120;125;130;140;150;160}
-      {fire}{90;100;110;115;120;125;130;140;150;160}
-      {convoking}{110;120;130;135;140;145;150;160;170;185}
-      {fire}{90;100;110;115;120;125;130;140;150;160}
-    }
     {hasbook}{false}
     {components}{carrot (consumed), torch}
   }
@@ -1040,12 +793,6 @@
     {type}{Offensive}
     {gp}{30}
     {bookid}{13}
-    {methods}{
-      {summoning}{120;125;130;135;140;145;150;160;165;175}
-      {cursing}{130;135;140;145;150;155;160;165;180;205}
-      {conjuring}{135;140;145;150;155;160;165;175;190;215}
-      {divining}{120;125;130;135;140;145;150;160;170;180}
-    }
     {hasbook}{false}
     {components}{knife}
   }
@@ -1055,11 +802,6 @@
     {type}{Defensive}
     {gp}{65}
     {bookid}{7}
-    {methods}{
-      {convoking}{190;200;210;215;220;225;230;240;250;270}
-      {scrying}{210;220;230;240;250;255;260;270;280;290}
-      {divining}{200;205;210;220;230;235;245;255;265;280}
-    }
     {hasbook}{false}
     {components}{octogram, eye (consumed)}
   }
@@ -1069,12 +811,6 @@
     {type}{Miscellaneous}
     {gp}{20}
     {bookid}{21}
-    {methods}{
-      {channeling}{181;186;192;198;204;211;219;228;243;270}
-      {chanting}{175;182;190;195;200;205;215;225;240;270}
-      {talisman}{100;106;114;130;140;152;160;170;180;190}
-      {staff}{175;183;191;196;202;211;220;232;253;280}
-    }
     {hasbook}{false}
     {components}{staff (not consumed), phoenix egg, ram skull, candlestick, beeswax candle (all consumed)}
   }
@@ -1084,11 +820,6 @@
     {type}{Miscellaneous}
     {gp}{120}
     {bookid}{21}
-    {methods}{
-      {channeling}{290;304;314;324;334;344;354;364;380;400}
-      {abjuring}{300;310;320;330;340;350;360;370;390;410}
-      {summoning}{320;330;340;350;360;370;380;395;405;435}
-    }
     {hasbook}{false}
     {components}{charged ashkente circle}
   }
@@ -1098,9 +829,6 @@
     {type}{Offensive}
     {gp}{10}
     {bookid}{3}
-    {methods}{
-      {channeling}{30;35;40;45;50;55;60;65;70;80}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -1110,13 +838,6 @@
     {type}{Miscellaneous}
     {gp}{150}
     {bookid}{11}
-    {methods}{
-      {evoking}{81;93;99;109;114;126;132;147;171;206}
-      {earth}{126;135;140;145;153;165;171;189;216;252}
-      {chanting}{99;108;117;123;132;141;147;160;174;210}
-      {binding}{147;153;162;168;177;183;193;205;230;270}
-      {enchanting}{203;208;219;225;234;243;248;270;291;325}
-    }
     {hasbook}{false}
     {components}{octogram, blue funnel (sometimes consumed), handful of pmp (consumed)}
   }
@@ -1126,11 +847,6 @@
     {type}{Miscellaneous}
     {gp}{15}
     {bookid}{5}
-    {methods}{
-      {evoking}{53;63;74;79;84;97;102;124;144;182}
-      {channeling}{82;92;100;106;113;123;131;149;170;202}
-      {animating}{100;106;116;123;129;142;148;162;186;216}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -1140,11 +856,6 @@
     {type}{Offensive}
     {gp}{10}
     {bookid}{3}
-    {methods}{
-      {healing}{55;60;65;70;75;80;85;90;100;110}
-      {summoning}{55;60;65;70;75;80;85;90;100;110}
-      {animating}{70;75;80;85;90;95;100;110;120;130}
-    }
     {hasbook}{false}
     {components}{chicken feather (target receives the feather)}
   }
@@ -1154,13 +865,6 @@
     {type}{Offensive}
     {gp}{55}
     {bookid}{5}
-    {methods}{
-      {air}{75;85;90;100;105;115;125;140;160;205}
-      {animating}{95;105;110;120;130;140;145;160;185;220}
-      {summoning}{165;175;180;190;195;205;210;229;251;290}
-      {channeling}{135;144;153;160;165;176;181;200;220;260}
-      {conjuring}{178;185;194;202;210;219;225;240;265;300}
-    }
     {hasbook}{false}
     {components}{pinch of tobacco (consumed), mirror, pipe}
   }
@@ -1170,13 +874,6 @@
     {type}{Miscellaneous}
     {gp}{30}
     {bookid}{2}
-    {methods}{
-      {enchanting}{81;88;98;105;112;121;128;147;169;200}
-      {healing}{84;93;103;108;115;126;131;150;171;203}
-      {summoning}{107;115;123;130;136;147;152;171;192;220}
-      {binding}{115;123;131;138;144;155;160;179;200;228}
-      {abjuring}{123;131;139;146;152;163;168;187;208;236}
-    }
     {hasbook}{false}
     {components}{octogram, human head (consumed)}
   }
@@ -1186,12 +883,6 @@
     {type}{Offensive}
     {gp}{75}
     {bookid}{4}
-    {methods}{
-      {summoning}{140;150;155;165;170;175;180;185;195;210}
-      {earth}{140;150;155;165;170;175;180;185;195;210}
-      {healing}{180;190;195;200;210;220;230;240;250;265}
-      {animating}{145;150;155;160;170;175;180;185;200;220}
-    }
     {hasbook}{false}
     {components}{hand (consumed)}
   }
@@ -1201,13 +892,6 @@
     {type}{Offensive}
     {gp}{60}
     {bookid}{19}
-    {methods}{
-      {water}{170;180;185;190;195;200;205;224;247;286}
-      {air}{165;180;185;190;195;200;205;221;243;282}
-      {fire}{165;180;185;190;195;200;205;219;240;278}
-      {earth}{170;180;185;190;195;200;205;226;249;288}
-      {evoking}{170;175;180;185;190;195;200;227;250;288}
-    }
     {hasbook}{false}
     {components}{torch (consumed)}
   }
@@ -1217,11 +901,6 @@
     {type}{Miscellaneous}
     {gp}{40}
     {bookid}{2}
-    {methods}{
-      {convoking}{112;120;128;135;143;151;159;176;197;230}
-      {healing}{89;99;107;114;120;130;138;154;174;209}
-      {animating}{122;130;140;147;152;163;170;188;209;243}
-    }
     {hasbook}{false}
     {components}{hand (consumed)}
   }
@@ -1231,12 +910,6 @@
     {type}{Offensive}
     {gp}{30}
     {bookid}{4}
-    {methods}{
-      {summoning}{95;100;110;115;120;125;135;145;155;165}
-      {healing}{105;110;120;125;130;135;140;150;155;165}
-      {abjuring}{95;100;110;115;120;125;135;145;155;165}
-      {animating}{120;130;140;145;150;155;160;170;175;180}
-    }
     {hasbook}{false}
     {components}{knife}
   }
@@ -1246,12 +919,6 @@
     {type}{Miscellaneous}
     {gp}{15}
     {bookid}{5}
-    {methods}{
-      {water}{77;85;95;102;108;120;125;142;165;195}
-      {channeling}{91;100;108;116;122;132;138;157;178;202}
-      {dancing}{79;87;95;104;110;120;126;144;164;190}
-      {binding}{81;89;98;106;112;122;128;146;165;192}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -1261,13 +928,6 @@
     {type}{Offensive}
     {gp}{50}
     {bookid}{17}
-    {methods}{
-      {evoking}{92;99;108;115;120;129;139;152;170;200}
-      {binding}{80;86;97;104;109;118;127;142;160;190}
-      {earth}{95;105;115;121;127;139;144;162;180;210}
-      {fire}{59;68;77;83;92;104;109;127;145;180}
-      {binding}{83;92;101;106;112;124;130;147;165;195}
-    }
     {hasbook}{false}
     {components}{brass ring (consumed)}
   }
@@ -1277,13 +937,6 @@
     {type}{Miscellaneous}
     {gp}{85}
     {bookid}{8}
-    {methods}{
-      {water}{154;161;173;178;183;194;202;217;240;278}
-      {earth}{179;187;194;202;210;221;227;244;266;300}
-      {air}{248;255;267;274;279;289;297;316;335;370}
-      {fire}{250;257;269;276;281;291;299;318;337;372}
-      {binding}{297;305;316;324;329;339;346;362;380;410}
-    }
     {hasbook}{false}
     {components}{octogram}
   }
@@ -1293,10 +946,6 @@
     {type}{Miscellaneous}
     {gp}{15}
     {bookid}{7}
-    {methods}{
-      {divining}{32;40;50;57;63;73;79;98;119;160}
-      {divining}{48;57;65;73;78;90;96;112;135;171}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -1306,13 +955,6 @@
     {type}{Offensive}
     {gp}{40}
     {bookid}{2}
-    {methods}{
-      {evoking}{160;165;170;175;180;185;190;200;215;230}
-      {channeling}{160;165;170;175;180;185;190;200;220;235}
-      {enchanting}{170;175;180;185;190;195;205;215;230;240}
-      {animating}{160;165;170;175;185;195;200;205;220;235}
-      {fire}{185;190;195;200;205;210;215;225;240;255}
-    }
     {hasbook}{false}
     {components}{eye (consumed)}
   }
@@ -1322,14 +964,6 @@
     {type}{Offensive}
     {gp}{55}
     {bookid}{15}
-    {methods}{
-      {evoking}{130;135;145;155;160;170;180;190;200;210}
-      {evoking}{130;135;145;155;160;170;180;190;200;210}
-      {enchanting}{130;135;145;155;160;170;180;190;200;210}
-      {animating}{140;145;155;165;170;180;190;200;210;220}
-      {animating}{140;145;155;165;170;180;190;200;210;220}
-      {fire}{130;135;145;155;160;170;180;190;200;210}
-    }
     {hasbook}{false}
     {components}{hand, left leg, right leg, eye (all consumed)}
   }
@@ -1339,12 +973,6 @@
     {type}{Miscellaneous}
     {gp}{20}
     {bookid}{3}
-    {methods}{
-      {animating}{100;105;110;115;120;125;130;135;145;165}
-      {fire}{115;120;125;135;140;150;155;165;178;199}
-      {evoking}{90;95;100;105;110;115;125;135;145;165}
-      {channeling}{110;115;120;130;135;145;150;160;175;195}
-    }
     {hasbook}{false}
     {components}{shimmering glass nugget}
   }
@@ -1354,13 +982,6 @@
     {type}{Miscellaneous}
     {gp}{200}
     {bookid}{13}
-    {methods}{
-      {amulet}{130;135;140;145;150;155;165;180;200;240}
-      {water}{200;210;220;225;230;240;250;265;280;305}
-      {wand}{195;205;215;220;225;235;245;260;275;300}
-      {summoning}{225;230;240;245;250;260;270;285;300;350}
-      {binding}{220;230;240;250;260;270;280;290;305;355}
-    }
     {hasbook}{false}
     {components}{wand, silver medallion (consumed), small green crystal (consumed)}
   }
@@ -1370,13 +991,6 @@
     {type}{Offensive}
     {gp}{65}
     {bookid}{6}
-    {methods}{
-      {air}{200;206;216;225;230;241;246;264;287;320}
-      {channeling}{225;235;243;250;257;267;273;290;310;340}
-      {divining}{275;284;293;302;307;316;325;340;360;390}
-      {binding}{250;260;268;273;282;293;299;316;339;360}
-      {enchanting}{270;281;290;300;305;313;320;336;350;380}
-    }
     {hasbook}{false}
     {components}{tigerwood staff}
   }
@@ -1386,11 +1000,6 @@
     {type}{Miscellaneous}
     {gp}{20}
     {bookid}{18}
-    {methods}{
-      {enchanting}{70;80;90;95;100;105;115;125;140;170}
-      {channeling}{70;80;90;95;100;105;115;125;140;170}
-      {binding}{70;80;90;95;100;105;115;125;140;170}
-    }
     {hasbook}{false}
     {components}{wooden monkey, small red crystal (consumed), banana (consumed)}
   }
@@ -1400,12 +1009,6 @@
     {type}{Miscellaneous}
     {gp}{40}
     {bookid}{11}
-    {methods}{
-      {binding}{64;74;83;89;95;108;115;130;152;189}
-      {channeling}{161;167;177;183;189;202;208;224;240;273}
-      {enchanting}{92;102;111;118;124;136;142;158;180;200}
-      {enchanting}{152;161;167;177;183;193;199;216;239;270}
-    }
     {hasbook}{false}
     {components}{black shell}
   }
@@ -1415,10 +1018,6 @@
     {type}{Offensive}
     {gp}{15}
     {bookid}{3}
-    {methods}{
-      {charming}{59;64;71;77;83;89;95;100;112;125}
-      {dancing}{50;55;60;65;70;75;80;85;90;100}
-    }
     {hasbook}{false}
     {components}{rat tail}
   }
@@ -1428,13 +1027,6 @@
     {type}{Defensive}
     {gp}{35}
     {bookid}{13}
-    {methods}{
-      {fire}{111;122;131;136;142;153;159;175;201;237}
-      {charming}{114;125;134;139;142;156;162;178;204;240}
-      {summoning}{131;139;147;156;161;170;178;197;217;252}
-      {abjuring}{91;97;105;114;120;130;170;180;190;212}
-      {banishing}{144;153;164;170;175;187;192;209;234;268}
-    }
     {hasbook}{false}
     {components}{octogram, candle (lit), knife, mirror, apple (consumed)}
   }
@@ -1444,12 +1036,6 @@
     {type}{Miscellaneous}
     {gp}{10}
     {bookid}{3}
-    {methods}{
-      {evoking}{80;90;100;110;120;130;140;150;160;170}
-      {binding}{85;95;105;115;125;135;145;155;165;175}
-      {convoking}{90;100;110;120;130;140;150;160;170;180}
-      {enchanting}{100;110;120;130;140;150;160;170;180;190}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -1459,12 +1045,6 @@
     {type}{Offensive}
     {gp}{20}
     {bookid}{13}
-    {methods}{
-      {summoning}{119;125;134;139;146;155;164;182;203;236}
-      {abjuring}{203;208;218;224;233;242;248;266;287;320}
-      {banishing}{182;197;203;209;215;224;233;251;272;308}
-      {conjuring}{175;180;185;191;196;209;214;230;250;293}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -1474,11 +1054,6 @@
     {type}{Defensive}
     {gp}{15}
     {bookid}{3}
-    {methods}{
-      {evoking}{60;65;70;75;80;85;90;95;100;110}
-      {air}{50;55;60;65;70;75;80;85;90;100}
-      {channeling}{70;75;80;85;90;95;100;105;110;120}
-    }
     {hasbook}{false}
     {components}{shield}
   }
@@ -1488,13 +1063,6 @@
     {type}{Offensive}
     {gp}{50}
     {bookid}{17}
-    {methods}{
-      {earth}{176;183;192;198;204;215;221;233;256;285}
-      {evoking}{170;180;189;195;202;211;219;230;250;280}
-      {chanting}{176;183;192;198;204;215;221;233;256;285}
-      {channeling}{170;180;189;195;202;211;219;230;250;280}
-      {dancing}{150;159;160;176;181;192;198;215;235;250}
-    }
     {hasbook}{false}
     {components}{pebble (consumed)}
   }
@@ -1504,11 +1072,6 @@
     {type}{Offensive}
     {gp}{60}
     {bookid}{20}
-    {methods}{
-      {channeling}{280;290;303;308;316;326;331;345;365;390}
-      {evoking}{224;233;241;250;255;264;270;290;300;340}
-      {enchanting}{240;250;260;265;270;284;290;300;326;364}
-    }
     {hasbook}{false}
     {components}{pinch of powdered frog, pinch of pmp (all consumed)}
   }
@@ -1518,13 +1081,6 @@
     {type}{Miscellaneous}
     {gp}{50}
     {bookid}{1}
-    {methods}{
-      {dancing}{120;130;140;145;150;155;160;165;170;180}
-      {turning}{120;130;140;145;150;155;160;165;170;180}
-      {whittling}{120;130;140;145;150;155;160;165;170;180}
-      {enchanting}{140;150;160;165;170;175;180;185;190;200}
-      {binding}{140;150;160;165;170;175;180;185;190;200}
-    }
     {hasbook}{false}
     {components}{octogram, staff, octiron sliver (consumed)}
   }
@@ -1534,15 +1090,6 @@
     {type}{Miscellaneous}
     {gp}{100}
     {bookid}{5}
-    {methods}{
-      {air}{188;196;206;212;217;227;236;252;271;300}
-      {binding}{196;206;212;220;225;236;241;260;280;312}
-      {conjuring}{190;197;206;215;220;230;236;254;274;307}
-      {charming}{170;179;187;196;201;211;217;236;257;290}
-      {channeling}{203;211;223;227;233;244;252;268;288;318}
-      {conjuring}{185;193;203;209;217;227;233;252;270;298}
-      {charming}{233;241;250;257;263;274;279;298;317;346}
-    }
     {hasbook}{false}
     {components}{small bucket, quill (consumed), book end (consumed), silver ring (consumed)}
   }
@@ -1552,11 +1099,6 @@
     {type}{Miscellaneous}
     {gp}{15}
     {bookid}{3}
-    {methods}{
-      {air}{50;60;70;75;80;85;90;100;110;120}
-      {channeling}{60;70;80;90;100;105;110;120;130;140}
-      {charming}{70;80;90;100;105;110;115;125;135;145}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -1566,13 +1108,6 @@
     {type}{Defensive}
     {gp}{45}
     {bookid}{12}
-    {methods}{
-      {evoking}{90;95;100;105;110;120;130;140;150;165}
-      {air}{105;110;120;125;130;140;145;150;160;175}
-      {chanting}{105;110;120;125;130;140;150;160;170;185}
-      {enchanting}{105;110;120;125;130;140;150;160;170;180}
-      {channeling}{140;145;150;155;160;170;180;185;200;210}
-    }
     {hasbook}{false}
     {components}{shield, handful of fine ash (consumed) - grey, black or white ash}
   }
@@ -1582,12 +1117,6 @@
     {type}{Miscellaneous}
     {gp}{150}
     {bookid}{10}
-    {methods}{
-      {divining}{138;143;150;155;160;165;175;185;195;210}
-      {convoking}{176;194;203;214;220;225;230;240;250;270}
-      {evoking}{200;210;215;220;225;235;245;255;265;280}
-      {binding}{200;210;215;220;225;235;245;255;265;280}
-    }
     {hasbook}{false}
     {components}{octogram, shimmering glass nugget, lantern (consumed)}
   }
@@ -1597,11 +1126,6 @@
     {type}{Miscellaneous}
     {gp}{50}
     {bookid}{9}
-    {methods}{
-      {channeling}{145;150;160;165;170;180;185;195;205;215}
-      {summoning}{150;160;170;175;180;185;195;205;215;235}
-      {charming}{180;185;195;200;205;215;225;235;245;255}
-    }
     {hasbook}{false}
     {components}{shimmering glass nugget}
   }
@@ -1611,12 +1135,6 @@
     {type}{Offensive}
     {gp}{65}
     {bookid}{4}
-    {methods}{
-      {convoking}{160;166;175;183;190;199;205;225;240;270}
-      {healing}{144;150;159;166;172;185;190;208;230;260}
-      {charming}{125;134;141;148;155;167;172;187;200;245}
-      {binding}{160;166;175;183;190;199;205;225;240;270}
-    }
     {hasbook}{false}
     {components}{human skin (consumed) - can use tanner's kit to divide skins first}
   }
@@ -1626,12 +1144,6 @@
     {type}{Offensive}
     {gp}{40}
     {bookid}{10}
-    {methods}{
-      {gold}{260;270;280;290;300;310;320;330;340;350}
-      {binding}{160;165;170;175;185;200;215;230;245;260}
-      {rod}{170;175;185;190;200;205;215;225;235;250}
-      {enchanting}{170;175;185;190;200;205;215;225;235;250}
-    }
     {hasbook}{false}
     {components}{rubber knife}
   }
@@ -1641,11 +1153,6 @@
     {type}{Miscellaneous}
     {gp}{20}
     {bookid}{7}
-    {methods}{
-      {animating}{9;17;24;33;38;50;56;74;95;133}
-      {divining}{50;58;66;73;79;90;98;115;135;169}
-      {scrying}{57;65;73;80;86;97;105;122;142;176}
-    }
     {hasbook}{false}
     {components}{blorped jewellery}
   }
@@ -1655,11 +1162,6 @@
     {type}{Miscellaneous}
     {gp}{10}
     {bookid}{3}
-    {methods}{
-      {earth}{30;35;40;45;50;55;60;70;80;90}
-      {evoking}{40;45;50;55;60;65;70;80;90;100}
-      {scrying}{70;80;90;95;100;105;110;115;125;135}
-    }
     {hasbook}{false}
     {components}{blorped rock}
   }
@@ -1669,12 +1171,6 @@
     {type}{Offensive}
     {gp}{25}
     {bookid}{4}
-    {methods}{
-      {summoning}{40;49;52;65;71;83;89;106;130;170}
-      {healing}{32;40;50;55;61;74;80;98;119;158}
-      {animating}{122;129;136;144;150;162;169;186;200;230}
-      {binding}{71;80;89;96;101;113;119;136;158;190}
-    }
     {hasbook}{false}
     {components}{knife (consumed)}
   }
@@ -1684,12 +1180,6 @@
     {type}{Offensive}
     {gp}{50}
     {bookid}{4}
-    {methods}{
-      {summoning}{170;175;180;190;200;205;210;220;230;250}
-      {chanting}{170;175;180;190;200;205;210;220;230;250}
-      {healing}{170;180;190;200;205;210;220;230;240;260}
-      {cursing}{185;195;200;210;220;225;235;244;255;270}
-    }
     {hasbook}{false}
     {components}{human heart (consumed)}
   }
@@ -1699,11 +1189,6 @@
     {type}{Miscellaneous}
     {gp}{35}
     {bookid}{16}
-    {methods}{
-      {channeling}{102;110;121;127;133;144;150;169;189;221}
-      {evoking}{119;125;135;141;148;158;165;183;202;238}
-      {convoking}{119;127;135;144;150;160;167;183;204;238}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -1713,12 +1198,6 @@
     {type}{Miscellaneous}
     {gp}{300}
     {bookid}{16}
-    {methods}{
-      {animating}{256;259;263;268;274;280;286;303;315;355}
-      {enchanting}{304;310;313;319;324;331;334;347;359;388}
-      {whittling}{355;360;363;370;373;378;385;395;411;434}
-      {binding}{304;310;313;319;324;331;336;347;359;388}
-    }
     {hasbook}{false}
     {components}{octogram, sapient pearwood seed, hubland bear fur, wood riving, large rhokshial crystal, threaded needle, knife (only knife and needle not consumed)}
   }
@@ -1728,13 +1207,6 @@
     {type}{Miscellaneous}
     {gp}{70}
     {bookid}{20}
-    {methods}{
-      {channeling}{71;78;88;95;103;111;118;135;157;195}
-      {convoking}{76;85;93;100;106;116;123;140;162;199}
-      {evoking}{79;88;95;102;109;118;125;142;165;202}
-      {binding}{95;102;111;118;123;135;140;159;181;215}
-      {animating}{111;118;128;135;140;152;157;175;197;230}
-    }
     {hasbook}{false}
     {components}{dwarf arm, human arm, troll arm (all consumed), octogram}
   }
@@ -1744,11 +1216,6 @@
     {type}{Miscellaneous}
     {gp}{20}
     {bookid}{0}
-    {methods}{
-      {scrying}{52;55;61;68;72;79;86;101;125;154}
-      {abjuring}{152;155;161;168;172;179;186;201;225;254}
-      {banishing}{152;155;161;168;172;179;186;201;225;254}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -1758,11 +1225,6 @@
     {type}{Defensive}
     {gp}{25}
     {bookid}{0}
-    {methods}{
-      {air}{122;125;131;138;142;149;156;171;195;224}
-      {banishing}{122;125;131;138;142;149;156;171;195;224}
-      {abjuring}{122;125;131;138;142;149;156;171;195;224}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -1772,11 +1234,6 @@
     {type}{Defensive}
     {gp}{25}
     {bookid}{0}
-    {methods}{
-      {conjuring}{122;125;131;138;142;149;156;171;195;224}
-      {fire}{122;125;131;138;142;149;156;171;195;224}
-      {banishing}{122;125;131;138;142;149;156;171;195;224}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -1786,12 +1243,6 @@
     {type}{Miscellaneous}
     {gp}{200}
     {bookid}{0}
-    {methods}{
-      {charming}{202;205;211;218;222;229;236;251;275;304}
-      {dancing}{182;185;191;198;202;209;216;231;255;284}
-      {chanting}{182;185;191;198;202;209;216;231;255;284}
-      {herbal}{62;65;71;78;82;89;96;111;135;164}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -1801,11 +1252,6 @@
     {type}{Miscellaneous}
     {gp}{100}
     {bookid}{0}
-    {methods}{
-      {divining}{152;155;161;168;172;179;186;201;225;254}
-      {convoking}{202;205;211;218;222;229;236;251;275;304}
-      {enchanting}{252;255;261;268;272;279;286;301;325;354}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -1815,12 +1261,6 @@
     {type}{Miscellaneous}
     {gp}{70}
     {bookid}{0}
-    {methods}{
-      {charming}{277;280;286;293;297;304;311;326;350;379}
-      {shaping}{152;155;161;168;172;179;186;201;225;254}
-      {ring}{202;205;211;218;222;229;236;251;275;304}
-      {animating}{202;205;211;218;222;229;236;251;275;304}
-    }
     {hasbook}{true}
     {components}{piece of clay (consumed), smelly seed (consumed)}
   }
@@ -1830,10 +1270,6 @@
     {type}{Offensive}
     {gp}{70}
     {bookid}{0}
-    {methods}{
-      {animating}{102;105;111;118;122;129;136;151;175;204}
-      {cursing}{152;155;161;168;172;179;186;201;225;254}
-    }
     {hasbook}{true}
     {components}{smelly seed (consumed)}
   }
@@ -1843,11 +1279,6 @@
     {type}{Miscellaneous}
     {gp}{45}
     {bookid}{0}
-    {methods}{
-      {evoking}{152;155;161;168;172;179;186;201;225;254}
-      {weaving}{52;55;61;68;72;79;86;101;125;154}
-      {binding}{192;195;201;208;212;219;226;241;265;294}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -1857,10 +1288,6 @@
     {type}{Miscellaneous}
     {gp}{40}
     {bookid}{0}
-    {methods}{
-      {channeling}{102;105;111;118;122;129;136;151;175;204}
-      {divining}{77;80;86;93;97;104;111;126;150;179}
-    }
     {hasbook}{true}
     {components}{knife, apple (unpeeled, peel consumed)}
   }
@@ -1870,11 +1297,6 @@
     {type}{Defensive}
     {gp}{50}
     {bookid}{0}
-    {methods}{
-      {evoking}{62;65;71;78;82;89;96;111;135;164}
-      {channeling}{122;125;131;138;142;149;156;171;195;224}
-      {binding}{177;180;186;193;197;204;211;226;250;279}
-    }
     {hasbook}{true}
     {components}{utensil (to float)}
   }
@@ -1884,12 +1306,6 @@
     {type}{Miscellaneous}
     {gp}{60}
     {bookid}{0}
-    {methods}{
-      {talisman}{82;85;91;98;102;109;116;131;155;184}
-      {chanting}{112;115;121;128;132;139;146;161;185;214}
-      {scrying}{172;175;181;188;192;199;206;221;245;274}
-      {divining}{162;165;171;178;182;189;196;211;235;264}
-    }
     {hasbook}{true}
     {components}{quill, paper (both optional)}
   }
@@ -1899,12 +1315,6 @@
     {type}{Miscellaneous}
     {gp}{80}
     {bookid}{0}
-    {methods}{
-      {talisman}{62;65;71;78;82;89;96;111;135;164}
-      {summoning}{102;105;111;118;122;129;136;151;175;204}
-      {charming}{152;155;161;168;172;179;186;201;225;254}
-      {binding}{127;130;136;143;147;154;161;176;200;229}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -1914,11 +1324,6 @@
     {type}{Miscellaneous}
     {gp}{40}
     {bookid}{0}
-    {methods}{
-      {dancing}{117;120;126;133;137;144;151;166;190;219}
-      {charming}{112;115;121;128;132;139;146;161;185;214}
-      {channeling}{147;150;156;163;167;174;181;196;220;249}
-    }
     {hasbook}{true}
     {components}{eel skin, duck feather (consumed)}
   }
@@ -1928,11 +1333,6 @@
     {type}{Miscellaneous}
     {gp}{25}
     {bookid}{0}
-    {methods}{
-      {divining}{77;80;86;93;97;104;111;126;150;179}
-      {charming}{102;105;111;118;122;129;136;151;175;204}
-      {summoning}{102;105;111;118;122;129;136;151;175;204}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -1942,12 +1342,6 @@
     {type}{Miscellaneous}
     {gp}{40}
     {bookid}{0}
-    {methods}{
-      {fire}{152;155;161;168;172;179;186;201;225;254}
-      {chanting}{127;130;136;143;147;154;161;176;200;229}
-      {channeling}{202;205;211;218;222;229;236;251;275;304}
-      {water}{147;150;156;163;167;174;181;196;220;249}
-    }
     {hasbook}{true}
     {components}{frog, candle}
   }
@@ -1957,13 +1351,6 @@
     {type}{Defensive}
     {gp}{70}
     {bookid}{0}
-    {methods}{
-      {summoning}{122;125;131;138;142;149;156;171;195;224}
-      {charming}{92;95;101;108;112;119;126;141;165;194}
-      {chanting}{112;115;121;128;132;139;146;161;185;214}
-      {binding}{102;105;111;118;122;129;136;151;175;204}
-      {cursing}{87;90;96;103;107;114;121;136;160;189}
-    }
     {hasbook}{true}
     {components}{sugar cube/sugar lump (consumed)}
   }
@@ -1973,11 +1360,6 @@
     {type}{Offensive}
     {gp}{50}
     {bookid}{0}
-    {methods}{
-      {evoking}{62;65;71;78;82;89;96;111;135;164}
-      {channeling}{122;125;131;138;142;149;156;171;195;224}
-      {binding}{177;180;186;193;197;204;211;226;250;279}
-    }
     {hasbook}{true}
     {components}{willow withe}
   }
@@ -1987,12 +1369,6 @@
     {type}{Offensive}
     {gp}{60}
     {bookid}{0}
-    {methods}{
-      {channeling}{142;145;151;158;162;169;176;191;215;244}
-      {summoning}{177;180;186;193;197;204;211;226;250;279}
-      {cursing}{107;110;116;123;127;134;141;156;180;209}
-      {charming}{197;200;206;213;217;224;231;246;270;299}
-    }
     {hasbook}{true}
     {components}{honey (consumed)}
   }
@@ -2002,12 +1378,6 @@
     {type}{Miscellaneous}
     {gp}{200}
     {bookid}{0}
-    {methods}{
-      {summoning}{202;205;211;218;222;229;236;251;275;304}
-      {chanting}{252;255;261;268;272;279;286;301;325;354}
-      {charming}{202;205;211;218;222;229;236;251;275;304}
-      {dancing}{272;275;281;288;292;299;306;321;345;374}
-    }
     {hasbook}{true}
     {components}{apple (consumed)}
   }
@@ -2017,12 +1387,6 @@
     {type}{Miscellaneous}
     {gp}{50}
     {bookid}{0}
-    {methods}{
-      {evoking}{27;30;36;43;47;54;61;76;100;129}
-      {enchanting}{52;55;61;68;72;79;86;101;125;154}
-      {chanting}{52;55;61;68;72;79;86;101;125;154}
-      {enchanting}{102;105;111;118;122;129;136;151;175;204}
-    }
     {hasbook}{true}
     {components}{yarrow (consumed)}
   }
@@ -2032,12 +1396,6 @@
     {type}{Miscellaneous}
     {gp}{80}
     {bookid}{0}
-    {methods}{
-      {talisman}{102;105;111;118;122;129;136;151;175;204}
-      {divining}{152;155;161;168;172;179;186;201;225;254}
-      {chanting}{252;255;261;268;272;279;286;301;325;354}
-      {charming}{302;305;311;318;322;329;336;351;375;404}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -2047,11 +1405,6 @@
     {type}{Defensive}
     {gp}{30}
     {bookid}{0}
-    {methods}{
-      {chanting}{102;105;111;118;122;129;136;151;175;204}
-      {channeling}{112;115;121;128;132;139;146;161;185;214}
-      {air}{132;135;141;148;152;159;166;181;205;234}
-    }
     {hasbook}{true}
     {components}{none}
   }
@@ -2061,13 +1414,6 @@
     {type}{Miscellaneous}
     {gp}{200}
     {bookid}{23}
-    {methods}{
-      {divining}{285;289;293;298;302;310;315;325;340;375}
-      {staff}{230;234;239;245;247;255;260;270;288;309}
-      {convoking}{274;279;284;289;294;300;306;315;333;353}
-      {channeling}{219;223;228;233;238;243;249;260;280;300}
-      {evoking}{238;243;248;254;258;264;269;279;294;318}
-    }
     {hasbook}{false}
     {components}{wooden staff (not consumed)}
   }
@@ -2077,13 +1423,6 @@
     {type}{Miscellaneous}
     {gp}{150}
     {bookid}{23}
-    {methods}{
-      {gold}{250;254;258;264;269;275;281;291;306;329}
-      {turning}{214;218;223;228;233;239;245;255;270;293}
-      {enchanting}{195;200;204;208;213;218;225;235;250;275}
-      {water}{178;182;187;193;200;204;209;219;235;261}
-      {binding}{214;218;223;228;233;239;245;255;270;292}
-    }
     {hasbook}{false}
     {components}{sliver of octiron (consumed), ironwood riving (consumed)}
   }
@@ -2093,13 +1432,6 @@
     {type}{Miscellaneous}
     {gp}{50}
     {bookid}{23}
-    {methods}{
-      {chanting}{104;109;114;119;122;129;136;145;159;180}
-      {dancing}{104;109;114;119;122;129;136;145;159;180}
-      {conjuring}{104;109;114;119;122;129;136;145;159;180}
-      {banishing}{104;109;114;119;122;129;136;145;159;180}
-      {charming}{104;109;114;119;122;129;136;145;159;180}
-    }
     {hasbook}{false}
     {components}{none}
   }
@@ -2109,16 +1441,141 @@
     {type}{Miscellaneous}
     {gp}{25}
     {bookid}{23}
-    {methods}{
-      {water}{54;58;63;68;72;78;83;94;109;135}
-      {evoking}{80;84;89;93;97;104;109;121;134;155}
-      {summoning}{54;58;63;68;72;78;83;94;109;135}
-    }
     {hasbook}{false}
     {components}{none}
   }
 };
 
-#nop NOT YET CONVERTED: sAcronymToSpell (acronym -> full spell name. can be built from spell_data once complete, plus 9 secondary overrides) ;
+#nop --- methods_data: spell -> method -> level (1-10) -> threshold. --- ;
+#var {methods_data} {
+  {A Cup of Tea and Sake}{{channeling}{{1}{31}{2}{41}{3}{52}{4}{58}{5}{61}{6}{74}{7}{80}{8}{97}{9}{120}{10}{156}}{divining}{{1}{94}{2}{101}{3}{110}{4}{117}{5}{123}{6}{137}{7}{142}{8}{152}{9}{184}{10}{206}}{scrying}{{1}{140}{2}{146}{3}{156}{4}{162}{5}{169}{6}{175}{7}{182}{8}{190}{9}{220}{10}{250}}}
+  {Al'Hrahaz's Scintillating Blorpler}{{evoking}{{1}{189}{2}{197}{3}{203}{4}{211}{5}{218}{6}{228}{7}{236}{8}{250}{9}{269}{10}{310}}{channeling}{{1}{225}{2}{232}{3}{243}{4}{249}{5}{255}{6}{265}{7}{272}{8}{285}{9}{310}{10}{340}}{evoking}{{1}{185}{2}{194}{3}{198}{4}{207}{5}{212}{6}{220}{7}{228}{8}{243}{9}{260}{10}{301}}{chanting}{{1}{203}{2}{212}{3}{221}{4}{228}{5}{234}{6}{246}{7}{252}{8}{270}{9}{280}{10}{315}}{chanting}{{1}{230}{2}{237}{3}{246}{4}{255}{5}{259}{6}{270}{7}{277}{8}{294}{9}{310}{10}{345}}}
+  {Amazing Silicate Blorpler}{{evoking}{{1}{60}{2}{65}{3}{70}{4}{75}{5}{80}{6}{85}{7}{90}{8}{95}{9}{105}{10}{115}}{channeling}{{1}{40}{2}{45}{3}{50}{4}{55}{5}{60}{6}{65}{7}{70}{8}{80}{9}{90}{10}{100}}{evoking}{{1}{60}{2}{65}{3}{70}{4}{75}{5}{80}{6}{85}{7}{90}{8}{95}{9}{105}{10}{115}}{chanting}{{1}{50}{2}{55}{3}{60}{4}{65}{5}{70}{6}{75}{7}{80}{8}{85}{9}{95}{10}{105}}{chanting}{{1}{50}{2}{55}{3}{60}{4}{65}{5}{70}{6}{75}{7}{80}{8}{85}{9}{90}{10}{105}}}
+  {Atmospheric Inscription Wonder}{{animating}{{1}{92}{2}{101}{3}{109}{4}{115}{5}{121}{6}{134}{7}{140}{8}{155}{9}{178}{10}{205}}{fire}{{1}{76}{2}{84}{3}{94}{4}{101}{5}{107}{6}{117}{7}{123}{8}{142}{9}{160}{10}{190}}{binding}{{1}{86}{2}{94}{3}{103}{4}{111}{5}{117}{6}{128}{7}{134}{8}{152}{9}{170}{10}{200}}{channeling}{{1}{84}{2}{92}{3}{101}{4}{109}{5}{115}{6}{126}{7}{132}{8}{149}{9}{165}{10}{195}}}
+  {Banishing of Loquacious Spirits}{{scrying}{{1}{52}{2}{55}{3}{61}{4}{68}{5}{72}{6}{79}{7}{86}{8}{101}{9}{125}{10}{154}}{abjuring}{{1}{152}{2}{155}{3}{161}{4}{168}{5}{172}{6}{179}{7}{186}{8}{201}{9}{225}{10}{254}}{banishing}{{1}{152}{2}{155}{3}{161}{4}{168}{5}{172}{6}{179}{7}{186}{8}{201}{9}{225}{10}{254}}}
+  {Banishing of Prying Eyes}{{air}{{1}{122}{2}{125}{3}{131}{4}{138}{5}{142}{6}{149}{7}{156}{8}{171}{9}{195}{10}{224}}{banishing}{{1}{122}{2}{125}{3}{131}{4}{138}{5}{142}{6}{149}{7}{156}{8}{171}{9}{195}{10}{224}}{abjuring}{{1}{122}{2}{125}{3}{131}{4}{138}{5}{142}{6}{149}{7}{156}{8}{171}{9}{195}{10}{224}}}
+  {Banishing of Unnatural Urges}{{conjuring}{{1}{122}{2}{125}{3}{131}{4}{138}{5}{142}{6}{149}{7}{156}{8}{171}{9}{195}{10}{224}}{fire}{{1}{122}{2}{125}{3}{131}{4}{138}{5}{142}{6}{149}{7}{156}{8}{171}{9}{195}{10}{224}}{banishing}{{1}{122}{2}{125}{3}{131}{4}{138}{5}{142}{6}{149}{7}{156}{8}{171}{9}{195}{10}{224}}}
+  {Biddy Amble's Bee Buzzer}{{charming}{{1}{202}{2}{205}{3}{211}{4}{218}{5}{222}{6}{229}{7}{236}{8}{251}{9}{275}{10}{304}}{dancing}{{1}{182}{2}{185}{3}{191}{4}{198}{5}{202}{6}{209}{7}{216}{8}{231}{9}{255}{10}{284}}{chanting}{{1}{182}{2}{185}{3}{191}{4}{198}{5}{202}{6}{209}{7}{216}{8}{231}{9}{255}{10}{284}}{herbal}{{1}{62}{2}{65}{3}{71}{4}{78}{5}{82}{6}{89}{7}{96}{8}{111}{9}{135}{10}{164}}}
+  {Bifram's Amazing Fireworks}{{animating}{{1}{90}{2}{98}{3}{108}{4}{115}{5}{121}{6}{132}{7}{139}{8}{157}{9}{179}{10}{200}}{fire}{{1}{79}{2}{87}{3}{96}{4}{104}{5}{110}{6}{121}{7}{126}{8}{146}{9}{168}{10}{190}}{binding}{{1}{106}{2}{115}{3}{124}{4}{130}{5}{137}{6}{148}{7}{153}{8}{170}{9}{190}{10}{210}}{channeling}{{1}{104}{2}{113}{3}{121}{4}{128}{5}{133}{6}{143}{7}{150}{8}{168}{9}{187}{10}{205}}}
+  {Booch's Extremal Polymorphism}{{channeling}{{1}{164}{2}{172}{3}{180}{4}{187}{5}{193}{6}{205}{7}{211}{8}{226}{9}{250}{10}{280}}{convoking}{{1}{164}{2}{172}{3}{180}{4}{187}{5}{193}{6}{205}{7}{211}{8}{226}{9}{250}{10}{280}}{evoking}{{1}{172}{2}{178}{3}{185}{4}{193}{5}{199}{6}{211}{7}{217}{8}{234}{9}{255}{10}{290}}{binding}{{1}{166}{2}{174}{3}{182}{4}{190}{5}{195}{6}{210}{7}{215}{8}{232}{9}{252}{10}{282}}{animating}{{1}{168}{2}{176}{3}{184}{4}{192}{5}{197}{6}{212}{7}{217}{8}{234}{9}{254}{10}{285}}}
+  {Boolywog's Forbidden Pleasures}{{chanting}{{1}{40}{2}{45}{3}{50}{4}{55}{5}{60}{6}{65}{7}{70}{8}{80}{9}{90}{10}{100}}{charming}{{1}{50}{2}{55}{3}{60}{4}{65}{5}{70}{6}{75}{7}{80}{8}{90}{9}{100}{10}{110}}{summoning}{{1}{80}{2}{90}{3}{100}{4}{105}{5}{110}{6}{115}{7}{120}{8}{130}{9}{140}{10}{150}}}
+  {Brassica Oleracea Ambulata}{{evoking}{{1}{57}{2}{65}{3}{76}{4}{82}{5}{88}{6}{99}{7}{105}{8}{123}{9}{144}{10}{185}}{channeling}{{1}{61}{2}{70}{3}{78}{4}{86}{5}{91}{6}{103}{7}{109}{8}{125}{9}{148}{10}{188}}{animating}{{1}{74}{2}{82}{3}{90}{4}{99}{5}{104}{6}{115}{7}{121}{8}{138}{9}{161}{10}{198}}}
+  {Brother Happalon's Elementary Enchanting}{{evoking}{{1}{50}{2}{55}{3}{60}{4}{65}{5}{70}{6}{75}{7}{90}{8}{105}{9}{120}{10}{135}}{enchanting}{{1}{70}{2}{75}{3}{80}{4}{85}{5}{90}{6}{95}{7}{105}{8}{120}{9}{135}{10}{155}}{chanting}{{1}{60}{2}{65}{3}{70}{4}{75}{5}{80}{6}{85}{7}{95}{8}{110}{9}{130}{10}{145}}{enchanting}{{1}{75}{2}{80}{3}{90}{4}{100}{5}{105}{6}{110}{7}{120}{8}{135}{9}{150}{10}{160}}}
+  {Calm Embrace of Illusionary Beauty}{{conjuring}{{1}{150}{2}{155}{3}{160}{4}{170}{5}{175}{6}{180}{7}{185}{8}{190}{9}{205}{10}{220}}{charming}{{1}{160}{2}{170}{3}{180}{4}{190}{5}{195}{6}{200}{7}{205}{8}{215}{9}{225}{10}{245}}{staff}{{1}{160}{2}{170}{3}{180}{4}{190}{5}{195}{6}{200}{7}{205}{8}{215}{9}{225}{10}{245}}{air}{{1}{150}{2}{155}{3}{160}{4}{170}{5}{175}{6}{180}{7}{185}{8}{190}{9}{205}{10}{225}}}
+  {Cherry Blossoms in Bloom}{{air}{{1}{115}{2}{120}{3}{130}{4}{135}{5}{140}{6}{145}{7}{150}{8}{160}{9}{170}{10}{185}}{channeling}{{1}{130}{2}{140}{3}{150}{4}{155}{5}{160}{6}{165}{7}{170}{8}{180}{9}{190}{10}{200}}{convoking}{{1}{115}{2}{120}{3}{130}{4}{135}{5}{140}{6}{145}{7}{150}{8}{160}{9}{170}{10}{185}}}
+  {Chrenedict's Corporeal Covering}{{binding}{{1}{125}{2}{130}{3}{140}{4}{145}{5}{150}{6}{155}{7}{160}{8}{165}{9}{175}{10}{180}}{earth}{{1}{130}{2}{135}{3}{145}{4}{150}{5}{155}{6}{160}{7}{165}{8}{175}{9}{180}{10}{190}}{binding}{{1}{190}{2}{200}{3}{210}{4}{215}{5}{220}{6}{225}{7}{230}{8}{240}{9}{250}{10}{270}}}
+  {Collatrap's Instant Pickling Stick}{{conjuring}{{1}{70}{2}{80}{3}{90}{4}{95}{5}{100}{6}{110}{7}{115}{8}{125}{9}{130}{10}{140}}{evoking}{{1}{90}{2}{100}{3}{110}{4}{115}{5}{120}{6}{130}{7}{140}{8}{150}{9}{160}{10}{170}}{wand}{{1}{115}{2}{125}{3}{135}{4}{145}{5}{150}{6}{155}{7}{165}{8}{174}{9}{183}{10}{192}}{dancing}{{1}{70}{2}{80}{3}{90}{4}{95}{5}{100}{6}{110}{7}{115}{8}{125}{9}{130}{10}{140}}}
+  {Crondor's Fabulous Detection}{{staff}{{1}{89}{2}{98}{3}{108}{4}{114}{5}{120}{6}{132}{7}{138}{8}{156}{9}{175}{10}{210}}{gold}{{1}{94}{2}{102}{3}{110}{4}{118}{5}{124}{6}{134}{7}{140}{8}{158}{9}{178}{10}{214}}{turning}{{1}{81}{2}{89}{3}{100}{4}{106}{5}{112}{6}{124}{7}{130}{8}{148}{9}{170}{10}{204}}}
+  {Crondor's Marvellous Sequestration}{{staff}{{1}{178}{2}{184}{3}{189}{4}{194}{5}{199}{6}{204}{7}{209}{8}{222}{9}{235}{10}{263}}{ring}{{1}{276}{2}{281}{3}{286}{4}{291}{5}{297}{6}{302}{7}{310}{8}{316}{9}{328}{10}{360}}{convoking}{{1}{202}{2}{208}{3}{214}{4}{220}{5}{226}{6}{232}{7}{240}{8}{249}{9}{268}{10}{286}}{enchanting}{{1}{275}{2}{280}{3}{285}{4}{290}{5}{295}{6}{300}{7}{305}{8}{316}{9}{330}{10}{368}}{binding}{{1}{275}{2}{281}{3}{286}{4}{291}{5}{296}{6}{303}{7}{309}{8}{320}{9}{333}{10}{364}}}
+  {Crondor's Mysterious Sparkling}{{staff}{{1}{100}{2}{105}{3}{110}{4}{115}{5}{125}{6}{130}{7}{140}{8}{146}{9}{160}{10}{180}}{whittling}{{1}{75}{2}{85}{3}{90}{4}{100}{5}{105}{6}{113}{7}{120}{8}{128}{9}{141}{10}{160}}{binding}{{1}{90}{2}{95}{3}{100}{4}{105}{5}{115}{6}{120}{7}{130}{8}{136}{9}{150}{10}{190}}{enchanting}{{1}{105}{2}{110}{3}{115}{4}{120}{5}{128}{6}{132}{7}{142}{8}{155}{9}{185}{10}{210}}}
+  {Delusions of Grandeur}{{divining}{{1}{152}{2}{155}{3}{161}{4}{168}{5}{172}{6}{179}{7}{186}{8}{201}{9}{225}{10}{254}}{convoking}{{1}{202}{2}{205}{3}{211}{4}{218}{5}{222}{6}{229}{7}{236}{8}{251}{9}{275}{10}{304}}{enchanting}{{1}{252}{2}{255}{3}{261}{4}{268}{5}{272}{6}{279}{7}{286}{8}{301}{9}{325}{10}{354}}}
+  {Dismal Digit of Doom}{{enchanting}{{1}{30}{2}{35}{3}{40}{4}{45}{5}{50}{6}{55}{7}{65}{8}{75}{9}{85}{10}{100}}{healing}{{1}{60}{2}{65}{3}{70}{4}{75}{5}{80}{6}{85}{7}{90}{8}{100}{9}{115}{10}{130}}{binding}{{1}{70}{2}{75}{3}{80}{4}{85}{5}{90}{6}{100}{7}{110}{8}{120}{9}{130}{10}{140}}{animating}{{1}{105}{2}{110}{3}{115}{4}{120}{5}{130}{6}{140}{7}{150}{8}{160}{9}{170}{10}{180}}}
+  {Doctor Kelleflump's Deadly Demon}{{dancing}{{1}{291}{2}{300}{3}{306}{4}{315}{5}{322}{6}{330}{7}{337}{8}{355}{9}{377}{10}{414}}{cursing}{{1}{284}{2}{293}{3}{302}{4}{311}{5}{316}{6}{326}{7}{333}{8}{350}{9}{369}{10}{410}}{summoning}{{1}{293}{2}{302}{3}{313}{4}{319}{5}{324}{6}{337}{7}{344}{8}{358}{9}{381}{10}{421}}{abjuring}{{1}{295}{2}{304}{3}{315}{4}{321}{5}{326}{6}{337}{7}{344}{8}{358}{9}{381}{10}{421}}{banishing}{{1}{293}{2}{300}{3}{311}{4}{317}{5}{322}{6}{333}{7}{339}{8}{353}{9}{379}{10}{419}}}
+  {Doctor Worblehat's Flaming Primate Premonition}{{turning}{{1}{172}{2}{185}{3}{190}{4}{195}{5}{200}{6}{205}{7}{214}{8}{221}{9}{236}{10}{260}}{gold}{{1}{204}{2}{209}{3}{214}{4}{219}{5}{224}{6}{231}{7}{236}{8}{250}{9}{280}{10}{286}}{enchanting}{{1}{230}{2}{236}{3}{241}{4}{246}{5}{251}{6}{256}{7}{261}{8}{281}{9}{288}{10}{310}}{binding}{{1}{254}{2}{260}{3}{265}{4}{270}{5}{276}{6}{281}{7}{286}{8}{296}{9}{313}{10}{333}}}
+  {Duander's Thaumic Luminosity Disperser}{{chanting}{{1}{17}{2}{25}{3}{31}{4}{40}{5}{46}{6}{58}{7}{64}{8}{82}{9}{103}{10}{145}}{fire}{{1}{49}{2}{58}{3}{67}{4}{76}{5}{82}{6}{91}{7}{97}{8}{115}{9}{136}{10}{175}}{channeling}{{1}{52}{2}{61}{3}{70}{4}{79}{5}{85}{6}{94}{7}{100}{8}{118}{9}{139}{10}{178}}{banishing}{{1}{91}{2}{100}{3}{112}{4}{117}{5}{123}{6}{133}{7}{139}{8}{160}{9}{175}{10}{210}}}
+  {Effermhor's Hypersonic Assault}{{evoking}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{180}{6}{185}{7}{190}{8}{200}{9}{225}{10}{240}}{channeling}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{180}{6}{185}{7}{190}{8}{200}{9}{220}{10}{240}}{binding}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{180}{6}{185}{7}{190}{8}{200}{9}{220}{10}{240}}{dancing}{{1}{180}{2}{185}{3}{190}{4}{195}{5}{200}{6}{210}{7}{220}{8}{230}{9}{240}{10}{260}}{air}{{1}{180}{2}{185}{3}{190}{4}{195}{5}{200}{6}{205}{7}{210}{8}{220}{9}{240}{10}{260}}}
+  {Ellamandyr's Hyaline Amulet}{{wand}{{1}{127}{2}{132}{3}{138}{4}{144}{5}{150}{6}{158}{7}{164}{8}{183}{9}{210}{10}{243}}{water}{{1}{100}{2}{106}{3}{111}{4}{116}{5}{121}{6}{129}{7}{135}{8}{154}{9}{181}{10}{215}}{binding}{{1}{176}{2}{182}{3}{190}{4}{195}{5}{200}{6}{208}{7}{214}{8}{233}{9}{260}{10}{291}}{silver}{{1}{96}{2}{101}{3}{106}{4}{111}{5}{116}{6}{124}{7}{130}{8}{149}{9}{176}{10}{210}}}
+  {Endorphin's Floating Friend}{{evoking}{{1}{80}{2}{90}{3}{100}{4}{105}{5}{110}{6}{120}{7}{130}{8}{140}{9}{150}{10}{160}}{animating}{{1}{110}{2}{115}{3}{125}{4}{135}{5}{140}{6}{150}{7}{160}{8}{170}{9}{180}{10}{185}}{binding}{{1}{120}{2}{130}{3}{140}{4}{150}{5}{160}{6}{170}{7}{180}{8}{190}{9}{200}{10}{210}}}
+  {Eringyas' Surprising Bouquet}{{channeling}{{1}{55}{2}{65}{3}{70}{4}{75}{5}{80}{6}{85}{7}{90}{8}{95}{9}{100}{10}{110}}{evoking}{{1}{40}{2}{45}{3}{50}{4}{55}{5}{60}{6}{65}{7}{70}{8}{75}{9}{80}{10}{90}}{charming}{{1}{30}{2}{35}{3}{40}{4}{45}{5}{50}{6}{55}{7}{60}{8}{65}{9}{70}{10}{80}}}
+  {Fabrication Classification Identification}{{divining}{{1}{57}{2}{65}{3}{74}{4}{83}{5}{88}{6}{98}{7}{105}{8}{122}{9}{147}{10}{184}}{evoking}{{1}{76}{2}{83}{3}{94}{4}{99}{5}{105}{6}{116}{7}{122}{8}{140}{9}{162}{10}{202}}{convoking}{{1}{72}{2}{81}{3}{87}{4}{94}{5}{101}{6}{112}{7}{118}{8}{138}{9}{158}{10}{197}}}
+  {Feyfirkin's Errant Trainee Collection Herbage}{{divining}{{1}{285}{2}{289}{3}{293}{4}{298}{5}{302}{6}{310}{7}{315}{8}{325}{9}{340}{10}{375}}{staff}{{1}{230}{2}{234}{3}{239}{4}{245}{5}{247}{6}{255}{7}{260}{8}{270}{9}{288}{10}{309}}{convoking}{{1}{274}{2}{279}{3}{284}{4}{289}{5}{294}{6}{300}{7}{306}{8}{315}{9}{333}{10}{353}}{channeling}{{1}{219}{2}{223}{3}{228}{4}{233}{5}{238}{6}{243}{7}{249}{8}{260}{9}{280}{10}{300}}{evoking}{{1}{238}{2}{243}{3}{248}{4}{254}{5}{258}{6}{264}{7}{269}{8}{279}{9}{294}{10}{318}}}
+  {Fiddelmaker's Auriferous Embrace}{{wand}{{1}{200}{2}{205}{3}{215}{4}{220}{5}{230}{6}{240}{7}{250}{8}{260}{9}{270}{10}{290}}{gold}{{1}{210}{2}{220}{3}{230}{4}{235}{5}{240}{6}{250}{7}{260}{8}{270}{9}{280}{10}{300}}{animating}{{1}{200}{2}{205}{3}{215}{4}{220}{5}{230}{6}{240}{7}{250}{8}{260}{9}{270}{10}{290}}}
+  {Finneblaugh's Thaumic Float}{{air}{{1}{175}{2}{180}{3}{190}{4}{200}{5}{205}{6}{210}{7}{220}{8}{230}{9}{240}{10}{260}}{evoking}{{1}{190}{2}{200}{3}{210}{4}{215}{5}{225}{6}{240}{7}{255}{8}{265}{9}{275}{10}{285}}{summoning}{{1}{200}{2}{210}{3}{220}{4}{225}{5}{235}{6}{250}{7}{265}{8}{270}{9}{280}{10}{290}}{air}{{1}{215}{2}{225}{3}{235}{4}{245}{5}{255}{6}{260}{7}{270}{8}{280}{9}{290}{10}{300}}}
+  {Floron's Fabulous Mirror}{{channeling}{{1}{115}{2}{124}{3}{130}{4}{139}{5}{144}{6}{154}{7}{160}{8}{178}{9}{196}{10}{240}}{divining}{{1}{124}{2}{129}{3}{139}{4}{145}{5}{154}{6}{160}{7}{169}{8}{187}{9}{208}{10}{245}}{scrying}{{1}{199}{2}{205}{3}{214}{4}{223}{5}{229}{6}{238}{7}{244}{8}{262}{9}{286}{10}{315}}}
+  {Friddlefrod's Hydratic Extrusion}{{water}{{1}{45}{2}{50}{3}{60}{4}{65}{5}{70}{6}{75}{7}{80}{8}{90}{9}{100}{10}{110}}{evoking}{{1}{60}{2}{70}{3}{80}{4}{85}{5}{90}{6}{95}{7}{100}{8}{110}{9}{120}{10}{130}}{water}{{1}{80}{2}{90}{3}{100}{4}{105}{5}{110}{6}{115}{7}{120}{8}{125}{9}{130}{10}{140}}}
+  {Frygellhan's Fiendish Orbit Disruptor}{{evoking}{{1}{75}{2}{80}{3}{90}{4}{95}{5}{100}{6}{105}{7}{115}{8}{120}{9}{130}{10}{140}}{channeling}{{1}{120}{2}{125}{3}{135}{4}{140}{5}{150}{6}{155}{7}{160}{8}{170}{9}{175}{10}{185}}{binding}{{1}{130}{2}{140}{3}{150}{4}{160}{5}{170}{6}{180}{7}{190}{8}{200}{9}{210}{10}{225}}}
+  {Fyodor's Nimbus of Porterage}{{water}{{1}{105}{2}{110}{3}{120}{4}{125}{5}{130}{6}{135}{7}{140}{8}{150}{9}{160}{10}{170}}{fire}{{1}{90}{2}{95}{3}{100}{4}{110}{5}{115}{6}{120}{7}{130}{8}{140}{9}{150}{10}{160}}{air}{{1}{110}{2}{120}{3}{125}{4}{130}{5}{135}{6}{140}{7}{150}{8}{164}{9}{183}{10}{200}}{summoning}{{1}{125}{2}{130}{3}{140}{4}{145}{5}{150}{6}{160}{7}{175}{8}{184}{9}{203}{10}{215}}{abjuring}{{1}{90}{2}{95}{3}{100}{4}{110}{5}{115}{6}{120}{7}{130}{8}{140}{9}{150}{10}{160}}{channeling}{{1}{150}{2}{160}{3}{165}{4}{175}{5}{180}{6}{185}{7}{190}{8}{200}{9}{215}{10}{230}}}
+  {G'flott's Olfactory Nightmare}{{evoking}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{180}{6}{185}{7}{195}{8}{205}{9}{220}{10}{240}}{air}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{180}{6}{185}{7}{195}{8}{205}{9}{220}{10}{240}}{dancing}{{1}{170}{2}{175}{3}{180}{4}{185}{5}{190}{6}{195}{7}{205}{8}{215}{9}{230}{10}{250}}{fire}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{180}{6}{185}{7}{195}{8}{205}{9}{220}{10}{240}}{air}{{1}{180}{2}{185}{3}{190}{4}{195}{5}{200}{6}{205}{7}{210}{8}{220}{9}{240}{10}{260}}}
+  {Gammer Shorga's Clever Creeper}{{charming}{{1}{277}{2}{280}{3}{286}{4}{293}{5}{297}{6}{304}{7}{311}{8}{326}{9}{350}{10}{379}}{shaping}{{1}{152}{2}{155}{3}{161}{4}{168}{5}{172}{6}{179}{7}{186}{8}{201}{9}{225}{10}{254}}{ring}{{1}{202}{2}{205}{3}{211}{4}{218}{5}{222}{6}{229}{7}{236}{8}{251}{9}{275}{10}{304}}{animating}{{1}{202}{2}{205}{3}{211}{4}{218}{5}{222}{6}{229}{7}{236}{8}{251}{9}{275}{10}{304}}}
+  {Gammer Shorga's Helpful Undergrowth}{{animating}{{1}{102}{2}{105}{3}{111}{4}{118}{5}{122}{6}{129}{7}{136}{8}{151}{9}{175}{10}{204}}{cursing}{{1}{152}{2}{155}{3}{161}{4}{168}{5}{172}{6}{179}{7}{186}{8}{201}{9}{225}{10}{254}}}
+  {Gammer Tumult's Amalgamator}{{evoking}{{1}{152}{2}{155}{3}{161}{4}{168}{5}{172}{6}{179}{7}{186}{8}{201}{9}{225}{10}{254}}{weaving}{{1}{52}{2}{55}{3}{61}{4}{68}{5}{72}{6}{79}{7}{86}{8}{101}{9}{125}{10}{154}}{binding}{{1}{192}{2}{195}{3}{201}{4}{208}{5}{212}{6}{219}{7}{226}{8}{241}{9}{265}{10}{294}}}
+  {Gillimer's Ring of Temperate Weather}{{gold}{{1}{191}{2}{200}{3}{211}{4}{218}{5}{223}{6}{232}{7}{240}{8}{260}{9}{282}{10}{315}}{binding}{{1}{207}{2}{216}{3}{224}{4}{231}{5}{238}{6}{249}{7}{254}{8}{273}{9}{295}{10}{330}}{enchanting}{{1}{194}{2}{200}{3}{211}{4}{218}{5}{223}{6}{236}{7}{242}{8}{260}{9}{282}{10}{318}}{ring}{{1}{194}{2}{200}{3}{211}{4}{218}{5}{223}{6}{236}{7}{242}{8}{260}{9}{282}{10}{318}}}
+  {Goodie Whemper's Apple Divination}{{channeling}{{1}{102}{2}{105}{3}{111}{4}{118}{5}{122}{6}{129}{7}{136}{8}{151}{9}{175}{10}{204}}{divining}{{1}{77}{2}{80}{3}{86}{4}{93}{5}{97}{6}{104}{7}{111}{8}{126}{9}{150}{10}{179}}}
+  {Grammer Scorbic's Household Guard}{{evoking}{{1}{62}{2}{65}{3}{71}{4}{78}{5}{82}{6}{89}{7}{96}{8}{111}{9}{135}{10}{164}}{channeling}{{1}{122}{2}{125}{3}{131}{4}{138}{5}{142}{6}{149}{7}{156}{8}{171}{9}{195}{10}{224}}{binding}{{1}{177}{2}{180}{3}{186}{4}{193}{5}{197}{6}{204}{7}{211}{8}{226}{9}{250}{10}{279}}}
+  {Granny Beedle's Cooperative Credits}{{talisman}{{1}{82}{2}{85}{3}{91}{4}{98}{5}{102}{6}{109}{7}{116}{8}{131}{9}{155}{10}{184}}{chanting}{{1}{112}{2}{115}{3}{121}{4}{128}{5}{132}{6}{139}{7}{146}{8}{161}{9}{185}{10}{214}}{scrying}{{1}{172}{2}{175}{3}{181}{4}{188}{5}{192}{6}{199}{7}{206}{8}{221}{9}{245}{10}{274}}{divining}{{1}{162}{2}{165}{3}{171}{4}{178}{5}{182}{6}{189}{7}{196}{8}{211}{9}{235}{10}{264}}}
+  {Granny Benedict's Bond of Loyalty}{{talisman}{{1}{62}{2}{65}{3}{71}{4}{78}{5}{82}{6}{89}{7}{96}{8}{111}{9}{135}{10}{164}}{summoning}{{1}{102}{2}{105}{3}{111}{4}{118}{5}{122}{6}{129}{7}{136}{8}{151}{9}{175}{10}{204}}{charming}{{1}{152}{2}{155}{3}{161}{4}{168}{5}{172}{6}{179}{7}{186}{8}{201}{9}{225}{10}{254}}{binding}{{1}{127}{2}{130}{3}{136}{4}{143}{5}{147}{6}{154}{7}{161}{8}{176}{9}{200}{10}{229}}}
+  {Granny Lipintense's Layer of Lard}{{dancing}{{1}{117}{2}{120}{3}{126}{4}{133}{5}{137}{6}{144}{7}{151}{8}{166}{9}{190}{10}{219}}{charming}{{1}{112}{2}{115}{3}{121}{4}{128}{5}{132}{6}{139}{7}{146}{8}{161}{9}{185}{10}{214}}{channeling}{{1}{147}{2}{150}{3}{156}{4}{163}{5}{167}{6}{174}{7}{181}{8}{196}{9}{220}{10}{249}}}
+  {Grisald's Chilly Touch}{{summoning}{{1}{60}{2}{70}{3}{80}{4}{85}{5}{90}{6}{95}{7}{100}{8}{110}{9}{120}{10}{130}}{healing}{{1}{80}{2}{90}{3}{100}{4}{105}{5}{110}{6}{115}{7}{120}{8}{130}{9}{140}{10}{150}}}
+  {Grisald's Reanimated Guardian}{{summoning}{{1}{170}{2}{180}{3}{185}{4}{190}{5}{195}{6}{200}{7}{205}{8}{210}{9}{230}{10}{255}}{binding}{{1}{170}{2}{180}{3}{185}{4}{190}{5}{195}{6}{200}{7}{205}{8}{210}{9}{230}{10}{255}}{animating}{{1}{155}{2}{160}{3}{165}{4}{170}{5}{175}{6}{180}{7}{185}{8}{190}{9}{205}{10}{215}}{healing}{{1}{260}{2}{270}{3}{275}{4}{280}{5}{285}{6}{295}{7}{305}{8}{315}{9}{325}{10}{335}}}
+  {Gryntard's Feathery Reliever}{{summoning}{{1}{130}{2}{140}{3}{150}{4}{155}{5}{160}{6}{165}{7}{170}{8}{180}{9}{190}{10}{210}}{air}{{1}{140}{2}{150}{3}{160}{4}{170}{5}{180}{6}{185}{7}{195}{8}{205}{9}{220}{10}{240}}{binding}{{1}{125}{2}{135}{3}{140}{4}{145}{5}{150}{6}{155}{7}{160}{8}{170}{9}{180}{10}{200}}{channeling}{{1}{155}{2}{160}{3}{170}{4}{175}{5}{180}{6}{185}{7}{195}{8}{205}{9}{220}{10}{240}}}
+  {Hag's Blessing}{{divining}{{1}{77}{2}{80}{3}{86}{4}{93}{5}{97}{6}{104}{7}{111}{8}{126}{9}{150}{10}{179}}{charming}{{1}{102}{2}{105}{3}{111}{4}{118}{5}{122}{6}{129}{7}{136}{8}{151}{9}{175}{10}{204}}{summoning}{{1}{102}{2}{105}{3}{111}{4}{118}{5}{122}{6}{129}{7}{136}{8}{151}{9}{175}{10}{204}}}
+  {Heezlewurst's Elemental Buffer}{{channeling}{{1}{150}{2}{155}{3}{165}{4}{170}{5}{175}{6}{185}{7}{195}{8}{205}{9}{215}{10}{230}}{evoking}{{1}{170}{2}{180}{3}{185}{4}{190}{5}{200}{6}{205}{7}{215}{8}{225}{9}{235}{10}{250}}{binding}{{1}{155}{2}{165}{3}{170}{4}{175}{5}{180}{6}{190}{7}{200}{8}{210}{9}{220}{10}{240}}{enchanting}{{1}{155}{2}{165}{3}{170}{4}{175}{5}{180}{6}{190}{7}{200}{8}{210}{9}{220}{10}{240}}{convoking}{{1}{185}{2}{190}{3}{200}{4}{210}{5}{220}{6}{230}{7}{240}{8}{250}{9}{260}{10}{280}}}
+  {Independent Recurring Vocaliser}{{channeling}{{1}{50}{2}{55}{3}{60}{4}{65}{5}{70}{6}{75}{7}{85}{8}{95}{9}{105}{10}{120}}{binding}{{1}{90}{2}{100}{3}{110}{4}{115}{5}{120}{6}{125}{7}{130}{8}{140}{9}{150}{10}{160}}{evoking}{{1}{60}{2}{65}{3}{70}{4}{75}{5}{80}{6}{85}{7}{95}{8}{105}{9}{115}{10}{130}}}
+  {Jogloran's Portal of Cheaper Travel}{{enchanting}{{1}{130}{2}{140}{3}{150}{4}{155}{5}{160}{6}{170}{7}{180}{8}{192}{9}{205}{10}{220}}{evoking}{{1}{130}{2}{140}{3}{150}{4}{155}{5}{160}{6}{170}{7}{180}{8}{192}{9}{205}{10}{220}}{binding}{{1}{130}{2}{140}{3}{150}{4}{155}{5}{160}{6}{170}{7}{180}{8}{192}{9}{210}{10}{225}}{dancing}{{1}{130}{2}{140}{3}{150}{4}{155}{5}{160}{6}{170}{7}{180}{8}{192}{9}{210}{10}{225}}{banishing}{{1}{160}{2}{165}{3}{170}{4}{180}{5}{190}{6}{200}{7}{210}{8}{222}{9}{235}{10}{250}}}
+  {Jorodin's Magnificent Communicator}{{channeling}{{1}{159}{2}{168}{3}{178}{4}{183}{5}{188}{6}{200}{7}{206}{8}{224}{9}{248}{10}{284}}{binding}{{1}{156}{2}{166}{3}{176}{4}{182}{5}{188}{6}{200}{7}{205}{8}{222}{9}{241}{10}{281}}{evoking}{{1}{123}{2}{130}{3}{140}{4}{146}{5}{154}{6}{166}{7}{171}{8}{188}{9}{212}{10}{248}}}
+  {Journey of the Heavenly Storm Dragon}{{water}{{1}{320}{2}{334}{3}{344}{4}{349}{5}{354}{6}{365}{7}{372}{8}{389}{9}{410}{10}{449}}{air}{{1}{320}{2}{334}{3}{344}{4}{349}{5}{354}{6}{365}{7}{372}{8}{389}{9}{410}{10}{449}}{earth}{{1}{320}{2}{334}{3}{344}{4}{349}{5}{354}{6}{365}{7}{372}{8}{389}{9}{410}{10}{449}}{fire}{{1}{320}{2}{334}{3}{344}{4}{349}{5}{354}{6}{365}{7}{372}{8}{389}{9}{410}{10}{449}}{channeling}{{1}{355}{2}{365}{3}{370}{4}{380}{5}{385}{6}{395}{7}{401}{8}{420}{9}{440}{10}{480}}}
+  {Kamikaze Oryctolagus Flammula}{{convoking}{{1}{90}{2}{100}{3}{110}{4}{115}{5}{120}{6}{125}{7}{130}{8}{140}{9}{150}{10}{160}}{fire}{{1}{90}{2}{100}{3}{110}{4}{115}{5}{120}{6}{125}{7}{130}{8}{140}{9}{150}{10}{160}}{convoking}{{1}{110}{2}{120}{3}{130}{4}{135}{5}{140}{6}{145}{7}{150}{8}{160}{9}{170}{10}{185}}{fire}{{1}{90}{2}{100}{3}{110}{4}{115}{5}{120}{6}{125}{7}{130}{8}{140}{9}{150}{10}{160}}}
+  {Kelleflump's Irritating Demon}{{summoning}{{1}{120}{2}{125}{3}{130}{4}{135}{5}{140}{6}{145}{7}{150}{8}{160}{9}{165}{10}{175}}{cursing}{{1}{130}{2}{135}{3}{140}{4}{145}{5}{150}{6}{155}{7}{160}{8}{165}{9}{180}{10}{205}}{conjuring}{{1}{135}{2}{140}{3}{145}{4}{150}{5}{155}{6}{160}{7}{165}{8}{175}{9}{190}{10}{215}}{divining}{{1}{120}{2}{125}{3}{130}{4}{135}{5}{140}{6}{145}{7}{150}{8}{160}{9}{170}{10}{180}}}
+  {Kipperwald's Perlustration Prevention}{{convoking}{{1}{190}{2}{200}{3}{210}{4}{215}{5}{220}{6}{225}{7}{230}{8}{240}{9}{250}{10}{270}}{scrying}{{1}{210}{2}{220}{3}{230}{4}{240}{5}{250}{6}{255}{7}{260}{8}{270}{9}{280}{10}{290}}{divining}{{1}{200}{2}{205}{3}{210}{4}{220}{5}{230}{6}{235}{7}{245}{8}{255}{9}{265}{10}{280}}}
+  {Luquayle's Longevity-Enhancing Ballast}{{gold}{{1}{250}{2}{254}{3}{258}{4}{264}{5}{269}{6}{275}{7}{281}{8}{291}{9}{306}{10}{329}}{turning}{{1}{214}{2}{218}{3}{223}{4}{228}{5}{233}{6}{239}{7}{245}{8}{255}{9}{270}{10}{293}}{enchanting}{{1}{195}{2}{200}{3}{204}{4}{208}{5}{213}{6}{218}{7}{225}{8}{235}{9}{250}{10}{275}}{water}{{1}{178}{2}{182}{3}{187}{4}{193}{5}{200}{6}{204}{7}{209}{8}{219}{9}{235}{10}{261}}{binding}{{1}{214}{2}{218}{3}{223}{4}{228}{5}{233}{6}{239}{7}{245}{8}{255}{9}{270}{10}{292}}}
+  {Malich's AshkEnte Circle}{{channeling}{{1}{181}{2}{186}{3}{192}{4}{198}{5}{204}{6}{211}{7}{219}{8}{228}{9}{243}{10}{270}}{chanting}{{1}{175}{2}{182}{3}{190}{4}{195}{5}{200}{6}{205}{7}{215}{8}{225}{9}{240}{10}{270}}{talisman}{{1}{100}{2}{106}{3}{114}{4}{130}{5}{140}{6}{152}{7}{160}{8}{170}{9}{180}{10}{190}}{staff}{{1}{175}{2}{183}{3}{191}{4}{196}{5}{202}{6}{211}{7}{220}{8}{232}{9}{253}{10}{280}}}
+  {Malich's AshkEnte Summoning Incantation}{{channeling}{{1}{290}{2}{304}{3}{314}{4}{324}{5}{334}{6}{344}{7}{354}{8}{364}{9}{380}{10}{400}}{abjuring}{{1}{300}{2}{310}{3}{320}{4}{330}{5}{340}{6}{350}{7}{360}{8}{370}{9}{390}{10}{410}}{summoning}{{1}{320}{2}{330}{3}{340}{4}{350}{5}{360}{6}{370}{7}{380}{8}{395}{9}{405}{10}{435}}}
+  {Malich's Penetrating Ocular Lance}{{channeling}{{1}{30}{2}{35}{3}{40}{4}{45}{5}{50}{6}{55}{7}{60}{8}{65}{9}{70}{10}{80}}}
+  {Mama Blackwing's Potent Preserver}{{fire}{{1}{152}{2}{155}{3}{161}{4}{168}{5}{172}{6}{179}{7}{186}{8}{201}{9}{225}{10}{254}}{chanting}{{1}{127}{2}{130}{3}{136}{4}{143}{5}{147}{6}{154}{7}{161}{8}{176}{9}{200}{10}{229}}{channeling}{{1}{202}{2}{205}{3}{211}{4}{218}{5}{222}{6}{229}{7}{236}{8}{251}{9}{275}{10}{304}}{water}{{1}{147}{2}{150}{3}{156}{4}{163}{5}{167}{6}{174}{7}{181}{8}{196}{9}{220}{10}{249}}}
+  {Mama Kolydina's Instant Infestation}{{summoning}{{1}{122}{2}{125}{3}{131}{4}{138}{5}{142}{6}{149}{7}{156}{8}{171}{9}{195}{10}{224}}{charming}{{1}{92}{2}{95}{3}{101}{4}{108}{5}{112}{6}{119}{7}{126}{8}{141}{9}{165}{10}{194}}{chanting}{{1}{112}{2}{115}{3}{121}{4}{128}{5}{132}{6}{139}{7}{146}{8}{161}{9}{185}{10}{214}}{binding}{{1}{102}{2}{105}{3}{111}{4}{118}{5}{122}{6}{129}{7}{136}{8}{151}{9}{175}{10}{204}}{cursing}{{1}{87}{2}{90}{3}{96}{4}{103}{5}{107}{6}{114}{7}{121}{8}{136}{9}{160}{10}{189}}}
+  {Master Glimer's Amazing Glowing Thing}{{evoking}{{1}{81}{2}{93}{3}{99}{4}{109}{5}{114}{6}{126}{7}{132}{8}{147}{9}{171}{10}{206}}{earth}{{1}{126}{2}{135}{3}{140}{4}{145}{5}{153}{6}{165}{7}{171}{8}{189}{9}{216}{10}{252}}{chanting}{{1}{99}{2}{108}{3}{117}{4}{123}{5}{132}{6}{141}{7}{147}{8}{160}{9}{174}{10}{210}}{binding}{{1}{147}{2}{153}{3}{162}{4}{168}{5}{177}{6}{183}{7}{193}{8}{205}{9}{230}{10}{270}}{enchanting}{{1}{203}{2}{208}{3}{219}{4}{225}{5}{234}{6}{243}{7}{248}{8}{270}{9}{291}{10}{325}}}
+  {Master Woddeley's Luminescent Companion}{{evoking}{{1}{53}{2}{63}{3}{74}{4}{79}{5}{84}{6}{97}{7}{102}{8}{124}{9}{144}{10}{182}}{channeling}{{1}{82}{2}{92}{3}{100}{4}{106}{5}{113}{6}{123}{7}{131}{8}{149}{9}{170}{10}{202}}{animating}{{1}{100}{2}{106}{3}{116}{4}{123}{5}{129}{6}{142}{7}{148}{8}{162}{9}{186}{10}{216}}}
+  {Memories of a Vicious Chicken}{{healing}{{1}{55}{2}{60}{3}{65}{4}{70}{5}{75}{6}{80}{7}{85}{8}{90}{9}{100}{10}{110}}{summoning}{{1}{55}{2}{60}{3}{65}{4}{70}{5}{75}{6}{80}{7}{85}{8}{90}{9}{100}{10}{110}}{animating}{{1}{70}{2}{75}{3}{80}{4}{85}{5}{90}{6}{95}{7}{100}{8}{110}{9}{120}{10}{130}}}
+  {Mother Brynda's Call of Gravity}{{evoking}{{1}{62}{2}{65}{3}{71}{4}{78}{5}{82}{6}{89}{7}{96}{8}{111}{9}{135}{10}{164}}{channeling}{{1}{122}{2}{125}{3}{131}{4}{138}{5}{142}{6}{149}{7}{156}{8}{171}{9}{195}{10}{224}}{binding}{{1}{177}{2}{180}{3}{186}{4}{193}{5}{197}{6}{204}{7}{211}{8}{226}{9}{250}{10}{279}}}
+  {Mother Feelbright's Busy Bees}{{channeling}{{1}{142}{2}{145}{3}{151}{4}{158}{5}{162}{6}{169}{7}{176}{8}{191}{9}{215}{10}{244}}{summoning}{{1}{177}{2}{180}{3}{186}{4}{193}{5}{197}{6}{204}{7}{211}{8}{226}{9}{250}{10}{279}}{cursing}{{1}{107}{2}{110}{3}{116}{4}{123}{5}{127}{6}{134}{7}{141}{8}{156}{9}{180}{10}{209}}{charming}{{1}{197}{2}{200}{3}{206}{4}{213}{5}{217}{6}{224}{7}{231}{8}{246}{9}{270}{10}{299}}}
+  {Mother Harblist's Fruity Flyer}{{summoning}{{1}{202}{2}{205}{3}{211}{4}{218}{5}{222}{6}{229}{7}{236}{8}{251}{9}{275}{10}{304}}{chanting}{{1}{252}{2}{255}{3}{261}{4}{268}{5}{272}{6}{279}{7}{286}{8}{301}{9}{325}{10}{354}}{charming}{{1}{202}{2}{205}{3}{211}{4}{218}{5}{222}{6}{229}{7}{236}{8}{251}{9}{275}{10}{304}}{dancing}{{1}{272}{2}{275}{3}{281}{4}{288}{5}{292}{6}{299}{7}{306}{8}{321}{9}{345}{10}{374}}}
+  {Mother Twinter's Yarrow Enchantment}{{evoking}{{1}{27}{2}{30}{3}{36}{4}{43}{5}{47}{6}{54}{7}{61}{8}{76}{9}{100}{10}{129}}{enchanting}{{1}{52}{2}{55}{3}{61}{4}{68}{5}{72}{6}{79}{7}{86}{8}{101}{9}{125}{10}{154}}{chanting}{{1}{52}{2}{55}{3}{61}{4}{68}{5}{72}{6}{79}{7}{86}{8}{101}{9}{125}{10}{154}}{enchanting}{{1}{102}{2}{105}{3}{111}{4}{118}{5}{122}{6}{129}{7}{136}{8}{151}{9}{175}{10}{204}}}
+  {Mugwuddle's Muddling Mirage}{{air}{{1}{75}{2}{85}{3}{90}{4}{100}{5}{105}{6}{115}{7}{125}{8}{140}{9}{160}{10}{205}}{animating}{{1}{95}{2}{105}{3}{110}{4}{120}{5}{130}{6}{140}{7}{145}{8}{160}{9}{185}{10}{220}}{summoning}{{1}{165}{2}{175}{3}{180}{4}{190}{5}{195}{6}{205}{7}{210}{8}{229}{9}{251}{10}{290}}{channeling}{{1}{135}{2}{144}{3}{153}{4}{160}{5}{165}{6}{176}{7}{181}{8}{200}{9}{220}{10}{260}}{conjuring}{{1}{178}{2}{185}{3}{194}{4}{202}{5}{210}{6}{219}{7}{225}{8}{240}{9}{265}{10}{300}}}
+  {Myrandil's Mask of Death}{{enchanting}{{1}{81}{2}{88}{3}{98}{4}{105}{5}{112}{6}{121}{7}{128}{8}{147}{9}{169}{10}{200}}{healing}{{1}{84}{2}{93}{3}{103}{4}{108}{5}{115}{6}{126}{7}{131}{8}{150}{9}{171}{10}{203}}{summoning}{{1}{107}{2}{115}{3}{123}{4}{130}{5}{136}{6}{147}{7}{152}{8}{171}{9}{192}{10}{220}}{binding}{{1}{115}{2}{123}{3}{131}{4}{138}{5}{144}{6}{155}{7}{160}{8}{179}{9}{200}{10}{228}}{abjuring}{{1}{123}{2}{131}{3}{139}{4}{146}{5}{152}{6}{163}{7}{168}{8}{187}{9}{208}{10}{236}}}
+  {Myrandil's Vicious Seizure}{{summoning}{{1}{140}{2}{150}{3}{155}{4}{165}{5}{170}{6}{175}{7}{180}{8}{185}{9}{195}{10}{210}}{earth}{{1}{140}{2}{150}{3}{155}{4}{165}{5}{170}{6}{175}{7}{180}{8}{185}{9}{195}{10}{210}}{healing}{{1}{180}{2}{190}{3}{195}{4}{200}{5}{210}{6}{220}{7}{230}{8}{240}{9}{250}{10}{265}}{animating}{{1}{145}{2}{150}{3}{155}{4}{160}{5}{170}{6}{175}{7}{180}{8}{185}{9}{200}{10}{220}}}
+  {Nanny Revere's Traitorous Talisman}{{talisman}{{1}{102}{2}{105}{3}{111}{4}{118}{5}{122}{6}{129}{7}{136}{8}{151}{9}{175}{10}{204}}{divining}{{1}{152}{2}{155}{3}{161}{4}{168}{5}{172}{6}{179}{7}{186}{8}{201}{9}{225}{10}{254}}{chanting}{{1}{252}{2}{255}{3}{261}{4}{268}{5}{272}{6}{279}{7}{286}{8}{301}{9}{325}{10}{354}}{charming}{{1}{302}{2}{305}{3}{311}{4}{318}{5}{322}{6}{329}{7}{336}{8}{351}{9}{375}{10}{404}}}
+  {Nargl'frob's Empyrean Spear}{{water}{{1}{170}{2}{180}{3}{185}{4}{190}{5}{195}{6}{200}{7}{205}{8}{224}{9}{247}{10}{286}}{air}{{1}{165}{2}{180}{3}{185}{4}{190}{5}{195}{6}{200}{7}{205}{8}{221}{9}{243}{10}{282}}{fire}{{1}{165}{2}{180}{3}{185}{4}{190}{5}{195}{6}{200}{7}{205}{8}{219}{9}{240}{10}{278}}{earth}{{1}{170}{2}{180}{3}{185}{4}{190}{5}{195}{6}{200}{7}{205}{8}{226}{9}{249}{10}{288}}{evoking}{{1}{170}{2}{175}{3}{180}{4}{185}{5}{190}{6}{195}{7}{200}{8}{227}{9}{250}{10}{288}}}
+  {Narquin's Hand of Acquisition}{{convoking}{{1}{112}{2}{120}{3}{128}{4}{135}{5}{143}{6}{151}{7}{159}{8}{176}{9}{197}{10}{230}}{healing}{{1}{89}{2}{99}{3}{107}{4}{114}{5}{120}{6}{130}{7}{138}{8}{154}{9}{174}{10}{209}}{animating}{{1}{122}{2}{130}{3}{140}{4}{147}{5}{152}{6}{163}{7}{170}{8}{188}{9}{209}{10}{243}}}
+  {Narquin's Mist of Doom}{{summoning}{{1}{95}{2}{100}{3}{110}{4}{115}{5}{120}{6}{125}{7}{135}{8}{145}{9}{155}{10}{165}}{healing}{{1}{105}{2}{110}{3}{120}{4}{125}{5}{130}{6}{135}{7}{140}{8}{150}{9}{155}{10}{165}}{abjuring}{{1}{95}{2}{100}{3}{110}{4}{115}{5}{120}{6}{125}{7}{135}{8}{145}{9}{155}{10}{165}}{animating}{{1}{120}{2}{130}{3}{140}{4}{145}{5}{150}{6}{155}{7}{160}{8}{170}{9}{175}{10}{180}}}
+  {Objandeller's Thaumic Funnel}{{water}{{1}{77}{2}{85}{3}{95}{4}{102}{5}{108}{6}{120}{7}{125}{8}{142}{9}{165}{10}{195}}{channeling}{{1}{91}{2}{100}{3}{108}{4}{116}{5}{122}{6}{132}{7}{138}{8}{157}{9}{178}{10}{202}}{dancing}{{1}{79}{2}{87}{3}{95}{4}{104}{5}{110}{6}{120}{7}{126}{8}{144}{9}{164}{10}{190}}{binding}{{1}{81}{2}{89}{3}{98}{4}{106}{5}{112}{6}{122}{7}{128}{8}{146}{9}{165}{10}{192}}}
+  {Old Bellicus' Brazen Knuckles}{{evoking}{{1}{92}{2}{99}{3}{108}{4}{115}{5}{120}{6}{129}{7}{139}{8}{152}{9}{170}{10}{200}}{binding}{{1}{80}{2}{86}{3}{97}{4}{104}{5}{109}{6}{118}{7}{127}{8}{142}{9}{160}{10}{190}}{earth}{{1}{95}{2}{105}{3}{115}{4}{121}{5}{127}{6}{139}{7}{144}{8}{162}{9}{180}{10}{210}}{fire}{{1}{59}{2}{68}{3}{77}{4}{83}{5}{92}{6}{104}{7}{109}{8}{127}{9}{145}{10}{180}}{binding}{{1}{83}{2}{92}{3}{101}{4}{106}{5}{112}{6}{124}{7}{130}{8}{147}{9}{165}{10}{195}}}
+  {Patient Taming of the Quantum Weather Butterfly}{{water}{{1}{154}{2}{161}{3}{173}{4}{178}{5}{183}{6}{194}{7}{202}{8}{217}{9}{240}{10}{278}}{earth}{{1}{179}{2}{187}{3}{194}{4}{202}{5}{210}{6}{221}{7}{227}{8}{244}{9}{266}{10}{300}}{air}{{1}{248}{2}{255}{3}{267}{4}{274}{5}{279}{6}{289}{7}{297}{8}{316}{9}{335}{10}{370}}{fire}{{1}{250}{2}{257}{3}{269}{4}{276}{5}{281}{6}{291}{7}{299}{8}{318}{9}{337}{10}{372}}{binding}{{1}{297}{2}{305}{3}{316}{4}{324}{5}{329}{6}{339}{7}{346}{8}{362}{9}{380}{10}{410}}}
+  {Polliwiggle's Puissancy Probe}{{divining}{{1}{32}{2}{40}{3}{50}{4}{57}{5}{63}{6}{73}{7}{79}{8}{98}{9}{119}{10}{160}}{divining}{{1}{48}{2}{57}{3}{65}{4}{73}{5}{78}{6}{90}{7}{96}{8}{112}{9}{135}{10}{171}}}
+  {Pragi's Fiery Gaze}{{evoking}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{180}{6}{185}{7}{190}{8}{200}{9}{215}{10}{230}}{channeling}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{180}{6}{185}{7}{190}{8}{200}{9}{220}{10}{235}}{enchanting}{{1}{170}{2}{175}{3}{180}{4}{185}{5}{190}{6}{195}{7}{205}{8}{215}{9}{230}{10}{240}}{animating}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{185}{6}{195}{7}{200}{8}{205}{9}{220}{10}{235}}{fire}{{1}{185}{2}{190}{3}{195}{4}{200}{5}{205}{6}{210}{7}{215}{8}{225}{9}{240}{10}{255}}}
+  {Pragi's Lost Gaze}{{evoking}{{1}{130}{2}{135}{3}{145}{4}{155}{5}{160}{6}{170}{7}{180}{8}{190}{9}{200}{10}{210}}{evoking}{{1}{130}{2}{135}{3}{145}{4}{155}{5}{160}{6}{170}{7}{180}{8}{190}{9}{200}{10}{210}}{enchanting}{{1}{130}{2}{135}{3}{145}{4}{155}{5}{160}{6}{170}{7}{180}{8}{190}{9}{200}{10}{210}}{animating}{{1}{140}{2}{145}{3}{155}{4}{165}{5}{170}{6}{180}{7}{190}{8}{200}{9}{210}{10}{220}}{animating}{{1}{140}{2}{145}{3}{155}{4}{165}{5}{170}{6}{180}{7}{190}{8}{200}{9}{210}{10}{220}}{fire}{{1}{130}{2}{135}{3}{145}{4}{155}{5}{160}{6}{170}{7}{180}{8}{190}{9}{200}{10}{210}}}
+  {Pragi's Molten Gaze}{{animating}{{1}{100}{2}{105}{3}{110}{4}{115}{5}{120}{6}{125}{7}{130}{8}{135}{9}{145}{10}{165}}{fire}{{1}{115}{2}{120}{3}{125}{4}{135}{5}{140}{6}{150}{7}{155}{8}{165}{9}{178}{10}{199}}{evoking}{{1}{90}{2}{95}{3}{100}{4}{105}{5}{110}{6}{115}{7}{125}{8}{135}{9}{145}{10}{165}}{channeling}{{1}{110}{2}{115}{3}{120}{4}{130}{5}{135}{6}{145}{7}{150}{8}{160}{9}{175}{10}{195}}}
+  {Professor Flambardie's Grim Amulet}{{amulet}{{1}{130}{2}{135}{3}{140}{4}{145}{5}{150}{6}{155}{7}{165}{8}{180}{9}{200}{10}{240}}{water}{{1}{200}{2}{210}{3}{220}{4}{225}{5}{230}{6}{240}{7}{250}{8}{265}{9}{280}{10}{305}}{wand}{{1}{195}{2}{205}{3}{215}{4}{220}{5}{225}{6}{235}{7}{245}{8}{260}{9}{275}{10}{300}}{summoning}{{1}{225}{2}{230}{3}{240}{4}{245}{5}{250}{6}{260}{7}{270}{8}{285}{9}{300}{10}{350}}{binding}{{1}{220}{2}{230}{3}{240}{4}{250}{5}{260}{6}{270}{7}{280}{8}{290}{9}{305}{10}{355}}}
+  {Ralstorphine's Refreshing Draught}{{water}{{1}{54}{2}{58}{3}{63}{4}{68}{5}{72}{6}{78}{7}{83}{8}{94}{9}{109}{10}{135}}{evoking}{{1}{80}{2}{84}{3}{89}{4}{93}{5}{97}{6}{104}{7}{109}{8}{121}{9}{134}{10}{155}}{summoning}{{1}{54}{2}{58}{3}{63}{4}{68}{5}{72}{6}{78}{7}{83}{8}{94}{9}{109}{10}{135}}}
+  {Reckless Encouragement of Arcane Peacock}{{air}{{1}{200}{2}{206}{3}{216}{4}{225}{5}{230}{6}{241}{7}{246}{8}{264}{9}{287}{10}{320}}{channeling}{{1}{225}{2}{235}{3}{243}{4}{250}{5}{257}{6}{267}{7}{273}{8}{290}{9}{310}{10}{340}}{divining}{{1}{275}{2}{284}{3}{293}{4}{302}{5}{307}{6}{316}{7}{325}{8}{340}{9}{360}{10}{390}}{binding}{{1}{250}{2}{260}{3}{268}{4}{273}{5}{282}{6}{293}{7}{299}{8}{316}{9}{339}{10}{360}}{enchanting}{{1}{270}{2}{281}{3}{290}{4}{300}{5}{305}{6}{313}{7}{320}{8}{336}{9}{350}{10}{380}}}
+  {Ridcully's Travelling Furniture Manufactory}{{chanting}{{1}{104}{2}{109}{3}{114}{4}{119}{5}{122}{6}{129}{7}{136}{8}{145}{9}{159}{10}{180}}{dancing}{{1}{104}{2}{109}{3}{114}{4}{119}{5}{122}{6}{129}{7}{136}{8}{145}{9}{159}{10}{180}}{conjuring}{{1}{104}{2}{109}{3}{114}{4}{119}{5}{122}{6}{129}{7}{136}{8}{145}{9}{159}{10}{180}}{banishing}{{1}{104}{2}{109}{3}{114}{4}{119}{5}{122}{6}{129}{7}{136}{8}{145}{9}{159}{10}{180}}{charming}{{1}{104}{2}{109}{3}{114}{4}{119}{5}{122}{6}{129}{7}{136}{8}{145}{9}{159}{10}{180}}}
+  {Rubayak's Power Dispenser}{{enchanting}{{1}{70}{2}{80}{3}{90}{4}{95}{5}{100}{6}{105}{7}{115}{8}{125}{9}{140}{10}{170}}{channeling}{{1}{70}{2}{80}{3}{90}{4}{95}{5}{100}{6}{105}{7}{115}{8}{125}{9}{140}{10}{170}}{binding}{{1}{70}{2}{80}{3}{90}{4}{95}{5}{100}{6}{105}{7}{115}{8}{125}{9}{140}{10}{170}}}
+  {Rubayak's Power Storage}{{binding}{{1}{64}{2}{74}{3}{83}{4}{89}{5}{95}{6}{108}{7}{115}{8}{130}{9}{152}{10}{189}}{channeling}{{1}{161}{2}{167}{3}{177}{4}{183}{5}{189}{6}{202}{7}{208}{8}{224}{9}{240}{10}{273}}{enchanting}{{1}{92}{2}{102}{3}{111}{4}{118}{5}{124}{6}{136}{7}{142}{8}{158}{9}{180}{10}{200}}{enchanting}{{1}{152}{2}{161}{3}{167}{4}{177}{5}{183}{6}{193}{7}{199}{8}{216}{9}{239}{10}{270}}}
+  {Rugged Victor's Rodentia Vivisection}{{charming}{{1}{59}{2}{64}{3}{71}{4}{77}{5}{83}{6}{89}{7}{95}{8}{100}{9}{112}{10}{125}}{dancing}{{1}{50}{2}{55}{3}{60}{4}{65}{5}{70}{6}{75}{7}{80}{8}{85}{9}{90}{10}{100}}}
+  {Sageroff's Sentry Summoning}{{fire}{{1}{111}{2}{122}{3}{131}{4}{136}{5}{142}{6}{153}{7}{159}{8}{175}{9}{201}{10}{237}}{charming}{{1}{114}{2}{125}{3}{134}{4}{139}{5}{142}{6}{156}{7}{162}{8}{178}{9}{204}{10}{240}}{summoning}{{1}{131}{2}{139}{3}{147}{4}{156}{5}{161}{6}{170}{7}{178}{8}{197}{9}{217}{10}{252}}{abjuring}{{1}{91}{2}{97}{3}{105}{4}{114}{5}{120}{6}{130}{7}{170}{8}{180}{9}{190}{10}{212}}{banishing}{{1}{144}{2}{153}{3}{164}{4}{170}{5}{175}{6}{187}{7}{192}{8}{209}{9}{234}{10}{268}}}
+  {Scolorid's Scintillating Scribbling}{{evoking}{{1}{80}{2}{90}{3}{100}{4}{110}{5}{120}{6}{130}{7}{140}{8}{150}{9}{160}{10}{170}}{binding}{{1}{85}{2}{95}{3}{105}{4}{115}{5}{125}{6}{135}{7}{145}{8}{155}{9}{165}{10}{175}}{convoking}{{1}{90}{2}{100}{3}{110}{4}{120}{5}{130}{6}{140}{7}{150}{8}{160}{9}{170}{10}{180}}{enchanting}{{1}{100}{2}{110}{3}{120}{4}{130}{5}{140}{6}{150}{7}{160}{8}{170}{9}{180}{10}{190}}}
+  {Skeetbraskin's Fuliginous Perdition}{{summoning}{{1}{119}{2}{125}{3}{134}{4}{139}{5}{146}{6}{155}{7}{164}{8}{182}{9}{203}{10}{236}}{abjuring}{{1}{203}{2}{208}{3}{218}{4}{224}{5}{233}{6}{242}{7}{248}{8}{266}{9}{287}{10}{320}}{banishing}{{1}{182}{2}{197}{3}{203}{4}{209}{5}{215}{6}{224}{7}{233}{8}{251}{9}{272}{10}{308}}{conjuring}{{1}{175}{2}{180}{3}{185}{4}{191}{5}{196}{6}{209}{7}{214}{8}{230}{9}{250}{10}{293}}}
+  {Sorklin's Field of Protection}{{evoking}{{1}{60}{2}{65}{3}{70}{4}{75}{5}{80}{6}{85}{7}{90}{8}{95}{9}{100}{10}{110}}{air}{{1}{50}{2}{55}{3}{60}{4}{65}{5}{70}{6}{75}{7}{80}{8}{85}{9}{90}{10}{100}}{channeling}{{1}{70}{2}{75}{3}{80}{4}{85}{5}{90}{6}{95}{7}{100}{8}{105}{9}{110}{10}{120}}}
+  {Sorsalsean's Seismic Eruption}{{earth}{{1}{176}{2}{183}{3}{192}{4}{198}{5}{204}{6}{215}{7}{221}{8}{233}{9}{256}{10}{285}}{evoking}{{1}{170}{2}{180}{3}{189}{4}{195}{5}{202}{6}{211}{7}{219}{8}{230}{9}{250}{10}{280}}{chanting}{{1}{176}{2}{183}{3}{192}{4}{198}{5}{204}{6}{215}{7}{221}{8}{233}{9}{256}{10}{285}}{channeling}{{1}{170}{2}{180}{3}{189}{4}{195}{5}{202}{6}{211}{7}{219}{8}{230}{9}{250}{10}{280}}{dancing}{{1}{150}{2}{159}{3}{160}{4}{176}{5}{181}{6}{192}{7}{198}{8}{215}{9}{235}{10}{250}}}
+  {Stacklady's Morphic Resonator}{{channeling}{{1}{280}{2}{290}{3}{303}{4}{308}{5}{316}{6}{326}{7}{331}{8}{345}{9}{365}{10}{390}}{evoking}{{1}{224}{2}{233}{3}{241}{4}{250}{5}{255}{6}{264}{7}{270}{8}{290}{9}{300}{10}{340}}{enchanting}{{1}{240}{2}{250}{3}{260}{4}{265}{5}{270}{6}{284}{7}{290}{8}{300}{9}{326}{10}{364}}}
+  {Thousand Dancing Celestial Fates}{{dancing}{{1}{120}{2}{130}{3}{140}{4}{145}{5}{150}{6}{155}{7}{160}{8}{165}{9}{170}{10}{180}}{turning}{{1}{120}{2}{130}{3}{140}{4}{145}{5}{150}{6}{155}{7}{160}{8}{165}{9}{170}{10}{180}}{whittling}{{1}{120}{2}{130}{3}{140}{4}{145}{5}{150}{6}{155}{7}{160}{8}{165}{9}{170}{10}{180}}{enchanting}{{1}{140}{2}{150}{3}{160}{4}{165}{5}{170}{6}{175}{7}{180}{8}{185}{9}{190}{10}{200}}{binding}{{1}{140}{2}{150}{3}{160}{4}{165}{5}{170}{6}{175}{7}{180}{8}{185}{9}{190}{10}{200}}}
+  {Torqvald's Illusion Generatrix}{{air}{{1}{188}{2}{196}{3}{206}{4}{212}{5}{217}{6}{227}{7}{236}{8}{252}{9}{271}{10}{300}}{binding}{{1}{196}{2}{206}{3}{212}{4}{220}{5}{225}{6}{236}{7}{241}{8}{260}{9}{280}{10}{312}}{conjuring}{{1}{190}{2}{197}{3}{206}{4}{215}{5}{220}{6}{230}{7}{236}{8}{254}{9}{274}{10}{307}}{charming}{{1}{170}{2}{179}{3}{187}{4}{196}{5}{201}{6}{211}{7}{217}{8}{236}{9}{257}{10}{290}}{channeling}{{1}{203}{2}{211}{3}{223}{4}{227}{5}{233}{6}{244}{7}{252}{8}{268}{9}{288}{10}{318}}{conjuring}{{1}{185}{2}{193}{3}{203}{4}{209}{5}{217}{6}{227}{7}{233}{8}{252}{9}{270}{10}{298}}{charming}{{1}{233}{2}{241}{3}{250}{4}{257}{5}{263}{6}{274}{7}{279}{8}{298}{9}{317}{10}{346}}}
+  {Torqvald's Many Colours}{{air}{{1}{50}{2}{60}{3}{70}{4}{75}{5}{80}{6}{85}{7}{90}{8}{100}{9}{110}{10}{120}}{channeling}{{1}{60}{2}{70}{3}{80}{4}{90}{5}{100}{6}{105}{7}{110}{8}{120}{9}{130}{10}{140}}{charming}{{1}{70}{2}{80}{3}{90}{4}{100}{5}{105}{6}{110}{7}{115}{8}{125}{9}{135}{10}{145}}}
+  {Transcendent Pneumatic Alleviator}{{evoking}{{1}{90}{2}{95}{3}{100}{4}{105}{5}{110}{6}{120}{7}{130}{8}{140}{9}{150}{10}{165}}{air}{{1}{105}{2}{110}{3}{120}{4}{125}{5}{130}{6}{140}{7}{145}{8}{150}{9}{160}{10}{175}}{chanting}{{1}{105}{2}{110}{3}{120}{4}{125}{5}{130}{6}{140}{7}{150}{8}{160}{9}{170}{10}{185}}{enchanting}{{1}{105}{2}{110}{3}{120}{4}{125}{5}{130}{6}{140}{7}{150}{8}{160}{9}{170}{10}{180}}{channeling}{{1}{140}{2}{145}{3}{150}{4}{155}{5}{160}{6}{170}{7}{180}{8}{185}{9}{200}{10}{210}}}
+  {Turnwhistle's Effulgent Autiridescence}{{divining}{{1}{138}{2}{143}{3}{150}{4}{155}{5}{160}{6}{165}{7}{175}{8}{185}{9}{195}{10}{210}}{convoking}{{1}{176}{2}{194}{3}{203}{4}{214}{5}{220}{6}{225}{7}{230}{8}{240}{9}{250}{10}{270}}{evoking}{{1}{200}{2}{210}{3}{215}{4}{220}{5}{225}{6}{235}{7}{245}{8}{255}{9}{265}{10}{280}}{binding}{{1}{200}{2}{210}{3}{215}{4}{220}{5}{225}{6}{235}{7}{245}{8}{255}{9}{265}{10}{280}}}
+  {Union of the Phoenix and Divine Dragon}{{channeling}{{1}{145}{2}{150}{3}{160}{4}{165}{5}{170}{6}{180}{7}{185}{8}{195}{9}{205}{10}{215}}{summoning}{{1}{150}{2}{160}{3}{170}{4}{175}{5}{180}{6}{185}{7}{195}{8}{205}{9}{215}{10}{235}}{charming}{{1}{180}{2}{185}{3}{195}{4}{200}{5}{205}{6}{215}{7}{225}{8}{235}{9}{245}{10}{255}}}
+  {Von Hasselhoff's Skin Condition}{{convoking}{{1}{160}{2}{166}{3}{175}{4}{183}{5}{190}{6}{199}{7}{205}{8}{225}{9}{240}{10}{270}}{healing}{{1}{144}{2}{150}{3}{159}{4}{166}{5}{172}{6}{185}{7}{190}{8}{208}{9}{230}{10}{260}}{charming}{{1}{125}{2}{134}{3}{141}{4}{148}{5}{155}{6}{167}{7}{172}{8}{187}{9}{200}{10}{245}}{binding}{{1}{160}{2}{166}{3}{175}{4}{183}{5}{190}{6}{199}{7}{205}{8}{225}{9}{240}{10}{270}}}
+  {Wee Flaudia's Fluffy Ear Muffs}{{chanting}{{1}{102}{2}{105}{3}{111}{4}{118}{5}{122}{6}{129}{7}{136}{8}{151}{9}{175}{10}{204}}{channeling}{{1}{112}{2}{115}{3}{121}{4}{128}{5}{132}{6}{139}{7}{146}{8}{161}{9}{185}{10}{214}}{air}{{1}{132}{2}{135}{3}{141}{4}{148}{5}{152}{6}{159}{7}{166}{8}{181}{9}{205}{10}{234}}}
+  {Wonker's Wicked Wobble}{{gold}{{1}{260}{2}{270}{3}{280}{4}{290}{5}{300}{6}{310}{7}{320}{8}{330}{9}{340}{10}{350}}{binding}{{1}{160}{2}{165}{3}{170}{4}{175}{5}{185}{6}{200}{7}{215}{8}{230}{9}{245}{10}{260}}{rod}{{1}{170}{2}{175}{3}{185}{4}{190}{5}{200}{6}{205}{7}{215}{8}{225}{9}{235}{10}{250}}{enchanting}{{1}{170}{2}{175}{3}{185}{4}{190}{5}{200}{6}{205}{7}{215}{8}{225}{9}{235}{10}{250}}}
+  {Worstler's Advanced Metallurgical Glance}{{animating}{{1}{9}{2}{17}{3}{24}{4}{33}{5}{38}{6}{50}{7}{56}{8}{74}{9}{95}{10}{133}}{divining}{{1}{50}{2}{58}{3}{66}{4}{73}{5}{79}{6}{90}{7}{98}{8}{115}{9}{135}{10}{169}}{scrying}{{1}{57}{2}{65}{3}{73}{4}{80}{5}{86}{6}{97}{7}{105}{8}{122}{9}{142}{10}{176}}}
+  {Worstler's Elementary Mineralogical Glance}{{earth}{{1}{30}{2}{35}{3}{40}{4}{45}{5}{50}{6}{55}{7}{60}{8}{70}{9}{80}{10}{90}}{evoking}{{1}{40}{2}{45}{3}{50}{4}{55}{5}{60}{6}{65}{7}{70}{8}{80}{9}{90}{10}{100}}{scrying}{{1}{70}{2}{80}{3}{90}{4}{95}{5}{100}{6}{105}{7}{110}{8}{115}{9}{125}{10}{135}}}
+  {Wungle's Body Part Suggestion}{{summoning}{{1}{40}{2}{49}{3}{52}{4}{65}{5}{71}{6}{83}{7}{89}{8}{106}{9}{130}{10}{170}}{healing}{{1}{32}{2}{40}{3}{50}{4}{55}{5}{61}{6}{74}{7}{80}{8}{98}{9}{119}{10}{158}}{animating}{{1}{122}{2}{129}{3}{136}{4}{144}{5}{150}{6}{162}{7}{169}{8}{186}{9}{200}{10}{230}}{binding}{{1}{71}{2}{80}{3}{89}{4}{96}{5}{101}{6}{113}{7}{119}{8}{136}{9}{158}{10}{190}}}
+  {Wungle's Great Sucking}{{summoning}{{1}{170}{2}{175}{3}{180}{4}{190}{5}{200}{6}{205}{7}{210}{8}{220}{9}{230}{10}{250}}{chanting}{{1}{170}{2}{175}{3}{180}{4}{190}{5}{200}{6}{205}{7}{210}{8}{220}{9}{230}{10}{250}}{healing}{{1}{170}{2}{180}{3}{190}{4}{200}{5}{205}{6}{210}{7}{220}{8}{230}{9}{240}{10}{260}}{cursing}{{1}{185}{2}{195}{3}{200}{4}{210}{5}{220}{6}{225}{7}{235}{8}{244}{9}{255}{10}{270}}}
+  {Wurphle's Midnight Snack}{{channeling}{{1}{102}{2}{110}{3}{121}{4}{127}{5}{133}{6}{144}{7}{150}{8}{169}{9}{189}{10}{221}}{evoking}{{1}{119}{2}{125}{3}{135}{4}{141}{5}{148}{6}{158}{7}{165}{8}{183}{9}{202}{10}{238}}{convoking}{{1}{119}{2}{127}{3}{135}{4}{144}{5}{150}{6}{160}{7}{167}{8}{183}{9}{204}{10}{238}}}
+  {Wurphle's Packed Lunch}{{animating}{{1}{256}{2}{259}{3}{263}{4}{268}{5}{274}{6}{280}{7}{286}{8}{303}{9}{315}{10}{355}}{enchanting}{{1}{304}{2}{310}{3}{313}{4}{319}{5}{324}{6}{331}{7}{334}{8}{347}{9}{359}{10}{388}}{whittling}{{1}{355}{2}{360}{3}{363}{4}{370}{5}{373}{6}{378}{7}{385}{8}{395}{9}{411}{10}{434}}{binding}{{1}{304}{2}{310}{3}{313}{4}{319}{5}{324}{6}{331}{7}{336}{8}{347}{9}{359}{10}{388}}}
+  {Yordon's Extremal Extension}{{channeling}{{1}{71}{2}{78}{3}{88}{4}{95}{5}{103}{6}{111}{7}{118}{8}{135}{9}{157}{10}{195}}{convoking}{{1}{76}{2}{85}{3}{93}{4}{100}{5}{106}{6}{116}{7}{123}{8}{140}{9}{162}{10}{199}}{evoking}{{1}{79}{2}{88}{3}{95}{4}{102}{5}{109}{6}{118}{7}{125}{8}{142}{9}{165}{10}{202}}{binding}{{1}{95}{2}{102}{3}{111}{4}{118}{5}{123}{6}{135}{7}{140}{8}{159}{9}{181}{10}{215}}{animating}{{1}{111}{2}{118}{3}{128}{4}{135}{5}{140}{6}{152}{7}{157}{8}{175}{9}{197}{10}{230}}}
+};
+
+#nop --- sAcronymToSpell: acronym -> full spell name. Built on load from spell_data[][short] + secondaries (excl. rtfm1, quow, fetch1). --- ;
+#var {acronym_to_spell} {};
+#foreach {*spell_data[%*]} {_sp} {
+  #var {_sh} {$spell_data[$_sp][short]};
+  #var {acronym_to_spell[$_sh]} {$_sp};
+};
+#var {acronym_to_spell[boa1]} {Brassica Oleracea Ambulata};
+#var {acronym_to_spell[dog1]} {Delusions of Grandeur};
+#var {acronym_to_spell[kid1]} {Kelleflump's Irritating Demon};
+#var {acronym_to_spell[reap1]} {Reckless Encouragement of Arcane Peacock};
+#var {acronym_to_spell[tea1]} {Turnwhistle's Effulgent Autiridescence};
+#var {acronym_to_spell[fae1]} {Fiddelmaker's Auriferous Embrace};
 
 #class {spelldata} {close};
