@@ -1,0 +1,7 @@
+#CLASS {dbsync} OPEN
+
+#VARIABLE {bookmark_sync}
+{
+}
+
+#CLASS {dbsync} CLOSE

@@ -1,50 +1,131 @@
 #CLASS {combat} {kill};
 #CLASS {combat} {open};
 
-#VARIABLE {my_attacks_color} {orange};
-#VARIABLE {enemy_attack_color} {red};
+#nop == Colors ==;
+#VARIABLE {color_special_prep} {<afb>};
+#VARIABLE {color_special_fail} {<eaa>};
 
-#NOP ==[My Specials]==
-#HIGHLIGHT {^You attempt to prepare %1} {bold red};
-#HIGHLIGHT {^You prepare to {stab|slice|trip|shove|impale|kick|punch} %2} {bold green};
-#HIGHLIGHT {^You attempt to launch a powerful attack. %1} {bold red};
-#HIGHLIGHT {^You launch a powerful attack. %1} {bold green};
-#HIGHLIGHT {^You launch a powerful attack, landing a %1} {bold green};
-#HIGHLIGHT {^You try to {trip|shove} %1} {bold red};
-#HIGHLIGHT {^You shove %1} {bold green};
-#HIGHLIGHT {^You trip %1} {bold green};
-#HIGHLIGHT {^You lose the moment.} {bold red};
+#VARIABLE {color_melee_out_fail} {<fec>};
+#VARIABLE {color_melee_out_success} {<cda>};
+#VARIABLE {color_special_out_fail} {<eaa>};
+#VARIABLE {color_special_out_success} {<bfa>};
 
+#VARIABLE {color_melee_inc_fail} {<bcb>};
+#VARIABLE {color_melee_inc_success} {<baa>};
+#VARIABLE {color_special_inc_fail} {<fca>};
+#VARIABLE {color_special_inc_success} {<faa>};
 
-#NOP ==[Backstabs]==
-#HIGHLIGHT {^You {skilfully |silently |}sneak around %1 without being spotted and manage to %2.$} {bold green};
-#HIGHLIGHT {^You hold your cover as you {skillfully |silently |}sneak around %1 and manage to catch %w by surprise.$} {bold green};
-#HIGHLIGHT {^You %1 with %2 but despite the surprise %3.$} {bold red} {2};
-#HIGHLIGHT {^Moving {swiftly|quickly|too fast to see}, you %1 {with|right through} %2.$} {bold green};
-#HIGHLIGHT {^Catching %w {by surprise|off balance}, you %1 {with|right through} %2.$} {bold green};
-#HIGHLIGHT {^With {a blur of speed|surprising speed}, you %1 {with|right through} %2.$} {bold green};
-#HIGHLIGHT {^Quick as lightning, you %1 {with|right through} %2.$} {bold green};
-#HIGHLIGHT {Striking like a cobra, you %1 {with|right through} %2.$} {bold green};
+#VARIABLE {color_melee_third_fail} {<bbc>};
+#VARIABLE {color_melee_third_success} {<bbb>};
+#VARIABLE {color_special_third_fail} {<bbd>};
+#VARIABLE {color_special_third_success} {<cbb>};
 
 
-#NOP ==[Me Attacking Them]==
-#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{thrust|snick|fillet|poke|chop up|chop|jab|scratch|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|take} {a sliver off |into |}%1{'?s?} %2 {on|with} %3} {$my_attacks_color};
-#HIGHLIGHT {^You {viciously |messily |barely |neatly |}stab %1 {deeply |}in %2 with %3} {$my_attacks_color};
-#HIGHLIGHT {^You stab %1 right through %2's %3} {$my_attacks_color};
-#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{poke|kick|punch|jab|boot|tickle|kick out} %1 in %2} {$my_attacks_color};
-#HIGHLIGHT {^You {punch|kick out} at %1 but {his|her} %2 absorbs {some|most} of the blow\.$} {$my_attacks_color};
+#nop Hash marks are 110 and 148 characters, typical widths for me
+#HIGHLIGHT {^12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890#234567890123456789012345678901234567#90};
+
+#nop ==[My Specials]==
+#nop special prep;
+#HIGHLIGHT {^You prepare to {bash|beat|chop|feint|hack|kick|pierce|punch|riposte|shove|slash|smash|stab|trip|crush|behead|impale|flick|launch a wildswing attack} %1} {$color_special_prep};
+#nop special fail;
+#HIGHLIGHT {^You attempt to prepare a special attack but {(?:\w+\b\W*?){1,8}} feels too unwieldy and you lose the initiative.$} {$color_special_fail};
+#nop special out fail;
+#HIGHLIGHT {^You attempt to launch a powerful attack. %1} {$color_special_out_fail};
+#HIGHLIGHT {^You attempt to {shove|trip} %2, but cannot find an opportunity} {$color_special_out_fail};
+#HIGHLIGHT {^You try to {trip |shove }{(?:\w+\b\W*?){1,8}} but fail %3} {$color_special_out_fail};
+#HIGHLIGHT {^You lose the moment\.$} {$color_special_out_fail};
+#HIGHLIGHT {^You move as though about to launch a powerful attack on {(?:\w+\b\W*?){1,8}}\.  {?>He|She|It} sees through your feint and doesn't react\.$} {$color_special_out_fail};
+#nop special out success;
+#HIGHLIGHT {^You launch a powerful attack{.|,} %1} {$color_special_out_success};
+#HIGHLIGHT {^You {shove|trip} {(?!the corpse of).+}} {$color_special_out_success};
+#HIGHLIGHT {^You move as though about to launch a powerful attack on %1\.  {She|He|It} falls for your feint, leaving %3} {$color_special_out_success};
 
 
-#NOP == [Them Attacking Me]==
-#HIGHLIGHT {%1 but your %2 absorbs {some|most} of the blow.$} {$enemy_attack_color};
-#HIGHLIGHT {%1 runs you through the %2 with %3.$} {$enemy_attack_color};
-#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s %w %3 into your %4.$} {$enemy_attack_color};
-#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s your %2 {into pieces |}{with|on} %w %4.$} {$enemy_attack_color};
-#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s into your %2 with %w %3.$} {$enemy_attack_color};
-#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s you {deeply |}in the %2.$} {$enemy_attack_color};
-#HIGHLIGHT {%1 {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s you {deeply |}in the %2 with %3.$} {$enemy_attack_color};
-#HIGHLIGHT {%1 pierces your %2 with %3.$} {$enemy_attack_color};
-#HIGHLIGHT {%1 hitting your %2.$} {$enemy_attack_color};
+#nop ==[Backstabs]==
+#HIGHLIGHT {^You %1 with %2 but despite the surprise %3.$} {$color_special_out_fail} {2};
+#HIGHLIGHT {^You {skilfully |silently |}sneak around %1 without being spotted and manage to %2.$} {$color_special_out_success};
+#HIGHLIGHT {^You hold your cover as you {skillfully |silently |}sneak around %1 and manage to catch %w by surprise.$} {$color_special_out_success};
+#HIGHLIGHT {^Moving {swiftly|quickly|too fast to see}, you %1 {with|right through} %2.$} {$color_special_out_success};
+#HIGHLIGHT {^Catching %w {by surprise|off balance}, you %1 {with|right through} %2.$} {$color_special_out_success};
+#HIGHLIGHT {^With {a blur of speed|surprising speed}, you %1 {with|right through} %2.$} {$color_special_out_success};
+#HIGHLIGHT {^Quick as lightning, you %1 {with|right through} %2.$} {$color_special_out_success};
+#HIGHLIGHT {Striking like a cobra, you %1 {with|right through} %2.$} {$color_special_out_success};
+
+
+#nop ==[Me Attacking Them]==
+#HIGHLIGHT {^You {thrust|slash|swing} at %1 with {one of }your %2 but{,?} %3} {$color_melee_out_fail};
+#HIGHLIGHT {^You {tap |bruise |smash |viciously |messily |barely |neatly |}{snick|fillet|poke|chop up|chop|jab|scratch|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|take} {a sliver off |into |}%1{'?s?} %2 {on|with} %3} {$color_melee_out_success};
+#HIGHLIGHT {^You slice your %1 {deeply |}into %2's %3.$};
+#HIGHLIGHT {^You {viciously |messily |barely |neatly |}stab %1 {deeply |}in %2 with %3} {$color_melee_out_success};
+#HIGHLIGHT {^You beat %1 to a pulp\.$} {$color_melee_out_success};
+#HIGHLIGHT {^You stab %1 right through %2's %3} {$color_melee_out_success};
+#HIGHLIGHT {^You {viciously |messily |barely |neatly |}{poke|kick|punch|jab|boot|tickle|kick out} %1 in %2} {$color_melee_out_success};
+#HIGHLIGHT {^You {punch|kick out} at %1 but {his|her} %2 absorbs {some|most} of the blow\.$} {$color_melee_out_success};
+
+
+#nop ==[Their Specials At Me]==
+#nop specials incoming failures;
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} reaches for you and stumbles.$} {$color_special_inc_fail};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} {trips|shoves} you, causing you to stumble slightly before regaining your balance.$} {$color_special_inc_fail};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} moves as though about to launch a powerful attack but you realise it is a feint and do not react\.$} {$color_special_inc_fail};
+#HIGHLIGHT {^You suddenly {?>sense a presence|hear a noise} behind you and turn around to {?>see|find} {(?:\w+\b\W*?){1,8}} preparing to backstab you\. %4} {$color_special_inc_fail};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} attempts to launch a powerful attack.  %2 at you {(with (his|her|its) .+)?}but %3} {$color_special_inc_fail};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} attempts to launch a powerful attack,  landing %2 but {you|your} %3} {$color_special_inc_fail};
+#HIGHLIGHT {^{(?!You )(?:\w+\b\W*?){1,8}} launches a powerful attack{\. |,} {.*} you {.*} but you{r?} {(?!\w+ skin).+}} {$color_special_inc_fail};
+#nop specials incoming success;
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} moves as though about to launch a powerful attack and you prepare to defend yourself\.  Too{.*}} {$color_special_inc_success};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} attacks you from behind\.  You recall {?>him|her|it} standing right in front of you just a second ago\.$} {$color_special_inc_success};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} launches a powerful attack{\. |,} {(?!.*but).*} you{r?} {(?!.*but).*}} {$color_special_inc_success};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} launches a powerful attack{\. |,} {.*} you {.*} but your {.*} skin{.*}} {$color_special_inc_success};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} {trips|shoves} you, {causing you to stumble|sending you crashing to the ground}.$} {$color_special_inc_success};
+
+
+#nop ==[Them Attacking Me]==
+#nop melee incoming fail
+#HIGHLIGHT {^{?:(?!(You|.* powerful) )(.*)} {at|to gore|on|bite} you {(with (one of )?(?:his|her|its) .* )?}but{( despite the surprise)?, although unable to defend, | }you{r?} {((?!.* skin ).*)}} {$color_melee_inc_fail};
+#nop melee incoming success
+#HIGHLIGHT {^{(?!(You|.* powerful) )(\w+\b\W*?){1,8}} {visciously |messily |barely |neatly |}{crushe|strike|batter|smashe|bruise|ventilate|poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|punche|spike}s you {(deeply )?}in the {.*} with {(one of )?}{his|her|its} {.*} but your {.*} skin{.*}} {$color_melee_inc_success};
+#HIGHLIGHT {^{(?!(You|.* powerful) )(\w+\b\W*?){1,8}} {visciously |messily |barely |neatly |}{crushe|strike|batter|smashe|bruise|ventilate|poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|punche|spike}s you {deeply |}in the {.*} with {(one of )?}{his|her|its} {(?!.* but).*}} {$color_melee_inc_success};
+
+#nop #HIGHLIGHT {{?:(?!powerful )(?:\w\+\b\W*?){1,8}} {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s %w %3 into your %4.$} {$color_melee_inc_success};
+#nop #HIGHLIGHT {{?:(?!powerful )(?:\w\+\b\W*?){1,8}} {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s your %2 {into pieces |}{with|on} %w %4.$} {$color_melee_inc_success};
+#nop #HIGHLIGHT {{?:(?!powerful )(?:\w\+\b\W*?){1,8}} {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s into your %2 with %w %3.$} {$color_melee_inc_success};
+#nop #HIGHLIGHT {{?:(?!powerful )(?:\w\+\b\W*?){1,8}} {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s you {deeply |}in the %2.$} {$color_melee_inc_success};
+#nop #HIGHLIGHT {{?:(?!powerful )(?:\w\+\b\W*?){1,8}} {viciously |messily |barely |neatly |}{poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer}s you {deeply |}in the %2 with %3.$} {$color_melee_inc_success};
+#HIGHLIGHT {%1 runs you through the %2 with %3.$} {$color_melee_inc_success};
+
+
+#nop ==[Specials Not Directed At Me]==
+#nop specials third fail
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} moves towards {?:(?!you )(?:\w+\b\W*?){1,8}} as though about to launch a powerful attack\.  {?:(?!You )(?:\w+\b\W*?){1,8}} does not react, %4} {$color_special_third_fail};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} reaches for {?:(?!you )(?:\w+\b\W*?){1,8}} and stumbles\.$} {$color_special_third_fail};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} attempts to launch a powerful attack.  %2 at {?:(?!you )(.*)}} {$color_special_third_fail};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} launches a powerful attack{\. |,} {?:(?!.*(Y|y)ou )(.*)} but {his|her|its|he|she|it} {(?!.*skin).*}} {$color_special_third_fail};
+#nop specials third success
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} launches a powerful attack{\. |,} {(?!.*((Y|y)ou|but) )(.*)}} {$color_special_third_success};
+#HIGHLIGHT {^{?:(?!You )(?:\w+\b\W*?){1,8}} launches a powerful attack{\. |,} {?:(?!.*(Y|y)ou )(.*)} but {his|her|its|he|she|it} {.*} skin{.*}} {$color_special_third_success};
+
+
+#nop ==[Attacks Not Directed At Me]==
+#nop melee third fail
+#HIGHLIGHT {^{?:(?!(You |.+powerful))(?:\w+\b\W*?){1,8}}{(?!.+powerful)(.+)} {crushe|strike|batter|smashe|bruise|ventilate|poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|punche|spike|swing}s {((his|her|its).+)?}at {?:(?!(You |.+powerful))(?:\w+\b\W*?){1,8}} but {(?!.+ skin)}{.*}} {$color_melee_third_fail};
+#HIGHLIGHT {^{?:(?!(You |.+powerful))(?:\w+\b\W*?){1,8}}{(?!.+powerful)(.+)} {thrust|swing|slashe}s {(his|her|its).*}?at {?:(?!You )(.*)} but{,?} {(?!.+ skin)}{.+}} {$color_melee_third_fail};
+#nop melee third success
+#HIGHLIGHT {^{(?!.+powerful).+} {crushe|strike|batter|smashe|bruise|ventilate|poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|punche|spike}s {his|her|its} %4 {across|into} %6} {$color_melee_third_success};
+#HIGHLIGHT {^{(?!.+powerful).+} {crushe|strike|batter|smashe|bruise|ventilate|poke|chop|jab|scratche|boot|kick|hit|tickle|hack|prick|shred|nick|cut|stab|perforate|pierce|impale|slice|skewer|punche|spike}s %3 {with|on} %5} {$color_melee_third_success};
+#HIGHLIGHT {{?:(?!You )(?:\w+\b\W*?){1,8}} runs %2 through %3 with {his|her|its} %4} {$color_melee_third_success};
+#HIGHLIGHT {{?:(?!You )(?:\w+\b\W*?){1,8}} takes a sliver off %2 with {his|her|its} %3} {$color_melee_third_success};
+
+#nop ===== DOCUMENTING ISSUES TO FIX LATER =====;
+#nop A burnt torch is hanging from a stall and a pair of plain leather boots is on the ground.;
+#nop A green wool shirt, a pair of hard leather boots and a pair of heavy cotton breeches are on the ground.;
+#nop A pair of heavy socks, a pair of hard leather boots and a pair of heavy cotton breeches are on the ground.;
+#nop A pair of plain leather boots is on the ground.;
+#nop A street lamp is here and a pair of light grey kidskin ladies' boots is on the ground.;
+#nop The Grand Wizard clock strikes the half-hour with a deep, rolling chime that sounds like a death knell.;
+#nop ===========================================;
+#nop == BELOW IS UNHIGHLIGHTED BUT SHOULD BE ==;
+#nop You attempt to punch Arlof Eetmmot but you move too slowly and lose the initiative.;
 
 
 #CLASS {combat} {close};

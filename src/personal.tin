@@ -1,0 +1,8 @@
+#class {personal} {kill};
+#class {personal} {open};
+
+#alias {/personal.gmcp.writtenmap %1} {
+    #nop empty shell;
+};
+
+#class {personal} {close};

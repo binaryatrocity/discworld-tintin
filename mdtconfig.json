@@ -52,9 +52,11 @@
 
         ["Ramtops Highlights"],
         ["headless horse rider", "red", 8, false],
+        ["wandering trollish locksmith", "red", 5, false],
 
         ["Ankh-Morpork Highlights"],
         ["barbarian", "red", 5, false],
+        ["watchman", "red", 5, false],
 
         ["Genua Highlights"],
         ["Tfat Chick", "red", 10, false],

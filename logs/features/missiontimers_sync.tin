@@ -1,0 +1,27 @@
+#CLASS {mtsync} OPEN
+
+#VARIABLE {missions_sync}
+{
+    {jobmarket} 
+    {
+        {board_codes} {}
+        {current_code} {0}
+        {current_name} {0}
+    }
+    {letter} 
+    {
+        {last_difficulty} {0}
+    }
+    {sailing} 
+    {
+        {active} {0}
+        {experience} {0}
+    }
+    {sausage} 
+    {
+        {current_difficulty} {1}
+        {current_primer} {1}
+    }
+}
+
+#CLASS {mtsync} CLOSE

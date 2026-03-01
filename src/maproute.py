@@ -73,9 +73,9 @@ class MapRoute:
         while bDone == False:
             # Loop through all the rooms we have yet to do
             iPreviousTotal = iTotalRooms
-            for iN in xrange(iNextRoom - 1, iPreviousTotal):
+            for iN in range(iNextRoom - 1, iPreviousTotal):
                 # Loop through all exits from this room
-                for sKey, sExitData in self.exits_by_id[sDoRoom[iN]].iteritems():
+                for sKey, sExitData in self.exits_by_id[sDoRoom[iN]].items():
                     # Make sure we aren't looping back around on ourselves, and that we haven't already finished
                     if sKey != start_id and bEverDone.get(sKey) == None and iFinalRoom == 0:
                         iTotalRooms = iTotalRooms + 1
@@ -131,7 +131,7 @@ class MapRoute:
                 if iCurRoom == 1:
                     bDone = True
             sRealPath = ""
-            for iN in xrange(len(sPath), 0, -1):
+            for iN in range(len(sPath), 0, -1):
                 if sRealPath != "":
                     sRealPath = "{};".format(sRealPath)
                 sRealPath = "{}{}".format(sRealPath, sPath[iN-1])

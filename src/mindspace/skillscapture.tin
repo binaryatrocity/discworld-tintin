@@ -1,0 +1,248 @@
+#class {mindspace_skills} {kill};
+#class {mindspace_skills} {open};
+
+#nop ============================================================================= ;
+#nop skillscapture.tin - Per-skill actions to capture bonuses (Phase 2 Step 1). ;
+#nop Two actions per skill: table (branched) and raw path. Read after spelldata so skill_tree exists. ;
+#nop ============================================================================= ;
+
+#nop --- Comma-separated paths to request in one "skills" command (all skill_tree paths). --- ;
+#var {mindspace_skills_paths} {ma.me.el.air,ma.me.el.earth,ma.me.el.fire,ma.me.el.water,ma.me.me.animating,ma.me.me.channeling,ma.me.me.charming,ma.me.me.convoking,ma.me.me.cursing,ma.me.ph.binding,ma.me.ph.brewing,ma.me.ph.chanting,ma.me.ph.dancing,ma.me.ph.enchanting,ma.me.ph.evoking,ma.me.ph.healing,ma.me.ph.scrying,ma.me.sp.abjuring,ma.me.sp.banishing,ma.me.sp.conjuring,ma.me.sp.divining,ma.me.sp.summoning,ma.it.he.wand,ma.it.he.rod,ma.it.he.staff,ma.it.wo.amulet,ma.it.wo.ring,ma.it.talisman,cr.sm.gold,cr.sm.silver,cr.ca.turning,cr.ca.whittling,cr.hus.pl.herbal,cr.pot.fo.shaping,cr.ma.weaving};
+
+#nop --- Number of skills we expect (for "all received" check). --- ;
+#var {mindspace_skills_needed} {35};
+
+#nop --- Shared handler: store bonus for current char, increment done, finish when all received. --- ;
+#alias {/mindspace_skill_captured} {
+  #var {mindspace_skill_old} {$mindspace_data[$GMCP[charinfo][capname]][skills][%1]};
+  #var {mindspace_data[$GMCP[charinfo][capname]][skills][%1]} {%2};
+  #if {"$mindspace_skill_old" == ""} {
+    #math {mindspace_skills_done} {$mindspace_skills_done + 1};
+  };
+  #if {$mindspace_skills_done >= $mindspace_skills_needed} {
+    /mindspace_skills_finish;
+  };
+};
+
+#nop --- Called when all skills captured: clear flag, persist, notify. --- ;
+#alias {/mindspace_skills_finish} {
+  #var {mindspace_waiting_skills} {0};
+  /writemindspacetofile;
+  #delay {1} {#showme {<aee>Skills and mindspace recorded. Check <fff>$mindspace_data[$GMCP[charinfo][capname]][skills]<aee> for bonuses.<099>}};
+};
+
+#nop --- Two actions per skill: table (branched | | name.... level bonus) and raw (path level bonus). --- ;
+#nop Table depth: | | | = 3, | | = 2, | | | | = 4. %1=level %2=bonus in both. --- ;
+
+#action {^| | | air{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured air $mindspace_tmp_bonus };
+};
+#action {^ma.me.el.air%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured air $mindspace_tmp_bonus };
+};
+#action {^| | | earth{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured earth $mindspace_tmp_bonus };
+};
+#action {^ma.me.el.earth%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured earth $mindspace_tmp_bonus };
+};
+#action {^| | | fire{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured fire $mindspace_tmp_bonus };
+};
+#action {^ma.me.el.fire%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured fire $mindspace_tmp_bonus };
+};
+#action {^| | | water{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured water $mindspace_tmp_bonus };
+};
+#action {^ma.me.el.water%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured water $mindspace_tmp_bonus };
+};
+#action {^| | | animating{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured animating $mindspace_tmp_bonus };
+};
+#action {^ma.me.me.animating%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured animating $mindspace_tmp_bonus };
+};
+#action {^| | | channeling{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured channeling $mindspace_tmp_bonus };
+};
+#action {^ma.me.me.channeling%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured channeling $mindspace_tmp_bonus };
+};
+#action {^| | | charming{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured charming $mindspace_tmp_bonus };
+};
+#action {^ma.me.me.charming%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured charming $mindspace_tmp_bonus };
+};
+#action {^| | | convoking{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured convoking $mindspace_tmp_bonus };
+};
+#action {^ma.me.me.convoking%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured convoking $mindspace_tmp_bonus };
+};
+#action {^| | | cursing{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured cursing $mindspace_tmp_bonus };
+};
+#action {^ma.me.me.cursing%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured cursing $mindspace_tmp_bonus };
+};
+#action {^| | | binding{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured binding $mindspace_tmp_bonus };
+};
+#action {^ma.me.ph.binding%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured binding $mindspace_tmp_bonus };
+};
+#action {^| | | brewing{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured brewing $mindspace_tmp_bonus };
+};
+#action {^ma.me.ph.brewing%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured brewing $mindspace_tmp_bonus };
+};
+#action {^| | | chanting{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured chanting $mindspace_tmp_bonus };
+};
+#action {^ma.me.ph.chanting%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured chanting $mindspace_tmp_bonus };
+};
+#action {^| | | dancing{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured dancing $mindspace_tmp_bonus };
+};
+#action {^ma.me.ph.dancing%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured dancing $mindspace_tmp_bonus };
+};
+#action {^| | | enchanting{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured enchanting $mindspace_tmp_bonus };
+};
+#action {^ma.me.ph.enchanting%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured enchanting $mindspace_tmp_bonus };
+};
+#action {^| | | evoking{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured evoking $mindspace_tmp_bonus };
+};
+#action {^ma.me.ph.evoking%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured evoking $mindspace_tmp_bonus };
+};
+#action {^| | | healing{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured healing $mindspace_tmp_bonus };
+};
+#action {^ma.me.ph.healing%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured healing $mindspace_tmp_bonus };
+};
+#action {^| | | scrying{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured scrying $mindspace_tmp_bonus };
+};
+#action {^ma.me.ph.scrying%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured scrying $mindspace_tmp_bonus };
+};
+#action {^| | | abjuring{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured abjuring $mindspace_tmp_bonus };
+};
+#action {^ma.me.sp.abjuring%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured abjuring $mindspace_tmp_bonus };
+};
+#action {^| | | banishing{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured banishing $mindspace_tmp_bonus };
+};
+#action {^ma.me.sp.banishing%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured banishing $mindspace_tmp_bonus };
+};
+#action {^| | | conjuring{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured conjuring $mindspace_tmp_bonus };
+};
+#action {^ma.me.sp.conjuring%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured conjuring $mindspace_tmp_bonus };
+};
+#action {^| | | divining{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured divining $mindspace_tmp_bonus };
+};
+#action {^ma.me.sp.divining%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured divining $mindspace_tmp_bonus };
+};
+#action {^| | | summoning{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured summoning $mindspace_tmp_bonus };
+};
+#action {^ma.me.sp.summoning%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured summoning $mindspace_tmp_bonus };
+};
+#action {^| | | wand{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured wand $mindspace_tmp_bonus };
+};
+#action {^ma.it.he.wand%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured wand $mindspace_tmp_bonus };
+};
+#action {^| | | rod{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured rod $mindspace_tmp_bonus };
+};
+#action {^ma.it.he.rod%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured rod $mindspace_tmp_bonus };
+};
+#action {^| | | staff{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured staff $mindspace_tmp_bonus };
+};
+#action {^ma.it.he.staff%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured staff $mindspace_tmp_bonus };
+};
+#action {^| | | amulet{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured amulet $mindspace_tmp_bonus };
+};
+#action {^ma.it.wo.amulet%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured amulet $mindspace_tmp_bonus };
+};
+#action {^| | | ring{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured ring $mindspace_tmp_bonus };
+};
+#action {^ma.it.wo.ring%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured ring $mindspace_tmp_bonus };
+};
+#action {^| | talisman{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured talisman $mindspace_tmp_bonus };
+};
+#action {^ma.it.talisman%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured talisman $mindspace_tmp_bonus };
+};
+#action {^| | | gold{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured gold $mindspace_tmp_bonus };
+};
+#action {^cr.sm.gold%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured gold $mindspace_tmp_bonus };
+};
+#action {^| | | silver{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured silver $mindspace_tmp_bonus };
+};
+#action {^cr.sm.silver%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured silver $mindspace_tmp_bonus };
+};
+#action {^| | | turning{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured turning $mindspace_tmp_bonus };
+};
+#action {^cr.ca.turning%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured turning $mindspace_tmp_bonus };
+};
+#action {^| | | whittling{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured whittling $mindspace_tmp_bonus };
+};
+#action {^cr.ca.whittling%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured whittling $mindspace_tmp_bonus };
+};
+#action {^| | | | herbal{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured herbal $mindspace_tmp_bonus };
+};
+#action {^cr.hus.pl.herbal%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured herbal $mindspace_tmp_bonus };
+};
+#action {^| | | | shaping{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured shaping $mindspace_tmp_bonus };
+};
+#action {^cr.pot.fo.shaping%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured shaping $mindspace_tmp_bonus };
+};
+#action {^| | | weaving{.+}  %+1..4d  %+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured weaving $mindspace_tmp_bonus };
+};
+#action {^cr.ma.weaving%s%+1..4d%s%+1..4d$} {
+  #if {"$mindspace_waiting_skills" == "1"} { #var {mindspace_tmp_bonus} {%2}; /mindspace_skill_captured weaving $mindspace_tmp_bonus };
+};
+
+#class {mindspace_skills} {close};

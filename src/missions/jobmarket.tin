@@ -1,0 +1,151 @@
+#CLASS {missiontimers_jobmarket} {kill};
+#CLASS {missiontimers_jobmarket} {open};
+
+#VARIABLE {missions[jobmarket]} {
+    {board_codes}{}
+    {current_code}{0}
+    {current_name}{0}
+};
+
+#NOP Trigger to capture what "code" belongs to what job when reading the board;
+#ACTION {^{[A-Z]{2}}) {Thirst Quencher|Gofer|Dog Walker|Advertising Manager|Street Fixer|Sett Maker|Delivery Lackey|Delivery Runner|Full-time Street Repairer|Textiles Fixer|Expert Street Maintenance Technician|Deliverer of Rare Items|Deliverer of Foreign Goods}$} {
+    #VARIABLE {missions[jobmarket][board_codes][%1]} {%2};
+};
+
+
+#NOP Alias to capture when we apply for a job at Mr Werks;
+#ALIAS {^apply for{ job|} {[A-z]{2}}$} {
+    #FORMAT {jobcode} {%u} {%2};
+    #SEND {apply for job $jobcode};
+    
+    #NOP Reference code in last known board_codes table to get a job name;
+    #VARIABLE {missions[jobmarket][current_code]} {$jobcode};
+    #VARIABLE {jobname} {$missions[jobmarket][board_codes][$jobcode]};
+    #VARIABLE {missions[jobmarket][current_name]} {$jobname};
+};
+
+#NOP Alias to capture when we resign from a job;
+#ALIAS {^resign from job} {
+    #SEND {resign from job};
+    #LOCAL {current_name} {$missions[jobmarket][current_name]};
+    #IF {"$current_name" != "0"} {
+        #UNVARIABLE {missions[jobmarket][active_list][$GMCP[charinfo][capname]][$current_name]};
+        #FORMAT {missions[jobmarket][retry_list][$GMCP[charinfo][capname]]} {%T};
+
+        #line sub variable {
+            #delay {600} {
+                #format {jobmarket_timer_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s <acf>can now apply for another Job Market mission.<099>} {$GMCP[charinfo][capname]};
+                #echo {$jobmarket_timer_line};
+                #unvar {$jobmarket_timer_line};
+            };
+        };
+    #unvar {delayname};
+    };
+};
+
+#NOP Trigger to capture the job being accepted so we get an accurate start-time stamp;
+#ACTION {Mr Werks hands you an official employment writ.} {
+    #NOP Set a timestamp for when we began this job;
+    #VARIABLE {missions[jobmarket][current_name]} {$jobname};
+    #IF {"$missions[jobmarket][current_name]" != "0"} {
+        #FORMAT {missions[jobmarket][active_list][$GMCP[charinfo][capname]][$missions[jobmarket][current_name]]} {%T};
+    };
+};
+
+#NOP Trigger to capture time on the job expiring;
+#ACTION {^The time has expired on your present job.  You do not need to finish the rest of your deliveries, Mr Werks will find someone else to do this.$} {
+    #format {current_time} {%T};
+    #format {current_player} {%s} {$GMCP[charinfo][capname]};
+    #format {current_job} {%s} {$missions[jobmarket][current_name]};
+    #variable {missions[jobmarket][active_list][$current_player][$current_job]} {$current_time};
+
+
+    #nop == configure a message display when the timer is up ==;
+    #math {mins} {$current_time - $missions[jobmarket][active_list][$current_player][$current_job]};
+    #math {mins} {($mins - (60 - 1)) / 60};
+
+    #math {time_left} {60 - $mins};
+    #line sub variable {
+        #delay {$time_left} {
+            #format {jobmarket_timer_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s <acf>can now do another Job Market "%c%s%c" mission.<099>} {$GMCP[charinfo][capname]} {Jade} {$missions[jobmarket][current_name]} {<acf>};
+            #echo {$jobmarket_timer_line};
+            #unvar {$jobmarket_timer_line};
+
+            #unvar {missions[jobmarket][active_list][$current_player][$current_job]};
+        };
+    };
+    #unvar {delayname};
+};
+
+#NOP Trigger to capture reward from completing a job;
+#ACTION {^You have been awarded {[0-9]{1,7}} experience points {for|for partially} completing this job%3} {
+    #nop Mission completed, so store current mission for current player in active_list;
+    #format {current_time} {%T};
+    #format {current_player} {%s} {$GMCP[charinfo][capname]};
+    #format {current_job} {%s} {$missions[jobmarket][current_name]};
+    #variable {missions[jobmarket][active_list][$current_player][$current_job]} {$current_time};
+
+
+    #nop == configure a message display when the timer is up ==;
+    #line sub variable {
+        #format {delayname} {jobmarket_%s_%s} {$current_player} {$missions[jobmarket][current_name]};
+        #delay {$delayname} {
+            #format {jobmarket_timer_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s <acf>can now do another Job Market "%c%s%c" mission.<099>} {$GMCP[charinfo][capname]} {Jade} {$missions[jobmarket][current_name]} {<acf>};
+            #echo {$jobmarket_timer_line};
+            #unvar {$jobmarket_timer_line};
+
+            #unvar {missions[jobmarket][active_list][$current_player][$current_job]};
+        } {3600};
+    };
+    #unvar {delayname};
+};
+
+#ALIAS {/jobmarket_recreate_delays} {
+    #format {current_time} {%T};
+
+    #nop == start with retry list;
+    #foreach {*missions[jobmarket][retry_list][]} {player} {
+        #local {delay_time} {$missions[jobmarket][retry_list][$player]};
+        #math {delay_time} {600 - ($current_time - $delay_time)};
+
+        #if {$delay_time < 1} {
+            #unvar {missions[jobmarket][retry_list][$player]};
+            #continue;
+        };
+
+        #line sub variable {
+            #delay {$delay_time} {
+                #format {jobmarket_timer_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s <acf>can now apply for another Job Market mission.<099>} {$player};
+                #echo {$jobmarket_timer_line};
+                #unvar {jobmarket_timer_line};
+
+                #unvar {missions[jobmarket][retry_list][$player]};
+            };
+        };
+    };
+    #nop == do all the difficulties;
+    #foreach {*missions[jobmarket][active_list][]} {player} {
+        #foreach {*missions[jobmarket][active_list][$player][]} {$job} {
+            #local {delay_time} {$missions[jobmarket][active_list][$player][$job]};
+            #math {delay_time} {3600 - ($current_time - $delay_time)};
+
+            #if {$delay_time < 1} {
+                #unvar {missions[jobmarket][active_list][$player][$difficulty]};
+                #continue;
+            };
+
+            #line sub variable {
+                #delay {$delay_time} {
+                    #format {jobmarket_timer_line} {<acf>[<fff>missions<acf>] <138>*<900><cfa> %s <acf>can now do another Job Market "%c%s%c" mission.<099>} {$player} {Jade} {$job} {<acf>};
+                    #echo {$jobmarket_timer_line};
+                    #unvar {jobmarket_timer_line};
+
+                    #unvar {missions[jobmarket][active_list][$player][$difficulty]};
+                };
+            };
+        };
+    };
+};
+
+
+#CLASS {missiontimers_jobmarket} {close};

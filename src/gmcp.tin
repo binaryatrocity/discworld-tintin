@@ -14,55 +14,93 @@
 
 #ALIAS {debug {on|off}}
 {
-    #IF {"%1" == "on"} { #VARIABLE {debug} {1}; };
-    #ELSE { #VARIABLE {debug} {0} };
-    #SHOWME { Debug is <139>$debug<099> };
+    #IF {"%1" == "on"} { 
+        #VARIABLE {debug} {1}; 
+        #SHOWME {@debug_log{Debug is <139>on<099>.}};
+    };
+    #ELSE { 
+        #VARIABLE {debug} {0};
+        #SHOWME {@debug_log{Debug is <139>off<099>.}};
+    };
     #NOP;
 }
 
 #EVENT {IAC SB GMCP char.vitals IAC SE}
 {
-    #IF {"$debug" == "1"} { #SHOWME %1 };
+    #IF {"$debug" == "1"} {
+        #SHOWME {@debug_log{%1}};
+    };
     #VAR GMCP[oldvitals] {$GMCP[vitals]};
     #VAR GMCP[vitals] {%0};
 
     #math {hploss} {$GMCP[vitals][hp] - $GMCP[oldvitals][hp]};
     #if {$hploss < -150} {
         #format {hp_loss_display} {<139>HP IS FALLING! CAREFUL! (Lost %s HP)<099>} {$hploss};
-        #echo {$hp_loss_display};
-        #showme {\a\a};
-    }
+
+        #if {&GMCP[oldvitals][hp]} {
+            #echo {$hp_loss_display};
+            #showme {\a};
+        };
+    };
 
     #math {xpgain} {$GMCP[vitals][xp] - $GMCP[oldvitals][xp]};
     #if {$xpgain > 5000} {
         #format {xp_gain_display} {(+<169>%g<099>xp)} {$xpgain};
-    
-        #echo {$xp_gain_display};
-    }
+        #delay {1} {#showme {$xp_gain_display};};
+    };
     
     update_prompt;
 }
 
 #EVENT {IAC SB GMCP char.info IAC SE}
 {
-    #IF {"$debug" == "1"} { #SHOWME %1 };
-    #VAR GMCP[charinfo] {%0};
+    #IF {"$debug" == "1"} {
+        #SHOWME {@debug_log{%1}};
+    };
 
-    #nop New login, invalidate stale info;
+    #nop We've SU'd, cleanup as appropriate;
+
+    #nop delete group shields data;
+    #variable {group_shields} {};
+    #variable {group_shields_current} {};
+    /writegroupshieldstofile;
+
+    #nop xpreset - do we still want to? if we dont mis-calculate on SU continued tracking is nice;
+
+    #nop store data about new character;
+    #var GMCP[charinfo] {%0};
+
+    #nop invalidate stale info;
+    #unvar {GMCP[oldvitals]};
+    #unvar {GMCP[vitals]};
+    #var {latest_xp} {0};
+
+    #nop reset prompt details;
+    #var {tpa_status} {0};
+    #var {tpa_color} {0};
+    #nop #var {tpa_start} {0};
+    #unvar {tpa_start};
     #unvar {quota};
+
+    #nop re-split the screen to wipe out the prompt from last character;
+    #split {3};
 }
 
 #EVENT {IAC SB GMCP room.info IAC SE}
 {
-    #IF {"$debug" == "1"} { #SHOWME %1 };
+    #IF {"$debug" == "1"} {
+        #SHOWME {@debug_log{%1}};
+    };
     #VAR GMCP[room][info] {%0};
 
-    /spottimercheckroomid $GMCP[room][info][identifier]
+    /spottimercheckroomid $GMCP[room][info][identifier];
 }
 
 #EVENT {IAC SB GMCP room.map IAC SE}
 {
-    #IF {"$debug" == "1"} { #SHOWME %1 };
+    #IF {"$debug" == "1"} {
+        #SHOWME {@debug_log{%1}};
+    };
     #VAR {minimap} {%0};
     #REPLACE {minimap} {u001b} {};
     #SYSTEM {rm logs/minimap.log && touch logs/minimap.log};
@@ -73,20 +111,21 @@
 
 #EVENT {IAC SB GMCP room.writtenmap IAC SE}
 {
-    #IF {"$debug" == "1"} { #SHOWME %1 };
+    #IF {"$debug" == "1"} {
+        #SHOWME {@debug_log{%1}};
+    };
     #VAR GMCP[room][mdt] {%0};
     #REPLACE {GMCP[room][mdt]} {\\n} {};
     #SYSTEM {rm logs/mapdoortext.log && touch logs/mapdoortext.log};
     #LINE {log} {logs/mapdoortext.log} {$GMCP[room][mdt]};
+
+    /personal.gmcp.writtenmap $GMCP[room][info][identifier];
 }
 
 #EVENT {IAC WILL GMCP}
 {
     #SEND {$IAC$DO$GMCP\};
-    #nop #SEND {$IAC$SB$GMCP Core.Hello { "client": "$CLIENT_NAME", "version": "$CLIENT_VERSION" } $IAC$SE\};
-    #nop #SEND {$IAC$SB$GMCP Core.Hello { "client": "TinTin++", "version": "2.01.2" } $IAC$SE\};
-    #nop #SEND {$IAC$SB$GMCP Core.Supports.Set ["Char.Vitals", "char.info", "char.login", "room.info", "room.map", "room.writtenmap"] $IAC$SE\}
-    #SEND {$IAC$SB$GMCP core.hello { "client" : "TinTin++", "version" : "2.01.2" } $IAC$SE\};
+    #SEND {$IAC$SB$GMCP core.hello { "client" : "TinTin++", "version" : "2.02.60" } $IAC$SE\};
     #SEND {$IAC$SB$GMCP core.supports.set [ "char.login", "char.info", "char.vitals", "room.info", "room.map", "room.writtenmap" ] $IAC$SE\};
     #nop;
 }
@@ -96,5 +135,9 @@
     #VARIABLE CLIENT_NAME %0;
     #VARIABLE CLIENT_VERSION %1;
 }
+
+#FUNCTION {debug_log} {
+    #format {result} {<<fac><<caf>GMCP<fac>><099>> %0};
+};
 
 #CLASS gmcp close

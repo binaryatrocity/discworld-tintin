@@ -31,6 +31,6 @@
 #macro {Oq} {southwest}; #nop 1;
 #macro {Or} {south};     #nop 2;
 #macro {Os} {southeast}; #nop 3;
-#macro {Op} {id};        #nop 0;
+#macro {Op} {enc};        #nop 0;
 #macro {On} {};          #nop .;
 #macro {Ol} {};          #nop +;

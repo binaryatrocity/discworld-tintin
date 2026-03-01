@@ -1,15 +1,15 @@
 #VARIABLE {chat_file} {logs/chat.log}
 
 #CONFIG {SPEEDWALK} {OFF};
-#CONFIG {SPLIT};
-#CONFIG {PACKET PATCH} {5};
+#CONFIG {PACKET PATCH} {0.75}; #nop not perfect, yet to find a value that stops all broken lines;
 #CONFIG {COLOR PATCH} {ON};
 #CONFIG {MCCP} {ON};
+#CONFIG {MOUSE} {ON};
 #CONFIG {LOG} {RAW};
-#CONFIG {BUFFER SIZE} {2000000};
+#CONFIG {BUFFER SIZE} {1000000};
 #config {COMMAND COLOR} {<fcf>}; 
 
-#SPLIT {2} {1};
+#SPLIT {3}; #nop removed arg: {1} and removed #CONFIG {SPLIT};
 
 #READ {src/channels.tin};
 #READ {src/actions.tin};
@@ -24,18 +24,53 @@
 #READ {src/quota.tin};
 
 #READ {src/combat.tin};
-#READ {src/deadletter.tin};
 #READ {src/db.tin};
 #READ {src/magic.tin};
 
-#READ {src/missions.tin};
+#READ {src/missions.tin}; #nop this file loads all the individual mission files (sailing, sausage, werks);
 #READ {src/group.tin};
 
+#READ {src/mindspace/mindspace.tin};
+
+#READ {src/personal.tin};
+
 #SESSION {discworld} {discworld.starturtle.net} {4242};
+#nop #SESSION {discworld} {disctemp.starturtle.net} {23};
 
 #FORMAT {log_file} {logs/active/%t.log} {%Y-%m-%d};
 #LOG {APPEND} {$log_file};
 
-#ACTION {Greco the Departure Gecko waves.} {#end}
+#HISTORY {read} {logs/history.log};
+
+#EVENT {SESSION DISCONNECTED} {
+    /writetimerstosyncfile;
+    /writemissiontimerstofile;
+    #HISTORY {write} {logs/history.log};
+};
+#EVENT {SIGHUB} {
+    /writetimerstosyncfile;
+    /writemissiontimerstofile;
+    #HISTORY {write} {logs/history.log};
+};
+#TICKER {timers_to_file} {
+    /writetimerstosyncfile;
+    /writemissiontimerstofile;
+    #HISTORY {write} {logs/history.log};
+} {60};
+
+#EVENT {SCROLLED MOUSE WHEEL UP} {#buffer up 5};
+#EVENT {SCROLLED MOUSE WHEEL DOWN} {#buffer down 5};
+
+#FUNCTION {log_line_to_chat} {
+    #script {ts} {date +"%I:%M%P"};
+    #line {log} {$chat_file} {$ts[1] \};
+    #line {log} {$chat_file};
+};
+
+
+#EVENT {SHORT-CLICKED MOUSE BUTTON ONE -1}
+{
+	#cursor position %1
+}
 
 #FORMAT {start_time} {%T};

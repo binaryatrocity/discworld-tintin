@@ -1,1 +1,13 @@
-*.log
+logs/active/*.log
+logs/active/*.tar.gz
+logs/features/timer_data.tin
+logs/features/wamgmap.log
+logs/features/wamgsaver.log
+notes/
+src/quow.db.old
+src/wamgsaver.tin
+src/constants.tin
+src/timer.tin
+src/testing.tin
+src/gems.tin
+bin/watcher

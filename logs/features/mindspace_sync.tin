@@ -1,0 +1,7 @@
+#CLASS {mindsync} OPEN
+
+#VARIABLE {mindspace_sync}
+{
+}
+
+#CLASS {mindsync} CLOSE

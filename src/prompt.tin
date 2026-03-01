@@ -1,38 +1,56 @@
+#class prompt kill;
+#class prompt open;
+
 #NOP == Prompt Update Function ==
 #nop colors
 #function {tpa_col}
 {
-        #if {"%0" == "invisible"}
+        #if {"%0" == "invisible"} {
        	        #return <178>;
-        #if {"%0" == "dull red"}
+        };
+        #if {"%0" == "dull red"} {
        	        #return <018>;
-        #if {"%0" == "bright red"}
+        };
+        #if {"%0" == "bright red"} {
        	        #return <118>;
-        #if {"%0" == "wobbling orange"}
+        };
+        #if {"%0" == "wobbling orange"} {
        	        #return <fca><188>;
-        #if {"%0" == "flickering yellow"}
+        };
+        #if {"%0" == "flickering yellow"} {
        	        #return <138>;
-	#return;
+        };
+	#return <000>;
 }
-
 
 #ALIAS {update_prompt} {
     #nop XP monitor details;
     xp_monitor;
-    #format {prompt_xp} {%Gxp in %s (%Gk/h)} {$session_xp} {$uptime[display]} {$xprate};
+
+    #format {prompt_xp} {%Gxp in %s (%Gk/h)} {$window_xp} {$uptime[window][display]} {$xprate};
+    #format {prompt_xp} {%-40s} {$prompt_xp};
 
     #nop TPA monitor details;
     #var {prompt_tpa} {};
-    #if {$tpa_status == 1} {
-        #format {prompt_tpa} {%cTPA%c} {@tpa_col{$tpa_color}} {<098>};
-    };
+    #format {prompt_tpa} {%cTPA%c} {@tpa_col{$tpa_color}} {<098>};
 
     #nop Quota monitor details;
     #var {prompt_quota} {};
-    #if {&quota} {
-        #format {prompt_quota} {Quota: %s} {@quota_time_left{}};
+    #if {&{quota}} {
+        #format {prompt_quota} {Quota: %-8s} {@quota_time_left{}};
     };
 
-    #format {prompt_line} {%+5s %+40s %+15s} {$prompt_tpa} {$prompt_xp} {$prompt_quota};
-    #showme {$prompt_line} {-1};
-}
+    #nop #format {prompt_line} {%+5s %+40s %+15s} {$prompt_tpa} {$prompt_xp} {$prompt_quota};
+    #nop #showme {$prompt_line} {2} {3};
+    #showme {$prompt_tpa} {2} {3};
+    #showme {$prompt_xp} {2} {10};
+    #showme {$prompt_quota} {2} {48};
+    #nop Write to line 2, and start 3 columns in so we don't disrupt the box drawn;
+
+    #nop Put the time with seconds to the right hand side;
+    #format {clock} {%t} {%I:%M:%S %p};
+    #showme {$clock} {2} {-13};
+};
+
+
+#class prompt close;

@@ -1,32 +1,42 @@
 #CLASS {actions} {kill};
 #CLASS {actions} {open};
 
-#NOP ==[TPA Alerts]==
-#HIGHLIGHT {^There is a sudden white flash.  Your magical shield has broken.$} {bold red underscore};
-#HIGHLIGHT {^There is a sudden white flash around {(?!a passing wizard).+}.$} {bold red underscore};
+#NOP ==[TPA Alerts]==;
+#HIGHLIGHT {^There is a sudden white flash.  Your magical shield has broken.$} {Red underscore};
+#HIGHLIGHT {^There is a sudden white flash around {(?!a passing wizard).+}.$} {Red underscore};
 #ACTION {^There is a sudden white flash around {(?!a passing wizard).+}.$} {
     #showme {\a};
-    #line {log} {$chat_file};
+    #return @log_line_to_chat{};
 };
 
+#NOP ==[EFF Alerts]==;
+#SUB {^In blocking the attack {(?:.+)} floating around {(?:\w+\b\W*?){1,8}} is knocked out of orbit.$} {<199><438>In blocking the attack <788>%1<099><188><438> floating around <788>%2<099><188><438> is knocked out of orbit.<099>};
+
 #NOP ==[T-Shop Alerts]==
-#HIGHLIGHT {Greasy sparks crawl over the %1 wall, and a door silently materialises.} {bold green underscore};
-#HIGHLIGHT {There is a doorway in the %1 wall leading into a curious shop.} {bold green underscore};
+#HIGHLIGHT {^Greasy sparks crawl over the %1 wall, and a door silently materialises.$} {green underscore};
+#HIGHLIGHT {^There is a doorway in the %1 wall leading into a curious shop.$} {green underscore};
+#ACTION {^Greasy sparks crawl over the %1 wall, and a door silently materialises.$} { #showme {\a}; };
+#ACTION {^There is a doorway in the %1 wall leading into a curious shop.$} { #showme {\a}; };
  
 #NOP ==[Incident Highlighting]==
-#HIGHLIGHT {^%1 grabs %2 from you.  You struggle briefly but %3 wrests it from your grip and makes for a hasty retreat.$} {bold red underscore};
-#HIGHLIGHT {^%1 grabs {his|her|its} %2.  You struggle briefly but {he|she|it} wrests it from your grip and makes for a hasty retreat.} {bold red underscore};
-#HIGHLIGHT {^%1 grabs your %2.  You struggle briefly but {she|he|it} wrests it from your grip and makes for a hasty retreat.} {bold red underscore};
-#HIGHLIGHT {^As %1 dies %2 drops %3 in shock.$} {bold green underscore};
+#SUB {^The%1grabs your%2.  You struggle briefly but {she|he|it} wrests it from your grip and makes for a hasty retreat.} {<488><119>The<088><fca>%1<488><119>grabs your<088><afc>%2<488><119>.  You struggle briefly but {she|he|it} wrests it from your grip and makes for a hasty retreat.};
+#SUB {^The%1and%2struggle briefly over%3before%4wrests it free%5$} {<488><119>The<088><fca>%1<488><119>and<088><fca>%2<488><119>struggle briefly over<088><afc>%3<488><119>before%4wrests it free%5};
+#SUB {^The%1{suddenly snatches|snatches}%2from%3and makes a run for it.$} {<488><119>The<088><188><fca>%1<488><119>suddenly snatches<088><188><afc>%2<488><119>from<088><188><fca>%3<488><119>and makes a run for it.};
+#HIGHLIGHT {^As %1 dies %2 drops %3 in shock.$} {green underscore};
 #HIGHLIGHT {^When you open the %1 you think you can hear a faint rumbling sound from it.$} {red underscore}; 
 #HIGHLIGHT {^Whoops!  You tried to carry too many things and fumbled %1} {red underscore};
 #HIGHLIGHT {%1 juggles around his stuff and fumbles %2} {red underscore}; 
+#HIGHLIGHT {^The sparkles around you fall to the ground and vanish.$} {red underscore};
+#HIGHLIGHT {^You sail past %1, flying over the side of the mountain in the process!$} {Red underscore};
+#ACTION {^You sail past %1, flying over the side of the mountain in the process!$} {
+    #showme {\a};
+};
 
 #NOP ==[Command Color Highlighting]==
 #SUB {%w %w with a total of %* item} {<148>%1 %2<099> with a total of <148>%3<099> item};
 
 #NOP ==[Truffle Found]==
-#HIGHLIGHT {The young truffle pig unearths a truffle from the ground.} {bold green};
+#HIGHLIGHT {truffle pigs? unearths a truffle from the ground.} {Green};
 
 #NOP ==[Attention Soul(s)]==
 #ACTION {^{(?!Ryattenoki).+} tugs on your sleeve in a desperate attempt to get some attention.$} {
@@ -35,52 +45,76 @@
 
 #NOP ==[Copperhead Mines]==
 #SUB {you think that %1 of the surrounding crates contain} {you think that <138>%1<099> of the surrounding crates contain};
-#HIGHLIGHT {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} {bold green underscore};
-#HIGHLIGHT {Somewhere above you, you hear the rumble of falling rock.} {bold green underscore};
-#ACTION {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} {
-    #showme {\a};
-};
-#ACTION {Somewhere above you, you hear the rumble of falling rock.} {
-    #showme {\a};
-};
+#SUB {a hammer chip would break %1 of rock} {a hammer chip would break <138>%1<099> of rock};
+#SUB {pickaxe strike would break %1 inches.} {pickaxe strike would break <138>%1<099> inches.};
+#SUB {You determine that directly behind this wall is a small gem vein of %1, exactly %2 deep.} {You determine that directly behind this wall is a small gem vein of %1, exactly <138>%2<099> deep.};
+#HIGHLIGHT {You shake your pan gently, as glittering purple gathers under the cloudy water.} {Magenta};
+#HIGHLIGHT {You shake your pan from side to side, as the last of the sediment leaves the pan and the water runs clear for just a moment.} {Magenta};
+#HIGHLIGHT {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} {Green underscore};
+#HIGHLIGHT {Somewhere above you, you hear the rumble of falling rock.} {Green underscore};
+#HIGHLIGHT {You suddenly feel like you can't breathe.} {Green underscore};
+#HIGHLIGHT {You collapse on the ground, your muscles spasming uncontrollably.} {Green underscore};
+#HIGHLIGHT {You can't smell it any more, but you're getting a dizzy sort of headache.  Maybe you should get out of here.} {Green underscore};
+#HIGHLIGHT {The air here is just as choking as before.} {Green underscore};
+#ACTION {You shake your pan gently, as glittering purple gathers under the cloudy water.} { #showme {\a}; };
+#ACTION {You shake your pan from side to side, as the last of the sediment leaves the pan and the water runs clear for just a moment.} { #showme {\a}; };
+#ACTION {Something doesn't smell right.  You take a sniff but the faint odour of rotten eggs makes you cough.} { #showme {\a}; };
+#ACTION {Somewhere above you, you hear the rumble of falling rock.} { #showme {\a}; };
+#ACTION {You suddenly feel like you can't breathe.} { #showme {\a}; };
+#ACTION {You collapse on the ground, your muscles spasming uncontrollably.} { #showme {\a}; };
+#ACTION {You can't smell it any more, but you're getting a dizzy sort of headache.  Maybe you should get out of here.} { #showme {\a}; };
+#ACTION {The air here is just as choking as before.} { #showme {\a}; };
+#HIGHLIGHT {The air here seems fresher.} {Yellow underscore};
 
 #NOP ==[Gemcutting/Finesmithing]==
-#HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and delicately chip %1} {bold green};
-#HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and chip away %1} {bold red};
-#HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and, struggling with %1} {bold red};
+#HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and delicately chip %1} {green};
+#HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and chip away %1} {Red};
+#HIGHLIGHT {You take the diamond-tipped chisel from your roll of gemcutting tools and, struggling with %1} {Red};
+#HIGHLIGHT {With a start, you realise that you've been going about this all wrong, %1} {Red};
 #SUB {You estimate that the %1 is worth A$%2.  You} {You estimate that the <149>%1<099> is worth A$<139>%2<099>.  You};
 
 #NOP ==[Achievements]==
-#ACTION {^It is your turn to fight... enter the combat ring.$} {
+#HIGHLIGHT {the {green|aqua|cyan|blue|yellow|red|orange|beige|brown|grey|black|violet|mauve|pink|purple} ball} {Cyan};
+#ACTION {^The %1 duellist has yielded to you, if this satisfies you then enter "accept surrender from duellist" to accept} {
     #showme {\a};
-}
-#ACTION {^The %1 camel gallops away abruptly.$} {
-    #showme {[Pushover] %0};
-}
+};
+#HIGHLIGHT {blackbird} {violet};
+#HIGHLIGHT {old {men|man|women|woman|shopper|shoppers|beggar|beggars}} {magenta};
+#ACTION {^One of the truffle pigs unearths a truffle from the ground.$} { 
+    #delay {120} { #showme {<ccc>CAN TRUFFLE FARM AGAIN<999>} }
+};
+
 
 #NOP ==[PK Actions]==
-#HIGHLIGHT {You reach towards your goal but apuse suddenly as %1 seems to sense something.  {She|He|It} doesn't spot you and %2} {bold green};
-#HIGHLIGHT {You try to filch %1 from %2 but {she|he|it} notices you and manages to %3} {bold red};
+#HIGHLIGHT {You reach towards your goal but pause suddenly as %1 seems to sense something.  {She|He|It} doesn't spot you and %2} {Green};
+#HIGHLIGHT {You try to filch %1 from %2 but {she|he|it} notices you and manages to %3} {Red};
 #ACTION {A stream of expletives drifts down from above with %1} { #showme {\a}; };
 #ACTION {There is the faintest of sounds, as of a gnat yawning, then a WHOOSH sound. %2} { #showme {\a}; };
-#HIGHLIGHT {A stream of expletives drifts down from above with %1} {bold red underscore};
-#HIGHLIGHT {There is the faintest of sounds, as of a gnat yawning, then a WHOOSH sound. %2} {bold red underscore};
+#HIGHLIGHT {A stream of expletives drifts down from above with %1} {Orange};
+#HIGHLIGHT {There is the faintest of sounds, as of a gnat yawning, then a WHOOSH sound. %2} {Lime};
 
 
 #NOP ==[Shelox]==
-#HIGHLIGHT {^Screaming echoes throughout the lair!$} {bold red};
-#HIGHLIGHT {^You see a thick string of web hurtling at you and then everything suddenly goes black.$} {bold green};
-#HIGHLIGHT {^Webbing shoots out from the frog that looks an awful lot like Queen Shelox's abdomen and slams into %1.$} {bold green};
-#HIGHLIGHT {^Webbing shoots out from Queen Shelox's abdomen and slams into %1.$} {bold green};
+#HIGHLIGHT {^Screaming echoes throughout the lair!$} {Red};
+#HIGHLIGHT {^You see a thick string of web hurtling at you and then everything suddenly goes black.$} {green};
+#SUB {^Webbing shoots out from the frog that looks an awful lot like Queen Shelox's abdomen and slams into %1.$} {<028>Webbing shoots out from the frog that looks an awful lot like Queen Shelox's abdomen and slams into <128>%1<028>.};
+#SUB {^Webbing shoots out from Queen Shelox's abdomen and slams into %1.$} {<028>Webbing shoots out from Queen Shelox's abdomen and slams into <128>%1<028>.};
 #ACTION {^An ominous gurgling noise can be heard coming from the frog that looks an awful lot like Queen Shelox's abdomen.$} { #showme {\a}; };
 #ACTION {^An ominous gurgling noise can be heard coming from Queen Shelox's abdomen.$} { #showme {\a}; };
-#HIGHLIGHT {^%1 giant spiders climb up from below!} {bold violet};
-#HIGHLIGHT {^%1 spiders scuttle up from below and join the fight!} {bold violet};
+#HIGHLIGHT {^%1 giant spiders climb up from below!} {Violet};
+#HIGHLIGHT {^%1 spiders scuttle up from below and join the fight!} {Violet};
+
+#NOP ==[Tab Completions]==
+#ACTION {^[%1 has gained the %2 achievement %3]$} {
+    #tab {%1};
+    #return @log_line_to_chat{};
+}
 
 
 #NOP ==[End Session On Quit]==
-#ACTION {Thanks for playing.  See you next time.} {
-    #end;
-}
+#nop #ACTION {Thanks for playing.  See you next time.} {;
+    #nop Don't do this anymore, since history buffer is with tt++ not tmux now, we want to see what we missed while idling out.;
+    #nop #end;
+#nop };
 
 #CLASS {actions} {close};

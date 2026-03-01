@@ -1,6 +1,8 @@
 #CLASS {xpmonitor} {kill};
 #CLASS {xpmonitor} {open};
 
+#nop window_xp = since last reset, session_xp = overall
+
 #ALIAS {xp_monitor} {
     #var {previous_xp} {$latest_xp};
     #var {latest_xp} {$GMCP[vitals][xp]};
@@ -8,40 +10,69 @@
     #if {$previous_xp != 0} {
         #math {gained_xp} {$latest_xp - $previous_xp};
         #if {$gained_xp > 0} {
+            #math {window_xp} {$window_xp + $gained_xp};
             #math {session_xp} {$session_xp + $gained_xp};
         };
     };
 
     #format {check_time} {%T};
 
-    #format {uptime[hours]} {%m} {($check_time - $start_time) / 60 / 60};
-    #format {uptime[minutes]} {%m} {($check_time - $start_time) / 60 % 60};
-    #format {uptime[display]} {%th %tm} {$uptime[hours]} {$uptime[minutes]};
+    #nop Calculate the window XP (how much earned since last xpreset);
+    #format {uptime[window][hours]} {%m} {($check_time - $start_time) / 60 / 60};
+    #format {uptime[window][minutes]} {%m} {($check_time - $start_time) / 60 % 60};
+    #format {uptime[window][display]} {%th %tm} {$uptime[window][hours]} {$uptime[window][minutes]};
+    #format {xprate} {%d} { ($window_xp / ($uptime[window][hours] + ($uptime[window][minutes] / 60.0))) * 0.001 };
 
-    #format {xprate} {%d} { ($session_xp / ($uptime[hours] + ($uptime[minutes] / 60.0))) * 0.001 };
-}
+    #nop Calculate the session XP (how much earned since client started up);
+    #format {uptime[session][hours]} {%m} {($check_time - $session_start_time) / 60 / 60};
+    #format {uptime[session][minutes]} {%m} {($check_time - $session_start_time) / 60 % 60};
+    #format {uptime[session][display]} {%th %tm} {$uptime[session][hours]} {$uptime[session][minutes]};
+    #format {session_xprate} {%d} { ($session_xp / ($uptime[session][hours] + ($uptime[session][minutes] / 60.0))) * 0.001 };
+};
 
-#ALIAS {gsxp} {
-    #format {prompt_xp} {%Gxp in %s (%Gk/h)} {$session_xp} {$uptime[display]} {$xprate};
+#ALIAS {^gsxp$} {
+    #format {prompt_xp} {%Gxp in %s (%Gk/h)} {$window_xp} {$uptime[window][display]} {$xprate};
     #send {group say $prompt_xp};
-}
+};
+
+#ALIAS {^gsxp all$} {
+    #format {prompt_xp} {Window: %Gxp in %s (%Gk/h) <|> Session: %Gmil in %s (%Gk/h)} {$window_xp} {$uptime[window][display]} {$xprate} {$session_xp / 1000000.00} {$uptime[session][display]} {$session_xprate};
+    #send {group say $prompt_xp};
+};
+
+#ALIAS {xpreport} {
+    #format {xpr_window} {%Gxp total in %s @ %Gk/h} {$window_xp} {$uptime[window][display]} {$xprate};
+    #format {xpr_session} {%Gxp total in %s @ %Gk/h} {$session_xp} {$uptime[session][display]} {$session_xprate};
+    #showme {=><= XP Report =><=};
+    #showme {Window: $xpr_window};
+    #showme {Session: $xpr_session};
+};
 
 #ALIAS {xpreset} {
-    #var {session_xp} {0};
-    #var {previous_xp} {0}
+    #var {window_xp} {0};
+    #var {previous_xp} {0};
+    #var {latest_xp} {0};
+    #var {gained_xp} {0};
     
-    #var {uptime[hours]} {0};
-    #var {uptime[minutes]} {0};
-    #var {uptime[seconds]} {0};
+    #var {uptime[window][hours]} {0};
+    #var {uptime[window][minutes]} {0};
+    #var {uptime[window][seconds]} {0};
+    #var {uptime[window][display]} {0};
 
     #format {start_time} {%T};
     #format {check_time} {%T};
-    #format {uptime[display]} {%th %tm} {11} {0};
-}
+    #format {uptime[window][display]} {%th %tm} {11} {0};
+};
 
+#var {window_xp} {0};
 #var {previous_xp} {0};
 #var {latest_xp} {0};
 #var {gained_xp} {0};
 #var {session_xp} {0};
+#var {uptime} {};
+
+#format {start_time} {%T};
+#format {check_time} {%T};
+#format {session_start_time} {%T};
 
 #CLASS {xpmonitor} {close};

@@ -2,265 +2,397 @@
 #CLASS {xptimers} {open};
 
 #VARIABLE {xptimer_file} {logs/xptimers.log};
+#VARIABLE {xptimersync_file} {logs/features/xptimers_sync.tin};
 
 #VARIABLE {killtimers} {
     {Delbert}{
         {time}{0}
         {name}{delbert}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the Triad boss}{
         {time}{0}
         {name}{medina boss}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the bandit leader}{
         {time}{0}
-        {name}{bandit leader}
+        {name}{bandits}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {Hlakket the Bartender}{
         {time}{0}
         {name}{hlakket}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the Zoon Liar}{
         {time}{0}
         {name}{zoon liar}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {Slim Stevie}{
         {time}{0}
         {name}{rogues}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the %* grflx worker}{
         {time}{0}
         {name}{grflx}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the %* student}{
         {time}{0}
         {name}{dojo}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the ceremonial guard}{
         {time}{0}
         {name}{cguards}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the smuggler captain}{
         {time}{0}
-        {name}{smug captain}
+        {name}{smug cap}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the giant leader}{
         {time}{0}
         {name}{giants}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the %* rujona}{
         {time}{0}
         {name}{snail}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the %* nitsuni}{
         {time}{0}
         {name}{snail}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the Ome outlaw}{
         {time}{0}
         {name}{snail}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {the %* lion}{
         {time}{0}
-        {name}{shaker lions}
+        {name}{shaker}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
+    }
+    {the %* crocodile}{
+        {time}{0}
+        {name}{offler}
+        {group}{false}
+        {respawn}{40}
     }
     {Louis Accardo}{
         {time}{0}
         {name}{stables}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {Samuel Casso}{
         {time}{0}
         {name}{stables}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {Enrico Persuica}{
         {time}{0}
         {name}{stables}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {Joe Corrola}{
         {time}{0}
         {name}{stables}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {Marlon Gumboni}{
         {time}{0}
         {name}{casino}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {Frankie Harvard}{
         {time}{0}
         {name}{casino}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {Geraldo Ciaco}{
         {time}{0}
         {name}{casino}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {Charles Marchella}{
         {time}{0}
         {name}{casino}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
-}
+    {the %* hermit}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{40}
+    }
+    {the %* patroller}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{40}
+    }
+    {the {strict|serious|grim|tough|stern} captain}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{40}
+    }
+    {the %* desert nomad}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{40}
+    }
+    {the peacekeeper commander}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{40}
+    }
+    {the %* mystic}{
+        {time}{0}
+        {name}{oasis}
+        {group}{true}
+        {respawn}{40}
+    }
+    {the {Tang|Fang|Sung|Hong|McSweeney} captain}{
+        {time}{0}
+        {name}{bmarket}
+        {group}{true}
+        {respawn}{40}
+    }
+    {the citadel guard}{
+        {time}{0}
+        {name}{citguard}
+        {group}{false}
+        {respawn}{40}
+    }
+};
 
 #VARIABLE {visittimers} {
     {AMShades}{
         {time}{0}
         {name}{shades}
         {group}{false}
-        {respawn}{12}
+        {respawn}{20}
     }
     {ebff897af2b8bb6800a9a8636143099d0714be07}{
         {time}{0}
         {name}{smugglers}
         {group}{false}
-        {respawn}{12}
+        {respawn}{20}
     }
     {70546ec71867645ab5c51e9ce6087b75dcf4176f}{
         {time}{0}
         {name}{offler}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
+    }
+    {2950a174f65ef8e38eee444295c9b4832d36ab60}{
+        {time}{0}
+        {name}{dragon}
+        {group}{false}
+        {respawn}{40}
     }
     {f6c60dd36ed38707eb954c3a670f2f9370a79399}{
         {time}{0}
-        {name}{black market}
+        {name}{bmarket}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {e4646eab906aef1187a9dd3e980441b8f6b8d68c}{
         {time}{0}
-        {name}{black market}
+        {name}{bmarket}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {0ae9d8c4f2b48f4fcc4cb57fd85443399be2ecc5}{
         {time}{0}
-        {name}{black market}
+        {name}{bmarket}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {c7c6f5720d2c587f80696b6f0ec7f9ac0f084b06}{
         {time}{0}
-        {name}{black market}
+        {name}{bmarket}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {3862c5fd0fe83f4080bdb9b94519bf8da89d5015}{
         {time}{0}
         {name}{parades}
         {group}{true}
-        {respawn}{30}
+        {respawn}{40}
     }
     {cca9645565f2bb0d017ea9b1dcc9d1b3e9fcfe72}{
         {time}{0}
         {name}{cabbage}
         {group}{false}
-        {respawn}{30}
+        {respawn}{40}
     }
-}
+    {7377f4483763eca72e0b97a87f71c5266e33f2cd}{
+        {time}{0}
+        {name}{cocoons}
+        {group}{false}
+        {respawn}{40}
+    }
+};
 
+
+#nop Set this to 1 when we record first spot, dont overwrite file until set;
+#VARIABLE {xptimer_recent_flag} {0};
+
+#ALIAS {dt help} {
+    #showme {<acf>[<fff>spottimers<acf>] Hotspot death/visit timers help:<099>};
+    #showme {Hotspot timers record how long since you've killed (death) an NPC or last entered (visit) a particular room.<099>};
+    #showme {};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dt<099>"<099>};
+    #showme {\t<099>List all current timers<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dt help<099>"<099>};
+    #showme {\t<099>Display this helpfile<099>};
+    #showme { <ffa>*<acf> Command<099>:  "<afe>dtreset all<099>"<099>};
+    #showme {\t<099>Reset all timers to unseen, use after idling to clear stale timers<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dtreset <spot><099>"<099>};
+    #showme {\t<099>Set a spot as if you had just killed/visted, e.g. "<afe>dtreset zoon liar<099>"<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>gsdt<099>"<099>};
+    #showme {\t<099>Send all current timers to "<afe>group say<099>" to share<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dtsync <player><099>"<099>};
+    #showme {\t<099>Send a tell to a player using this script to sync your timers to them<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dtsave<099>"<099>};
+    #showme {\t<099>Force save of current timers to file, use before restarting client<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dtload<099>"<099>};
+    #showme {\t<099>Load spot timers from file, use after restarting client<099>};
+    #showme {};
+    #showme {<099>Timers are saved to file automatically every five minutes. Output similar to "dt" is saved to "logs/xptimers.log", used to output in another window.<099>};
+    #showme {};
+};
 
 #ALIAS {dtreset} {
+    #variable {dtreset_all} {0};
     #regex {%1} {all} {
-        #foreach {$killtimers[]} {spot} {
+        #foreach {*killtimers[]} {spot} {
             #format {killtimers[$spot][time]} {0};
-        }
-        #foreach {$visittimers[]} {spot} {
+        };
+        #foreach {*visittimers[]} {spot} {
             #format {visittimers[$spot][time]} {0};
-        }
-        #format {xptimer_message} {%c[XPTimer] %c*%c Resetting all spots to Unseen.} {bold blue} {bold yellow} {bold blue};
+        };
+        #format {xptimer_message} {<acf>[<fff>hotspots<acf>] <138>*<acf> Resetting all spots to Unseen.<099>};
         #echo {$xptimer_message};
         #variable {dtreset_all} {1};
+        #variable {xptimer_recent_flag} {0};
     };
 
     #if {$dtreset_all < 1} {
-        #foreach {$killtimers[]} {spot} {
+        #list {spot_groups} {clear};
+        #foreach {*killtimers[]} {spot} {
+            #var {xptimer_message} {};
             #regex {%1 %2} {$killtimers[$spot][name]} {
                 #format {killtimers[$spot][time]} {%T};
 
                 #if {"$killtimers[$spot][group]" == "true"} {
-                    #format {xptimer_message} {%c[XPTimer] %c*%c Resetting death timer for%c $killtimers[$spot][name] ($spot)%c.} {bold blue} {bold yellow} {bold blue} {bold green} {bold blue};
+                    #list {spot_groups} {find} {$killtimers[$spot][name]} {group_exists};
+                    #if {"$group_exists" == "0"} {
+                        #list {spot_groups} {add} {$killtimers[$spot][name]};
+                        #format {xptimer_message} {<acf>[<fff>hotspots<acf>] <138>*<acf> Resetting death timer for%c $killtimers[$spot][name]%c.<099>} {Green} {<acf>};
+                    };
                 };
                 #else {
-                    #format {xptimer_message} {%c[XPTimer] %c*%c Resetting death timer for%c $killtimers[$spot][name]%c.} {bold blue} {bold yellow} {bold blue} {bold green} {bold blue};
+                    #format {xptimer_message} {<acf>[<fff>hotspots<acf>] <138>*<acf> Resetting death timer for%c $killtimers[$spot][name]%c.<099>} {Green} {<acf>};
                 };
-                #echo {$xptimer_message};
+
+                #format {xp_message_check} {%L} {$xptimer_message};
+                #if {$xp_message_check > 0} {
+                    #echo {$xptimer_message};
+                    #variable {xptimer_recent_flag} {1};
+                };
             };
-        }
-        #foreach {$visittimers[]} {spot} {
+        };
+        #list {spot_groups} {clear};
+        #foreach {*visittimers[]} {spot} {
+            #var {xptimer_message} {};
             #regex {%1 %2} {$visittimers[$spot][name]} {
                 #format {visittimers[$spot][time]} {%T};
 
                 #if {"$visittimers[$spot][group]" == "true"} {
-                    #format {xptimer_message} {%c[XPTimer] %c*%c Resetting visit timer for%c $visittimers[$spot][name] ($spot)%c.} {bold blue} {bold yellow} {bold blue} {bold green} {bold blue};
+                    #list {spot_groups} {find} {$visittimers[$spot][name]} {group_exists};
+                    #if {"$group_exists" == "0"} {
+                        #list {spot_groups} {add} {$visittimers[$spot][name]};
+                        #format {xptimer_message} {<acf>[<fff>hotspots<acf>] <138>*<acf> Resetting visit timer for%c $visittimers[$spot][name]%c.<099>} {Green} {<acf>};
+                    };
                 };
                 #else {
-                    #format {xptimer_message} {%c[XPTimer] %c*%c Resetting visit timer for%c $visittimers[$spot][name]%c.} {bold blue} {bold yellow} {bold blue} {bold green} {bold blue};
+                    #format {xptimer_message} {<acf>[<fff>hotspots<acf>] <138>*<acf> Resetting visit timer for%c $visittimers[$spot][name]%c.<099>} {Green} {<acf>};
                 };
-                #echo {$xptimer_message};
+
+                #format {xp_message_check} {%L} {$xptimer_message};
+                #if {$xp_message_check > 0} {
+                    #echo {$xptimer_message};
+                    #variable {xptimer_recent_flag} {1};
+                };
             };
-        }
-    }
+        };
+    };
 
     #unvariable {dtreset_all};
-}
+};
 
 #ACTION {%1 deals the death blow to %2.} {
-    #foreach {$killtimers[]} {spot} {
+    #foreach {*killtimers[]} {spot} {
         #regex {%2} {$spot} {
             #format {killtimers[$spot][time]} {%T};
+            #variable {xptimer_recent_flag} {1};
         };
-    }
-}
+    };
+};
 #ACTION {You kill %1.} {
-    #foreach {$killtimers[]} {spot} {
+    #foreach {*killtimers[]} {spot} {
         #regex {%1} {$spot} {
             #format {killtimers[$spot][time]} {%T};
+            #variable {xptimer_recent_flag} {1};
         };
-    }
-}
+    };
+};
+
+#nop The smuggler captain dies.
+#ACTION {^%1 dies.$} {
+    #foreach {*killtimers[]} {spot} {
+        #nop Force case insensitivity on the match due to "The" "A" being capitalized;
+        #regex {%1} {%i$spot} {
+            #format {killtimers[$spot][time]} {%T};
+            #variable {xptimer_recent_flag} {1};
+        };
+    };
+};
 
 #FUNCTION {write_spot} {
     #var {spotname} {%1};
@@ -276,19 +408,32 @@
         #math {mins} {$current_time - $spottime};
         #math {mins} {($mins - (60 - 1)) / 60};
 
-        #nop Choose a color-code based on downtime;
-        #if {$mins > ($spotrespawn + 40)} {
-            #var {current_spot_color} {<099>};
-        };
-        #elseif {$mins > ($spotrespawn + 20)} {
-            #var {current_spot_color} {<119>};
-        };
-        #elseif {$mins > $spotrespawn} {
-            #var {current_spot_color} {<139>};
+        #nop 2/2026 changing scheme here;
+        #nop if rat is 40, 30-45 yellow, 45-60 red, beyond 60 miss;
+        #math {low_b} {$spotrespawn - 10};
+        #math {up_b} {$spotrespawn + 5};
+        #math {miss_b} {$spotrespawn + 20};
+
+        #nop if we're at or beyond the lower bound;
+        #if {$mins >= $low_b} {
+            #nop are we at or below upper bound? YELLOW;
+            #if {$mins <= $up_b} {
+                #var {current_spot_color} {<139>};
+            };
+
+            #nop are we beyond the miss zone? show grey;
+            #elseif {$mins > $miss_b} {
+                #var {current_spot_color} {<099>};
+            };
+
+            #nop otherwise we're in sweet spot, RED;
+            #else {
+                #var {current_spot_color} {<119>};
+            };
         };
         #else {
             #var {current_spot_color} {<099>};
-        }
+        };
 
         #if {$mins > 99} { #var {mins} {99} };
 
@@ -299,11 +444,11 @@
         #else {
             #nop Zero pad under 10 mins;
             #format {spotstring} { - (0%dm)  %c%s<099> } {$mins} {$current_spot_color} {$spotname};
-        }
+        };
     };
 
     #return {$spotstring};
-}
+};
 
 #ALIAS {dt} {
     #format {current_time} {%T};
@@ -311,13 +456,13 @@
     #var {spot_groups_respawn} {};
 
     #echo {.:: Death Timers ::.};
-    #foreach {$killtimers[]} {spot} {
+    #foreach {*killtimers[]} {spot} {
         #if {"$killtimers[$spot][group]" == "true"} {
             #if {&spot_groups[$killtimers[$spot][name]] == 0} {
                 #var {spot_groups[$killtimers[$spot][name]]} {$killtimers[$spot][time]};
                 #var {spot_groups_respawn[$killtimers[$spot][name]]} {$killtimers[$spot][respawn]};
             };
-            #if {$killtimers[$spot][time] < $spot_groups[$killtimers[$spot][name]]} {
+            #if {$killtimers[$spot][time] != 0 && $killtimers[$spot][time] > $spot_groups[$killtimers[$spot][name]]} {
                 #var {spot_groups[$killtimers[$spot][name]]} {$killtimers[$spot][time]};
                 #var {spot_groups_respawn[$killtimers[$spot][name]]} {$killtimers[$spot][respawn]};
             };
@@ -327,12 +472,12 @@
 
         #var {spotstring} {@write_spot{$killtimers[$spot][name];$killtimers[$spot][time];$killtimers[$spot][respawn]}};
         #echo {$spotstring};
-    }
+    };
 
-    #foreach {$spot_groups[]} {spot} {
+    #foreach {*spot_groups[]} {spot} {
         #var {spotstring} {@write_spot{$spot;$spot_groups[$spot];$spot_groups_respawn[$spot]}};
         #echo {$spotstring};
-    }
+    };
 
     #echo {\n};
 
@@ -341,13 +486,13 @@
 
     #echo {.:: Visit Timers ::.};
     #format {current_time} {%T};
-    #foreach {$visittimers[]} {spot} {
+    #foreach {*visittimers[]} {spot} {
         #if {"$visittimers[$spot][group]" == "true"} {
             #if {&spot_groups[$visittimers[$spot][name]] == 0} {
                 #var {spot_groups[$visittimers[$spot][name]]} {$visittimers[$spot][time]};
                 #var {spot_groups_respawn[$visittimers[$spot][name]]} {$visittimers[$spot][respawn]};
             };
-            #if {$visittimers[$spot][time] < $spot_groups[$visittimers[$spot][name]]} {
+            #if {$visittimers[$spot][time] != 0 && $visittimers[$spot][time] > $spot_groups[$visittimers[$spot][name]]} {
                 #var {spot_groups[$visittimers[$spot][name]]} {$visittimers[$spot][time]};
                 #var {spot_groups_respawn[$visittimers[$spot][name]]} {$visittimers[$spot][respawn]};
             };
@@ -357,17 +502,17 @@
 
         #var {spotstring} {@write_spot{$visittimers[$spot][name];$visittimers[$spot][time];$visittimers[$spot][respawn]}};
         #echo {$spotstring};
-    }
+    };
 
-    #foreach {$spot_groups[]} {spot} {
+    #foreach {*spot_groups[]} {spot} {
         #var {spotstring} {@write_spot{$spot;$spot_groups[$spot];$spot_groups_respawn[$spot]}};
         #echo {$spotstring};
-    }
+    };
 
     #echo {\n};
-}
+};
 
-#ALIAS {writetimerstofile} {
+#ALIAS {/writetimerstofile} {
     #system {> $xptimer_file};
     #format {current_time} {%T};
     #var {spot_groups} {};
@@ -375,13 +520,13 @@
 
     #line {log} {$xptimer_file} {.:: Death Timers ::. };
 
-    #foreach {$killtimers[]} {spot} {
+    #foreach {*killtimers[]} {spot} {
         #if {"$killtimers[$spot][group]" == "true"} {
             #if {&spot_groups[$killtimers[$spot][name]] == 0} {
                 #var {spot_groups[$killtimers[$spot][name]]} {$killtimers[$spot][time]};
                 #var {spot_groups_respawn[$killtimers[$spot][name]]} {$killtimers[$spot][respawn]};
             };
-            #if {$killtimers[$spot][time] != 0 && $killtimers[$spot][time] < $spot_groups[$killtimers[$spot][name]]} {
+            #if {$killtimers[$spot][time] != 0 && $killtimers[$spot][time] > $spot_groups[$killtimers[$spot][name]]} {
                 #var {spot_groups[$killtimers[$spot][name]]} {$killtimers[$spot][time]};
                 #var {spot_groups_respawn[$killtimers[$spot][name]]} {$killtimers[$spot][respawn]};
             };
@@ -391,24 +536,24 @@
 
         #var {spotstring} {@write_spot{$killtimers[$spot][name];$killtimers[$spot][time];$killtimers[$spot][respawn]}};
         #line {log} {$xptimer_file} {$spotstring};
-    }
+    };
 
-    #foreach {$spot_groups[]} {spot} {
+    #foreach {*spot_groups[]} {spot} {
         #var {spotstring} {@write_spot{$spot;$spot_groups[$spot];$spot_groups_respawn[$spot]}};
         #line {log} {$xptimer_file} {$spotstring};
-    }
+    };
 
     #line {log} {$xptimer_file} {\n\r\n\r.:: Visit Timers ::. };
 
     #var {spot_groups} {};
     #var {spot_groups_respawn} {};
-    #foreach {$visittimers[]} {spot} {
+    #foreach {*visittimers[]} {spot} {
         #if {"$visittimers[$spot][group]" == "true"} {
             #if {&spot_groups[$visittimers[$spot][name]] == 0} {
                 #var {spot_groups[$visittimers[$spot][name]]} {$visittimers[$spot][time]};
                 #var {spot_groups_respawn[$visittimers[$spot][name]]} {$visittimers[$spot][respawn]};
             };
-            #if {$visittimers[$spot][time] != 0 && $visittimers[$spot][time] < $spot_groups[$visittimers[$spot][name]]} {
+            #if {$visittimers[$spot][time] != 0 && $visittimers[$spot][time] > $spot_groups[$visittimers[$spot][name]]} {
                 #var {spot_groups[$visittimers[$spot][name]]} {$visittimers[$spot][time]};
                 #var {spot_groups_respawn[$visittimers[$spot][name]]} {$visittimers[$spot][respawn]};
             };
@@ -416,24 +561,58 @@
             #continue;
         };
 
-        #var {spotstring} {@write_spot{$visittimers[$spot][name];$visittimers[$spot][time];$visittimers[spot][respawn]}};
+        #var {spotstring} {@write_spot{$visittimers[$spot][name];$visittimers[$spot][time];$visittimers[$spot][respawn]}};
         #line {log} {$xptimer_file} {$spotstring};
-    }
+    };
 
-    #foreach {$spot_groups[]} {spot} {
+    #foreach {*spot_groups[]} {spot} {
         #var {spotstring} {@write_spot{$spot;$spot_groups[$spot];$spot_groups_respawn[$spot]}};
         #line {log} {$xptimer_file} {$spotstring};
-    }
-}
+    };
+};
 
-#EVENT {SEND OUTPUT} {writetimerstofile};
+#EVENT {SEND OUTPUT} {/writetimerstofile;};
 
 #FUNCTION {parse_spot} {
     #var {spot_sync_raw} {%0};
     #replace {spot_sync_raw} {=} {;};
     #list {spot_sync} {create} {${spot_sync_raw}};
     #return {$spot_sync};
-}
+};
+
+#ALIAS {^dtload$} {
+    #class {dtsync} {clear};
+    #class {dtsync} {read} {$xptimersync_file};
+    #variable {killtimers} {$killtimers_sync};
+    #variable {visittimers} {$visittimers_sync};
+
+    #showme {1};
+    #format {dtsync_message} {<acf>[<fff>hotspots<acf>] <138>*<acf> Synced all available hotspot timers for %clast session%c from the disk.<099>} {Green}{<acf>};
+    #echo {$dtsync_message};
+};
+
+#ALIAS {^dtsave$} {
+    /writetimerstosyncfile;
+
+    #showme {2};
+    #format {dtsync_message} {<acf>[<fff>hotspots<acf>] <138>*<acf> Saved all available hotspot timers from %cthis session%c to the disk.<099>} {Green}{<acf>};
+    #echo {$dtsync_message};
+};
+
+#ALIAS {/writetimerstosyncfile} {
+    #nop Don't overwrite saved timers if we haven't recorded anything new;
+    #if {$xptimer_recent_flag == 0} {
+        #return;
+    };
+
+    #class {dtsync} {clear};
+    #class {dtsync} {open};
+    #var {killtimers_sync} {$killtimers};
+    #var {visittimers_sync} {$visittimers};
+    #class {dtsync} {close};
+
+    #class {dtsync} {write} {$xptimersync_file};
+};
 
 #ACTION {%1 tells you: ruhs_dtsync=[%2] | ruhs_vtsync=[%3]} {
     #var {synccount} {0};
@@ -446,82 +625,83 @@
     #list dtsync_list create {${dtsync}};
     #list vtsync_list create {${vtsync}};
 
-    #foreach {$dtsync_list[]} {spot} {
+    #foreach {*dtsync_list[]} {spot} {
         #var {syncitem} {@parse_spot{$dtsync_list[$spot]}};
         #var {syncname} {$syncitem[1]};
         #var {synctime} {$syncitem[2]};
 
-        #foreach {$killtimers[]} {spotident} {
+        #foreach {*killtimers[]} {spotident} {
             #var {spotname} {$killtimers[$spotident][name]};
             #if {"$spotname" == "$syncname"} {
                 #var {killtimers[$spotident][time]} {$synctime};
                 #math {synccount} {$synccount + 1};
             };
-        }
-    }
+        };
+    };
 
-    #foreach {$vtsync_list[]} {spot} {
+    #foreach {*vtsync_list[]} {spot} {
         #var {syncitem} {@parse_spot{$vtsync_list[$spot]}};
         #var {syncname} {$syncitem[1]};
         #var {synctime} {$syncitem[2]};
 
-        #foreach {$visittimers[]} {spotident} {
+        #foreach {*visittimers[]} {spotident} {
             #var {spotname} {$killtimers[$spotident][name]};
             #if {"$spotname" == "$syncname"} {
                 #var {visittimers[$spotident][time]} {$synctime};
                 #math {synccount} {$synccount + 1};
             };
-        }
-    }
+        };
+    };
 
-    #format {dtsync_message} {%c[XPTimer] %c*%c Synced %c%d%c spots from %c%s%c.} {bold blue}{yellow}{bold blue}{orange}{$synccount}{bold blue}{green}{%1}{bold blue};
+    #format {dtsync_message} {<acf>[<fff>hotspots<acf>] <138>*<acf> Synced %c%d%c spots from %c%s%c.<099>} {Orange}{$synccount}{<acf>}{Green}{%1}{<acf>};
     #echo {$dtsync_message};
-}
+};
 
 #ALIAS {dtsync %1} {
     #var {dtsync_msg} {};
     #var {vtsync_msg} {};
 
-    #foreach {$killtimers[]} {spotident} {
+    #foreach {*killtimers[]} {spotident} {
         #if {$killtimers[$spotident][time] > 0} {
             #format {dtsync_msg} {%s,%s=%d} {$dtsync_msg}{$killtimers[$spotident][name]}{$killtimers[$spotident][time]};
         };
-    }
+    };
     #regex {$dtsync_msg} {^,{(.+)}$} { #var {dtsync_msg} {&1}; };
 
-    #foreach {$visittimers[]} {spotident} {
+    #foreach {*visittimers[]} {spotident} {
         #if {$visittimers[$spotident][time] > 0} {
             #format {vtsync_msg} {%s,%s=%d} {$vtsync_msg}{$visittimers[$spotident][name]}{$visittimers[$spotident][time]};
         };
-    }
+    };
     #regex {$vtsync_msg} {^,{(.+)}$} { #var {vtsync_msg} {&1}; };
 
 
     #format {sync_message} {tell %s ruhs_dtsync=[%s] | ruhs_vtsync=[%s]} {%1} {$dtsync_msg} {$vtsync_msg};
     #send {$sync_message};
-}
+};
 
-#nop #EVENT {IAC SB GMCP room.info IAC SE}
+#nop #EVENT {IAC SB GMCP room.info IAC SE};
 #ALIAS {/spottimercheckroomid %1} {
     #var {room_info} {%1};
-    #foreach {$visittimers[]} {spot} {
+    #foreach {*visittimers[]} {spot} {
         #regex {$room_info} {$spot} {
             #format {visittimers[$spot][time]} {%T};
-        }
-    }
-}
+        };
+    };
+};
 
 #ALIAS {gsdt} {
     #var {gsdt_string} {};
     #var {spot_groups} {};
     #var {group_spot_label} {};
 
-    #foreach {$killtimers[]} {spot} {
+    #foreach {*killtimers[]} {spot} {
         #format {spotname} {$killtimers[$spot][name]};
         #var {mins} {???};
 
         #if {$killtimers[$spot][time] == 0} {
             #format {spotstring} {%s: ??? |} {$spotname};
+            #continue;
         };
         #else {
             #math {mins} {$current_time - $killtimers[$spot][time]};
@@ -535,7 +715,7 @@
             #else {
                 #format {spotstring} {%s: %dm |} {$spotname} {$mins} ;
             };
-        }
+        };
 
         #if {"$killtimers[$spot][group]" == "true"} {
             #if {&spot_groups[$killtimers[$spot][name]] == 0} {
@@ -551,21 +731,22 @@
         };
 
         #format {gsdt_string} {%s %s} {$gsdt_string} {$spotstring};
-    }
+    };
 
-    #foreach {$spot_groups} {spot} {
+    #foreach {*spot_groups} {spot} {
         #format {gsdt_string} {%s %s} {$gsdt_string} {$group_spot_label[$spot]};
     };
 
     #var {spot_groups} {};
     #var {group_spot_label} {};
 
-    #foreach {$visittimers[]} {spot} {
+    #foreach {*visittimers[]} {spot} {
         #format {spotname} {$visittimers[$spot][name]};
         #var {mins} {???};
 
         #if {$visittimers[$spot][time] == 0} {
             #format {spotstring} {%s: ??? |} {$spotname};
+            #continue;
         };
         #else {
             #math {mins} {$current_time - $visittimers[$spot][time]};
@@ -579,7 +760,7 @@
             #else {
                 #format {spotstring} {%s: %dm |} {$spotname} {$mins} ;
             };
-        }
+        };
 
         #if {"$visittimers[$spot][group]" == "true"} {
             #if {&spot_groups[$visittimers[$spot][name]] == 0} {
@@ -595,15 +776,15 @@
         };
 
         #format {gsdt_string} {%s %s} {$gsdt_string} {$spotstring};
-    }
+    };
 
-    #foreach {$spot_groups} {spot} {
+    #foreach {*spot_groups} {spot} {
         #format {gsdt_string} {%s %s} {$gsdt_string} {$group_spot_label[$spot]};
     };
 
     #regex {$gsdt_string} {^{(.+)} \|$} {#var {gsdt_string} {&1}; };
 
     #send {group say $gsdt_string};
-}
+};
 
 #CLASS {xptimers} {close};

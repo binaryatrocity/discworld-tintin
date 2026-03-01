@@ -1,5 +1,4 @@
-#ALIAS {setsize} {rows 300;cols 148};
-#ALIAS {setmsize} {rows 300;cols 60};
+#ALIAS {setsize} {rows 300;cols 999};
 
 #ALIAS {^clear$} {
     #system {tput clear};
@@ -29,10 +28,10 @@
 	{
 		#foreach {a;b;c;d;e;f} {cnt2}
 		{
-			#var result <000>;
+			#local result <000>;
 			#foreach {a;b;c;d;e;f} {cnt3}
 			{
-				#var result $result  <$cnt1$cnt2$cnt3> <<888>$cnt1$cnt2$cnt3><088>
+				#local result $result  <$cnt1$cnt2$cnt3> <<888>$cnt1$cnt2$cnt3><088>
 			};
 			#showme $result
 		}
@@ -40,49 +39,83 @@
 }
 
 #ALIAS {minesolve %1 %2 %3} {
-    #var {total} {%1};
-    #var {hammer} {%2};
-    #var {pickaxe} {%3};
+    #local {total} {%1};
+    #local {hammer} {%2};
+    #local {pickaxe} {%3};
 
-    #var {solvecommand} {python3 -c 'import math; t,p,h = $total,$pickaxe,$hammer; pu,hu = int(math.floor(t/p)+1), int(math.floor(t/h)+1); print(*sorted([(i, j) for j in range(0,hu) for i in range(0,pu) if ((i*p) + (j*h) == t)], key=lambda t: t[1])[0]);'};
+    #local {solvecommand} {python3 -c 'import math; t,p,h = $total,$pickaxe,$hammer; pu,hu = int(math.floor(t/p)+1), int(math.floor(t/h)+1); print(*sorted([(i, j) for j in range(0,hu) for i in range(0,pu) if ((i*p) + (j*h) == t)], key=lambda t: t[1])[0]);'};
     #script {result} {$solvecommand};
 
     #replace {result[1]} { } {;};
     #list {solution} {create} {$result[1]};
 
-    #format {minesolvedisplay} {<149>[MineSolver] Best solution is <139>%d<149> pickaxe strikes and <139>%d<149> hammer chips for a total of <159>%f<149> inches.<099>} {$solution[1]} {$solution[2]} {$total};
+    #format {minesolvedisplay} {<acf>[<fff>mines<acf>] Best solution is <139>%d<acf> pickaxe strikes and <139>%d<acf> hammer chips for a total of <159>%f<acf> inches.<099>} {$solution[1]} {$solution[2]} {$total};
     #echo {$minesolvedisplay};
 };
 
 
 #nop Resizing aliases for when we're in "cols 999" mode;
 #ALIAS {^skills%1} {
-    #send {cols 130};
+    #send {cols 60};
     #send {skills %1};
     #send {cols 999};
 };
-#ALIAS {^{speak|language}$} {
-    #send {cols 130};
+#ALIAS {^{speak|language|languages}$} {
+    #send {cols 60};
     #send {speak};
     #send {cols 999};
 };
-#ALIAS {^spells$} { #send {cols 130}; #send {spells}; #send {cols 999}; };
-#ALIAS {^rituals$} { #send {cols 130}; #send {rituals}; #send {cols 999}; };
+#nop #ALIAS {^spells$} { #send {cols 60}; #nop #send {spells}; #nop #send {cols 999}; #nop };
+#ALIAS {^rituals$} { #send {cols 60}; #send {rituals}; #send {cols 999}; };
 
-#ALIAS {^group status$} { #send {cols 130}; #send {group status}; #send {cols 999}; };
+#ALIAS {^group status$} { #send {cols 60}; #send {group status}; #send {cols 999}; };
 
 #ALIAS {^{who$|who (.+)$}} {
-    #send {cols 130};
+    #send {cols 60};
     #send {%0};
     #send {cols 999};
 };
 #ALIAS {^help %1} {
-    #send {cols 130};
+    #send {cols 60};
     #send {help %1};
     #send {cols 999};
 };
 #ALIAS {^nickname$} {
-    #send {cols 130};
+    #send {cols 60};
     #send {nickname};
     #send {cols 999};
+};
+
+#ALIAS {^sotp} {
+    #send {stop};
+}
+
+#ALIAS {gatherstones} {
+    #10 get rock;put white rocks&white stones&white pebbles in knapsack;bury rocks in me&stones in me&pebbles in me
+}
+
+
+#nop Map Door Text custom match controls;
+#ALIAS {mdtc add %1} {
+    #local {mdtc_command} {python3 src/mdt_matchcontrol.py add %1};
+    #script {result} {$mdtc_command};
+
+    #if {"$result" == "0"} {
+
+        #echo {<acf>[<fff>mdt<acf>] <138>*<acf> Failed to add a new custom match for '<cfa>%1<acf>'.};
+        #return;
+    } {
+        #echo {<acf>[<fff>mdt<acf>] <138>*<acf> Successfully added a new custom match for '<cfa>%1<acf>'.};
+    };
+};
+#ALIAS {mdtc remove %1} {
+    #local {mdtc_command} {python3 src/mdt_matchcontrol.py remove %1};
+    #script {result} {$mdtc_command};
+
+    #if {"$result" == "0"} {
+        #echo {<acf>[<fff>mdt<acf>] <138>*<acf> Failed to remove a custom match for '<cfa>%1<acf>'.};
+        #return;
+    } {
+        #echo {<acf>[<fff>mdt<acf>] <138>*<acf> Successfully removed a custom match for '<cfa>%1<acf>'.};
+    };
 };

@@ -1,4 +1,10 @@
-cd ~/documents/MUD/Discworld
+# Change to the 'discworld-tintin' directory and remove the input history file
+cd "$( dirname -- "$( readlink -f -- "$0"; )"; )"
+rm logs/history.log
+
+# Set hotkeys to switch in/out of "mobile" mode
+tmux bind C-f resize-pane -x 80%
+tmux bind C-g resize-pane -x 100%
 
 # No existing discworld session? Then create one
 if [[ ! $(tmux ls -F '#S') =~ discworld ]]; then
@@ -6,53 +12,15 @@ if [[ ! $(tmux ls -F '#S') =~ discworld ]]; then
     DISC_SESSION_CREATE=1
 
     # Zero out log files to keep size down
-    # rm logs/minimap.log && touch logs/minimap.log
-    # rm logs/mapdoortext.log && touch logs/mapdoortext.log
-    # rm logs/chat.log && touch logs/chat.log
+    rm logs/chat.log && touch logs/chat.log
     
-    # Start a new tmux session named "discworld"
-    tmux new-session -d -A -D -s discworld
+    # Start a new tmux session named "discworld" with our tmuxp setup
+    tmuxp load -s discworld ./discworld2.yaml
 fi
 
-# If we're in TMUX, or we just created a new session, make a layout
-if [ -n "$TMUX" ] || [ "$DISC_SESSION_CREATE" = "1" ]; then
-
-    # Kill any existing panes but the one we're "starting" in if in tmux already
-    if [ -n "$TMUX" ]; then
-        tmux kill-pane -a -t discworld:0.0
-    fi
-
-    # Create the chat monitor window on top
-    tmux split-window -v -b -l 4
-    tmux send-keys 'clear && tail -fs .5 logs/chat.log' 'C-m'
-
-    # Did we ask for the full layout?
-    if [[ $1 == "full" ]]; then
-        # Horizontal split and load spottimers
-        tmux select-pane -t discworld:0.0
-        tmux split-window -h -l 28
-        tmux send-keys './bin/dt' 'C-m'
-
-        # Splice a section for group shield monitor
-        tmux split-window -v -p 50
-        tmux send-keys './bin/grp' 'C-m'
-
-        # Place the ASCII map at the bottom
-        tmux split-window -v -p 50
-        tmux send-keys './bin/map' 'C-m'
-    fi
-
-    # Cut back to main window, vertical split for mapdoortext
-    tmux select-pane -t discworld:0.0
-    tmux split-window -v -b -l 5
-    tmux send-keys './bin/mdt' 'C-m'
-
-    # Select main pane again and load TinTin++ with our config
-    tmux select-pane -t discworld:0.0
-    tmux send-keys 'clear && tt++ -G config.tin' 'C-m'
-fi
-
+# If there is already a session, just attach
 if [ -z "$TMUX" ]; then
+    #tmux send-keys 'clear && tt++ -G config.tin' 'C-m'
     echo "Not already in TMUX, so let's attach"
     # If we aren't already inside of TMUX, then attach to our session
     tmux -2 attach-session -t discworld -d
