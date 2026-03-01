@@ -27,8 +27,8 @@
 #HIGHLIGHT {^Whoops!  You tried to carry too many things and fumbled %1} {red underscore};
 #HIGHLIGHT {%1 juggles around his stuff and fumbles %2} {red underscore}; 
 #HIGHLIGHT {^The sparkles around you fall to the ground and vanish.$} {red underscore};
-#HIGHLIGHT {^You sail past the brindle horse, flying over the side of the mountain in the process!$} {Red underscore};
-#ACTION {^You sail past the brindle horse, flying over the side of the mountain in the process!$} {
+#HIGHLIGHT {^You sail past %1, flying over the side of the mountain in the process!$} {Red underscore};
+#ACTION {^You sail past %1, flying over the side of the mountain in the process!$} {
     #showme {\a};
 };
 

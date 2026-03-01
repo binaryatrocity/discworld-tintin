@@ -690,16 +690,38 @@ These alerts are enabled-by-default on client start, but can be turned off for t
 ### Prompt Bar Timer
 A countdown of time left until your quota flips will be displayed in the [prompt bar](#thief-quota-timer).
 
-## Other Color Highlights and Triggers
-    * combat
-    * magic
-    * gemsmithing
-    * shelox
-    * tshop
-    * fumbles
-    * rumbling doors
-    * copperhead mines
-        - minesolve
+## Other Colour Highlights and Triggers
+* Combat highlighting
+  * Specials (incoming/outgoing/other)
+  * Backstabs
+  * Base attack rounds
+* Magic highlighting
+  * Delude levels and deepens/fade messages
+  * Item enchantment levels
+  * Background magic levels
+  * Pragi fire damage percentages
+  * Beautified spell casting
+  * Coloured FCI output
+  * Library and distortion highlights
+  * Contemplate colouring
+  * Djinn weapon invoke colouring
+  * Balsa wand zapping
+  * TPA and EFF drops
+* Travelling shop materializing
+* Incident highlighting
+  * Weapon snatches and snatched weapon drops
+  * Rumbling JPCT doors
+  * You and others fumbling inventory items
+  * Tossed by stone giants
+* `count` command highlighting
+* Gemcutting highlights
+* Shelox fight highlights
+* Copperhead mines highlights
+  * Crate game colouring
+  * Gem vein wall assess colouring
+  * Purple mineral powder pannning colouring
+  * Dampgas bell alerts and highlighting
+
 
 # Tmux Setup
 The "Discworld" shell script either creates a new or attaches to an existing tmux session named `discworld`. When creating a session it uses [tmuxp](https://github.com/tmux-python/tmuxp) to create the layout and run initial commands for each pane. The layout definition for `tmuxp` is in the `discworld.yaml` file.
