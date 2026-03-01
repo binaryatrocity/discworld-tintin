@@ -89,6 +89,8 @@ High-level feature list (not exhaustive):
     * [Quota Flip Alerts](#quota-flip-alerts)
     * [Prompt Bar Timer](#prompt-bar-timer)
   * [Other Color Highlights and Triggers](#other-color-highlights-and-triggers)
+* [Tmux Setup](#tmux-setup)
+  * [Toggle Full or Mobile View](#toggle-full-or-mobile-view)
 * [Mouse Support](#mouse-support)
   * [Scrolling Buffer](#scrolling-buffer)
   * [Input Bar](#input-bar)
@@ -172,8 +174,6 @@ You must force the MUD to show the ASCII map above look/glance output, use the f
 * `options output map glancecity = top`
 * `options output map look = top`
 * `options output map lookcity = top`
-
-
 
 # Features
 
@@ -700,6 +700,28 @@ A countdown of time left until your quota flips will be displayed in the [prompt
     * rumbling doors
     * copperhead mines
         - minesolve
+
+# Tmux Setup
+The "Discworld" shell script either creates a new or attaches to an existing tmux session named `discworld`. When creating a session it uses [tmuxp](https://github.com/tmux-python/tmuxp) to create the layout and run initial commands for each pane. The layout definition for `tmuxp` is in the `discworld.yaml` file.
+
+I recommend sym-linking the Discworld script to some place in your $PATH  as 'disc' so that at anytime you can type `disc` into a terminal and create or take-over your DiscworldMUD session, for example:
+```
+sudo ln -s /home/myuser/discworld-tintin/Discworld /usr/bin/disc
+```
+
+## Toggle Full or Mobile View
+When connected via mobile device its convenient to collapse the right-hand side bar, hiding the spot-timers, group shields and minimap panes to view the MUD full-width when in portrait orientation. The `Discworld` script configures two key bindings to quickly make this adjustment:
+* `<leader>Ctrl-F` - toggle to full-view (sidebar visible)
+* `<leader>Ctrl-G` - toggle to mobile-view (sidebar collapsed)
+
+Here's an example of full-view on mobile:
+
+![Screenshot](https://atr0phy.net/discworld-tintin/mobile_full.png)
+
+And the collapsed view on mobile:
+
+![Screenshot](https://atr0phy.net/discworld-tintin/mobile_collapsed.png)
+
 
 # Mouse Support
 The latest versions of TinTin++ have expanded mouse support, which has been implemented in the following ways.
