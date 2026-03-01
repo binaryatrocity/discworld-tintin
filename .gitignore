@@ -10,3 +10,4 @@ src/constants.tin
 src/timer.tin
 src/testing.tin
 src/gems.tin
+bin/watcher
