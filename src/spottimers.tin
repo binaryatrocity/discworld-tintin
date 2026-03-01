@@ -269,6 +269,34 @@
 };
 
 
+#nop Set this to 1 when we record first spot, dont overwrite file until set;
+#VARIABLE {xptimer_recent_flag} {0};
+
+#ALIAS {dt help} {
+    #showme {<acf>[<fff>spottimers<acf>] Hotspot death/visit timers help:<099>};
+    #showme {Hotspot timers record how long since you've killed (death) an NPC or last entered (visit) a particular room.<099>};
+    #showme {};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dt<099>"<099>};
+    #showme {\t<099>List all current timers<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dt help<099>"<099>};
+    #showme {\t<099>Display this helpfile<099>};
+    #showme { <ffa>*<acf> Command<099>:  "<afe>dtreset all<099>"<099>};
+    #showme {\t<099>Reset all timers to unseen, use after idling to clear stale timers<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dtreset <spot><099>"<099>};
+    #showme {\t<099>Set a spot as if you had just killed/visted, e.g. "<afe>dtreset zoon liar<099>"<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>gsdt<099>"<099>};
+    #showme {\t<099>Send all current timers to "<afe>group say<099>" to share<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dtsync <player><099>"<099>};
+    #showme {\t<099>Send a tell to a player using this script to sync your timers to them<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dtsave<099>"<099>};
+    #showme {\t<099>Force save of current timers to file, use before restarting client<099>};
+    #showme { <ffa>*<acf> Command<099>: "<afe>dtload<099>"<099>};
+    #showme {\t<099>Load spot timers from file, use after restarting client<099>};
+    #showme {};
+    #showme {<099>Timers are saved to file automatically every five minutes. Output similar to "dt" is saved to "logs/xptimers.log", used to output in another window.<099>};
+    #showme {};
+};
+
 #ALIAS {dtreset} {
     #variable {dtreset_all} {0};
     #regex {%1} {all} {
@@ -281,6 +309,7 @@
         #format {xptimer_message} {<acf>[<fff>hotspots<acf>] <138>*<acf> Resetting all spots to Unseen.<099>};
         #echo {$xptimer_message};
         #variable {dtreset_all} {1};
+        #variable {xptimer_recent_flag} {0};
     };
 
     #if {$dtreset_all < 1} {
@@ -304,6 +333,7 @@
                 #format {xp_message_check} {%L} {$xptimer_message};
                 #if {$xp_message_check > 0} {
                     #echo {$xptimer_message};
+                    #variable {xptimer_recent_flag} {1};
                 };
             };
         };
@@ -327,6 +357,7 @@
                 #format {xp_message_check} {%L} {$xptimer_message};
                 #if {$xp_message_check > 0} {
                     #echo {$xptimer_message};
+                    #variable {xptimer_recent_flag} {1};
                 };
             };
         };
@@ -339,6 +370,7 @@
     #foreach {*killtimers[]} {spot} {
         #regex {%2} {$spot} {
             #format {killtimers[$spot][time]} {%T};
+            #variable {xptimer_recent_flag} {1};
         };
     };
 };
@@ -346,6 +378,7 @@
     #foreach {*killtimers[]} {spot} {
         #regex {%1} {$spot} {
             #format {killtimers[$spot][time]} {%T};
+            #variable {xptimer_recent_flag} {1};
         };
     };
 };
@@ -356,6 +389,7 @@
         #nop Force case insensitivity on the match due to "The" "A" being capitalized;
         #regex {%1} {%i$spot} {
             #format {killtimers[$spot][time]} {%T};
+            #variable {xptimer_recent_flag} {1};
         };
     };
 };
@@ -373,20 +407,6 @@
     #else {
         #math {mins} {$current_time - $spottime};
         #math {mins} {($mins - (60 - 1)) / 60};
-
-        #nop Choose a color-code based on downtime;
-        #nop #if {$mins > ($spotrespawn + 40)} {
-        #nop     #var {current_spot_color} {<099>};
-        #nop };
-        #nop #elseif {$mins > ($spotrespawn + 20)} {
-        #nop     #var {current_spot_color} {<119>};
-        #nop };
-        #nop #elseif {$mins >= $spotrespawn} {
-        #nop     #var {current_spot_color} {<139>};
-        #nop };
-        #nop #else {
-        #nop     #var {current_spot_color} {<099>};
-        #nop };
 
         #nop 2/2026 changing scheme here;
         #nop if rat is 40, 30-45 yellow, 45-60 red, beyond 60 miss;
@@ -580,6 +600,11 @@
 };
 
 #ALIAS {/writetimerstosyncfile} {
+    #nop Don't overwrite saved timers if we haven't recorded anything new;
+    #if {$xptimer_recent_flag == 0} {
+        #return;
+    };
+
     #class {dtsync} {clear};
     #class {dtsync} {open};
     #var {killtimers_sync} {$killtimers};
