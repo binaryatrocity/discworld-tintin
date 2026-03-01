@@ -5,6 +5,8 @@ Created by [Ruhsbaar](http://discworld.starturtle.net/lpc/secure/finger.c?player
 
 Majorly updated in 2026 to work with latest TinTin++ versions (2.02.60 and beyond) and account for latest MUD features.
 
+![Screenshot](https://atr0phy.net/discworld-tintin/full_setup.png)
+
 High-level feature list (not exhaustive):
 * Chat window to capture tells/group say/talkers
 * Speedwalk generation and room/npc/item searching via Quow's database
@@ -120,8 +122,6 @@ This tintin++ setup has been crafted by me with love over the last ten years and
 Many features create output-files meant to be displayed in their own "mini window" for which I make liberal use of Tmux panes to display information alongside the standard TinTin++ window.
 
 For reference I host this configuration on a Linux VPS and thus am able to "take over" the Tmux session as I move between devices (desktop, phone, laptop, work) without having to disconnect/reconnect to the MUD itself. This may help to explain some of the decisions made with the setup. That said it will work perfectly fine on your local computer.
-
-![Screenshot](https://atr0phy.net/discworld-tintin/full_setup.png)
 
 ## Installation and Setup
 A short guide to getting the client installed, this package put in place and MUD options properly configured.
