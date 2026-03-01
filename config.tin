@@ -67,4 +67,10 @@
     #line {log} {$chat_file};
 };
 
+
+#EVENT {SHORT-CLICKED MOUSE BUTTON ONE -1}
+{
+	#cursor position %1
+}
+
 #FORMAT {start_time} {%T};
