@@ -60,7 +60,7 @@
     #send {skills %1};
     #send {cols 999};
 };
-#ALIAS {^{speak|language}$} {
+#ALIAS {^{speak|language|languages}$} {
     #send {cols 60};
     #send {speak};
     #send {cols 999};
