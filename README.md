@@ -121,8 +121,7 @@ Many features create output-files meant to be displayed in their own "mini windo
 
 For reference I host this configuration on a Linux VPS and thus am able to "take over" the Tmux session as I move between devices (desktop, phone, laptop, work) without having to disconnect/reconnect to the MUD itself. This may help to explain some of the decisions made with the setup. That said it will work perfectly fine on your local computer.
 
-*TODO* Update screenshot
-![Screenshot](https://i.imgur.com/dZkaqRg.png)
+![Screenshot](https://atr0phy.net/discworld-tintin/full_setup.png)
 
 ## Installation and Setup
 A short guide to getting the client installed, this package put in place and MUD options properly configured.
@@ -530,7 +529,6 @@ Tracks the status of your shields and group members shields in "real-time", acco
 
 ![Screenshot](https://atr0phy.net/discworld-tintin/group_shields.png)
 
-*TODO*: need a good group shields window screenshot
 
 #### Commands
 The following commands are available:
