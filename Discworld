@@ -1,4 +1,4 @@
-cd ~/documents/MUD/Discworld
+cd "$(dirname '$0')"
 rm logs/history.log
 
 # No existing discworld session? Then create one
@@ -30,7 +30,7 @@ if [ -n "$TMUX" ] || [ "$DISC_SESSION_CREATE" = "1" ]; then
     tmux send-keys 'clear && tail -fs .5 logs/chat.log' 'C-m'
 
     # Did we ask for the full layout?
-    if [[ $1 == "full" || $1 != "full" ]]; then
+    if [[ $1 == "full" ]]; then
         # Horizontal split and load spottimers
         echo "Making death timer window"
         tmux select-pane -t discworld:0.1
