@@ -550,8 +550,6 @@
     #class {dbsync} {open};
     #var {bookmark_sync} {$db_bookmark_list};
     #class {dbsync} {close};
-
-    #system {touch $dbbookmark_file};
     #class {dbsync} {write} {$dbbookmark_file};
 };
 #nop *** END BOOKMARK SYSTEM IMPLEMENTATION ***;

@@ -10,6 +10,26 @@
 #VARIABLE {missiontimers_file} {logs/features/missiontimers_sync.tin};
 
 
+#ALIAS {^missions help$} {
+    #showme {<acf>[<fff>missions<acf>] Mission timers help:<099>};
+    #showme {Mission timers track the cooldown period for various missions across multiple characters.};
+    #showme {};
+    #showme {<acf>Supported mission cooldowns:<099>};
+    #showme { <ffa>*<099> AM Job Market (Mr Werks)<099>};
+    #showme { <ffa>*<099> Dead Letter Office (Frank)<099>};
+    #showme { <ffa>*<099> Sam Slager Sausage Jobs<099>};
+    #showme { <ffa>*<099> Sailing Cooldown (Chidder)<099>};
+    #showme {};
+    #showme {<acf>Available commands:<099>};
+    #showme { <ffa>*<099> "<afe>missions<099>" - show active cooldowns (all characters)<099>};
+    #showme { <ffa>*<099> "<afe>missions help<099>" - show this helpfile<099>};
+    #showme { <ffa>*<099> "<afe>mtsave<099>" - save active cooldowns to file<099>};
+    #showme { <ffa>*<099> "<afe>mtload<099>" - load active cooldowns from file<099>};
+    #showme {};
+    #showme {When a timer runs out, a message will print to inform which character and mission are ready to do again.};
+    #showme {};
+};
+
 #NOP ==[ Missions command reports on each modules active/retry lists ]==;
 #ALIAS {missions} {
     #if {&missions == 0} { 
