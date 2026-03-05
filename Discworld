@@ -1,6 +1,9 @@
 # Change to the 'discworld-tintin' directory and remove the input history file
-cd "$( dirname -- "$( readlink -f -- "$0"; )"; )"
-rm logs/history.log
+export DISCWORLD_DIRECTORY="PACKAGE_DIRECTORY"
+cd $DISCWORLD_DIRECTORY
+if [ -e logs/history.log ]; then
+    rm logs/history.log
+fi
 
 # Set hotkeys to switch in/out of "mobile" mode
 tmux bind C-f resize-pane -x 80%
@@ -15,13 +18,14 @@ if [[ ! $(tmux ls -F '#S') =~ discworld ]]; then
     rm logs/chat.log && touch logs/chat.log
     
     # Start a new tmux session named "discworld" with our tmuxp setup
-    tmuxp load -s discworld ./discworld2.yaml
-fi
-
-# If there is already a session, just attach
-if [ -z "$TMUX" ]; then
-    #tmux send-keys 'clear && tt++ -G config.tin' 'C-m'
-    echo "Not already in TMUX, so let's attach"
-    # If we aren't already inside of TMUX, then attach to our session
-    tmux -2 attach-session -t discworld -d
+    echo "No existing discworld session, create a new one"
+    tmuxp load -s discworld ./discworld.yaml
+else
+    # If there is already a session, just attach
+    if [ -z "$TMUX" ]; then
+        #tmux send-keys 'clear && tt++ -G config.tin' 'C-m'
+        echo "Not already in TMUX, so let's attach"
+        # If we aren't already inside of TMUX, then attach to our session
+        tmux -2 attach-session -t discworld -d
+    fi
 fi

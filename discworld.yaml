@@ -1,16 +1,16 @@
 ---
 session_name: discworld
+start_directory: "$DISCWORLD_DIRECTORY"
 windows:
   - focus: 'true'
     layout: 459d,144x79,0,0[144x8,0,0,289,144x10,0,9,290,144x59,0,20{116x59,0,20,291,27x59,117,20[27x38,117,20,292,27x10,117,59,293,27x9,117,70,294]}]
     options: {}
     panes:
-      - tail
-      - sh
+      - clear && tail -fs .5 logs/chat.log
+      - ./bin/mdt
       - focus: 'true'
-        shell_command: tt++
-      - bash
-      - sh
-      - bash
-    start_directory: "$(dirname '$0')"
+        shell_command: tt++ -G config.tin
+      - ./bin/dt
+      - ./bin/grp
+      - ./bin/map
     window_name: DiscworldMUD

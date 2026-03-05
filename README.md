@@ -144,10 +144,11 @@ A short guide to getting the client installed, this package put in place and MUD
     - tmux and [tmuxp](https://github.com/tmux-python/tmuxp) (sudo apt install tmux tmuxp)
     - python 3
     - sqlite 3
-* With package downloaded and requirements installed then `tt++ -G config.tin` will launch
-* "Discworld" shell-file exists to setup tmux layout or connect to existing
-    - Recommend symlinking e.g. (`sudo ln -s /home/myuser/discworld-tintin/Discworld /usr/local/bin/disc)
-    - Now you can type "disc" from anywhere to launch or connect to the setup
+* Run "install.sh" to configure your directories and create a global alias
+    - Will request sudo password to create link in /usr/local/bin
+* Now you can type "disc" from your terminal to create a new session or connect to an existing one
+    - To run just the client without any tmux panes use `tt++ -G config.tin`
+    - The `disc` command runs the `Discworld` script which handles tmux session creation or re-attachment
 
 ### Configuring the MUD
 
