@@ -19,7 +19,7 @@
 #ACTION {^There is a doorway in the %1 wall leading into a curious shop.$} { #showme {\a}; };
  
 #NOP ==[Incident Highlighting]==
-#SUB {^The%1grabs your%2.  You struggle briefly but {she|he|it} wrests it from your grip and makes for a hasty retreat.} {<488><119>The<088><fca>%1<488><119>grabs your<088><afc>%2<488><119>.  You struggle briefly but {she|he|it} wrests it from your grip and makes for a hasty retreat.};
+#SUB {^The%1grabs your%2.  You struggle briefly but {she|he|it} wrests it from your grip and makes for a hasty retreat.} {<488><119>The<088><fca>%1<488><119>grabs your<088><afc>%2<488><119>.  You struggle briefly but %3 wrests it from your grip and makes for a hasty retreat.};
 #SUB {^The%1and%2struggle briefly over%3before%4wrests it free%5$} {<488><119>The<088><fca>%1<488><119>and<088><fca>%2<488><119>struggle briefly over<088><afc>%3<488><119>before%4wrests it free%5};
 #SUB {^The%1{suddenly snatches|snatches}%2from%3and makes a run for it.$} {<488><119>The<088><188><fca>%1<488><119>suddenly snatches<088><188><afc>%2<488><119>from<088><188><fca>%3<488><119>and makes a run for it.};
 #HIGHLIGHT {^As %1 dies %2 drops %3 in shock.$} {green underscore};
